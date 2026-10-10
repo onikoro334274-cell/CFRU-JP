@@ -601,6 +601,26 @@
       "verification": "check_wild_variant.py; check_wild_shuffle_lookup.py; check_wild_shuffle_contents.py --rom <original BPRJ ROM>; check_wild_profile.py",
       "current_report": "audit/wild_shuffle_current_review.json",
       "remaining": "Valid clock fields, controlled native lookup symbol identities and original-ROM table reads only; linked symbol aliases, runtime profile timing and GBA encounters remain unverified."
+    },
+    {
+      "path": "src/build_pokemon.c",
+      "source_sha256": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
+      "sections": [
+        "GenerateWildMonHeldItem"
+      ],
+      "verification": "check_wild_held_item.py",
+      "current_report": "audit/wild_held_item_review.json",
+      "remaining": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified."
+    },
+    {
+      "path": "src/wild_mega_stone.c",
+      "source_sha256": "9d4637e8b76c1cad6b0ab00ceab4790bf1275298e2dbbaac256650a36f14f7ac",
+      "sections": [
+        "WildMegaStoneFor"
+      ],
+      "verification": "check_wild_mega_stone_lookup.py",
+      "current_report": "audit/wild_held_item_review.json",
+      "remaining": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified."
     }
   ]
 }

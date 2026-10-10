@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 848,
-    "files_with_indexed_scopes": 31,
-    "indexed_scopes": 45,
+    "source_files": 849,
+    "files_with_indexed_scopes": 33,
+    "indexed_scopes": 47,
     "scope_states": {
       "source_changed": 13,
-      "current": 31,
+      "current": 33,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3924,6 +3924,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_wild_held_item.py",
+      "source_sha256": "46d17478d70dd0ca0e86bb712046aa83f183ae14256a26f62c71a9cf9c6f825e",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_wild_mega_stone_lookup.py",
       "source_sha256": "5e8ec0567c4efdf22e6d1a7aa93517ea1d940d0c583706edd3538f52c5ac0e07",
       "gnu_c_object": "not_applicable",
@@ -3946,7 +3953,7 @@
     },
     {
       "path": "scripts/check_wild_shuffle_lookup.py",
-      "source_sha256": "fc23ae2e8867b734c6649d51b6479c12e5f8e7b3bb3f904fb75220ac5e9553d2",
+      "source_sha256": "56ceaeb73bb745a35a57876ab2e81a33323d62cdc8c31d5b9c8efb8e5b5ddbe9",
       "gnu_c_object": "not_applicable",
       "scoped_reviews": [],
       "whole_file_completion": "not_established"
@@ -4754,7 +4761,18 @@
       "path": "src/build_pokemon.c",
       "source_sha256": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
       "gnu_c_object": "object_compiled",
-      "scoped_reviews": [],
+      "scoped_reviews": [
+        {
+          "state": "current",
+          "sections": [
+            "GenerateWildMonHeldItem"
+          ],
+          "recorded_source_sha256": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
+          "evidence": [],
+          "verification": "check_wild_held_item.py",
+          "remaining": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified."
+        }
+      ],
       "whole_file_completion": "not_established"
     },
     {
@@ -6732,7 +6750,18 @@
       "path": "src/wild_mega_stone.c",
       "source_sha256": "9d4637e8b76c1cad6b0ab00ceab4790bf1275298e2dbbaac256650a36f14f7ac",
       "gnu_c_object": "object_compiled",
-      "scoped_reviews": [],
+      "scoped_reviews": [
+        {
+          "state": "current",
+          "sections": [
+            "WildMegaStoneFor"
+          ],
+          "recorded_source_sha256": "9d4637e8b76c1cad6b0ab00ceab4790bf1275298e2dbbaac256650a36f14f7ac",
+          "evidence": [],
+          "verification": "check_wild_mega_stone_lookup.py",
+          "remaining": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified."
+        }
+      ],
       "whole_file_completion": "not_established"
     },
     {
