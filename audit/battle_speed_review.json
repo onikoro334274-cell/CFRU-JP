@@ -1,0 +1,7 @@
+{
+  "scope": "HackBattleSpeed_Get, HackBattleSpeed_Set, ExtraIterations, BattleMainCB2_Body and HackBattleSpeed_BattleMainCB2",
+  "verification": "python scripts/check_battle_speed.py",
+  "coverage": "All 65536 raw saved values and setter inputs, 256 speed/link/callback-change timing cases, null callback and Pokedude B-exit. Checks tag/range normalization, one initial body and fade, linked battles without extra ticks, callback1/2 change exit boundaries, zero fresh/repeat inputs during extra bodies and restored inputs afterward, and Pokedude quit outcome/callback.",
+  "findings": "No defect found in this controlled scope.",
+  "limitations": "Controlled battle flag bits and mocked tasks/sprite/text/fade/callback APIs. Actual animation/task side effects, hardware palette registers, timing budget at 4x, original callback ABI, hooks and linked GBA runtime remain unverified."
+}
