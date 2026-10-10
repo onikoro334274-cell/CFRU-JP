@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "level_steps": 199,
+  "scope": "Production ExpCandyNextLevel ordering, before/after stat snapshots, untouched remaining buffer, UI calls and native learning task dispatch. Fixture offers no bag API, so step cannot consume or insert inventory.",
+  "limitations": "Native item effect simulated. Actual move selection, evolution, RTC/ROM execution and final chain integration remain unverified."
+}

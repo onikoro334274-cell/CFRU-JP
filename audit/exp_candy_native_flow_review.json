@@ -6,12 +6,12 @@
       "function": "ItemUseCB_ExpCandy",
       "condition": "newLevel > level and CheckBagHasSpace(ITEM_RARE_CANDY, 1) returns false after consuming the experience candy",
       "behavior": "Directly writes final experience, recalculates stats and exits through the experience message. Intermediate move learning and normal final evolution dispatch are bypassed.",
-      "status": "unfixed"
+      "status": "source fixed: entry no longer branches on rare-candy bag capacity; complete runtime chain remains unverified"
     },
     {
       "function": "ExpCandyNextLevel",
       "behavior": "Ignores AddBagItem result before invoking native rare candy step. Native step removes a rare candy without checking removal success.",
-      "status": "requires replacement of synthetic inventory dependency"
+      "status": "source fixed: ExpCandyNextLevel implements native stats/UI continuation without AddBagItem or RemoveBagItem"
     }
   ],
   "bprj_rev0_native_evidence": {
@@ -27,6 +27,6 @@
     "level_up_text": "0x083DE267",
     "next_task_callback_literal": "0x08126D80 contains 0x08126E0D"
   },
-  "next_work": "Implement an experience-candy level step retaining native before/after stats, effect application, level-up text, task continuation and per-level move learning, while eliminating synthetic bag insertion/removal. Verify full-bag and existing rare-candy inventories, final experience remainder, task transitions and evolution.",
-  "limitations": "Native ROM disassembly and source control flow inspection only. End-to-end patched ROM execution and complete move/evolution chain not yet verified. No production fix made in this review."
+  "next_work": "Verify full-bag and existing rare-candy inventories through entry/continuation integration, final experience remainder, native item effect above level 100, move-selection task transitions and evolution.",
+  "limitations": "ARM compilation and controlled 199 level-step fixtures pass, plus existing arithmetic/failure/packed-state checks. End-to-end patched ROM execution and complete native move/evolution chain not yet verified."
 }

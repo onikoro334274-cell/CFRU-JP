@@ -78,23 +78,7 @@ struct PartyMenuBox
 	u8 statusSpriteId;
 };
 
-struct PartyMenuInternal
-{
-	TaskFunc task;
-	MainCallback exitCallback;
-	u32 chooseHalf:1;
-	u32 lastSelectedSlot:3;  //Used to return to same slot when going left/right bewtween columns
-	u32 spriteIdConfirmPokeball:7;
-	u32 spriteIdCancelPokeball:7;
-	u32 messageId:14;
-	u8 windowId[3]; //windowId[1] is highlighted mon
-	u8 actions[8];
-	u8 numActions;
-	u16 palBuffer[BG_PLTT_SIZE / sizeof(u16)];
-	s16 data[16];
-};
-
-extern struct PartyMenuInternal* sPartyMenuInternal;
+#include "party_menu_internal.h"
 extern struct PartyMenuBox* sPartyMenuBoxes;
 
 //Vanilla Static Functions

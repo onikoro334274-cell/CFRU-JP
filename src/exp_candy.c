@@ -13,6 +13,8 @@
 #include "../include/evolution_scene.h"
 #include "../include/task.h"
 #include "../include/event_data.h"
+#include "../include/quest_log.h"
+#include "party_menu_internal.h"
 
 /*
     けいけんアメ XS〜XL（2026-10-01）
@@ -23,11 +25,9 @@
 
     使い方（手持ちの画面・ふしぎなアメと同じ流れ）:
       ・レベルが上がらない … 経験値を足して「〇〇は けいけんちを N もらった！」
-      ・レベルが上がる     … 途中のレベルで覚える技は**技の枠が空いていれば**覚える（いっぱいなら覚えない＝思い出し屋で）。
-                             最後の 1 レベルは素の ItemUseCB_RareCandyStep（08126C94）に任せる（レベルアップの画面・その
-                             レベルの技・進化）。素の処理は gSpecialVar_ItemId の道具を 1 つ減らすので、ふしぎなアメを 1 つ
-                             足してから呼び、経験アメは自分で減らす。最後に経験値の余りを足し直す
-    ★ 本家との違い: 途中のレベルの技で枠がいっぱいのときに「わすれさせますか」を聞かない
+      ・レベルが上がる     … 1 レベルずつ能力値の表示と技習得を進め、最後に経験値の余りと進化を処理する。
+                             ExpCandyNextLevel は素の表示・技習得タスクへつなぐが、バッグには触れない。
+                             経験アメは開始時に 1 個だけ減らす。満杯のバッグでも同じ流れを使う。
     ★★ 2026-10-03 ユーザー「けいけんアメでレベル上げると、スキップされたレベルの技覚えられない」→ 上の「途中のレベルは枠が
        空いていれば」をやめ、**1 レベルずつ素のふしぎなアメの流れ**（レベルアップの窓 → 技（いっぱいなら わすれさせますか）
        → 進化の確かめ）を続ける。素の PartyMenuTryEvolution（08127048・functionrewrites）を HackExpCandy_TryEvolution に
@@ -38,7 +38,9 @@
 
 #define gText_WontHaveEffect (const u8*) 0x83DDE0B       /* src/party_menu.c と同じ（素 FRLG） */
 
-void __attribute__((long_call)) ItemUseCB_RareCandyStep(u8 taskId, TaskFunc func);   /* BPRJ.ld 08126C94 */
+void __attribute__((long_call)) GetMonLevelUpWindowStats(struct Pokemon *mon, s16 *stats);
+bool8 __attribute__((long_call)) ExecuteTableBasedItemEffect_(u8 slot, u16 item, u8 move);
+void __attribute__((long_call)) Task_DisplayLevelUpStatsPg1(u8 taskId);
 u8 __attribute__((long_call)) DisplayPartyMenuMessage(const u8* str, u8 b);          /* 素 FRLG（src/party_menu.c 103 行と同じ宣言） */
 void __attribute__((long_call)) UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon);
 extern const u8 gText_ExpCandyGotExp[];
@@ -73,9 +75,26 @@ static void ExpCandyChainClear(void)
 /* 次の 1 レベルを素のふしぎなアメの流れで（ふしぎなアメを 1 つ足して、素の処理が 1 つ減らす） */
 static void ExpCandyNextLevel(u8 taskId)
 {
-	AddBagItem(ITEM_RARE_CANDY, 1);
+	struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+	s16 *stats = sPartyMenuInternal->data;
+	u8 level;
+
+	/* BPRJ RareCandyStep UI/learning flow, without synthetic bag items. */
 	gSpecialVar_ItemId = ITEM_RARE_CANDY;
-	ItemUseCB_RareCandyStep(taskId, NULL);
+	GetMonLevelUpWindowStats(mon, stats);
+	ExecuteTableBasedItemEffect_(gPartyMenu.slotId, ITEM_RARE_CANDY, 0);
+	GetMonLevelUpWindowStats(mon, &stats[NUM_STATS]);
+	gPartyMenuUseExitCallback = TRUE;
+	WriteQuestLog(4, 0, ITEM_RARE_CANDY, 0xFFFF);
+	PlayFanfareByFanfareNum(0);
+	UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
+	GetMonNickname(mon, gStringVar1);
+	level = GetMonData(mon, MON_DATA_LEVEL, NULL);
+	ConvertIntToDecimalStringN(gStringVar2, level, STR_CONV_MODE_LEFT_ALIGN, 3);
+	StringExpandPlaceholders(gStringVar4, (const u8*) 0x083DE267);
+	DisplayPartyMenuMessage(gStringVar4, TRUE);
+	ScheduleBgCopyTilemapToVram(2);
+	gTasks[taskId].func = Task_DisplayLevelUpStatsPg1;
 }
 
 static bool8 ExpCandyChainValid(u16 chain, u8 slot)
@@ -165,9 +184,9 @@ static void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
 	while (newLevel < MAX_LEVEL && gExperienceTables[growth][newLevel + 1] <= newExp)
 		++newLevel;
 
-	if (newLevel == level || !CheckBagHasSpace(ITEM_RARE_CANDY, 1))
+	if (newLevel == level)
 	{
-		/* レベルが上がらない（または ふしぎなアメを一時的に足せない）: 経験値を足すだけ */
+		/* レベルが上がらない: 経験値を足すだけ */
 		SetMonData(mon, MON_DATA_EXP, &newExp);
 		CalculateMonStats(mon);
 		UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
