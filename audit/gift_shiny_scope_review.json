@@ -1,0 +1,13 @@
+{
+  "scope": "HackGiftShiny_IsStarterRoll and HackGiftShiny_Roll in src/hack_gift_shiny.c",
+  "finding": "The shared Pokemon creation shiny check applied the starter bonus whenever the Pokemon-get flag was set and party slot zero was empty, including creation outside the starter gift location.",
+  "change": "Require a valid SaveBlock1 and the original Pallet Town Professor Oak lab map before checking the existing flag/party conditions. Direct gift rolls used by the mother Pikachu code remain unchanged.",
+  "verification": [
+    "check_gift_shiny_scope.py: all 65536 map group/number combinations, both flag and party states and successful/unsuccessful draws (524288 cases)",
+    "All 65536 RNG values preserve exactly 4096 successful direct rolls; invalid contexts make no RNG draws",
+    "Null save pointer rejected, party data preserved and repository map/flag/species constants used",
+    "The same fixture against baseline 83a5040 fails with exit status 1",
+    "GNU ARM compilation of src/hack_gift_shiny.c passes without diagnostics"
+  ],
+  "limitations": "Controlled native fixture validates location gating and individual extra rolls, not the final combined natural/charm shiny probability. Native gift scripts, temporary-party transitions and GBA Pokemon generation remain unverified. Existing flag/empty-party assumptions within the lab are retained."
+}

@@ -504,6 +504,18 @@
         "thirsty_girl_review.json"
       ],
       "remaining": "Actual drawing/width, caller scripts and rewards, and linked GBA integration remain unverified."
+    },
+    {
+      "path": "src/hack_gift_shiny.c",
+      "source_sha256": "95a1344158ebe369f9334c53d9574fd536f7057c1fcf44ac0a1417ab98075553",
+      "sections": [
+        "HackGiftShiny_IsStarterRoll",
+        "HackGiftShiny_Roll"
+      ],
+      "verification_records": [
+        "gift_shiny_scope_review.json"
+      ],
+      "remaining": "Native gift scripts, combined natural/charm odds, temporary-party transitions and GBA Pokemon generation remain unverified."
     }
   ]
 }
