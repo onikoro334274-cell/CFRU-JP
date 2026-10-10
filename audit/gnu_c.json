@@ -1204,8 +1204,8 @@
     {
       "path": "src/rtc.c",
       "exit_code": 0,
-      "source_sha256": "e7a01b8bd480bbfcf2067a6de6f685010c98cd5120543fa555644f33e8070361",
-      "object_bytes": 4240,
+      "source_sha256": "dac060b3864a09f71a71e21f0a591b08b3efc02041ca559a508dabcfc354b2ae",
+      "object_bytes": 4256,
       "diagnostics": ""
     },
     {

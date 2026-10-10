@@ -1,0 +1,20 @@
+{
+  "scope": "RtcInit status preservation, RTC_ERR_FLAG_MASK and RtcGetInfo fallback selection",
+  "defects": [
+    "RtcCheckInfo assignment overwrote RTC_INIT_WARNING",
+    "RTC_INIT_ERROR was excluded from error mask used for dummy fallback and frame-based play-time fallback"
+  ],
+  "fix": "OR date errors into probe status; include init failure in error mask while warning remains nonfatal.",
+  "baseline": "76e86f2cacb0cc853ba1d50d846ab2269376ed53",
+  "checks": {
+    "scripts/check_rtc_initialization.py": "65536 raw probe/date-error combinations; initial status reset, warning preservation, interrupt-service call order and actual RtcGetInfo fallback branches",
+    "scripts/check_rtc_initialization.py --baseline HEAD (before commit)": "Return 4 reproduces raw read after failed initialization; first fixture version separately reproduced warning loss with return 1",
+    "scripts/check_rtc_validation.py": "Existing 6553600 calendar/raw-field cases and BCD/time checks pass",
+    "audit/gnu_c.json": "174/203 ARM C source compilations pass"
+  },
+  "limitations": [
+    "RTC services/probe/date-check mocks; no physical RTC GPIO or emulator battery behavior",
+    "RtcCalcLocalTime and play-time counter share corrected mask but are not executed in this fixture",
+    "Full ROM link and game runtime remain unverified"
+  ]
+}

@@ -71,7 +71,7 @@ void RtcInit(void)
 		sRTCErrorStatus = 0;
 
 	RtcGetRawInfo(&sRtc);
-	sRTCErrorStatus = RtcCheckInfo(&sRtc);
+	sRTCErrorStatus |= RtcCheckInfo(&sRtc);
 }
 
 u16 RtcGetErrorStatus(void)
