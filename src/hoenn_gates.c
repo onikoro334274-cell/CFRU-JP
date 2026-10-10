@@ -181,9 +181,9 @@ static void HoennGatePlace(struct Sprite* sprite)
 	s16 gx = g->x + HOENN_MAP_OFFSET;
 	s16 gy = g->y + HOENN_MAP_OFFSET;
 
-	sprite->pos1.x = ((gx - gSaveBlock1->pos.x) << 4)
+	sprite->pos1.x = (gx - gSaveBlock1->pos.x) * 16
 			 - (s16) gTotalCameraPixelOffsetX;
-	sprite->pos1.y = ((gy - gSaveBlock1->pos.y) << 4)
+	sprite->pos1.y = (gy - gSaveBlock1->pos.y) * 16
 			 - (s16) gTotalCameraPixelOffsetY;
 }
 
