@@ -554,6 +554,19 @@
         "swarm_timestamp_backup_review.json"
       ],
       "remaining": "Full encounter algorithms, daily task timing, native event flags/statistics, Pokerus arithmetic and GBA integration remain unverified."
+    },
+    {
+      "path": "src/hack_scsd.c",
+      "source_sha256": "00cc9b4f800f9c76ae41d4b3fce8b52f969af51273751fa5fcf4a20c65a9535b",
+      "sections": [
+        "Rd16",
+        "Rd32",
+        "ScanFat"
+      ],
+      "verification_records": [
+        "scsd_fat_directory_review.json"
+      ],
+      "remaining": "Cluster legality/reserved bits, FAT chain traversal, mount geometry, SD transport, writes and actual hardware remain unverified."
     }
   ]
 }

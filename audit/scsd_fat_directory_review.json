@@ -1,0 +1,13 @@
+{
+  "scope": "Rd16, Rd32 and ScanFat in src/hack_scsd.c",
+  "outcome": "No additional parser fix indicated. Rd16 returns u32, so its upper-half shift is already unsigned; an initially proposed cast was removed as unnecessary.",
+  "verification": [
+    "check_scsd_fat_directory.py executes production readers and directory scanner with a controlled 512-byte sector",
+    "All 65536 high cluster halves, three low halves and FAT16/FAT32 decoding (393216 cases)",
+    "All 256 attribute bytes at every sector entry position (4096 cases), including last-entry matches",
+    "Deleted entries, directory terminators and a full nonmatching sector preserve prior file metadata",
+    "Little-endian file size decoding with bit 31 set and surrounding buffer canaries verified",
+    "Trapping shift sanitizer passes both current source and baseline 3034d49"
+  ],
+  "limitations": "Controlled filesystem fields and sector buffers. This does not validate cluster-number legality/reserved bits, FAT chain traversal, mount geometry, SD transport, writes or hardware behavior. Whole-file review remains incomplete."
+}
