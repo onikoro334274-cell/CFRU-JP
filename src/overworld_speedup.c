@@ -30,6 +30,7 @@
 */
 
 #define OverworldBasic_ ((void (*)(void)) (0x08055E38 | 1))          /* 素 FRLG（CB2_OverworldBasic 08055E68 が呼ぶ）*/
+#define OverworldCB2_ ((MainCallback) (0x08055E74 | 1))
 #define SetFieldVBlankCallback_ ((void (*)(void)) (0x080562C4 | 1))  /* 素 FRLG（CB2_Overworld の最後の BL）*/
 /* ★ 次の 2 つは BPRJ.ld に無い（6.29）。OverworldBasic の BL の並び（pokefirered と同じ順）から取った */
 #define CameraUpdate_ ((void (*)(void)) (0x0805A46C | 1))
@@ -280,7 +281,11 @@ void OverworldSpeedup_CB2Overworld(void)
 #endif
     for (i = 0; i < extra; ++i)
     {
+        if (gMain.callback2 != OverworldCB2_)
+            break;
         AnimateSprites();
+        if (gMain.callback2 != OverworldCB2_)
+            break;
         CameraUpdate_();
         UpdateCameraPanning_();
     }

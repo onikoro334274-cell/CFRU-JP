@@ -1,0 +1,9 @@
+{
+  "scope": "OverworldSpeedup_CB2Overworld non-profile extra movement loop",
+  "finding": "Extra sprite/camera ticks continued after the primary field update or a sprite callback changed callback2 to another screen.",
+  "fix": "Check callback2 against the original field callback address before every extra tick and again after AnimateSprites, stopping before camera updates on a screen change.",
+  "verification": "python scripts/check_overworld_callback.py; GNU ARM C audit",
+  "cases": 72,
+  "coverage": "Speeds 1x..4x, fading/nonfading, normal/primary-update screen change/sprite screen change at each extra tick. Checks seven custom helpers and one base update, sprite/camera/panning counts, no camera calls after transition, and original VBlank disable/restore behavior.",
+  "limitations": "Mocked helpers/camera/sprite/basic APIs and non-profile compilation. Actual callback side effects, profile instrumentation, camera-triggered callback changes, VBlank transition safety, emitted rewrite and linked GBA runtime remain unverified."
+}
