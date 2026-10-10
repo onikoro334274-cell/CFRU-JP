@@ -419,6 +419,8 @@ u32 CanMonLearnTMHM(struct Pokemon* mon, u8 tm)
 bool8 CanMonLearnTutorMove(struct Pokemon* mon, u8 tutorId)
 {
 	u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+	if (species == SPECIES_NONE || species >= NUM_SPECIES)
+		return FALSE;
 
 	//[hack] patches/0172: DPE-JP writes the compatibility table with (NUM_MOVE_TUTORS + 7) / 8 = 19 bytes per species
 	//(DPE-JP scripts/tm_tutor.py), but the u32[5] rows below are 20 bytes, so every species after the first was read
