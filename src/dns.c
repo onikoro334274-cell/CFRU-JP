@@ -470,15 +470,15 @@ u32 GetDayDifference(u32 startYear, u8 startMonth, u8 startDay, u32 endYear, u8 
 
 u32 GetMonthDifference(u32 startYear, u8 startMonth, u32 endYear, u8 endMonth)
 {
+	if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12)
+		return 0;
 	if (startYear > endYear
 	|| (startYear == endYear && startMonth > endMonth))
 		return 0;
 
-	else if (endMonth >= startMonth)
-		return GetYearDifference(startYear, endYear) * 12 + (endMonth - startMonth);
-
-	else
-		return (MathMax(1, GetYearDifference(startYear, endYear)) - 1) * 12 + ((endMonth + 12) - startMonth);
+	u64 months = (u64) (endYear - startYear) * 12 + endMonth;
+	months -= startMonth;
+	return months > 0xFFFFFFFFu ? 0xFFFFFFFFu : (u32) months;
 }
 
 u32 GetYearDifference(u32 startYear, u32 endYear)

@@ -1,0 +1,19 @@
+{
+  "scope": "GetMonthDifference input validation and full-range arithmetic",
+  "defects": [
+    "Invalid months accepted",
+    "u32 year difference multiplied by 12 wraps for large spans"
+  ],
+  "fix": "Validate both months, accumulate chronological difference in u64 and saturate at UINT32_MAX.",
+  "baseline": "9a66c00a42d335e25e7361d957968eeeeba8f81b",
+  "checks": {
+    "scripts/check_calendar_differences.py": "196608 raw month cases across chronological/equal/reversed year pairs; 721008 valid-month pairs over 5007 deterministic year spans; explicit UINT32_MAX span; prior date/time/saturation checks still pass",
+    "scripts/check_calendar_differences.py --baseline HEAD (before commit)": "Return 16 reproduces full-year-span month overflow; earlier fixture version separately failed invalid-month assertion 14",
+    "audit/gnu_c.json": "174/203 ARM C source compilations pass"
+  },
+  "limitations": [
+    "Native arithmetic fixtures, not packed daily-event or script execution",
+    "GBA cycle cost and final 64-bit helper linking remain unverified",
+    "Remaining timestamp bitfield, date increment and mode-switch scopes are incomplete"
+  ]
+}

@@ -25,7 +25,9 @@ def main():
                   'static bool8 IsValidCalendarDate(u32 year, u8 month, u8 day)',
                   'u32 GetDayDifference(u32 startYear, u8 startMonth, u8 startDay, u32 endYear, u8 endMonth, u8 endDay)',
                   'u32 GetHourDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour, u32 endYear, u8 endMonth, u8 endDay, u8 endHour)',
-                  'u32 GetMinuteDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour, u8 startMin, u32 endYear, u8 endMonth, u8 endDay, u8 endHour, u8 endMin)']
+                  'u32 GetMinuteDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour, u8 startMin, u32 endYear, u8 endMonth, u8 endDay, u8 endHour, u8 endMin)',
+                  'u32 GetYearDifference(u32 startYear, u32 endYear)',
+                  'u32 GetMonthDifference(u32 startYear, u8 startMonth, u32 endYear, u8 endMonth)']
     production = '\n'.join(function(source, s) for s in signatures if s + '\n{' in source)
     arrays = []
     for name, forward in [('toNext', True), ('fromPrev', False)]:
@@ -112,6 +114,18 @@ int main(void) {
         if(GetMinuteDifference(2000,1,1,0,0,2000,1,2,hour,minute)!=(hour<24 && minute<60 ? 1440+hour*60+minute : 0)) return 7;
         if(GetHourDifference(2000,1,1,hour,2000,1,2,0)!=(hour<24 ? 24-hour : 0)) return 8;
     }
+    if(GetMonthDifference(0,1,0xFFFFFFFFu,1)!=0xFFFFFFFFu) return 16;
+    for(u32 sy=1999;sy<=2001;sy++) for(u32 sm=0;sm<256;sm++) for(u32 em=0;em<256;em++) {
+        u32 expected=0;
+        if(sm>=1 && sm<=12 && em>=1 && em<=12 && (sy<2000 || (sy==2000 && sm<=em)))
+            expected=(2000-sy)*12+em-sm;
+        if(GetMonthDifference(sy,sm,2000,em)!=expected) return 14;
+    }
+    for(u32 i=0;i<sizeof(spans)/sizeof(spans[0]);i++) for(u32 sm=1;sm<=12;sm++) for(u32 em=1;em<=12;em++) {
+        u64 months=(u64)(spans[i][1]-spans[i][0])*12+em;
+        u32 expected=months<sm ? 0 : months-sm>0xFFFFFFFFu ? 0xFFFFFFFFu : months-sm;
+        if(GetMonthDifference(spans[i][0],sm,spans[i][1],em)!=expected) return 15;
+    }
     LARGE_TEST
     return 0;
 }
@@ -126,6 +140,7 @@ int main(void) {
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
     print('Calendar differences: 196608 date cases, 65536 time cases and %d large year spans pass.' % (0 if args.baseline else len(spans)))
+    print('Month differences: 196608 raw month cases and %d valid-month/year-span cases pass.' % (len(spans) * 144))
     if not args.baseline or args.check_saturation:
         print('Time saturation: 13824 hour/minute boundary combinations pass.')
 
