@@ -1,0 +1,7 @@
+{
+  "dispatch_cases": 1920,
+  "name_cases": 64,
+  "result": "passed",
+  "scope": "Production friendship OT source with controlled API stubs; eligibility, selected slot, update ordering, partner variables, EOS comparison.",
+  "limitations": "Does not verify actual encrypted Pokemon API, persistent individual IDs, stat recalculation, or GBA execution."
+}
