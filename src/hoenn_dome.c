@@ -5932,22 +5932,25 @@ static void DecideRoundWinners(u8 roundId)
 
         tournamentId1 = i;
         tournamentId2 = TournamentIdOfOpponent(roundId, DOME_TRAINERS[tournamentId1].trainerId);
+        if ((u32)tournamentId2 >= DOME_TOURNAMENT_TRAINERS_COUNT)
+            continue;
+
         // Frontier Brain always wins, check tournamentId1.
-        if (DOME_TRAINERS[tournamentId1].trainerId == TRAINER_FRONTIER_BRAIN && tournamentId2 != 0xFF)
+        if (DOME_TRAINERS[tournamentId1].trainerId == TRAINER_FRONTIER_BRAIN)
         {
             DOME_TRAINERS[tournamentId2].isEliminated = TRUE;
             DOME_TRAINERS[tournamentId2].eliminatedAt = roundId;
             DOME->domeWinningMoves[tournamentId2] = GetWinningMove(tournamentId1, tournamentId2, roundId);
         }
         // Frontier Brain always wins, check tournamentId2.
-        else if (DOME_TRAINERS[tournamentId2].trainerId == TRAINER_FRONTIER_BRAIN && tournamentId1 != 0xFF)
+        else if (DOME_TRAINERS[tournamentId2].trainerId == TRAINER_FRONTIER_BRAIN)
         {
             DOME_TRAINERS[tournamentId1].isEliminated = TRUE;
             DOME_TRAINERS[tournamentId1].eliminatedAt = roundId;
             DOME->domeWinningMoves[tournamentId1] = GetWinningMove(tournamentId2, tournamentId1, roundId);
         }
         // Decide which one of two trainers wins!
-        else if (tournamentId2 != 0xFF)
+        else
         {
             // BUG: points1 and points2 are not cleared at the beginning of the loop resulting in not fair results.
             #ifdef BUGFIX
