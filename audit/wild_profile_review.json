@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "cases": 30,
+  "scope": "Actual profiling wrapper uses shared clock around inner dispatch; unsigned timestamp wrap, count/total/max updates and adjacent storage preservation.",
+  "limitations": "Controlled clock/inner dispatch; stable clock tested separately. Real interrupts, total accumulator wrap, timer overhead and GBA execution unverified."
+}

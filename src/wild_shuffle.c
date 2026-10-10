@@ -5,6 +5,7 @@
 #include "../include/battle_setup.h"
 
 #include "Tables/hoenn_script_flags.h"
+#include "hack_profile.h"
 
 /*
 wild_shuffle.c
@@ -102,12 +103,9 @@ static const struct WildPokemonInfo* HackWild_ShuffleInner(const struct WildPoke
 const struct WildPokemonInfo* HackWild_Shuffle(const struct WildPokemonInfo* info)
 {
 	u32* p = (u32*) 0x0203F800;
-	u32 v0 = *(vu16*) 0x04000006, c0 = gMain.vblankCounter2;
+	u32 t0 = HackProfile_Now();
 	const struct WildPokemonInfo* r = HackWild_ShuffleInner(info);
-	u32 v1 = *(vu16*) 0x04000006, c1 = gMain.vblankCounter2;
-	//VBlank（走査線 160）を 0 にして数える（走査線は 227 → 0 と回るが、コマの数は 160 で増える）
-	u32 t0 = c0 * 228 + (v0 >= 160 ? v0 - 160 : v0 + 68);
-	u32 t1 = c1 * 228 + (v1 >= 160 ? v1 - 160 : v1 + 68);
+	u32 t1 = HackProfile_Now();
 	u32 lines = t1 - t0;
 	p[370]++;
 	p[371] += lines;

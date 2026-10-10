@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "hack_profile.h"
 #include "../include/event_data.h"
 #include "../include/main.h"
 #include "../include/palette.h"
@@ -108,6 +109,10 @@ static u32 ProfSampleTime(u32* frameBase)
 static u32 ProfNow(void)
 {
     return ProfSampleTime(NULL);
+}
+u32 HackProfile_Now(void)
+{
+    return ProfNow();
 }
 static void ProfAdd(u32 k, u32 lines)
 {

@@ -12,7 +12,7 @@ def main():
     source = (ROOT / 'src/overworld_speedup.c').read_text(encoding='utf-8')
     production = '\n'.join(function(source, signature) for signature in (
         'static u32 ProfSampleTime(u32* frameBase)', 'static u32 ProfNow(void)',
-        'static void ProfAdd(u32 k, u32 lines)'))
+        'u32 HackProfile_Now(void)', 'static void ProfAdd(u32 k, u32 lines)'))
     fixture = r'''
 typedef unsigned int u32;
 #define NULL ((void*)0)
@@ -38,7 +38,7 @@ int main(void) {
     for(u32 line=0;line<228;line++) {
         if(line==160) continue;
         gMain.vblankCounter2=123;scanline=line;retries=reads=0;
-        if(ProfNow()!=123u*228u+(line>160 ? line-160 : line+68) || reads!=1) return 5;
+        if(HackProfile_Now()!=123u*228u+(line>160 ? line-160 : line+68) || reads!=1) return 5;
     }
     for(int race=-1;race<=3;race++) {
         gMain.vblankCounter2=123;scanline=161;retries=race;reads=0;
