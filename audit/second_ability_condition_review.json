@@ -1,0 +1,19 @@
+{
+  "scope": [
+    "SecondAbility_IsUnlocked",
+    "IsMomPikachu",
+    "Read-only review of SecondAbility_TrySwitchIn call sites in battle_start_turn_start.c and switching.c"
+  ],
+  "verification": {
+    "level_unlock": "All 256 u8 level values pass, including Lv200 and threshold 49/50",
+    "gift_provenance": "100663296 combinations: 3 species, 256 met locations, 256 met levels, 256 trainer IDs spanning all byte values, 2 ownership cases",
+    "null_mon": "768 combinations pass"
+  },
+  "findings": "No defect found within tested unlock and gift-provenance conditions. Existing high trainer-ID-byte cast is unsigned.",
+  "limitations": [
+    "Controlled native production-function fixtures, not GBA runtime",
+    "Met-location fixture covers IDs 0..255",
+    "Battle bank selection, suppression, ability scripts, duplicate-entry bookkeeping and popup state not executed by this fixture",
+    "No full semantic approval for battle_start_turn_start.c or switching.c"
+  ]
+}
