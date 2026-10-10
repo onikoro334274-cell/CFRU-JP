@@ -516,6 +516,18 @@
         "gift_shiny_scope_review.json"
       ],
       "remaining": "Native gift scripts, combined natural/charm odds, temporary-party transitions and GBA Pokemon generation remain unverified."
+    },
+    {
+      "path": "src/link.c",
+      "source_sha256": "2c40ad312cb7d78bc3db5a9d30b8c40deb702b6a23f3afb677290db179f8cb81",
+      "sections": [
+        "EmitDataTransfer",
+        "HandleDataTransfer"
+      ],
+      "verification_records": [
+        "link_data_transfer_review.json"
+      ],
+      "remaining": "Destination object/address validity remains a caller contract. Linked transport, peer compatibility and native completion timing remain unverified."
     }
   ]
 }

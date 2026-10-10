@@ -1,0 +1,14 @@
+{
+  "scope": "EmitDataTransfer and HandleDataTransfer in src/link.c",
+  "finding": "Outgoing size was not bounded by the 256-byte staging buffer, and incoming size was not bounded by the 512-byte controller buffer. Arbitrary u16 lengths could overflow writes or read beyond the packet.",
+  "change": "Outgoing payloads above 249 bytes and nonempty NULL transfers are rejected before staging writes. Incoming payloads above 505 bytes or with a NULL destination are dropped while retaining controller completion notifications. Invalid active battlers are rejected before indexing. The unreachable multi-chunk copy is replaced by one bounded copy; sender source arithmetic uses a const byte pointer.",
+  "verification": [
+    "check_link_data_transfer.py: every u16 size, both outgoing buffer IDs, four incoming battlers and link/non-link routes",
+    "Repository buffer capacities and controller/battle constants are checked; serialized header and payload bytes, untouched staging bytes, surrounding canaries and destination remainder verified",
+    "Zero-length/NULL combinations, NULL incoming destination and all out-of-range u8 battler IDs exercised",
+    "The same fixture against baseline d8540ac fails",
+    "Repository callers currently emit only 1-, 2- and 4-byte transfers, below the checked limit",
+    "GNU ARM compilation of src/link.c passes without diagnostics"
+  ],
+  "limitations": "Controller copies and completion APIs are controlled mocks. Destination addresses remain a trusted protocol/caller contract; this check does not validate target object capacities or hardware address permissions. Actual linked transport, peer compatibility and native completion timing remain unverified."
+}

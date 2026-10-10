@@ -1071,8 +1071,8 @@
     {
       "path": "src/link.c",
       "exit_code": 0,
-      "source_sha256": "b443d1b3716e36dfe653a05d1f879f9340ddb41a137718bf526e05609d721c6d",
-      "object_bytes": 1616,
+      "source_sha256": "2c40ad312cb7d78bc3db5a9d30b8c40deb702b6a23f3afb677290db179f8cb81",
+      "object_bytes": 1544,
       "diagnostics": ""
     },
     {

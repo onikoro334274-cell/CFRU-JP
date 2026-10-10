@@ -188,7 +188,7 @@
     "Resolve the currently inventoried missing include references and obtain remaining generated assets/tools for GNU linking/runtime validation; use repository.json for current scope and counts."
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T22:08:05.284571+00:00",
+  "updated_utc": "2026-10-10T22:11:12.088069+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete.",
   "current_compilation": {
@@ -266,7 +266,8 @@
     "rtc_read_failures": "audit/rtc_read_failure_review.json",
     "siirtc_gpio": "audit/siirtc_gpio_review.json",
     "thirsty_girl": "audit/thirsty_girl_review.json",
-    "gift_shiny_scope": "audit/gift_shiny_scope_review.json"
+    "gift_shiny_scope": "audit/gift_shiny_scope_review.json",
+    "link_data_transfer": "audit/link_data_transfer_review.json"
   },
   "current_scoped_reviews_limitation": "These reports verify named functions and controlled scenarios only. They do not certify entire files, all callers, save migration, linking, or GBA runtime.",
   "latest_verification": {
