@@ -531,6 +531,8 @@ u8 TryHandleExcuseForDracoMeteorTutor(unusedArg struct Pokemon* mon)
 
 		if (species == SPECIES_EGG)
 			Var8005 = 6;
+		else if (species == SPECIES_NONE || species >= NUM_SPECIES)
+			Var8005 = 3;
 		else if (gBaseStats[species].type1 != TYPE_DRAGON
 		&&  gBaseStats[species].type2 != TYPE_DRAGON)
 			Var8005 = 3;
