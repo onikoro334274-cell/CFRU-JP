@@ -624,6 +624,22 @@ static void DomeScreenEnterFromField(void)
 #define sInfoCard (DomeRoot()->infoCard)
 #define sTilemapBuffer (DomeRoot()->tilemapBuffer)
 
+// Allocate before fading or discarding the caller's screen resources.
+static bool8 PrepareDomeInfoCard(void)
+{
+    struct DomeScreenRoot *root = DomeRoot();
+    if (root == NULL)
+        return FALSE;
+    if (root->infoCard == NULL)
+        root->infoCard = AllocZeroed(sizeof(*root->infoCard));
+    if (root->infoCard == NULL)
+    {
+        FreeDomeRootIfEmpty();
+        return FALSE;
+    }
+    return TRUE;
+}
+
 // Each move has an array of points for different move characteristics which contribute to a tourney trainers listed battle style (see sBattleStyleThresholds)
 // All move points are either 1 or 0, so theyre essentially flags saying whether or not the move has that characteristic
 /* sBattleStyleMovePoints は src/hoenn_dome_data.h（生成物・第 3 世代の技だけ） */
@@ -2941,6 +2957,11 @@ static void ShowDomeOpponentInfo(void)
     u8 taskId;
 
     DomeScreenEnterFromField();
+    if (!PrepareDomeInfoCard())
+    {
+        SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+        return;
+    }
     taskId = CreateTask(Task_ShowTourneyInfoCard, 0);
     gTasks[taskId].tState = 0;
     gTasks[taskId].tTournamentId = TrainerIdToTournamentId(TrainerIdOfPlayerOpponent());
@@ -3031,7 +3052,6 @@ static void Task_ShowTourneyInfoCard(u8 taskId)
         break;
     case 3:
         SetVBlankCallback(VblankCb_TourneyInfoCard);
-        sInfoCard = AllocZeroed(sizeof(*sInfoCard));
         for (i = 0; i < NUM_INFOCARD_SPRITES; i++)
             sInfoCard->spriteIds[i] = SPRITE_NONE;
         LoadMonIconPalettes();
@@ -4971,10 +4991,14 @@ static void Task_HandleTourneyTreeInput(u8 taskId)
         case TOURNEY_TREE_NO_SELECTION:
             break;
         case TOURNEY_TREE_SELECTED_TRAINER:
+            if (!PrepareDomeInfoCard())
+                break;
             BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
             gTasks[taskId].tState = STATE_SHOW_INFOCARD_TRAINER;
             break;
         case TOURNEY_TREE_SELECTED_MATCH:
+            if (!PrepareDomeInfoCard())
+                break;
             BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
             gTasks[taskId].tState = STATE_SHOW_INFOCARD_MATCH;
             break;
