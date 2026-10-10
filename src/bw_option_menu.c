@@ -492,7 +492,12 @@ void CB2_BwOptionMenu(void)
         ChangeBgX(1, 0, 0); ChangeBgY(1, 0, 0);
         ChangeBgX(2, 0, 0); ChangeBgY(2, 0, 0);
         ChangeBgX(3, 0, 0); ChangeBgY(3, 0, 0);
-        InitWindows(sWindowTemplates);
+        if (!InitWindows(sWindowTemplates))
+        {
+            FreeAllWindowBuffers();
+            SetMainCallback2(gMain.savedCallback);
+            return;
+        }
         DeactivateAllTextPrinters();
         SetGpuReg(REG_OFFSET_WIN0H, 0);
         SetGpuReg(REG_OFFSET_WIN0V, 0);

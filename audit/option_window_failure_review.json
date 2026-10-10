@@ -1,0 +1,8 @@
+{
+  "scope": "CB2_BwOptionMenu case 1 InitWindows result handling",
+  "finding": "InitWindows failure was ignored; later menu initialization performed window drawing despite failed allocation.",
+  "fix": "On failure free window buffers, set the saved return callback and return before any subsequent window drawing or initialization-state advance.",
+  "verification": "python scripts/check_option_window_failure.py; GNU ARM C audit",
+  "coverage": "Extracted production allocation guard with successful/failed InitWindows. Checks cleanup-before-callback ordering, correct return callback, no continuation after failure, and no cleanup/callback change on success.",
+  "limitations": "Section fixture with mocked window and callback APIs; actual partial allocator cleanup, saved callback field rendering and full linked GBA execution remain unverified."
+}
