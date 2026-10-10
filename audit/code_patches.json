@@ -1,0 +1,6646 @@
+{
+  "scope": "All active hooks/wrappers on supplied BPRJ ROM with synthetic even targets; output matches original HEAD exactly. This does not verify actual linked target code or overwrite instruction boundaries.",
+  "source_sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "counts": {
+    "hooks": 685,
+    "functionrewrites": 47
+  },
+  "baseline_thumb_bit_failure_reproduced": true,
+  "rows": [
+    {
+      "table": "hooks",
+      "line": 4,
+      "symbol": "EmitPrintString",
+      "source_offset": 56520,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 5,
+      "symbol": "EmitPrintSelectionString",
+      "source_offset": 56768,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 6,
+      "symbol": "EmitChooseMoveHook",
+      "source_offset": 57048,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 9,
+      "symbol": "GetBattleTerrainOverride",
+      "source_offset": 62956,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 10,
+      "symbol": "LoadBattleTerrainGfx",
+      "source_offset": 60436,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 11,
+      "symbol": "DrawBattleEntryBackground",
+      "source_offset": 62628,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 14,
+      "symbol": "BuildTrainerPartyHook",
+      "source_offset": 63802,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 15,
+      "symbol": "SpriteCB_WildMon",
+      "source_offset": 71092,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 16,
+      "symbol": "SpriteCB_WildMonShowHealthbox",
+      "source_offset": 71192,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 17,
+      "symbol": "LoadProperAbilityBattleDataHook",
+      "source_offset": 76172,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 18,
+      "symbol": "BattleBeginFirstTurn",
+      "source_offset": 77948,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 19,
+      "symbol": "TrainerSlidingEndTurnHook",
+      "source_offset": 79156,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 20,
+      "symbol": "IsRunningFromBattleImpossible",
+      "source_offset": 79220,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 21,
+      "symbol": "HandleTurnActionSelectionStateCommanderHook",
+      "source_offset": 80180,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 22,
+      "symbol": "DoubleWildUseItemRunFixHook",
+      "source_offset": 80632,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 23,
+      "symbol": "PartyMenuSwitchingHook",
+      "source_offset": 81008,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 24,
+      "symbol": "ForfeitBattleTowerHook",
+      "source_offset": 81612,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 25,
+      "symbol": "GetWhoStrikesFirst",
+      "source_offset": 83192,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 26,
+      "symbol": "SetActionsAndBanksTurnOrder",
+      "source_offset": 84168,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 27,
+      "symbol": "TurnValuesCleanUpAdditionHook",
+      "source_offset": 85080,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 28,
+      "symbol": "RunTurnActionsFunctions",
+      "source_offset": 85480,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 29,
+      "symbol": "HandleEndTurn_BattleWon",
+      "source_offset": 85648,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 30,
+      "symbol": "HandleEndTurn_BattleLost",
+      "source_offset": 85924,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 31,
+      "symbol": "HandleEndTurn_RanFromBattle",
+      "source_offset": 86120,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 32,
+      "symbol": "HandleAction_UseMove",
+      "source_offset": 87220,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 33,
+      "symbol": "TryRunFromBattle",
+      "source_offset": 89944,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 34,
+      "symbol": "GetBankForBattleScript",
+      "source_offset": 91700,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 35,
+      "symbol": "CancelMultiTurnMoves",
+      "source_offset": 92920,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 36,
+      "symbol": "PrepareStringBattle",
+      "source_offset": 93116,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 37,
+      "symbol": "TrySetCantSelectMoveBattleScript",
+      "source_offset": 93604,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 38,
+      "symbol": "CheckMoveLimitations",
+      "source_offset": 94124,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 39,
+      "symbol": "TurnBasedEffects",
+      "source_offset": 96872,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 40,
+      "symbol": "HandleFaintedMonActions",
+      "source_offset": 100256,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 41,
+      "symbol": "HasNoMonsToSwitch",
+      "source_offset": 103456,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 42,
+      "symbol": "SetMoveEffect",
+      "source_offset": 128816,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 43,
+      "symbol": "FrontierCheckBattleOverHook",
+      "source_offset": 138240,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 44,
+      "symbol": "OpenPartyScreenBatonPassExplosionFix",
+      "source_offset": 148490,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 45,
+      "symbol": "CalcMonHiddenPowerType",
+      "source_offset": 175696,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 46,
+      "symbol": "SpriteCB_SlideInTrainer",
+      "source_offset": 210528,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 47,
+      "symbol": "HealthBarChangeAmountHook",
+      "source_offset": 301288,
+      "arguments": [
+        4
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 48,
+      "symbol": "ExpBarChangeAmountHook",
+      "source_offset": 301378,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 49,
+      "symbol": "ReshowBattleScreenMonSpriteHook1",
+      "source_offset": 488554,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 50,
+      "symbol": "ReshowBattleScreenMonSpriteHook2",
+      "source_offset": 489058,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 51,
+      "symbol": "ReshowBattleScreenHealthboxSpriteHook",
+      "source_offset": 489628,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 52,
+      "symbol": "BattleUseFunc_PokeDoll",
+      "source_offset": 668368,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 53,
+      "symbol": "LastUsedBallOverrideHook",
+      "source_offset": 205920,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 55,
+      "symbol": "HandleInputChooseAction",
+      "source_offset": 187412,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 56,
+      "symbol": "SwitchMoveDataHook",
+      "source_offset": 190316,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 57,
+      "symbol": "MoveSelectionDisplayMoveType",
+      "source_offset": 196816,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 58,
+      "symbol": "PlayerHandleFormChange",
+      "source_offset": 202164,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 59,
+      "symbol": "PlayerHandleChooseAction",
+      "source_offset": 205640,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 60,
+      "symbol": "PlayerHandleExpBarUpdate",
+      "source_offset": 206528,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 61,
+      "symbol": "HandleDataTransfer",
+      "source_offset": 207016,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 62,
+      "symbol": "OpponentHandleFormChange",
+      "source_offset": 224980,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 63,
+      "symbol": "HandleDataTransfer",
+      "source_offset": 229784,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 64,
+      "symbol": "AI_TrySwitchOrUseItem",
+      "source_offset": 234480,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 65,
+      "symbol": "LinkOpponentHandleFormChange",
+      "source_offset": 244356,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 66,
+      "symbol": "HandleDataTransfer",
+      "source_offset": 248172,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 68,
+      "symbol": "AIXItemStringHook",
+      "source_offset": 89700,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 69,
+      "symbol": "XSpDefStatBoostHook",
+      "source_offset": 265864,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 70,
+      "symbol": "PrepareStringForUsingXItem",
+      "source_offset": 271424,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 71,
+      "symbol": "GetMUS_ForBattle",
+      "source_offset": 276000,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 72,
+      "symbol": "LoadProperMusicForLinkBattlesHook",
+      "source_offset": 527000,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 73,
+      "symbol": "DoStandardWildBattle",
+      "source_offset": 519792,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 74,
+      "symbol": "BattleSetup_GetTerrainId",
+      "source_offset": 521100,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 75,
+      "symbol": "EndBattleFlagClearHook",
+      "source_offset": 86516,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 76,
+      "symbol": "HandleIntroSlide",
+      "source_offset": 775776,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 77,
+      "symbol": "BufferStringBattle",
+      "source_offset": 885556,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 78,
+      "symbol": "BattleStringExpandPlaceholders",
+      "source_offset": 886952,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 79,
+      "symbol": "DisplayStatStageMessage",
+      "source_offset": 890074,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 80,
+      "symbol": "BufferMaxMoveNameBattle",
+      "source_offset": 890186,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 81,
+      "symbol": "ExpandedAbilityNamesBattle2",
+      "source_offset": 890464,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 82,
+      "symbol": "MoveSelectionWindowCursorPos",
+      "source_offset": 196946,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 83,
+      "symbol": "MoveSelectionWindowCursorPos2",
+      "source_offset": 197010,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 86,
+      "symbol": "MultiEnemyPokeballReadoutHook",
+      "source_offset": 296584,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 87,
+      "symbol": "MultiInitPokemonOrderHook",
+      "source_offset": 53956,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 88,
+      "symbol": "MultiBattleAddSecondOpponentHook",
+      "source_offset": 76584,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 89,
+      "symbol": "BattleIntroOpponent1SendsOutMonAnimation",
+      "source_offset": 77256,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 90,
+      "symbol": "MultiMoneyCalcHook",
+      "source_offset": 151796,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 91,
+      "symbol": "IsMultiBattle",
+      "source_offset": 1180176,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 92,
+      "symbol": "PartnerSetupHook",
+      "source_offset": 52860,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 93,
+      "symbol": "DisplayPartnerNameInPartyMenuHook",
+      "source_offset": 1213472,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 94,
+      "symbol": "TagTeamPartnerSendoutPokemonHook",
+      "source_offset": 77688,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 95,
+      "symbol": "TagTeamPokeballReadoutHook",
+      "source_offset": 296364,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 96,
+      "symbol": "SetNewPartySelectTarget2",
+      "source_offset": 1181928,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 97,
+      "symbol": "PlayerHandleDrawTrainerPic",
+      "source_offset": 203248,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 98,
+      "symbol": "PlayerHandleTrainerSlide",
+      "source_offset": 203676,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 99,
+      "symbol": "TagTeamBackspritePalHook",
+      "source_offset": 208036,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 100,
+      "symbol": "Task_PlayerStartSendOutAnim",
+      "source_offset": 208340,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 101,
+      "symbol": "Task_OpponentStartSendOutAnim",
+      "source_offset": 230704,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 102,
+      "symbol": "PlayerHandleChoosePokemon",
+      "source_offset": 206020,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 105,
+      "symbol": "AIHandleItemUseHook",
+      "source_offset": 52464,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 106,
+      "symbol": "AIEmitChooseActionHook",
+      "source_offset": 80104,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 107,
+      "symbol": "OpponentHandleDrawTrainerPic",
+      "source_offset": 226372,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 108,
+      "symbol": "OpponentHandleTrainerSlide",
+      "source_offset": 226836,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 109,
+      "symbol": "OpponentHandleChooseMove",
+      "source_offset": 228636,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 110,
+      "symbol": "OpponentHandleChoosePokemon",
+      "source_offset": 229040,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 111,
+      "symbol": "HasSuperEffectiveMoveAgainstOpponents",
+      "source_offset": 232964,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 112,
+      "symbol": "FindMonWithFlagsAndSuperEffective",
+      "source_offset": 233364,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 113,
+      "symbol": "GetMostSuitableMonToSwitchInto",
+      "source_offset": 234920,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 114,
+      "symbol": "BattleAI_DoAIProcessing",
+      "source_offset": 819732,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 115,
+      "symbol": "BattleAI_HandleItemUseBeforeAISetup",
+      "source_offset": 818928,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 118,
+      "symbol": "MegaRetrieveDataHook",
+      "source_offset": 82144,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 119,
+      "symbol": "HandleInputChooseMove",
+      "source_offset": 188908,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 120,
+      "symbol": "MoveSelectionDisplayMoveEffectiveness",
+      "source_offset": 196644,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 121,
+      "symbol": "InitMoveSelectionsVarsAndStrings",
+      "source_offset": 205864,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 122,
+      "symbol": "PlayerHandleStatusIconUpdateHook",
+      "source_offset": 206736,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 123,
+      "symbol": "OpponentHandleStatusIconUpdateHook",
+      "source_offset": 229600,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 124,
+      "symbol": "LoadHealthBoxesIndicatorHook",
+      "source_offset": 293152,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 125,
+      "symbol": "LoadMegaGraphicsHook",
+      "source_offset": 213200,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 126,
+      "symbol": "MegaLevelStringHook",
+      "source_offset": 293176,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 127,
+      "symbol": "CreateShakerHook",
+      "source_offset": 308792,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 128,
+      "symbol": "ObjcShakerHook",
+      "source_offset": 308884,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 131,
+      "symbol": "HandleSpeciesGfxDataChange",
+      "source_offset": 213864,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 132,
+      "symbol": "DynamaxPalFadeHook1_LoadOpponentGfx",
+      "source_offset": 211888,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 133,
+      "symbol": "DynamaxPalFadeHook2_LoadPlayerGfx",
+      "source_offset": 212336,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 134,
+      "symbol": "RaidHealthbarSpriteSheetFix",
+      "source_offset": 213168,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 135,
+      "symbol": "ClearTemporarySpeciesSpriteData",
+      "source_offset": 217104,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 136,
+      "symbol": "RaidBattleCoordHook1",
+      "source_offset": 474196,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 137,
+      "symbol": "RaidBattleCoordHook2",
+      "source_offset": 474236,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 138,
+      "symbol": "LoadAndCreateEnemyShadowSprites",
+      "source_offset": 216236,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 139,
+      "symbol": "RaidBossHPColourHook",
+      "source_offset": 301554,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 140,
+      "symbol": "HandleDynamaxOnTurnEnd",
+      "source_offset": 99496,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 141,
+      "symbol": "DeadRaidMonSpriteHook",
+      "source_offset": 488540,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 142,
+      "symbol": "DeadRaidMonSpriteHook2",
+      "source_offset": 477680,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 143,
+      "symbol": "RaidCapturedSentToBoxStringHook",
+      "source_offset": 186224,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 145,
+      "symbol": "CreateSummaryScreenGigantamaxIconHook",
+      "source_offset": 1287428,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 146,
+      "symbol": "SummaryScreen_ChangeCaughtBallSpriteVisibility",
+      "source_offset": 1287468,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 147,
+      "symbol": "SummaryScreen_DestroyCaughtBallSprite",
+      "source_offset": 1287528,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 149,
+      "symbol": "BatonPassEffects",
+      "source_offset": 73888,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 151,
+      "symbol": "GiveMonToPlayer",
+      "source_offset": 262664,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 152,
+      "symbol": "ScriptGiveMon",
+      "source_offset": 660468,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 154,
+      "symbol": "ItemId_GetName",
+      "source_offset": 631492,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 155,
+      "symbol": "ItemId_GetHoldEffect",
+      "source_offset": 631600,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 158,
+      "symbol": "SitrusBerryOverworldEffectUpdate",
+      "source_offset": 267140,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 159,
+      "symbol": "GetAdjustedInitialTransitionFlags",
+      "source_offset": 349068,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 160,
+      "symbol": "Overworld_IsBikingAllowed",
+      "source_offset": 349532,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 161,
+      "symbol": "apply_map_tileset_palette",
+      "source_offset": 365188,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 162,
+      "symbol": "MetatileBehavior_IsDiveable",
+      "source_offset": 366700,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 163,
+      "symbol": "MetatileBehavior_IsUnableToEmerge",
+      "source_offset": 366728,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 170,
+      "symbol": "DiveSpeedHook",
+      "source_offset": 373464,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 171,
+      "symbol": "AutoRunHook",
+      "source_offset": 373484,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 172,
+      "symbol": "PlayerJumpLedge",
+      "source_offset": 375544,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 173,
+      "symbol": "PlayerOnBikeCollide",
+      "source_offset": 375400,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 174,
+      "symbol": "GetLedgeJumpDirection",
+      "source_offset": 424376,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 175,
+      "symbol": "RunOnTransitionMapScript",
+      "source_offset": 431364,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 176,
+      "symbol": "RunOnResumeMapScript",
+      "source_offset": 431376,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 177,
+      "symbol": "TryRunOnFrameMapScript",
+      "source_offset": 431412,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 178,
+      "symbol": "GetInteractedMetatileScript",
+      "source_offset": 444900,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 179,
+      "symbol": "GetInteractedWaterScript",
+      "source_offset": 445756,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 180,
+      "symbol": "TryStartStepCountScript",
+      "source_offset": 446092,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 181,
+      "symbol": "PlayerGoThroughDoor",
+      "source_offset": 515900,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 182,
+      "symbol": "BattleSetup_ConfigureTrainerBattle",
+      "source_offset": 522568,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 183,
+      "symbol": "SetTrainerFlags",
+      "source_offset": 523036,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 184,
+      "symbol": "BattleSetup_StartTrainerBattle",
+      "source_offset": 523140,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 185,
+      "symbol": "SetUpTrainerEncounterMusic",
+      "source_offset": 523592,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 186,
+      "symbol": "GetIntroSpeechOfApproachingTrainer",
+      "source_offset": 523768,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 187,
+      "symbol": "GetTrainerCantBattleSpeech",
+      "source_offset": 523860,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 188,
+      "symbol": "DoPoisonFieldEffect",
+      "source_offset": 661744,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 189,
+      "symbol": "CheckForTrainersWantingBattle",
+      "source_offset": 530204,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 190,
+      "symbol": "CanUseEscapeRopeOnCurrMap",
+      "source_offset": 667220,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 191,
+      "symbol": "IsRunningDisallowedByMetatile",
+      "source_offset": 780152,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 192,
+      "symbol": "ReplaceOWSandstormPaletteHook",
+      "source_offset": 511312,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 193,
+      "symbol": "WarpFadeOutScreen",
+      "source_offset": 512888,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 194,
+      "symbol": "Waterfall3_MovePlayer",
+      "source_offset": 543112,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 195,
+      "symbol": "SetCutGrassMetatile",
+      "source_offset": 619900,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 196,
+      "symbol": "BikeTurboBoostHook",
+      "source_offset": 779768,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 197,
+      "symbol": "GetPlayerSpeed",
+      "source_offset": 780596,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 198,
+      "symbol": "SuctionCupsHook",
+      "source_offset": 380388,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 199,
+      "symbol": "FieldGetPlayerInputLButtonHook",
+      "source_offset": 442784,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 200,
+      "symbol": "UseRegisteredItemHook",
+      "source_offset": 443632,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 201,
+      "symbol": "RemoveWalkThroughWallCheat",
+      "source_offset": 362212,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 204,
+      "symbol": "DisplayPartyPokemonSelectForBattle",
+      "source_offset": 1178512,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 205,
+      "symbol": "CursorCb_Summary",
+      "source_offset": 1193256,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 206,
+      "symbol": "SetPartyMonFieldSelectionActions",
+      "source_offset": 1192408,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 207,
+      "symbol": "CursorCb_NoEntry",
+      "source_offset": 1198676,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 208,
+      "symbol": "LoadMaxNumPokemonChooseBattleTowerStringHook",
+      "source_offset": 1198432,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 209,
+      "symbol": "CursorCb_Enter",
+      "source_offset": 1198384,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 210,
+      "symbol": "IsMonAllowedInBattleTower",
+      "source_offset": 1212040,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 211,
+      "symbol": "Task_ClosePartyMenuAfterText",
+      "source_offset": 1204000,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 212,
+      "symbol": "PartyMenuAfterCancelLearnMoveHook",
+      "source_offset": 1206326,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 213,
+      "symbol": "CanPokemonSelectedBeEnteredInBattleTower",
+      "source_offset": 1212208,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 214,
+      "symbol": "ExpandedAbilityNamesSummaryScreen",
+      "source_offset": 1273594,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 215,
+      "symbol": "FieldMoveBadgeHook",
+      "source_offset": 1200000,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 216,
+      "symbol": "ItemUseCB_MedicineStep",
+      "source_offset": 1203476,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 217,
+      "symbol": "Task_DoLearnedMoveFanfareAfterText",
+      "source_offset": 1205820,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 218,
+      "symbol": "ItemUseCB_RareCandy",
+      "source_offset": 1207280,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 219,
+      "symbol": "DrawLevelUpWindowPg2Hook",
+      "source_offset": 1175900,
+      "arguments": [
+        4
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 220,
+      "symbol": "ChooseFaintedMonHook",
+      "source_offset": 1180628,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 221,
+      "symbol": "ChooseFaintedMonCancelHook",
+      "source_offset": 1181048,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 222,
+      "symbol": "EmitChoosePokemon",
+      "source_offset": 57156,
+      "arguments": [
+        5
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 225,
+      "symbol": "DoMoveAnim",
+      "source_offset": 466240,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 226,
+      "symbol": "TryHandleLaunchBattleTableAnimationHook",
+      "source_offset": 210834,
+      "arguments": [
+        4
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 227,
+      "symbol": "SpriteCB_EnemyShadow",
+      "source_offset": 216472,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 228,
+      "symbol": "UpdateOamPriorityInAllHealthboxes",
+      "source_offset": 292884,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 229,
+      "symbol": "ModifyMegaCryHook",
+      "source_offset": 464690,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 230,
+      "symbol": "ScriptCmd_loadspritegfx",
+      "source_offset": 466956,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 231,
+      "symbol": "SetAverageBattlerPositionsHook",
+      "source_offset": 484672,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 232,
+      "symbol": "TryStartShinyAnimation",
+      "source_offset": 992896,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 233,
+      "symbol": "ShinyAnimFixHook",
+      "source_offset": 993244,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 234,
+      "symbol": "SlideMonToOriginalPos",
+      "source_offset": 625596,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 235,
+      "symbol": "SlideMonToOffset",
+      "source_offset": 625896,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 236,
+      "symbol": "AnimTask_SlideOffScreen",
+      "source_offset": 626692,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 237,
+      "symbol": "AnimTask_ShakeAndSinkMon",
+      "source_offset": 624792,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 238,
+      "symbol": "AnimTask_SetCamouflageBlend",
+      "source_offset": 769012,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 239,
+      "symbol": "DetsinyBondASM1",
+      "source_offset": 750418,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 240,
+      "symbol": "DetsinyBondASM2",
+      "source_offset": 750624,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 241,
+      "symbol": "EmbargoASM",
+      "source_offset": 752548,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 242,
+      "symbol": "BLACKHOLE_ASM",
+      "source_offset": 750460,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 243,
+      "symbol": "ANCHORSHOT_ASM",
+      "source_offset": 718660,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 244,
+      "symbol": "FAIRY_LOCK_ASM",
+      "source_offset": 720480,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 245,
+      "symbol": "LIGHTOFRUIN_ASM",
+      "source_offset": 719020,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 246,
+      "symbol": "SKILLSWAP_CHOOSER",
+      "source_offset": 740468,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 247,
+      "symbol": "SLUDGE_WAVE_ASM",
+      "source_offset": 706300,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 248,
+      "symbol": "ROLLOUT_TIMER_ASM",
+      "source_offset": 745216,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 249,
+      "symbol": "HEX_SIDE_ASM",
+      "source_offset": 761908,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 250,
+      "symbol": "ENCORE_USER_ASM",
+      "source_offset": 925072,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 251,
+      "symbol": "DISABLE_TIME_ASM",
+      "source_offset": 692920,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 252,
+      "symbol": "WATERGUN_ASM",
+      "source_offset": 691944,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 253,
+      "symbol": "ION_DELUGE_ASM",
+      "source_offset": 704228,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 254,
+      "symbol": "CoreEnforcerASM",
+      "source_offset": 669436,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 257,
+      "symbol": "CaptureExperienceEvolutionHook",
+      "source_offset": 86620,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 258,
+      "symbol": "GetPokeBallBattleScriptHook",
+      "source_offset": 89202,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 259,
+      "symbol": "PlayerHandleBallThrowAnim",
+      "source_offset": 204580,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 260,
+      "symbol": "SetMonPokeBallHook",
+      "source_offset": 261964,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 261,
+      "symbol": "LoadBallGfx",
+      "source_offset": 308908,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 262,
+      "symbol": "GetBattlerPokeballItemId",
+      "source_offset": 309064,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 263,
+      "symbol": "GetProperBallIdHook1",
+      "source_offset": 303574,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 264,
+      "symbol": "GetProperBallIdHook2",
+      "source_offset": 983816,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 265,
+      "symbol": "AnimTask_LoadBallGfx",
+      "source_offset": 984048,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 266,
+      "symbol": "AnimTask_FreeBallGfx",
+      "source_offset": 984088,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 267,
+      "symbol": "AnimTask_ThrowBall",
+      "source_offset": 984332,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 268,
+      "symbol": "ItemIdToBallId",
+      "source_offset": 984204,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 269,
+      "symbol": "OakIntroPokeballFixHook",
+      "source_offset": 307454,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 270,
+      "symbol": "TradePokeballFixHook",
+      "source_offset": 308112,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 271,
+      "symbol": "DoubleWildPokeBallItemUseFixHook",
+      "source_offset": 667884,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 272,
+      "symbol": "DoubleWildDexHook1",
+      "source_offset": 184808,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 273,
+      "symbol": "DoubleWildDexHook2",
+      "source_offset": 185084,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 274,
+      "symbol": "PokeBallThrowSoundHook",
+      "source_offset": 303588,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 275,
+      "symbol": "TrainersThrowPokeBallsHook1",
+      "source_offset": 303804,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 276,
+      "symbol": "TrainersThrowPokeBallsHook2",
+      "source_offset": 307142,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 277,
+      "symbol": "SpriteCB_OpponentMonSendOut_1",
+      "source_offset": 307232,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 280,
+      "symbol": "BattleLoadOpponentMonSpriteGfxHook",
+      "source_offset": 211616,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 281,
+      "symbol": "BattleLoadPlayerMonSpriteGfxHook",
+      "source_offset": 211992,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 282,
+      "symbol": "ShadowIllusionHook",
+      "source_offset": 216704,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 283,
+      "symbol": "UpdateNickForIllusionHook",
+      "source_offset": 298188,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 284,
+      "symbol": "UpdatePokeBallForIllusionHook",
+      "source_offset": 303512,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 285,
+      "symbol": "UpdateCryForIllusionHook",
+      "source_offset": 305884,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 286,
+      "symbol": "LaunchBattleAnimationIllusionHook",
+      "source_offset": 466344,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 287,
+      "symbol": "UpdateAltitudeForIllusionHook",
+      "source_offset": 474428,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 288,
+      "symbol": "UpdateElevationForIllusionHook",
+      "source_offset": 474868,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 289,
+      "symbol": "GetBattlerYDeltaFromSpriteId",
+      "source_offset": 482448,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 290,
+      "symbol": "GetBattlerSpriteCoordAttrPlayerIllusionHook",
+      "source_offset": 484084,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 291,
+      "symbol": "GetBattlerSpriteCoordAttrEnemyIllusionHook",
+      "source_offset": 484274,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 294,
+      "symbol": "StandardWildEncounter",
+      "source_offset": 534696,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 295,
+      "symbol": "RockSmashWildEncounter",
+      "source_offset": 535104,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 296,
+      "symbol": "SweetScentWildEncounter",
+      "source_offset": 535212,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 297,
+      "symbol": "DoesCurrentMapHaveFishingMons",
+      "source_offset": 535396,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 298,
+      "symbol": "FishingWildEncounter",
+      "source_offset": 535452,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 299,
+      "symbol": "TryStandardWildEncounter",
+      "source_offset": 536476,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 300,
+      "symbol": "ScrCmd_setwildbattle",
+      "source_offset": 441180,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 301,
+      "symbol": "sp138_StartLegendaryBattle",
+      "source_offset": 520456,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 302,
+      "symbol": "CreateWildMon",
+      "source_offset": 533992,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 303,
+      "symbol": "GetLocalWildMon",
+      "source_offset": 535508,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 304,
+      "symbol": "GetLocalWaterMon",
+      "source_offset": 535648,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 305,
+      "symbol": "GetAbilityEncounterRateModType",
+      "source_offset": 534596,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 306,
+      "symbol": "GetMapBaseEncounterCooldown",
+      "source_offset": 536120,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 309,
+      "symbol": "DestroyRoamerIconTownMapSwitchHook",
+      "source_offset": 795392,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 310,
+      "symbol": "CreateRoamerIconTownMapPostSwitchMapHook",
+      "source_offset": 795632,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 311,
+      "symbol": "DestroyRoamerIconTownMapCloseHook",
+      "source_offset": 802600,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 312,
+      "symbol": "CreateRoamerIconTownMapHook",
+      "source_offset": 809616,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 313,
+      "symbol": "HideOrShowRoamerIconTownMapHook",
+      "source_offset": 809948,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 314,
+      "symbol": "ClearRoamersData",
+      "source_offset": 1319800,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 315,
+      "symbol": "sp129_InitRoamer",
+      "source_offset": 1320128,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 316,
+      "symbol": "UpdateLocationHistoryForRoamers",
+      "source_offset": 1320144,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 317,
+      "symbol": "RoamersMoveToOtherLocationSet",
+      "source_offset": 1320184,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 318,
+      "symbol": "RoamersMove",
+      "source_offset": 1320268,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 319,
+      "symbol": "UpdateFoughtRoamerHPStatus",
+      "source_offset": 1320716,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 320,
+      "symbol": "SetFoughtRoamerInactive",
+      "source_offset": 1320768,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 323,
+      "symbol": "SaveWriteToFlash",
+      "source_offset": 894904,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 324,
+      "symbol": "HandleWriteSector",
+      "source_offset": 895064,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 325,
+      "symbol": "HandleLoadSector",
+      "source_offset": 896572,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 326,
+      "symbol": "GetSaveValidStatus",
+      "source_offset": 896756,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 327,
+      "symbol": "TryLoadSaveSector",
+      "source_offset": 897288,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 328,
+      "symbol": "HandleSavingData",
+      "source_offset": 897584,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 329,
+      "symbol": "LinkTradeSaveHook",
+      "source_offset": 342562,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 330,
+      "symbol": "LinkBattleSaveHook",
+      "source_offset": 455756,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 331,
+      "symbol": "NewGameSaveClearHook",
+      "source_offset": 344868,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 332,
+      "symbol": "ExpandedVarsHook",
+      "source_offset": 449608,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 333,
+      "symbol": "ExpandedFlagsHook",
+      "source_offset": 449972,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 336,
+      "symbol": "MainMenuBadSaveTypeMsgHook",
+      "source_offset": 49148,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 337,
+      "symbol": "MainMenuRTCWarningHook1",
+      "source_offset": 49400,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 338,
+      "symbol": "MainMenuRTCWarningHook2",
+      "source_offset": 49572,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 341,
+      "symbol": "CalculateMonStatsNew",
+      "source_offset": 252904,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 342,
+      "symbol": "SetMonHeldItemHook",
+      "source_offset": 261752,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 343,
+      "symbol": "GetMonAbility",
+      "source_offset": 263212,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 344,
+      "symbol": "RandomlyGivePartyPokerus",
+      "source_offset": 274724,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 345,
+      "symbol": "UpdatePartyPokerusTime",
+      "source_offset": 274932,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 346,
+      "symbol": "PartySpreadPokerus",
+      "source_offset": 274940,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 347,
+      "symbol": "HackTryIncrementMonLevel",
+      "source_offset": 274948,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 348,
+      "symbol": "GiveRandomFrontierMonByTier",
+      "source_offset": 163860,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 349,
+      "symbol": "RandomizerShowPokepicHook",
+      "source_offset": 642356,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 350,
+      "symbol": "GetMegaSpecies",
+      "source_offset": 118692,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 351,
+      "symbol": "SetMonPreventsSwitchingString",
+      "source_offset": 276880,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 354,
+      "symbol": "TransferPlttBuffer",
+      "source_offset": 457752,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 355,
+      "symbol": "LoadMapFromCameraTransition_DNSFixHook1",
+      "source_offset": 348480,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 356,
+      "symbol": "LoadMapFromCameraTransition_DNSFixHook2",
+      "source_offset": 348548,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 357,
+      "symbol": "PlayTimeCounter_Update",
+      "source_offset": 344368,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 360,
+      "symbol": "DNSCreateBuyMenuHook",
+      "source_offset": 632480,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 361,
+      "symbol": "RemoveShopModifierCheats",
+      "source_offset": 633770,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 362,
+      "symbol": "DNSEndBuyMenuHook",
+      "source_offset": 637544,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 363,
+      "symbol": "Task_ReturnToItemListAfterItemPurchase",
+      "source_offset": 637272,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 367,
+      "symbol": "pcSelect_ClosingCheck",
+      "source_offset": 583150,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 368,
+      "symbol": "pcSelect_HackWithdrawBRM",
+      "source_offset": 607158,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 369,
+      "symbol": "pcSelect_ForceMulti",
+      "source_offset": 1115344,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 370,
+      "symbol": "pcSelect_ChooseSelect",
+      "source_offset": 578416,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 371,
+      "symbol": "pcSelect_NoPartyString",
+      "source_offset": 577012,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 372,
+      "symbol": "pcSelect_OperationsMsg",
+      "source_offset": 583568,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 373,
+      "symbol": "pcSelect_SkipMultiGen",
+      "source_offset": 572956,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 374,
+      "symbol": "pcSelect_SkipWithdrawCount",
+      "source_offset": 573304,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 375,
+      "symbol": "pcSelect_SwapDecision",
+      "source_offset": 583624,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 379,
+      "symbol": "ReadKeys",
+      "source_offset": 1512,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 380,
+      "symbol": "DiveCheckEmergeHook",
+      "source_offset": 443172,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 381,
+      "symbol": "DiveCheckDownHook",
+      "source_offset": 443584,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 382,
+      "symbol": "GetLRKeysState",
+      "source_offset": 788480,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 383,
+      "symbol": "GetLRKeysPressedAndHeld",
+      "source_offset": 788540,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 384,
+      "symbol": "sub_8105040",
+      "source_offset": 1069120,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 387,
+      "symbol": "GetEventObjectGraphicsInfo",
+      "source_offset": 387976,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 388,
+      "symbol": "InitPlayerAvatarHook",
+      "source_offset": 354700,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 389,
+      "symbol": "UpdateEventObjectLargerGraphicsId",
+      "source_offset": 383504,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 390,
+      "symbol": "NewNpcInfo",
+      "source_offset": 385572,
+      "arguments": [
+        4
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 391,
+      "symbol": "SetPlayerAvatarEventObjectIdAndObjectId",
+      "source_offset": 387308,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 392,
+      "symbol": "EventObjectSetGraphicsIdFix",
+      "source_offset": 387624,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 393,
+      "symbol": "NPCMartFix",
+      "source_offset": 635996,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 394,
+      "symbol": "CharacterCustomizationUpdateTrainerFrontPic2",
+      "source_offset": 1099836,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 395,
+      "symbol": "PlayerGenderToFrontTrainerPicId",
+      "source_offset": 1101388,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 396,
+      "symbol": "GetPlayerAvatarGraphicsIdByStateIdAndGender",
+      "source_offset": 376988,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 397,
+      "symbol": "GetPlayerAvatarGraphicsIdByStateId",
+      "source_offset": 377028,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 398,
+      "symbol": "GetPlayerAvatarStateTransitionByGraphicsId",
+      "source_offset": 377412,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 399,
+      "symbol": "GetPlayerAvatarGraphicsIdByCurrentState",
+      "source_offset": 377476,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 400,
+      "symbol": "GetPlayerAvatarGenderByGraphicsId",
+      "source_offset": 377056,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 401,
+      "symbol": "PlayerFishingFix",
+      "source_offset": 380008,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 402,
+      "symbol": "GetEventObjectGraphicsInfoByEventObj",
+      "source_offset": 118640,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 405,
+      "symbol": "GetTrainerBattleTransition",
+      "source_offset": 521892,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 406,
+      "symbol": "BT_Phase2Mugshot_LoadGfx",
+      "source_offset": 866664,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 407,
+      "symbol": "BT_Phase2Mugshot_StartSpriteSlide",
+      "source_offset": 867092,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 408,
+      "symbol": "BT_Phase2Mugshot_WaitForOpponentInPlace",
+      "source_offset": 867216,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 409,
+      "symbol": "BT_Phase2Mugshot_StartBlackFade",
+      "source_offset": 867660,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 410,
+      "symbol": "Mugshots_CreateOpponentPlayerSprites",
+      "source_offset": 868196,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 411,
+      "symbol": "ShiftTrainerMugshotSprite",
+      "source_offset": 868692,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 414,
+      "symbol": "SetPalFossilImage",
+      "source_offset": 643040,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 415,
+      "symbol": "LoadPalFossilImage",
+      "source_offset": 642928,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 416,
+      "symbol": "LoadPalFossilImage",
+      "source_offset": 642976,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 417,
+      "symbol": "DeleteOBJFreeTiles",
+      "source_offset": 28156,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 418,
+      "symbol": "DeleteAllOBJs",
+      "source_offset": 29464,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 419,
+      "symbol": "DeleteReflection",
+      "source_offset": 900976,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 420,
+      "symbol": "DeleteWarpArrow",
+      "source_offset": 901384,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 421,
+      "symbol": "SetPalMisc",
+      "source_offset": 27956,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 422,
+      "symbol": "SetPalEmotionBubble",
+      "source_offset": 533072,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 423,
+      "symbol": "SetPalWarpArrow",
+      "source_offset": 901524,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 424,
+      "symbol": "SetPalItemfinderArrow",
+      "source_offset": 1309528,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 425,
+      "symbol": "SetPalFameCheckerUnknown",
+      "source_offset": 1236924,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 426,
+      "symbol": "SetPalNPC1",
+      "source_offset": 384880,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 427,
+      "symbol": "SetPalNPC2",
+      "source_offset": 387128,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 428,
+      "symbol": "SetPalNPC3",
+      "source_offset": 385904,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 429,
+      "symbol": "SetPalNPC4",
+      "source_offset": 386176,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 430,
+      "symbol": "SetPalReflection",
+      "source_offset": 900508,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 431,
+      "symbol": "SetPalSurf",
+      "source_offset": 906232,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 432,
+      "symbol": "SetPalFly",
+      "source_offset": 552300,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 433,
+      "symbol": "SetPalFly2",
+      "source_offset": 551228,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 434,
+      "symbol": "SetPalShadow",
+      "source_offset": 901704,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 435,
+      "symbol": "RefreshFameCheckerNPCs",
+      "source_offset": 1235648,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 436,
+      "symbol": "SetPalSSAnneWake",
+      "source_offset": 1443704,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 437,
+      "symbol": "SetPalSSAnneSmoke",
+      "source_offset": 1443984,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 438,
+      "symbol": "GetDarkeningType1",
+      "source_offset": 498224,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 439,
+      "symbol": "GetDarkeningType2",
+      "source_offset": 498568,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 440,
+      "symbol": "GetDarkeningType3",
+      "source_offset": 498852,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 441,
+      "symbol": "FogBrightenAll",
+      "source_offset": 501284,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 442,
+      "symbol": "FogBrightenOnStep",
+      "source_offset": 500236,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 443,
+      "symbol": "FogBrightenAndFadeIn",
+      "source_offset": 499108,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 444,
+      "symbol": "GetFadeType1",
+      "source_offset": 497672,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 445,
+      "symbol": "GetFadeType2",
+      "source_offset": 499648,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 446,
+      "symbol": "SetUpWeirdDisguise",
+      "source_offset": 907752,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 447,
+      "symbol": "SetUpRockDisguise",
+      "source_offset": 907736,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 448,
+      "symbol": "SetUpTreeDisguise",
+      "source_offset": 907720,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 449,
+      "symbol": "ClearAllPalettes",
+      "source_offset": 388660,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 450,
+      "symbol": "FindPalette",
+      "source_offset": 34148,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 451,
+      "symbol": "FindOrLoadPalette",
+      "source_offset": 33956,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 452,
+      "symbol": "PaletteNeedsFogBrightening",
+      "source_offset": 499368,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 453,
+      "symbol": "LoadCloudOrSandstormPalette",
+      "source_offset": 500512,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 456,
+      "symbol": "DynamicWhiteoutMap",
+      "source_offset": 790292,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 460,
+      "symbol": "RegionWhiteoutHook",
+      "source_offset": 790280,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 461,
+      "symbol": "WhiteoutScreenFix",
+      "source_offset": 519274,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 462,
+      "symbol": "FieldCB_RushInjuredPokemonToCenter",
+      "source_offset": 519448,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 465,
+      "symbol": "CamomonsSummaryScreenHook",
+      "source_offset": 1272196,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 466,
+      "symbol": "ChangeSummaryScreenMonSinglesDoubles",
+      "source_offset": 1292784,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 467,
+      "symbol": "ChangeSummaryScreenMonMulti",
+      "source_offset": 1293168,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 468,
+      "symbol": "SummaryScreenOTGenderColour",
+      "source_offset": 1275852,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 469,
+      "symbol": "SummaryScreen_IsMultiBattlePartner",
+      "source_offset": 1282832,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 470,
+      "symbol": "SummaryScreenMonIsFromGBA",
+      "source_offset": 1294268,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 471,
+      "symbol": "SummaryScreen_TradeMonMetLocationHook",
+      "source_offset": 1277746,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 472,
+      "symbol": "PokeSum_PrintMonTypeIcons",
+      "source_offset": 1282560,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 473,
+      "symbol": "PrintSkillsPage",
+      "source_offset": 1276084,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 476,
+      "symbol": "CB2_DoHallOfFameScreen",
+      "source_offset": 994908,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 477,
+      "symbol": "Task_Hof_InitTeamSaveData",
+      "source_offset": 995444,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 478,
+      "symbol": "Task_Hof_DisplayMon",
+      "source_offset": 995856,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 479,
+      "symbol": "Task_Hof_PlayMonCryAndPrintInfo",
+      "source_offset": 996096,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 480,
+      "symbol": "Task_Hof_TryDisplayAnotherMon",
+      "source_offset": 996228,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 481,
+      "symbol": "Task_HofPC_CopySaveData",
+      "source_offset": 997892,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 482,
+      "symbol": "Task_HofPC_DrawSpritesPrintText",
+      "source_offset": 998092,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 483,
+      "symbol": "Task_HofPC_PrintMonInfo",
+      "source_offset": 998592,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 484,
+      "symbol": "Task_Hof_InitMonData",
+      "source_offset": 995028,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 485,
+      "symbol": "HallOfFame_PrintMonInfo",
+      "source_offset": 999644,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 486,
+      "symbol": "ReshowPCMenuAfterHallOfFamePC",
+      "source_offset": 833420,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 489,
+      "symbol": "WriteTypeHook",
+      "source_offset": 196854,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 490,
+      "symbol": "DisplayTypeHook",
+      "source_offset": 1274032,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 493,
+      "symbol": "GetEvolutionTargetSpecies",
+      "source_offset": 271796,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 494,
+      "symbol": "CreateShedinja",
+      "source_offset": 850080,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 495,
+      "symbol": "RemoveEvoItem",
+      "source_offset": 851576,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 496,
+      "symbol": "EvolutionMovesHook",
+      "source_offset": 851696,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 499,
+      "symbol": "FollowMe_SetStateHook",
+      "source_offset": 406964,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 501,
+      "symbol": "FollowMe_CollisionHook",
+      "source_offset": 405992,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 502,
+      "symbol": "FollowMe_SurfHook",
+      "source_offset": 550628,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 503,
+      "symbol": "FollowMe_SurfBagHook",
+      "source_offset": 353746,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 504,
+      "symbol": "FollowMe_DismountSurf",
+      "source_offset": 379388,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 505,
+      "symbol": "FollowMe_BikeHook",
+      "source_offset": 665092,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 506,
+      "symbol": "FollowMe_CreateAvatarHook2",
+      "source_offset": 354732,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 507,
+      "symbol": "FollowMe_StairsMoveHook",
+      "source_offset": 516696,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 508,
+      "symbol": "FollowMe_EscalatorMoveHook",
+      "source_offset": 541780,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 509,
+      "symbol": "FollowMe_EscalatorWarpEndHook",
+      "source_offset": 542388,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 510,
+      "symbol": "Task_PlayerExitDoor",
+      "source_offset": 513772,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 511,
+      "symbol": "FollowMe_WarpArrowEndHook",
+      "source_offset": 514536,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 512,
+      "symbol": "FollowMe_WarpNormalEndHook",
+      "source_offset": 513700,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 513,
+      "symbol": "FollowMe_WarpTeleportEndHook",
+      "source_offset": 514708,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 514,
+      "symbol": "FollowMe_WarpStairsEndHook",
+      "source_offset": 517002,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 515,
+      "symbol": "FollowMe_WarpHoleEndHook",
+      "source_offset": 541532,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 516,
+      "symbol": "FollowMe_LocalIdHook",
+      "source_offset": 383008,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 517,
+      "symbol": "FollowMe_ScriptHook",
+      "source_offset": 390368,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 518,
+      "symbol": "FollowMe_WhiteOutHook",
+      "source_offset": 345818,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 519,
+      "symbol": "FollowMe_FishingHook",
+      "source_offset": 665200,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 522,
+      "symbol": "GiveMoveToBoxMon",
+      "source_offset": 253980,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 523,
+      "symbol": "SetMonMoveSlot",
+      "source_offset": 254160,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 524,
+      "symbol": "GiveBoxMonInitialMoveset",
+      "source_offset": 254284,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 525,
+      "symbol": "MonTryLearningNewMove",
+      "source_offset": 254452,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 526,
+      "symbol": "GetMoveRelearnerMoves",
+      "source_offset": 275152,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 527,
+      "symbol": "GetLevelUpMovesBySpecies",
+      "source_offset": 275488,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 528,
+      "symbol": "GetNumberOfRelearnableMoves",
+      "source_offset": 275576,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 531,
+      "symbol": "PokedexLoadAlternateHeightAndWeightHook",
+      "source_offset": 1074926,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 534,
+      "symbol": "PokedexScreenStats",
+      "source_offset": 1076990,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 535,
+      "symbol": "GetVisualBaseStat",
+      "source_offset": 118668,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 536,
+      "symbol": "FixPokedexCheckNullSpeciesHook",
+      "source_offset": 1071238,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 539,
+      "symbol": "GiveEggFromDaycare",
+      "source_offset": 284312,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 540,
+      "symbol": "CreateEgg",
+      "source_offset": 284436,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 541,
+      "symbol": "IsEggPending",
+      "source_offset": 285072,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 542,
+      "symbol": "TriggerPendingDaycareEgg",
+      "source_offset": 282548,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 543,
+      "symbol": "FlameBodyMagmaArmorEggHook",
+      "source_offset": 284964,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 544,
+      "symbol": "CreateHatchedMon",
+      "source_offset": 287108,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 545,
+      "symbol": "OvalCharmHook",
+      "source_offset": 284840,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 547,
+      "symbol": "GetDaycareCompatibilityScore",
+      "source_offset": 285408,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 548,
+      "symbol": "GetLevelAfterDaycareSteps",
+      "source_offset": 281872,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 549,
+      "symbol": "DaycareLevelCapHook",
+      "source_offset": 281684,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 550,
+      "symbol": "GetAllEggMoves",
+      "source_offset": 118676,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 551,
+      "symbol": "GetMonDevolution",
+      "source_offset": 118684,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 552,
+      "symbol": "SkipEggHatchNicknameHook",
+      "source_offset": 289406,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 555,
+      "symbol": "CreateBoxMonHook",
+      "source_offset": 250430,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 559,
+      "symbol": "CanMonLearnTMHM",
+      "source_offset": 275064,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 561,
+      "symbol": "HackVanillaTutor_CanMonLearnTMTutor",
+      "source_offset": 1184528,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 562,
+      "symbol": "ItemIdToBattleMoveId",
+      "source_offset": 1205188,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 563,
+      "symbol": "RemoveTMPPRestoreHook",
+      "source_offset": 1206544,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 564,
+      "symbol": "LoadTMNameWithNo",
+      "source_offset": 1254728,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 565,
+      "symbol": "SortTmHms",
+      "source_offset": 630828,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 566,
+      "symbol": "FixTmHmDiscLoader",
+      "source_offset": 1261224,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 567,
+      "symbol": "FixTmHmDiscLoader2",
+      "source_offset": 1261632,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 568,
+      "symbol": "FixTmHmDiscPos",
+      "source_offset": 1261444,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 569,
+      "symbol": "FixTmHmDiscPal",
+      "source_offset": 1261364,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 570,
+      "symbol": "CheckIsHmMove",
+      "source_offset": 1205212,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 571,
+      "symbol": "CheckIsHmMove",
+      "source_offset": 276480,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 572,
+      "symbol": "FixMartTmListing",
+      "source_offset": 634516,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 577,
+      "symbol": "HackVanillaTutor_GetMove",
+      "source_offset": 1184664,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 578,
+      "symbol": "DracoMeteorMoveTutorHook",
+      "source_offset": 1210276,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 579,
+      "symbol": "DracoMeteorMoveTutorHook2",
+      "source_offset": 1210284,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 583,
+      "symbol": "ReusableTMCheck1",
+      "source_offset": 1202180,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 584,
+      "symbol": "ReusableTMCheck2",
+      "source_offset": 1202384,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 585,
+      "symbol": "ReusableTMCheck3",
+      "source_offset": 1205696,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 586,
+      "symbol": "HmSymbolFix",
+      "source_offset": 1255050,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 587,
+      "symbol": "SelectedTmSymbolFix",
+      "source_offset": 1256712,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 588,
+      "symbol": "SingleTmPurchaseFix",
+      "source_offset": 636524,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 589,
+      "symbol": "AddSingleTmFix",
+      "source_offset": 637100,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 590,
+      "symbol": "UnbuyableTmFix",
+      "source_offset": 636462,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 591,
+      "symbol": "FixTmShopPrice",
+      "source_offset": 634416,
+      "arguments": [
+        4
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 592,
+      "symbol": "UnsellableTmFix",
+      "source_offset": 1257756,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 593,
+      "symbol": "ReloadMartList",
+      "source_offset": 637114,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 596,
+      "symbol": "SetUpStartMenu",
+      "source_offset": 451912,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 597,
+      "symbol": "StartCB_HandleInput",
+      "source_offset": 453236,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 598,
+      "symbol": "FixStartMenuSize",
+      "source_offset": 1018196,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 601,
+      "symbol": "SendMonToPC",
+      "source_offset": 262788,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 602,
+      "symbol": "GetBoxMonDataAt",
+      "source_offset": 570548,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 603,
+      "symbol": "SetBoxMonDataAtHook",
+      "source_offset": 570620,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 604,
+      "symbol": "GetBoxMonNickAt",
+      "source_offset": 570752,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 605,
+      "symbol": "SetBoxMonNickAt",
+      "source_offset": 570824,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 606,
+      "symbol": "GetAndCopyBoxMonDataAtHook",
+      "source_offset": 570892,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 607,
+      "symbol": "SetBoxMonAt",
+      "source_offset": 570960,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 608,
+      "symbol": "CopyBoxMonAt",
+      "source_offset": 571024,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 610,
+      "symbol": "ZeroBoxMonAt",
+      "source_offset": 571216,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 611,
+      "symbol": "BoxMonAtToMon",
+      "source_offset": 571276,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 612,
+      "symbol": "GetBoxedMonPtr",
+      "source_offset": 571340,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 613,
+      "symbol": "GetBoxNamePtr",
+      "source_offset": 571400,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 614,
+      "symbol": "sub_808B884Hook",
+      "source_offset": 571532,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 615,
+      "symbol": "GetBoxWallpaper",
+      "source_offset": 571440,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 616,
+      "symbol": "SetBoxWallpaper",
+      "source_offset": 571480,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 617,
+      "symbol": "PlaceBoxMonIcon",
+      "source_offset": 591764,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 618,
+      "symbol": "sub_8091130",
+      "source_offset": 594224,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 619,
+      "symbol": "ExpandedItemNameFixPokemonStorageSystemHook",
+      "source_offset": 604556,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 620,
+      "symbol": "CompressedStorageSummaryScreenUpdate1",
+      "source_offset": 602524,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 621,
+      "symbol": "CompressedStorageSummaryScreenUpdate2",
+      "source_offset": 1282966,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 622,
+      "symbol": "CompressedStorageSummaryScreenUpdate2",
+      "source_offset": 1284930,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 623,
+      "symbol": "SwapBoxMonMovesUpdate1",
+      "source_offset": 1284572,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 624,
+      "symbol": "SwapBoxMonMovesUpdate2",
+      "source_offset": 1284824,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 627,
+      "symbol": "UpdateRepelCounter",
+      "source_offset": 535716,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 628,
+      "symbol": "TaskRepel",
+      "source_offset": 666800,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 631,
+      "symbol": "AreItemsDisabledHook",
+      "source_offset": 80884,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 632,
+      "symbol": "GetCurrentPocketItemAmountHook",
+      "source_offset": 163640,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 634,
+      "symbol": "SetMemoryForBagStorage",
+      "source_offset": 628812,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 635,
+      "symbol": "DoesBagHaveBerry",
+      "source_offset": 629172,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 636,
+      "symbol": "CompactItemsInBagPocket",
+      "source_offset": 630668,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 637,
+      "symbol": "SortBerriesOrTMHMs",
+      "source_offset": 631080,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 638,
+      "symbol": "SanitizeItemId",
+      "source_offset": 631468,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 639,
+      "symbol": "BerryIdFromItemId",
+      "source_offset": 639780,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 640,
+      "symbol": "PrintRegisteredItemInBagHook",
+      "source_offset": 1085992,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 641,
+      "symbol": "AllocateBagItemListBuffers",
+      "source_offset": 1085176,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 642,
+      "symbol": "Bag_BuildListMenuTemplate",
+      "source_offset": 1085232,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 643,
+      "symbol": "BagListMenuGetItemNameColored",
+      "source_offset": 1085532,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 644,
+      "symbol": "PrintItemDescriptionOnMessageWindow",
+      "source_offset": 1086228,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 645,
+      "symbol": "PocketCalculateInitialCursorPosAndItemsAbove",
+      "source_offset": 1086700,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 648,
+      "symbol": "OpenBagBugFix3",
+      "source_offset": 1086904,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 649,
+      "symbol": "CountItemsInBag",
+      "source_offset": 1087680,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 650,
+      "symbol": "GetSmallestItemAmount",
+      "source_offset": 1087768,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 651,
+      "symbol": "BagSorterHook",
+      "source_offset": 1088260,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 652,
+      "symbol": "SelectItemFromBagCheck",
+      "source_offset": 1088432,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 653,
+      "symbol": "PrepRedrawItemDescriptionOnEndMovingItem",
+      "source_offset": 1089400,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 654,
+      "symbol": "RegisteredItemBagActionsHook",
+      "source_offset": 1090868,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 655,
+      "symbol": "BagSorterHook2",
+      "source_offset": 1091012,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 656,
+      "symbol": "BagSorterHook3",
+      "source_offset": 1091152,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 657,
+      "symbol": "RegisterItemHook",
+      "source_offset": 1092390,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 658,
+      "symbol": "BackupPlayerBag",
+      "source_offset": 1095892,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 659,
+      "symbol": "RestorePlayerBag",
+      "source_offset": 1096136,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 660,
+      "symbol": "SelectItemFromTMCaseCheck",
+      "source_offset": 1256356,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 661,
+      "symbol": "PokeDudeBackupTMCaseHook",
+      "source_offset": 1259126,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 662,
+      "symbol": "PokeDudeClearTMCaseHook",
+      "source_offset": 1259184,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 663,
+      "symbol": "PokeDudeRestoreTMCaseHook",
+      "source_offset": 1259916,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 664,
+      "symbol": "TMCaseSplitIconsHook",
+      "source_offset": 1260720,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 665,
+      "symbol": "AllocateBerryPouchSpace",
+      "source_offset": 1300740,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 666,
+      "symbol": "GetBerryNameBerryIdFix",
+      "source_offset": 1301116,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 668,
+      "symbol": "BagLRScroll",
+      "source_offset": 1085484,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 669,
+      "symbol": "TMCaseLRScroll",
+      "source_offset": 1254696,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 670,
+      "symbol": "BerryPouchLRScroll",
+      "source_offset": 1301062,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 673,
+      "symbol": "MoveReminderHook_FixBgPalette",
+      "source_offset": 939836,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 674,
+      "symbol": "FixReminderCalloc",
+      "source_offset": 939904,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 675,
+      "symbol": "FixLoadMoveId1",
+      "source_offset": 940650,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 676,
+      "symbol": "FixLoadMoveId2",
+      "source_offset": 941186,
+      "arguments": [
+        6
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 677,
+      "symbol": "FixLoadMoveId3",
+      "source_offset": 941518,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 678,
+      "symbol": "FixLoadMoveId4",
+      "source_offset": 941550,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 679,
+      "symbol": "FixLoadMoveId5",
+      "source_offset": 941906,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 680,
+      "symbol": "FixNumRelearnableMoves",
+      "source_offset": 942242,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 681,
+      "symbol": "FixMoveNameLoading",
+      "source_offset": 942584,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 682,
+      "symbol": "FixMoveReminderDataLoading",
+      "source_offset": 943232,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 684,
+      "symbol": "MoveReminderHook_AddSplitIcon",
+      "source_offset": 943076,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 687,
+      "symbol": "DrawBlockHook",
+      "source_offset": 369268,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 690,
+      "symbol": "GetCoins",
+      "source_offset": 857712,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 691,
+      "symbol": "SetCoins",
+      "source_offset": 857752,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 692,
+      "symbol": "GiveCoins",
+      "source_offset": 857792,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 693,
+      "symbol": "TakeCoins",
+      "source_offset": 857856,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 694,
+      "symbol": "ExpandCoinIntConversion",
+      "source_offset": 857934,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 695,
+      "symbol": "SlotMachineExpandedCoinsDisplayFix",
+      "source_offset": 1316456,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 698,
+      "symbol": "SetInitialSafariZoneParams",
+      "source_offset": 663972,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 699,
+      "symbol": "FixSafariZoneWindow",
+      "source_offset": 452236,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 700,
+      "symbol": "FixSafariZoneBattleWindow",
+      "source_offset": 300452,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 702,
+      "symbol": "AddFontHook",
+      "source_offset": 652374,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 703,
+      "symbol": "DakutenCheck",
+      "source_offset": 652222,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 704,
+      "symbol": "DakutenHealthBar",
+      "source_offset": 298550,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 707,
+      "symbol": "LoadCustomMultiChoiceWidthHook",
+      "source_offset": 640294,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 716,
+      "symbol": "ScrollingMultiLeftRightHook",
+      "source_offset": 838724,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 719,
+      "symbol": "CriticalCaptureAnimHook",
+      "source_offset": 986692,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 720,
+      "symbol": "SpriteCB_InitThrownBallBouncing",
+      "source_offset": 985784,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 721,
+      "symbol": "PlayerHandleSuccessBallThrowAnim",
+      "source_offset": 204496,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 722,
+      "symbol": "PlayerHandleBallThrowAnim",
+      "source_offset": 204580,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 725,
+      "symbol": "ActivateMGBAPrint",
+      "source_offset": 1865536,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 731,
+      "symbol": "TextPrinterWaitWithDownArrow",
+      "source_offset": 22016,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 732,
+      "symbol": "TextPrinterWait",
+      "source_offset": 22092,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 733,
+      "symbol": "AutoScrollBattleLevelUpBoxHook1",
+      "source_offset": 154392,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 734,
+      "symbol": "AutoScrollBattleLevelUpBoxHook2",
+      "source_offset": 154424,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 736,
+      "symbol": "PrepMiningWarp",
+      "source_offset": 118812,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 742,
+      "symbol": "HoennTownMapUnlockHook",
+      "source_offset": 794808,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 752,
+      "symbol": "HoennTownMapSlotHook",
+      "source_offset": 791408,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 753,
+      "symbol": "HoennTownMapLoadHook",
+      "source_offset": 791956,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 756,
+      "symbol": "HoennTownMapSwitchSlotHookA",
+      "source_offset": 796588,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 757,
+      "symbol": "HoennTownMapSwitchSlotHookB",
+      "source_offset": 796664,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 760,
+      "symbol": "HoennTownMapInitialPageHook",
+      "source_offset": 791104,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 764,
+      "symbol": "HoennTownMapTilesHook",
+      "source_offset": 791784,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 772,
+      "symbol": "HoennTownMapOriginHook1",
+      "source_offset": 803288,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 773,
+      "symbol": "HoennTownMapOriginHook2",
+      "source_offset": 803362,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 774,
+      "symbol": "HoennTownMapOriginHook3",
+      "source_offset": 804528,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 775,
+      "symbol": "HoennTownMapOriginHook4",
+      "source_offset": 798912,
+      "arguments": [
+        2
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 776,
+      "symbol": "HoennTownMapRightHook",
+      "source_offset": 803830,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 779,
+      "symbol": "HoennTownMapFollowHook",
+      "source_offset": 804222,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 785,
+      "symbol": "HoennTownMapLeftHook",
+      "source_offset": 803852,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 786,
+      "symbol": "JohtoTownMapFreeIconsHook",
+      "source_offset": 810096,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 789,
+      "symbol": "JohtoDungeonTypeHook",
+      "source_offset": 805468,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 796,
+      "symbol": "HoennTownMapOriginYHook",
+      "source_offset": 803296,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 797,
+      "symbol": "HoennTownMapDownHook",
+      "source_offset": 803800,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 798,
+      "symbol": "HoennTownMapRectYHook",
+      "source_offset": 798902,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 799,
+      "symbol": "HoennTownMapBtnYHook1",
+      "source_offset": 792196,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 800,
+      "symbol": "HoennTownMapBtnYHook2",
+      "source_offset": 792242,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 801,
+      "symbol": "HoennTownMapBtnYHook3",
+      "source_offset": 792728,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 802,
+      "symbol": "HoennTownMapBtnYHook4",
+      "source_offset": 792780,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 803,
+      "symbol": "HoennTownMapBtnYHook5",
+      "source_offset": 811658,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 804,
+      "symbol": "HoennTownMapNameHook",
+      "source_offset": 810888,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 805,
+      "symbol": "HoennTownMapDungeonNameHook",
+      "source_offset": 794088,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 809,
+      "symbol": "HoennTownMapSizeTableHook",
+      "source_offset": 806536,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 810,
+      "symbol": "HoennTownMapPosTableHook",
+      "source_offset": 806634,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 814,
+      "symbol": "HoennMapsecTypeHook",
+      "source_offset": 804800,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 822,
+      "symbol": "HoennPlayerIconXHook",
+      "source_offset": 808096,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 829,
+      "symbol": "HoennFlyIconMapHook",
+      "source_offset": 809296,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 830,
+      "symbol": "HoennFlyIconDoneHook",
+      "source_offset": 809420,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 834,
+      "symbol": "HoennFlyIconCellHook",
+      "source_offset": 809344,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 837,
+      "symbol": "HoennFlyIconClearHook",
+      "source_offset": 809280,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 851,
+      "symbol": "HoennSwitchMenuInitHook",
+      "source_offset": 794928,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 852,
+      "symbol": "HoennSwitchMenuLeftHookA",
+      "source_offset": 796028,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 853,
+      "symbol": "HoennSwitchMenuRightHookA",
+      "source_offset": 796082,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 854,
+      "symbol": "HoennSwitchMenuLeftHookB",
+      "source_offset": 796268,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 855,
+      "symbol": "HoennSwitchMenuRightHookB",
+      "source_offset": 796322,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 858,
+      "symbol": "HoennSwitchMenuMoveHook",
+      "source_offset": 796360,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 861,
+      "symbol": "HoennSwitchMenuArrowHook",
+      "source_offset": 796828,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 877,
+      "symbol": "HoennTownMapBtnXHook1",
+      "source_offset": 792184,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 878,
+      "symbol": "HoennTownMapBtnXHook2",
+      "source_offset": 792230,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 879,
+      "symbol": "HoennTownMapBtnXHook3",
+      "source_offset": 792716,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 880,
+      "symbol": "HoennTownMapBtnXHook4",
+      "source_offset": 792768,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 881,
+      "symbol": "HoennTownMapBtnXHook5",
+      "source_offset": 811646,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 882,
+      "symbol": "HoennTownMapBtnExitHook",
+      "source_offset": 803880,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 883,
+      "symbol": "HoennTownMapBtnSwitchHook",
+      "source_offset": 803898,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 884,
+      "symbol": "HoennTownMapBtnSnapHook1",
+      "source_offset": 804444,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 885,
+      "symbol": "HoennTownMapBtnSnapHook2",
+      "source_offset": 804508,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 889,
+      "symbol": "HoennStepHook",
+      "source_offset": 450564,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 893,
+      "symbol": "HoennGateCollisionHook",
+      "source_offset": 405368,
+      "arguments": [
+        5
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 898,
+      "symbol": "HoennIsWarpDoorAnim",
+      "source_offset": 365720,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 902,
+      "symbol": "HoennMossdeepGym_LoadObjTemplates",
+      "source_offset": 346152,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 907,
+      "symbol": "BwHpbarDrawHook",
+      "source_offset": 300672,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 908,
+      "symbol": "BwHpbarHpNumHook",
+      "source_offset": 293640,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 909,
+      "symbol": "BwSwapHpBarsWithHpText",
+      "source_offset": 294988,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 910,
+      "symbol": "BwBagSpritePalHook",
+      "source_offset": 1084996,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 912,
+      "symbol": "BwPmSlotsOffscreenHook",
+      "source_offset": 1194644,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 915,
+      "symbol": "BwShowPokemonSummaryScreen",
+      "source_offset": 1264868,
+      "arguments": [
+        4
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 916,
+      "symbol": "BwShowSelectMovePokemonSummaryScreen",
+      "source_offset": 1265436,
+      "arguments": [
+        4
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 920,
+      "symbol": "BwFollowerTemplateHook",
+      "source_offset": 390684,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 921,
+      "symbol": "BwFollowerFindOwPalIndex",
+      "source_offset": 388704,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 927,
+      "symbol": "HoennLeague_SetWarpsAfterHallOfFame",
+      "source_offset": 997524,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 936,
+      "symbol": "HoennIsNonAnimDoor",
+      "source_offset": 365896,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 943,
+      "symbol": "HoennIsSouthArrowWarp",
+      "source_offset": 366036,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 949,
+      "symbol": "BwCardPicHook",
+      "source_offset": 1101372,
+      "arguments": [
+        4
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 954,
+      "symbol": "BwHofPicHook",
+      "source_offset": 996988,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 960,
+      "symbol": "BwPlayerPalHook",
+      "source_offset": 387648,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 964,
+      "symbol": "HoennSaveBadgesHook",
+      "source_offset": 1020180,
+      "arguments": [
+        4
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 966,
+      "symbol": "HoennMainMenuBadgesHook",
+      "source_offset": 51688,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 970,
+      "symbol": "HoennHofBallsHook",
+      "source_offset": 538868,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 974,
+      "symbol": "MegaShop_FrameHook",
+      "source_offset": 633536,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 976,
+      "symbol": "MegaShop_ListTemplateHook",
+      "source_offset": 634108,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 978,
+      "symbol": "Shop_BuildListStringsHook",
+      "source_offset": 633832,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 982,
+      "symbol": "HackTitleCryHook",
+      "source_offset": 493956,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 985,
+      "symbol": "HackTitleShowTextHook",
+      "source_offset": 494384,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 992,
+      "symbol": "HackLayout_InitBackupMapLayoutData",
+      "source_offset": 361264,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 994,
+      "symbol": "HackLayout_InitBackupMapLayoutConnections",
+      "source_offset": 361352,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 997,
+      "symbol": "HackLinkSave_Init",
+      "source_offset": 897940,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 998,
+      "symbol": "HackLinkSave_WriteSector",
+      "source_offset": 897984,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 999,
+      "symbol": "HackLinkSave_NoOp",
+      "source_offset": 898036,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1000,
+      "symbol": "HackLinkSave_NoOp",
+      "source_offset": 898076,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1003,
+      "symbol": "BoxShelf_PssInputHook",
+      "source_offset": 576840,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1004,
+      "symbol": "BoxShelf_DepositHook",
+      "source_offset": 579672,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1005,
+      "symbol": "BoxShelf_IsPokemonStorageFull",
+      "source_offset": 263828,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1008,
+      "symbol": "WonderTradeSceneStringsHook",
+      "source_offset": 329584,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1012,
+      "symbol": "HackOakIntro_CreateMonSprite",
+      "source_offset": 1251136,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1013,
+      "symbol": "HackOakIntroCryHook",
+      "source_offset": 1246028,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1016,
+      "symbol": "HackMomoIceTradeHook",
+      "source_offset": 324068,
+      "arguments": [
+        3
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1019,
+      "symbol": "HackSaveSlot_SwitchFlashBank",
+      "source_offset": 1845212,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1023,
+      "symbol": "HackDex_RegisterHook",
+      "source_offset": 1078968,
+      "arguments": [
+        1
+      ]
+    },
+    {
+      "table": "hooks",
+      "line": 1026,
+      "symbol": "BwMainMenuHook",
+      "source_offset": 49580,
+      "arguments": [
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 8,
+      "symbol": "GetMapsecAtExpanded",
+      "source_offset": 807752,
+      "arguments": [
+        4,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 11,
+      "symbol": "GetMapsecUnderCursorExpanded",
+      "source_offset": 804612,
+      "arguments": [
+        0,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 12,
+      "symbol": "GetMapsecUnderCursorLayer1Expanded",
+      "source_offset": 804708,
+      "arguments": [
+        0,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 15,
+      "symbol": "CopyTownMapTilemapExpanded",
+      "source_offset": 794284,
+      "arguments": [
+        2,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 21,
+      "symbol": "HoennIsRunningDisallowed",
+      "source_offset": 367344,
+      "arguments": [
+        1,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 24,
+      "symbol": "BwShowStartMenu",
+      "source_offset": 453196,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 25,
+      "symbol": "BwReturnToFieldWithOpenMenu",
+      "source_offset": 352616,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 28,
+      "symbol": "BwPmUpdateSelection",
+      "source_offset": 1181664,
+      "arguments": [
+        2,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 29,
+      "symbol": "BwPmUpdateSelection",
+      "source_offset": 1181928,
+      "arguments": [
+        2,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 32,
+      "symbol": "BwSetPokemonSummaryScreenMode",
+      "source_offset": 1282812,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 48,
+      "symbol": "HoennGetTrainerAFlag",
+      "source_offset": 522200,
+      "arguments": [
+        0,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 49,
+      "symbol": "HoennHasTrainerBeenFought",
+      "source_offset": 523076,
+      "arguments": [
+        1,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 50,
+      "symbol": "HoennSetTrainerFlag",
+      "source_offset": 523100,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 51,
+      "symbol": "HoennClearTrainerFlag",
+      "source_offset": 523120,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 63,
+      "symbol": "HoennGetLocationMusic",
+      "source_offset": 349740,
+      "arguments": [
+        1,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 73,
+      "symbol": "HoennSetFlyWarpDestination",
+      "source_offset": 812128,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 82,
+      "symbol": "HoennMovePlayerOnBike",
+      "source_offset": 779100,
+      "arguments": [
+        3,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 85,
+      "symbol": "HoennCanBikeFaceDirectionOnRail",
+      "source_offset": 780208,
+      "arguments": [
+        2,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 86,
+      "symbol": "HoennIsPlayerNotUsingAcroBikeOnBumpySlope",
+      "source_offset": 780364,
+      "arguments": [
+        0,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 87,
+      "symbol": "HoennBike_HandleBumpySlopeJump",
+      "source_offset": 780676,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 92,
+      "symbol": "OverworldSpeedup_CB2Overworld",
+      "source_offset": 351860,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 98,
+      "symbol": "TallTrainer_DecompressTrainerFrontPic",
+      "source_offset": 212536,
+      "arguments": [
+        2,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 102,
+      "symbol": "MegaShop_BuyMenuInitWindows",
+      "source_offset": 1310096,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 104,
+      "symbol": "MegaShop_BuyMenuAddScrollIndicatorArrows",
+      "source_offset": 635008,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 109,
+      "symbol": "BwAddPseudoEventObject",
+      "source_offset": 385592,
+      "arguments": [
+        5,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 113,
+      "symbol": "HoennPyramid_WriteFlashBuffer",
+      "source_offset": 518052,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 117,
+      "symbol": "HackMG_GetDeliverymanScript",
+      "source_offset": 431880,
+      "arguments": [
+        0,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 121,
+      "symbol": "MegaShop_ItemIdGetPrice",
+      "source_offset": 631564,
+      "arguments": [
+        1,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 125,
+      "symbol": "HackDaisy_CalculatePPWithBonus",
+      "source_offset": 263948,
+      "arguments": [
+        3,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 130,
+      "symbol": "HackExpCandy_TryEvolution",
+      "source_offset": 1208392,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 135,
+      "symbol": "HackBag_UpdatePocketScrollPositions",
+      "source_offset": 1086844,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 140,
+      "symbol": "BwFollowerRemoveIfOutsideView",
+      "source_offset": 386608,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 145,
+      "symbol": "BwFollowerSetDynamicGraphicsId",
+      "source_offset": 388024,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 148,
+      "symbol": "HackLink_VSync",
+      "source_offset": 45304,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 153,
+      "symbol": "HackBattleSpeed_BattleMainCB2",
+      "source_offset": 68032,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 157,
+      "symbol": "HackBoxSpeed_CB2PokeStorage",
+      "source_offset": 575488,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 161,
+      "symbol": "HackNpcTextColor_ContextNpc",
+      "source_offset": 839568,
+      "arguments": [
+        0,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 165,
+      "symbol": "HackBoxWall_AddWallpapersMenu",
+      "source_offset": 587672,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 170,
+      "symbol": "HackSaveCrypt_ProgramFlashSectorAndVerify",
+      "source_offset": 1846352,
+      "arguments": [
+        2,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 171,
+      "symbol": "HackSaveCrypt_DoReadFlashWholeSection",
+      "source_offset": 897400,
+      "arguments": [
+        2,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 174,
+      "symbol": "HackMonId_IsMonShiny",
+      "source_offset": 277176,
+      "arguments": [
+        1,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 175,
+      "symbol": "HackMonId_IsShinyOtIdPersonality",
+      "source_offset": 277220,
+      "arguments": [
+        2,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 178,
+      "symbol": "BwShowMapNamePopup",
+      "source_offset": 621312,
+      "arguments": [
+        1,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 179,
+      "symbol": "BwDismissMapNamePopup",
+      "source_offset": 621788,
+      "arguments": [
+        0,
+        0
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 180,
+      "symbol": "BwIsMapNamePopupTaskActive",
+      "source_offset": 621840,
+      "arguments": [
+        0,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 185,
+      "symbol": "HackBagPage_ProcessPocketSwitchInput",
+      "source_offset": 1088608,
+      "arguments": [
+        2,
+        1
+      ]
+    },
+    {
+      "table": "functionrewrites",
+      "line": 186,
+      "symbol": "HackBagPage_PrintPocketName",
+      "source_offset": 1086184,
+      "arguments": [
+        0,
+        0
+      ]
+    }
+  ]
+}

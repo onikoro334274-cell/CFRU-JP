@@ -1,0 +1,110 @@
+[
+  {
+    "path": "bytereplacement",
+    "diagnostics": [
+      "Error including file on line \"#include \"src/config.h\"\".\n'charmap' codec can't decode byte 0x90 in position 424: character maps to <undefined>\nError including file on line \"#include \"include/pokemon_storage_system.h\"\".\n'charmap' codec can't decode byte 0x81 in position 172: character maps to <undefined>\n",
+      ""
+    ],
+    "newly_active_lines": [
+      670,
+      806,
+      814,
+      837
+    ],
+    "newly_inactive_lines": [
+      777,
+      778,
+      818,
+      819
+    ]
+  },
+  {
+    "path": "hooks",
+    "diagnostics": [
+      "Error including file on line \"#include \"src/config.h\"\".\n'charmap' codec can't decode byte 0x90 in position 424: character maps to <undefined>\n",
+      ""
+    ],
+    "newly_active_lines": [
+      367,
+      368,
+      369,
+      370,
+      371,
+      372,
+      373,
+      374,
+      375,
+      577,
+      578,
+      579,
+      707,
+      719,
+      720,
+      721,
+      722
+    ],
+    "newly_inactive_lines": []
+  },
+  {
+    "path": "functionrewrites",
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "newly_active_lines": [],
+    "newly_inactive_lines": []
+  },
+  {
+    "path": "eventscripts",
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "newly_active_lines": [],
+    "newly_inactive_lines": []
+  },
+  {
+    "path": "repoints",
+    "diagnostics": [
+      "Error including file on line \"#include \"src/config.h\"\".\n'charmap' codec can't decode byte 0x90 in position 424: character maps to <undefined>\n",
+      ""
+    ],
+    "newly_active_lines": [
+      157,
+      158,
+      159,
+      219,
+      288,
+      289,
+      290
+    ],
+    "newly_inactive_lines": []
+  },
+  {
+    "path": "repointall",
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "newly_active_lines": [],
+    "newly_inactive_lines": []
+  },
+  {
+    "path": "routinepointers",
+    "diagnostics": [
+      "Error including file on line \"#include \"src/config.h\"\".\n'charmap' codec can't decode byte 0x90 in position 424: character maps to <undefined>\n",
+      ""
+    ],
+    "newly_active_lines": [],
+    "newly_inactive_lines": []
+  },
+  {
+    "path": "songs",
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "newly_active_lines": [],
+    "newly_inactive_lines": []
+  }
+]

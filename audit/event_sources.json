@@ -1,0 +1,28 @@
+{
+  "scope": "Map bank 0/map 0 in supplied vanilla BPRJ; all existing NPC/coord/BG indices resolved, not all maps or linked PokemonStart content",
+  "source_sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "map_script_field": 3224128,
+  "event_counts": [
+    1,
+    2,
+    2,
+    0
+  ],
+  "rows": [
+    {
+      "kind": "npc",
+      "index": 0,
+      "script_field": 3612884
+    },
+    {
+      "kind": "tile",
+      "index": 0,
+      "script_field": 3612920
+    },
+    {
+      "kind": "tile",
+      "index": 1,
+      "script_field": 3612936
+    }
+  ]
+}

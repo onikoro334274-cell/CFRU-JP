@@ -1,0 +1,1443 @@
+{
+  "command": [
+    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\bin\\arm-none-eabi-gcc.exe",
+    "-mthumb",
+    "-mno-thumb-interwork",
+    "-mcpu=arm7tdmi",
+    "-mtune=arm7tdmi",
+    "-mno-long-calls",
+    "-march=armv4t",
+    "-Wall",
+    "-Wextra",
+    "-O2",
+    "-fira-loop-pressure",
+    "-fipa-pta",
+    "-isystem",
+    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\arm-none-eabi\\include",
+    "-c"
+  ],
+  "scope": "All src C files with actual build CFLAGS; ARM object generation does not establish linker resolution or runtime correctness.",
+  "files": [
+    {
+      "path": "src/ability_battle_effects.c",
+      "exit_code": 0,
+      "source_sha256": "a6d2cf89eff83ba87751a37a231cfdcd837e3392005906f0add083d5e946db4e",
+      "object_bytes": 55896,
+      "diagnostics": "src/ability_battle_effects.c: In function 'TryRemoveIntimidateAbilityPopUp':\nsrc/ability_battle_effects.c:3913:74: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 3913 |                 gBattlescriptCurrInstr = BattleScript_AbilityPopUpRevert - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/ability_battle_effects.c:14:\nsrc/../include/new/ability_battle_scripts.h:134:17: note: at offset -5 into object 'BattleScript_AbilityPopUpRevert' of size [0, 2147483647]\n  134 | extern const u8 BattleScript_AbilityPopUpRevert[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/ability_battle_effects.c: In function 'TryHideActiveAbilityPopUps':\nsrc/ability_battle_effects.c:3926:82: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 3926 |                         gBattlescriptCurrInstr = BattleScript_AbilityPopUpRevert - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:134:17: note: at offset -5 into object 'BattleScript_AbilityPopUpRevert' of size [0, 2147483647]\n  134 | extern const u8 BattleScript_AbilityPopUpRevert[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/ability_battle_effects.c: In function 'TryReactiveIntimidatePopUp':\nsrc/ability_battle_effects.c:3952:68: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 3952 |                 gBattlescriptCurrInstr = BattleScript_AbilityPopUp - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:133:17: note: at offset -5 into object 'BattleScript_AbilityPopUp' of size [0, 2147483647]\n  133 | extern const u8 BattleScript_AbilityPopUp[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~\n"
+    },
+    {
+      "path": "src/ability_util.c",
+      "exit_code": 0,
+      "source_sha256": "b47ccb5eeee0ff2b00c0369f116426d24b276e22a3afdb0308d39d55d9e74f3a",
+      "object_bytes": 2908,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/accuracy_calc.c",
+      "exit_code": 0,
+      "source_sha256": "918bd54f5cb108b584bf3b2488ecfc62f207df3946d820b7b22aa152e4518e96",
+      "object_bytes": 9860,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/achievements.c",
+      "exit_code": 1,
+      "source_sha256": "dc2805e6d46674557974a6dafc916fbdb55244ee234c0ded32254e39dd02c4d4",
+      "object_bytes": 0,
+      "diagnostics": "src/achievements.c:52:10: fatal error: achievements_gfx.h: No such file or directory\n   52 | #include \"achievements_gfx.h\" //Generated (scripts/achievements_gfx.py)\n      |          ^~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/ai_hack.c",
+      "exit_code": 0,
+      "source_sha256": "09a5dc508b4f9b094fbe88f0be31f8f7f025e6e0d4079cf0451b077d6924ea7d",
+      "object_bytes": 3304,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/attackcanceler.c",
+      "exit_code": 0,
+      "source_sha256": "9c5677ac3176f093cc20c01be95567e953d545fc56bb73d60bf0c3177f1489c1",
+      "object_bytes": 19272,
+      "diagnostics": "In function 'AtkCanceller_UnableToUseMove',\n    inlined from 'atk00_attackcanceler' at src/attackcanceler.c:82:6:\nsrc/attackcanceler.c:856:91: warning: array subscript -2 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  856 |                                         gBattlescriptCurrInstr = BattleScript_ButItFailed - 2;\n      |                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/attackcanceler.c:2:\nsrc/defines_battle.h: In function 'atk00_attackcanceler':\nsrc/defines_battle.h:117:11: note: at offset -2 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nIn function 'AtkCanceller_UnableToUseMove',\n    inlined from 'atk00_attackcanceler' at src/attackcanceler.c:82:6:\nsrc/attackcanceler.c:863:91: warning: array subscript -2 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  863 |                                         gBattlescriptCurrInstr = BattleScript_ButItFailed - 2;\n      |                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h: In function 'atk00_attackcanceler':\nsrc/defines_battle.h:117:11: note: at offset -2 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nIn function 'AtkCanceller_UnableToUseMove',\n    inlined from 'atk00_attackcanceler' at src/attackcanceler.c:82:6:\nsrc/attackcanceler.c:870:91: warning: array subscript -2 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  870 |                                         gBattlescriptCurrInstr = BattleScript_ButItFailed - 2;\n      |                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h: In function 'atk00_attackcanceler':\nsrc/defines_battle.h:117:11: note: at offset -2 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nIn function 'AtkCanceller_UnableToUseMove',\n    inlined from 'atk00_attackcanceler' at src/attackcanceler.c:82:6:\nsrc/attackcanceler.c:843:83: warning: array subscript -2 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  843 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 2;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h: In function 'atk00_attackcanceler':\nsrc/defines_battle.h:117:11: note: at offset -2 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/attackcanceler.c:93:67: warning: array subscript -2 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n   93 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 2;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -2 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\n"
+    },
+    {
+      "path": "src/badge_count.c",
+      "exit_code": 1,
+      "source_sha256": "c530fc25a7193f0e792cc951d7a2efd0916e3adaaf350fa7ae90acad91542d4e",
+      "object_bytes": 0,
+      "diagnostics": "src/badge_count.c:6:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    6 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/Battle_AI/ai_advanced.c",
+      "exit_code": 0,
+      "source_sha256": "1b5f0854f56babd63a8b5bece4844334badd353e64f69a8ac5329674a9ebdfe6",
+      "object_bytes": 22792,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Battle_AI/ai_master.c",
+      "exit_code": 0,
+      "source_sha256": "cdd089d74ce092f3e823e230b6e6a68880fd569ad67a55486a511f80195d37a3",
+      "object_bytes": 31788,
+      "diagnostics": "src/Battle_AI/ai_master.c: In function 'ShouldDoAIShiftSwitch':\nsrc/Battle_AI/ai_master.c:2940:77: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2940 |         gBattlescriptCurrInstr = BattleScript_FaintedMonChooseAnotherRejoin - 5;\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/Battle_AI/ai_master.c:17:\nsrc/Battle_AI/../../include/new/end_turn_battle_scripts.h:79:17: note: at offset -5 into object 'BattleScript_FaintedMonChooseAnotherRejoin' of size [0, 2147483647]\n   79 | extern const u8 BattleScript_FaintedMonChooseAnotherRejoin[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+    },
+    {
+      "path": "src/Battle_AI/ai_negatives.c",
+      "exit_code": 0,
+      "source_sha256": "21a2e2844278d8fad16ecb973efe541e5032b012fefc21dc23ac4f76cd6394e4",
+      "object_bytes": 54212,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Battle_AI/ai_partner.c",
+      "exit_code": 0,
+      "source_sha256": "4529475009b85744968413d34cb36bb39fd25b78bbb4ec3d474b51d534724bc3",
+      "object_bytes": 10880,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Battle_AI/ai_positives.c",
+      "exit_code": 0,
+      "source_sha256": "0ddffbae90876608b9f1c27a2b071dedd3ddee67e212e7f015bf684e19a8b279",
+      "object_bytes": 40896,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Battle_AI/ai_util.c",
+      "exit_code": 0,
+      "source_sha256": "daae602fdd8bc1e6b394f43df35e68e909a0d6569c90e4e0d30fd4d3ae961b3d",
+      "object_bytes": 50232,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_anims.c",
+      "exit_code": 0,
+      "source_sha256": "79b0339a1e60f22c68081ec03d06ee55dbcdda3d0cef17242804468ef9c5e84f",
+      "object_bytes": 76808,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_controller_opponent.c",
+      "exit_code": 0,
+      "source_sha256": "827a2327a32a5ca3c6a8995a86c8f7409cc28150d81abaad2bda58a3fe9d7f49",
+      "object_bytes": 8728,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_indicators.c",
+      "exit_code": 0,
+      "source_sha256": "ec6cce6d6d779c89941a9fe9f66104f450c63b4c8b4b6ec877de7945715f8d0d",
+      "object_bytes": 23012,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_script_util.c",
+      "exit_code": 0,
+      "source_sha256": "af71848a968d5e4ef79c22b8c1651d201bba39428d2eb75eb819aa108b5b955e",
+      "object_bytes": 52092,
+      "diagnostics": "src/battle_script_util.c: In function 'AcupressureFunc':\nsrc/battle_script_util.c:107:75: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  107 |                         gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/battle_script_util.c:2:\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:114:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  114 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:119:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  119 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'MetalBurstDamageCalculator':\nsrc/battle_script_util.c:327:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  327 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:354:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  354 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryActivatePartnerSapSipper':\nsrc/battle_script_util.c:373:77: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  373 |                 gBattlescriptCurrInstr = BattleScript_SapSipperAromatherapy - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/battle_script_util.c:27:\nsrc/../include/new/move_battle_scripts.h:45:17: note: at offset -5 into object 'BattleScript_SapSipperAromatherapy' of size [0, 2147483647]\n   45 | extern const u8 BattleScript_SapSipperAromatherapy[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'DefogHelperFunc':\nsrc/battle_script_util.c:454:101: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  454 |                         gBattlescriptCurrInstr = BattleScript_DefogAdditionalEffects_PlayAttackAnim - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:47:17: note: at offset -5 into object 'BattleScript_DefogAdditionalEffects_PlayAttackAnim' of size [0, 2147483647]\n   47 | extern const u8 BattleScript_DefogAdditionalEffects_PlayAttackAnim[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:452:86: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  452 |                         gBattlescriptCurrInstr = BattleScript_DefogAdditionalEffects - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:46:17: note: at offset -5 into object 'BattleScript_DefogAdditionalEffects' of size [0, 2147483647]\n   46 | extern const u8 BattleScript_DefogAdditionalEffects[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'ClearBeakBlastBit':\nsrc/battle_script_util.c:461:74: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  461 |                 gBattlescriptCurrInstr = BattleScript_NoTargetMoveFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/battle_script_util.c:13:\nsrc/../include/new/battle_start_turn_start_battle_scripts.h:27:17: note: at offset -5 into object 'BattleScript_NoTargetMoveFailed' of size [0, 2147483647]\n   27 | extern const u8 BattleScript_NoTargetMoveFailed[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'BestowItem':\nsrc/battle_script_util.c:494:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  494 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'BelchFunction':\nsrc/battle_script_util.c:503:71: warning: array subscript -7 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  503 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5 - 2;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -7 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'CopycatFunc':\nsrc/battle_script_util.c:550:71: warning: array subscript -6 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  550 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 1 - 5;      //From PP Reduce\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -6 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'MeFirstFunc':\nsrc/battle_script_util.c:626:71: warning: array subscript -6 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  626 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5 - 1; //Start from PP Reduce\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -6 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'LoadPledgeScript':\nsrc/battle_script_util.c:706:67: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  706 |                 gBattlescriptCurrInstr = BattleScript_PledgeReady - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:49:17: note: at offset -5 into object 'BattleScript_PledgeReady' of size [0, 2147483647]\n   49 | extern const u8 BattleScript_PledgeReady[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:671:70: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  671 |                 gBattlescriptCurrInstr = BattleScript_PledgeCombined - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:48:17: note: at offset -5 into object 'BattleScript_PledgeCombined' of size [0, 2147483647]\n   48 | extern const u8 BattleScript_PledgeCombined[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'DoBattleFieldEffect':\nsrc/battle_script_util.c:872:84: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  872 |                                  gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:836:84: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  836 |                                  gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:851:84: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  851 |                                  gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:821:84: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  821 |                                  gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'BringDownMons':\nsrc/battle_script_util.c:934:81: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  934 |                         gBattlescriptCurrInstr = BattleScript_PrintCustomString - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:50:17: note: at offset -5 into object 'BattleScript_PrintCustomString' of size [0, 2147483647]\n   50 | extern const u8 BattleScript_PrintCustomString[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryFling':\nsrc/battle_script_util.c:945:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  945 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'CheckTelekinesisFail':\nsrc/battle_script_util.c:963:71: warning: array subscript -7 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  963 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5 - 2;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -7 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'ChangeTargetTypeFunc':\nsrc/battle_script_util.c:1002:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1002 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1031:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1031 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1015:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1015 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:978:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  978 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'HealTargetFunc':\nsrc/battle_script_util.c:1051:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1051 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TopsyTurvyFunc':\nsrc/battle_script_util.c:1094:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1094 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'DoFairyLockHappyHourFunc':\nsrc/battle_script_util.c:1135:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1135 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1107:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1107 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'AfterYouFunc':\nsrc/battle_script_util.c:1190:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1190 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'QuashFunc':\nsrc/battle_script_util.c:1223:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1223 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryExecuteInstruct':\nsrc/battle_script_util.c:1244:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1244 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TrySetMagnetRise':\nsrc/battle_script_util.c:1284:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1284 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TailwindLuckyChantFunc':\nsrc/battle_script_util.c:1306:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1306 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1297:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1297 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'AbilityChangeBSFunc':\nsrc/battle_script_util.c:1462:92: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1462 |                                 gBattlescriptCurrInstr = BattleScript_AbilityShieldMoveEnd - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/battle_script_util.c:25:\nsrc/../include/new/item_battle_scripts.h:67:17: note: at offset -5 into object 'BattleScript_AbilityShieldMoveEnd' of size [0, 2147483647]\n   67 | extern const u8 BattleScript_AbilityShieldMoveEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1457:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1457 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1440:92: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1440 |                                 gBattlescriptCurrInstr = BattleScript_AbilityShieldMoveEnd - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/item_battle_scripts.h:67:17: note: at offset -5 into object 'BattleScript_AbilityShieldMoveEnd' of size [0, 2147483647]\n   67 | extern const u8 BattleScript_AbilityShieldMoveEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1436:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1436 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1416:92: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1416 |                                 gBattlescriptCurrInstr = BattleScript_AbilityShieldMoveEnd - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/item_battle_scripts.h:67:17: note: at offset -5 into object 'BattleScript_AbilityShieldMoveEnd' of size [0, 2147483647]\n   67 | extern const u8 BattleScript_AbilityShieldMoveEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1411:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1411 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1396:92: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1396 |                                 gBattlescriptCurrInstr = BattleScript_AbilityShieldMoveEnd - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/item_battle_scripts.h:67:17: note: at offset -5 into object 'BattleScript_AbilityShieldMoveEnd' of size [0, 2147483647]\n   67 | extern const u8 BattleScript_AbilityShieldMoveEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1392:83: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1392 |                                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1474:64: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1474 |         if (gBattlescriptCurrInstr != BattleScript_ButItFailed - 5\n      |                                       ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1475:72: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1475 |         && gBattlescriptCurrInstr != BattleScript_AbilityShieldMoveEnd - 5)\n      |                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/item_battle_scripts.h:67:17: note: at offset -5 into object 'BattleScript_AbilityShieldMoveEnd' of size [0, 2147483647]\n   67 | extern const u8 BattleScript_AbilityShieldMoveEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'LoadStatustoPsychoShiftTransfer':\nsrc/battle_script_util.c:1504:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1504 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'LastResortFunc':\nsrc/battle_script_util.c:1574:71: warning: array subscript -7 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1574 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 2 - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -7 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryLaunchShellTrap':\nsrc/battle_script_util.c:1726:71: warning: array subscript -7 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1726 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5 - 2;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -7 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TrySuckerPunch':\nsrc/battle_script_util.c:1735:63: warning: array subscript -7 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1735 |         gBattlescriptCurrInstr = BattleScript_ButItFailed - 5 - 2;\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -7 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryUpperHand':\nsrc/battle_script_util.c:1745:63: warning: array subscript -7 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 1745 |         gBattlescriptCurrInstr = BattleScript_ButItFailed - 5 - 2;\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -7 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryToStopNewMonFromSwitchingInAfterSRHurt':\nsrc/battle_script_util.c:1873:78: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1873 |                 gBattlescriptCurrInstr = BattleScript_EntryHazardsHurtReturn - 5; //Continue the switch in effects\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:220:17: note: at offset -5 into object 'BattleScript_EntryHazardsHurtReturn' of size [0, 2147483647]\n  220 | extern const u8 BattleScript_EntryHazardsHurtReturn[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'ClearSwitchInEffectsState':\nsrc/battle_script_util.c:1883:94: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1883 |                 gBattlescriptCurrInstr = BattleScript_HandleFaintedMonDoublesSwitchInEffects - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/battle_script_util.c:20:\nsrc/../include/new/end_turn_battle_scripts.h:78:17: note: at offset -5 into object 'BattleScript_HandleFaintedMonDoublesSwitchInEffects' of size [0, 2147483647]\n   78 | extern const u8 BattleScript_HandleFaintedMonDoublesSwitchInEffects[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'UndoAbilityEffectsForNeutralizingGas':\nsrc/battle_script_util.c:1972:81: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1972 |                         gBattlescriptCurrInstr = BattleScript_TryRemoveIllusion - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/battle_script_util.c:10:\nsrc/../include/new/ability_battle_scripts.h:129:17: note: at offset -5 into object 'BattleScript_TryRemoveIllusion' of size [0, 2147483647]\n  129 | extern const u8 BattleScript_TryRemoveIllusion[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:1961:72: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1961 |                 gBattlescriptCurrInstr = BattleScript_PrimalWeatherEnd - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:131:17: note: at offset -5 into object 'BattleScript_PrimalWeatherEnd' of size [0, 2147483647]\n  131 | extern const u8 BattleScript_PrimalWeatherEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryAbilityShieldMsg':\nsrc/battle_script_util.c:1986:77: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 1986 |                 gBattlescriptCurrInstr = BattleScript_AttackerAbilityShield - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/item_battle_scripts.h:68:17: note: at offset -5 into object 'BattleScript_AttackerAbilityShield' of size [0, 2147483647]\n   68 | extern const u8 BattleScript_AttackerAbilityShield[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryLoadSecondFriskTargetDoubles':\nsrc/battle_script_util.c:2001:56: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2001 |         gBattlescriptCurrInstr = BattleScript_FriskEnd - 5;\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:20:17: note: at offset -5 into object 'BattleScript_FriskEnd' of size [0, 2147483647]\n   20 | extern const u8 BattleScript_FriskEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'PSHealBlockTimer':\nsrc/battle_script_util.c:2193:73: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2193 |                 gBattlescriptCurrInstr = BattleScript_PrintCustomString - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:50:17: note: at offset -5 into object 'BattleScript_PrintCustomString' of size [0, 2147483647]\n   50 | extern const u8 BattleScript_PrintCustomString[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'FailIfAttackerIsntHoldingEdibleBerry':\nsrc/battle_script_util.c:2226:79: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2226 |                 gBattlescriptCurrInstr = BattleScript_ButItFailedAttackstring - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:60:17: note: at offset -5 into object 'BattleScript_ButItFailedAttackstring' of size [0, 2147483647]\n   60 | extern const u8 BattleScript_ButItFailedAttackstring[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'FailIfTrappedByNoRetreat':\nsrc/battle_script_util.c:2242:79: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2242 |                 gBattlescriptCurrInstr = BattleScript_ButItFailedAttackstring - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:60:17: note: at offset -5 into object 'BattleScript_ButItFailedAttackstring' of size [0, 2147483647]\n   60 | extern const u8 BattleScript_ButItFailedAttackstring[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryFailLifeDew':\nsrc/battle_script_util.c:2267:67: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2267 |                 gBattlescriptCurrInstr = BattleScript_LifeDewFail - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:64:17: note: at offset -5 into object 'BattleScript_LifeDewFail' of size [0, 2147483647]\n   64 | extern const u8 BattleScript_LifeDewFail[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:2265:52: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2265 |                 gBattlescriptCurrInstr = RecoverBS - 5;\n      |                                          ~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:63:17: note: at offset -5 into object 'RecoverBS' of size [0, 2147483647]\n   63 | extern const u8 RecoverBS[];\n      |                 ^~~~~~~~~\nsrc/battle_script_util.c: In function 'ActivatePerishBody':\nsrc/battle_script_util.c:2419:72: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2419 |                 gBattlescriptCurrInstr = BattleScript_PerishBodyReturn - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:78:17: note: at offset -5 into object 'BattleScript_PerishBodyReturn' of size [0, 2147483647]\n   78 | extern const u8 BattleScript_PerishBodyReturn[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'FailClangorousSoulIfLowHP':\nsrc/battle_script_util.c:2425:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 2425 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'FailShedTailIfLowHP':\nsrc/battle_script_util.c:2431:67: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 2431 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -5 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'SetCorrectTeleportBattleScript':\nsrc/battle_script_util.c:2489:76: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2489 |                         gBattlescriptCurrInstr = BattleScript_TeleportFlee - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:67:17: note: at offset -5 into object 'BattleScript_TeleportFlee' of size [0, 2147483647]\n   67 | extern const u8 BattleScript_TeleportFlee[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:2487:78: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2487 |                         gBattlescriptCurrInstr = BattleScript_TeleportSwitch - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:66:17: note: at offset -5 into object 'BattleScript_TeleportSwitch' of size [0, 2147483647]\n   66 | extern const u8 BattleScript_TeleportSwitch[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:2482:70: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2482 |                 gBattlescriptCurrInstr = BattleScript_TeleportSwitch - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:66:17: note: at offset -5 into object 'BattleScript_TeleportSwitch' of size [0, 2147483647]\n   66 | extern const u8 BattleScript_TeleportSwitch[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryFailPoltergeist':\nsrc/battle_script_util.c:2522:71: warning: array subscript -7 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 2522 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5 - 2; //From attackstring\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -7 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'WakeUpSleepingPokemon':\nsrc/battle_script_util.c:2540:76: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2540 |                         gBattlescriptCurrInstr = BattleScript_UproarWokeUp - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:68:17: note: at offset -5 into object 'BattleScript_UproarWokeUp' of size [0, 2147483647]\n   68 | extern const u8 BattleScript_UproarWokeUp[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryFailSteelRoller':\nsrc/battle_script_util.c:2566:71: warning: array subscript -7 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 2566 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5 - 2; //From attackstring\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -7 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryFailJungleHealing':\nsrc/battle_script_util.c:2607:67: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2607 |                 gBattlescriptCurrInstr = BattleScript_LifeDewFail - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:64:17: note: at offset -5 into object 'BattleScript_LifeDewFail' of size [0, 2147483647]\n   64 | extern const u8 BattleScript_LifeDewFail[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'DragonCheerFunc':\nsrc/battle_script_util.c:2661:79: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2661 |                 gBattlescriptCurrInstr = BattleScript_ButItFailedAttackstring - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:60:17: note: at offset -5 into object 'BattleScript_ButItFailedAttackstring' of size [0, 2147483647]\n   60 | extern const u8 BattleScript_ButItFailedAttackstring[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryFailAuraWheel':\nsrc/battle_script_util.c:2669:71: warning: array subscript -7 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n 2669 |                 gBattlescriptCurrInstr = BattleScript_ButItFailed - 5 - 2; //From attackstring\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/defines_battle.h:117:11: note: at offset -7 into object 'BattleScript_ButItFailed' of size [0, 2147483647]\n  117 | extern u8 BattleScript_ButItFailed[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'SkipUseNextPkmnPromptIfCantRun':\nsrc/battle_script_util.c:2676:82: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2676 |                 gBattlescriptCurrInstr = BattleScript_FaintedMonTryChooseAnother - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/end_turn_battle_scripts.h:80:17: note: at offset -5 into object 'BattleScript_FaintedMonTryChooseAnother' of size [0, 2147483647]\n   80 | extern const u8 BattleScript_FaintedMonTryChooseAnother[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TeraBlastFunc':\nsrc/battle_script_util.c:2682:69: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2682 |                 gBattlescriptCurrInstr = BattleScript_LowerAtkSpAtk - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:80:17: note: at offset -5 into object 'BattleScript_LowerAtkSpAtk' of size [0, 2147483647]\n   80 | extern const u8 BattleScript_LowerAtkSpAtk[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'FickleBeamFunc':\nsrc/battle_script_util.c:2692:73: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2692 |                 gBattlescriptCurrInstr = BattleScript_FickleBeamDoubled - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:81:17: note: at offset -5 into object 'BattleScript_FickleBeamDoubled' of size [0, 2147483647]\n   81 | extern const u8 BattleScript_FickleBeamDoubled[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryWindRiderPower':\nsrc/battle_script_util.c:2717:86: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2717 |                         gBattlescriptCurrInstr = BattleScript_TargetAbilityStatRaise - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:63:17: note: at offset -5 into object 'BattleScript_TargetAbilityStatRaise' of size [0, 2147483647]\n   63 | extern const u8 BattleScript_TargetAbilityStatRaise[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:2706:89: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2706 |                         gBattlescriptCurrInstr = BattleScript_ElectromorphosisActivates - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:80:17: note: at offset -5 into object 'BattleScript_ElectromorphosisActivates' of size [0, 2147483647]\n   80 | extern const u8 BattleScript_ElectromorphosisActivates[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryRemoveCudChewAbilityPopUp':\nsrc/battle_script_util.c:2749:74: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2749 |                 gBattlescriptCurrInstr = BattleScript_AbilityPopUpRevert - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:134:17: note: at offset -5 into object 'BattleScript_AbilityPopUpRevert' of size [0, 2147483647]\n  134 | extern const u8 BattleScript_AbilityPopUpRevert[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'RemoveWeatherAndTerrain':\nsrc/battle_script_util.c:2814:74: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2814 |                         gBattlescriptCurrInstr = BattleScript_WeatherEnd - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/battle_start_turn_start_battle_scripts.h:35:17: note: at offset -5 into object 'BattleScript_WeatherEnd' of size [0, 2147483647]\n   35 | extern const u8 BattleScript_WeatherEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:2843:69: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2843 |                 gBattlescriptCurrInstr = BattleScript_TerrainEndRet - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/battle_start_turn_start_battle_scripts.h:36:17: note: at offset -5 into object 'BattleScript_TerrainEndRet' of size [0, 2147483647]\n   36 | extern const u8 BattleScript_TerrainEndRet[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryTerastalAbility':\nsrc/battle_script_util.c:2858:84: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2858 |                         gBattlescriptCurrInstr = BattleScript_ActivateTeraformZero - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/battle_start_turn_start_battle_scripts.h:37:17: note: at offset -5 into object 'BattleScript_ActivateTeraformZero' of size [0, 2147483647]\n   37 | extern const u8 BattleScript_ActivateTeraformZero[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'SetCopyStatChange':\nsrc/battle_script_util.c:2975:82: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2975 |                 gBattlescriptCurrInstr = BattleScript_OpportunistCopyDragonCheer - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:92:17: note: at offset -5 into object 'BattleScript_OpportunistCopyDragonCheer' of size [0, 2147483647]\n   92 | extern const u8 BattleScript_OpportunistCopyDragonCheer[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:2973:81: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2973 |                 gBattlescriptCurrInstr = BattleScript_MirrorHerbCopyDragonCheer - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/item_battle_scripts.h:65:17: note: at offset -5 into object 'BattleScript_MirrorHerbCopyDragonCheer' of size [0, 2147483647]\n   65 | extern const u8 BattleScript_MirrorHerbCopyDragonCheer[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'SetCopyDragonCheer':\nsrc/battle_script_util.c:2994:70: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2994 |                 gBattlescriptCurrInstr = BattleScript_OpportunistEnd - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/ability_battle_scripts.h:93:17: note: at offset -5 into object 'BattleScript_OpportunistEnd' of size [0, 2147483647]\n   93 | extern const u8 BattleScript_OpportunistEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c:2992:69: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2992 |                 gBattlescriptCurrInstr = BattleScript_MirrorHerbEnd - 5;\n      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/item_battle_scripts.h:66:17: note: at offset -5 into object 'BattleScript_MirrorHerbEnd' of size [0, 2147483647]\n   66 | extern const u8 BattleScript_MirrorHerbEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TeatimeTargets':\nsrc/battle_script_util.c:3059:61: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 3059 |         gBattlescriptCurrInstr = BattleScript_TeatimeFailed - 5;\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:109:17: note: at offset -5 into object 'BattleScript_TeatimeFailed' of size [0, 2147483647]\n  109 | extern const u8 BattleScript_TeatimeFailed[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/battle_script_util.c: In function 'TryTidyUp':\nsrc/battle_script_util.c:3085:64: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 3085 |         gBattlescriptCurrInstr = BattleScript_TidyUpStatsCheck - 5;\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/move_battle_scripts.h:110:17: note: at offset -5 into object 'BattleScript_TidyUpStatsCheck' of size [0, 2147483647]\n  110 | extern const u8 BattleScript_TidyUpStatsCheck[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+    },
+    {
+      "path": "src/battle_start_turn_start.c",
+      "exit_code": 0,
+      "source_sha256": "0f7746aeb4985ef83a3139c4654b304a5bf2c33bf0de596edc5b6d59b6bbbd8e",
+      "object_bytes": 29656,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_strings.c",
+      "exit_code": 0,
+      "source_sha256": "df52afacd44dba55bd8b4092dd2a61adc28f6ec68971483b38bc16d0b7d2f11d",
+      "object_bytes": 13664,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_terrain.c",
+      "exit_code": 0,
+      "source_sha256": "9b9398f3420d96af3c8858d4ca1f90d23a75c083dd2d60b3115f0e9b75040f2b",
+      "object_bytes": 3760,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_transition.c",
+      "exit_code": 0,
+      "source_sha256": "278045d4e5b9589c00cddb53f454726f2d92d88dd7d3033f219fbbea71e0a298",
+      "object_bytes": 11272,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_util.c",
+      "exit_code": 0,
+      "source_sha256": "c42acedf5b9eb80a8727bf582f4460b139605bbe582b03b84e5b9560bc6e1c78",
+      "object_bytes": 38872,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/build_pokemon.c",
+      "exit_code": 0,
+      "source_sha256": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
+      "object_bytes": 62120,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_card_pic.c",
+      "exit_code": 1,
+      "source_sha256": "9b95a6aee6fe2b8c3302121eb173534b29659a0f168da251352244fcc2f6be48",
+      "object_bytes": 0,
+      "diagnostics": "src/bw_card_pic.c:3:10: fatal error: Tables/bw_card_pic.h: No such file or directory\n    3 | #include \"Tables/bw_card_pic.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/bw_follower.c",
+      "exit_code": 0,
+      "source_sha256": "806c43515d5b142eceae64ff5d7418b019df2c7c3e3e31f80021ffd26c6e7a43",
+      "object_bytes": 19728,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_frontier_pass.c",
+      "exit_code": 1,
+      "source_sha256": "b58393d3b7e8b0195421f8e22535e5cc08aa228a6f6a2580fd9456ceb41d2be5",
+      "object_bytes": 0,
+      "diagnostics": "src/bw_frontier_pass.c:19:10: fatal error: Tables/bw_frontier_pass_gfx.h: No such file or directory\n   19 | #include \"Tables/bw_frontier_pass_gfx.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/bw_hof_pic.c",
+      "exit_code": 1,
+      "source_sha256": "16941ff390e9d45979eb58d5a92b65ea34d7c0bc1e431c89e18dfab9c5173b91",
+      "object_bytes": 0,
+      "diagnostics": "src/bw_hof_pic.c:3:10: fatal error: Tables/bw_card_pic.h: No such file or directory\n    3 | #include \"Tables/bw_card_pic.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/bw_hpbar.c",
+      "exit_code": 1,
+      "source_sha256": "c61f6fbd0e15a0627089d311aa74c02c99bbf9e0a4127a7c93c707712cfb56e6",
+      "object_bytes": 0,
+      "diagnostics": "src/bw_hpbar.c:11:10: fatal error: bw_hpbar_gfx.h: No such file or directory\n   11 | #include \"bw_hpbar_gfx.h\"\n      |          ^~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/bw_main_menu.c",
+      "exit_code": 0,
+      "source_sha256": "6f3b568280528a5a8c2076e9fc6e255612e456f581deac6c445c58c942eca8d9",
+      "object_bytes": 7660,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_map_popup.c",
+      "exit_code": 0,
+      "source_sha256": "5d464da732f8e1c465021d0dc2eca214b4862519b6ab0430c65d14eae20b4273",
+      "object_bytes": 3800,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_option_menu.c",
+      "exit_code": 1,
+      "source_sha256": "52a933291191c39f7c44d804fab00f7e1c71eed42352bb24026b526d8da0dd15",
+      "object_bytes": 0,
+      "diagnostics": "src/bw_option_menu.c:17:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   17 | #include \"Tables/hoenn_script_flags.h\"   /* HOENN_VAR_OVERWORLD_SPEED */\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/bw_party_menu.c",
+      "exit_code": 0,
+      "source_sha256": "1c96152c44dfc967d979e599032f9d6e7a0ad0e46fe5b117b667fcfd1fb90171",
+      "object_bytes": 1352,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_player_pal.c",
+      "exit_code": 0,
+      "source_sha256": "dc622f65f62ecffdc90d5ac14ccda8cfde5bbbf16c1152f3fc703ac92cc42741",
+      "object_bytes": 912,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_start_menu.c",
+      "exit_code": 1,
+      "source_sha256": "0f6a0f0af010886aafde24984871d3b5aedc48674fe436ea038c5c1bc5f53156",
+      "object_bytes": 0,
+      "diagnostics": "src/bw_start_menu.c:26:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   26 | #include \"Tables/hoenn_script_flags.h\"   /* HOENN_FLAG_CAN_GO_HOENN */\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/bw_summary_screen.c",
+      "exit_code": 0,
+      "source_sha256": "021d1e50633dcb3529d789385d0c1de3e8d65f9d63c18d08f298551de0aa6ef7",
+      "object_bytes": 46216,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_throwball.c",
+      "exit_code": 1,
+      "source_sha256": "b6907b4880989de914fd69fdf3323fae7017f6eb1a717380759c238224eb1e0f",
+      "object_bytes": 0,
+      "diagnostics": "src/bw_throwball.c:7:10: fatal error: bw_throwball_pos.h: No such file or directory\n    7 | #include \"bw_throwball_pos.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/catching.c",
+      "exit_code": 0,
+      "source_sha256": "b03b650f3e96fe46341b7db38854970f37fdaa756ae5a04c1479a62ad8f43ba2",
+      "object_bytes": 13268,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/character_customization.c",
+      "exit_code": 0,
+      "source_sha256": "6f246b40003a2e89f0451b6da531dfe6294ee44b2c0f23d560061164c4494609",
+      "object_bytes": 7696,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/cmd49.c",
+      "exit_code": 0,
+      "source_sha256": "dafe142d1a2d6cad23bf689802aed9a7e134ab40084a827abe3c340aa56a9dfe",
+      "object_bytes": 25272,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/damage_calc.c",
+      "exit_code": 0,
+      "source_sha256": "faf275d269244d40e6ec0aacb4be87a7dd149f6821d74e8225258e823548fa08",
+      "object_bytes": 66744,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/daycare.c",
+      "exit_code": 0,
+      "source_sha256": "6aa1ee563d85afe20536f5cf67c3c22d847da4e816eceebce0d37ebe5253e7d0",
+      "object_bytes": 9684,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/debug_menu.c",
+      "exit_code": 0,
+      "source_sha256": "fa5a802a73057dc8b1e63e8608011c7c451bd99000e79d09ea84b08a9e242bc9",
+      "object_bytes": 2932,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/derby.c",
+      "exit_code": 0,
+      "source_sha256": "c7e558bf2e9c0db557aa9afb305c60966c36bc738cc666497ca6c61faeaa359e",
+      "object_bytes": 28584,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/dexnav.c",
+      "exit_code": 0,
+      "source_sha256": "55038939b5e6210bdf67d84ced1f495bdb650151f37d87d6ae5a0c095fca36fc",
+      "object_bytes": 41836,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/dns.c",
+      "exit_code": 0,
+      "source_sha256": "234715d751e275eb71e163fd2aec7b373b2f5a24597f81e895fe1ef2902a07f6",
+      "object_bytes": 6864,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/dynamax.c",
+      "exit_code": 0,
+      "source_sha256": "824ec9d7d251c4f74e4d38d96959df5c55a8081c7b522516848f58bc8534578a",
+      "object_bytes": 32640,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/dynamic_ow_pals.c",
+      "exit_code": 0,
+      "source_sha256": "c2029988c702056473e922be0237d1c1c79262e1c4cae040d70fede83104cd2d",
+      "object_bytes": 5596,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/em_mining.c",
+      "exit_code": 0,
+      "source_sha256": "23a24a04abf1599da14ada1be0fb9c581d58e170468db48eca3c8e849983e79b",
+      "object_bytes": 27832,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/end_battle.c",
+      "exit_code": 0,
+      "source_sha256": "c029853c28570a7998ec9eef7a755ba94f8961325cb11eba60038d1645057df3",
+      "object_bytes": 10296,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/end_turn.c",
+      "exit_code": 0,
+      "source_sha256": "3833c146e8b7c78353e94f95389663ff3506861fb36a89081801808b26de1efa",
+      "object_bytes": 27868,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/evolution.c",
+      "exit_code": 0,
+      "source_sha256": "3a61f7c9e911e8cb6b3541b760ef700d2898499668d64614d471e6d67e7c8a21",
+      "object_bytes": 6764,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/exp.c",
+      "exit_code": 0,
+      "source_sha256": "4ce85017cca05a34bd0c9ec3e202c59b312305d27e0eac5b66f74205cdc4e171",
+      "object_bytes": 9320,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/exp_candy.c",
+      "exit_code": 0,
+      "source_sha256": "58a55fced21c161c0e422265e23be7590b264451b4d4a04508afa5116dbd1515",
+      "object_bytes": 3476,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/fcomp.c",
+      "exit_code": 1,
+      "source_sha256": "c0acf1bef3067e3155b8c1f4c8f020afedcd08ed378f2d0bf6e52b3450b53926",
+      "object_bytes": 0,
+      "diagnostics": "src/fcomp.c:2:10: fatal error: fcomp.h: No such file or directory\n    2 | #include \"fcomp.h\"\n      |          ^~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/fcomp_dpe.c",
+      "exit_code": 1,
+      "source_sha256": "a454c51dcd332c02662d7344cab37221eb4100983ce2e72ac518de7f0b792625",
+      "object_bytes": 0,
+      "diagnostics": "src/fcomp_dpe.c:2:10: fatal error: fcomp.h: No such file or directory\n    2 | #include \"fcomp.h\"\n      |          ^~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/field_effects.c",
+      "exit_code": 0,
+      "source_sha256": "d0d1c71fc1d6990e562a849f88b99164c861952ce1f7626c8cd396cb2a9e771b",
+      "object_bytes": 16904,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/follow_me.c",
+      "exit_code": 0,
+      "source_sha256": "990a4b7c2718efa5b9b65756d0543f02de65228c29b2e50d156b698c64517a9f",
+      "object_bytes": 22156,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/form_change.c",
+      "exit_code": 0,
+      "source_sha256": "9bcdb60c8bb178f6bb510617a3c36583ca330faaffbf791a4028e943c8366371",
+      "object_bytes": 7224,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/frontier.c",
+      "exit_code": 0,
+      "source_sha256": "a3cfd3174b1b4f3323a586530876c67511d8c22e491411ccfdac4445e469777c",
+      "object_bytes": 26348,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/frontier_records.c",
+      "exit_code": 0,
+      "source_sha256": "61a60e9efa28fb14860aa67d58f9c619f82989a2c0bcd4b9b805249ea71b12ff",
+      "object_bytes": 10148,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/game_corner_gacha.c",
+      "exit_code": 0,
+      "source_sha256": "a9f909ddb472983e489b48a4ce2be2624865161957457ddb12e3fa5d0f861a3c",
+      "object_bytes": 26772,
+      "diagnostics": "src/game_corner_gacha.c: In function 'SpriteCB_Null':\nsrc/game_corner_gacha.c:245:42: warning: unused parameter 'sprite' [-Wunused-parameter]\n  245 | static void SpriteCB_Null(struct Sprite *sprite)\n      |                           ~~~~~~~~~~~~~~~^~~~~~\nsrc/game_corner_gacha.c: In function 'GetPokemonOwned':\nsrc/game_corner_gacha.c:2359:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2359 |         for (i = 0; i < ARRAY_COUNT(sGachaBasicSpeciesCommon); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2364:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2364 |         for (i = 0; i < ARRAY_COUNT(sGachaBasicSpeciesUncommon); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2369:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2369 |         for (i = 0; i < ARRAY_COUNT(sGachaBasicSpeciesRare); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2374:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2374 |         for (i = 0; i < ARRAY_COUNT(sGachaBasicSpeciesUltraRare); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2381:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2381 |         for (i = 0; i < ARRAY_COUNT(sGachaGreatSpeciesCommon); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2386:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2386 |         for (i = 0; i < ARRAY_COUNT(sGachaGreatSpeciesUncommon); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2391:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2391 |         for (i = 0; i < ARRAY_COUNT(sGachaGreatSpeciesRare); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2396:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2396 |         for (i = 0; i < ARRAY_COUNT(sGachaGreatSpeciesUltraRare); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2403:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2403 |         for (i = 0; i < ARRAY_COUNT(sGachaUltraSpeciesCommon); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2408:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2408 |         for (i = 0; i < ARRAY_COUNT(sGachaUltraSpeciesUncommon); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2413:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2413 |         for (i = 0; i < ARRAY_COUNT(sGachaUltraSpeciesRare); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2418:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2418 |         for (i = 0; i < ARRAY_COUNT(sGachaUltraSpeciesUltraRare); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2425:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2425 |         for (i = 0; i < ARRAY_COUNT(sGachaMasterSpeciesCommon); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2430:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2430 |         for (i = 0; i < ARRAY_COUNT(sGachaMasterSpeciesUncommon); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2435:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2435 |         for (i = 0; i < ARRAY_COUNT(sGachaMasterSpeciesRare); i++)\n      |                       ^\nsrc/game_corner_gacha.c:2440:23: warning: comparison of integer expressions of different signedness: 'int' and 'unsigned int' [-Wsign-compare]\n 2440 |         for (i = 0; i < ARRAY_COUNT(sGachaMasterSpeciesUltraRare); i++)\n      |                       ^\nsrc/game_corner_gacha.c: At top level:\nsrc/game_corner_gacha.c:364:36: warning: 'sYesNoWinTemplate' defined but not used [-Wunused-const-variable=]\n  364 | static const struct WindowTemplate sYesNoWinTemplate =\n      |                                    ^~~~~~~~~~~~~~~~~\nsrc/game_corner_gacha.c:350:36: warning: 'sWinTemplates_EggHatch' defined but not used [-Wunused-const-variable=]\n  350 | static const struct WindowTemplate sWinTemplates_EggHatch[] =\n      |                                    ^~~~~~~~~~~~~~~~~~~~~~\n"
+    },
+    {
+      "path": "src/general_bs_commands.c",
+      "exit_code": 0,
+      "source_sha256": "a2abecd7faabd779933602cc0b4b21c5bc11c56e98a1375116488a9ea056a0f8",
+      "object_bytes": 77524,
+      "diagnostics": "src/general_bs_commands.c: In function 'TryActivateWeakenessBerry':\nsrc/general_bs_commands.c:363:85: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  363 |                         gBattlescriptCurrInstr = BattleScript_WeaknessBerryActivate - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/general_bs_commands.c:33:\nsrc/../include/new/item_battle_scripts.h:9:17: note: at offset -5 into object 'BattleScript_WeaknessBerryActivate' of size [0, 2147483647]\n    9 | extern const u8 BattleScript_WeaknessBerryActivate[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/general_bs_commands.c: In function 'atk0C_datahpupdate':\nsrc/general_bs_commands.c:930:99: warning: array subscript -2 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  930 |                                         gBattlescriptCurrInstr = BattleScript_IllusionBrokenFaint - 2;\n      |                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/general_bs_commands.c:14:\nsrc/../include/new/ability_battle_scripts.h:106:17: note: at offset -2 into object 'BattleScript_IllusionBrokenFaint' of size [0, 2147483647]\n  106 | extern const u8 BattleScript_IllusionBrokenFaint[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+    },
+    {
+      "path": "src/hack_affection.c",
+      "exit_code": 0,
+      "source_sha256": "3238f02737fe18f1c3da339dde86b116ffab28e4edcf2150bdde0e24b77691a0",
+      "object_bytes": 5068,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_bag_scroll.c",
+      "exit_code": 0,
+      "source_sha256": "0dc6d3c4b4e5561a0c7b9f8de0f9b96c59b5277e080aee25ef2f48604c997ae5",
+      "object_bytes": 1216,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_ball_change.c",
+      "exit_code": 0,
+      "source_sha256": "bc074186ab0aa2cd04edda1b99bb8d718b87cdd150069dc4635664dc44d36593",
+      "object_bytes": 1200,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_battle_speed.c",
+      "exit_code": 0,
+      "source_sha256": "e91ebbb28fdf10457192740f1d78ec04895fce647c686e09768b1691e8f98900",
+      "object_bytes": 1996,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_box_link.c",
+      "exit_code": 0,
+      "source_sha256": "22c0e5344eb1eaaec4fa939b6e711662c65b80ef714f23aecf181041ff01422a",
+      "object_bytes": 1560,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_box_shelf.c",
+      "exit_code": 0,
+      "source_sha256": "9a8ccae054dd65efcde2c6964c7548e427864d268123f3715d368ce495b8ab57",
+      "object_bytes": 8596,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_box_speed.c",
+      "exit_code": 0,
+      "source_sha256": "aa61fc73ac4c113351b1f74c8f985d9b123778e93b4de6dcaa9155cc9683184a",
+      "object_bytes": 1148,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_daisy_zigzagoon.c",
+      "exit_code": 0,
+      "source_sha256": "6620f3610c089f366aac9ea74ac337ddc5733694660278d405eaba604b64d655",
+      "object_bytes": 1528,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_danger_leaf.c",
+      "exit_code": 0,
+      "source_sha256": "1881d10ebb8a3c4a754a60dfe07257a2c33e5948d275e5b49aacca69e4cdf3dc",
+      "object_bytes": 1264,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_danger_sugar.c",
+      "exit_code": 0,
+      "source_sha256": "1f4e2f46f36556e85fea02b14463d1a387dd3319d58b27be1cea06e6b2e631f4",
+      "object_bytes": 1860,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_dex_habitat.c",
+      "exit_code": 0,
+      "source_sha256": "4694f0cd4486469acc6933ae1ee598921c36c4c0b60588eedb3df47db3ebc0d3",
+      "object_bytes": 1132,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_difficulty.c",
+      "exit_code": 1,
+      "source_sha256": "db7e8e25ff248630bfdfaf21ba490338a35ac6fc021725074ec28913ddbaf58e",
+      "object_bytes": 0,
+      "diagnostics": "src/hack_difficulty.c:7:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    7 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hack_dragon_boulder.c",
+      "exit_code": 0,
+      "source_sha256": "6e805c9e9f2e66b89bfb3e328892f35c4830813dac7d64947afe04a1e3582811",
+      "object_bytes": 1404,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_ev_reset.c",
+      "exit_code": 0,
+      "source_sha256": "8fb632a2d434d09e92c587a521bb45a62bcf1e8de7bb32b04ba26c628da8e5ad",
+      "object_bytes": 2116,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_ext_save.c",
+      "exit_code": 0,
+      "source_sha256": "fb4ff5d016f262b8d0144ead59467cf8d89ee3ccc0fbd3f54f11c207f835bb25",
+      "object_bytes": 1968,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_friend_ot.c",
+      "exit_code": 0,
+      "source_sha256": "9dddcd0fd505f2d2cad71caaab0f5b4d85d71a913c438e6a8ec5b67fc6d4c3d1",
+      "object_bytes": 1524,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_full_tutor.c",
+      "exit_code": 0,
+      "source_sha256": "45f3ea3c21d20d18f7cd21a6e32df3089ac5fb049eb4e63e3791191646fce57f",
+      "object_bytes": 1848,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_gender_tool.c",
+      "exit_code": 0,
+      "source_sha256": "be39e8fd01eba7447a3223ba409e75d8e0fdfc3123fcec7933bfaa1781cde376",
+      "object_bytes": 2424,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_gible_egg.c",
+      "exit_code": 0,
+      "source_sha256": "6fa3f192f0deceab627a3204cba7dc3ef872cbfac8f2b3338334790fcbd86e61",
+      "object_bytes": 2384,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_gift_shiny.c",
+      "exit_code": 0,
+      "source_sha256": "a57f76cc1de1edeee72c06414e419dc55064a11ec0a8e834f8578ffd708b7948",
+      "object_bytes": 1132,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_golden_wedding.c",
+      "exit_code": 0,
+      "source_sha256": "120c442bdd2b6e62033b5dc53f4715fe7326451bc61f21146fb646d6ce94c129",
+      "object_bytes": 1360,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_habitat_switch.c",
+      "exit_code": 1,
+      "source_sha256": "865fbf0dccd9326a4b6322106b8e656acd0005d0f94ca90b7e9bebe7699745d9",
+      "object_bytes": 0,
+      "diagnostics": "src/hack_habitat_switch.c:10:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   10 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hack_hoenn_battle_music.c",
+      "exit_code": 1,
+      "source_sha256": "67d4883bf2a8e960c209485e53d3efc1e0e32e05a490b48a1da8d3b47cf31609",
+      "object_bytes": 0,
+      "diagnostics": "src/hack_hoenn_battle_music.c:9:10: fatal error: Tables/hoenn_battle_music.h: No such file or directory\n    9 | #include \"Tables/hoenn_battle_music.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hack_jirachi.c",
+      "exit_code": 0,
+      "source_sha256": "633d200ee77b12acb7b7e31a798c2a7c9a3824affc5ab04b9108d4b77ec4ef24",
+      "object_bytes": 1588,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_kanto_dynamax.c",
+      "exit_code": 0,
+      "source_sha256": "2b5cb0c11aeb96e493576acc4c8e94aef1e932353366e54ecef8f960d24b7d8c",
+      "object_bytes": 1040,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_legend_raid.c",
+      "exit_code": 0,
+      "source_sha256": "1e221fc7c51de6a853d911a6f7be830e43503026d3d0cc921f50acdb5b763ecb",
+      "object_bytes": 2332,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_level_down.c",
+      "exit_code": 0,
+      "source_sha256": "5f67dbaa3f780d4a280bb4a91a1dd59fb880f9090830538f2da20e275ab6924d",
+      "object_bytes": 2268,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_link_lag.c",
+      "exit_code": 0,
+      "source_sha256": "1363d10c3a4cb2649be88df0aeaf8b6764c8ed9371f4d90c29b37899ce2812b4",
+      "object_bytes": 932,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_meteorite.c",
+      "exit_code": 0,
+      "source_sha256": "84682d684b985a97d7f41e89433d2f22970f9d4e08df349c04d84a0ea7469420",
+      "object_bytes": 1332,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_moemon_fossil.c",
+      "exit_code": 0,
+      "source_sha256": "e7d54cd77564d4bf18f04aba0a4e3eabcc526b66e3d6cc57fa191c67bfa16ea3",
+      "object_bytes": 1500,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_moemon_switch.c",
+      "exit_code": 0,
+      "source_sha256": "70f3bcba4f134c944ed07ee917864884199c88684e215fac2d3e5e11fb7e749f",
+      "object_bytes": 2848,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_mom_savings.c",
+      "exit_code": 0,
+      "source_sha256": "0aa70370e4bd70c04ac1f0f605687f141704b94db25f9b79d770af105281cb7b",
+      "object_bytes": 5504,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_momo_ice.c",
+      "exit_code": 0,
+      "source_sha256": "6cb92bdb7551da69303f09113f2d319c4571812aba20aae7dda1a9f964a61673",
+      "object_bytes": 1876,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_mon_id.c",
+      "exit_code": 0,
+      "source_sha256": "2271fdb2287590a6d8ca260e2ca35fa15229ee39d703a65b5e2e77a274fbfc4f",
+      "object_bytes": 3952,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_mystery_gift.c",
+      "exit_code": 0,
+      "source_sha256": "2c3bcf6243bc8cc258ad2e53398f7e2a333fd010bbcd1298ac8896b0405ceca2",
+      "object_bytes": 2416,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_npc_text_color.c",
+      "exit_code": 1,
+      "source_sha256": "cd449ec74307c96db1ec5bce70a9dfdf44650e5c234c168c7306d998a29eb14d",
+      "object_bytes": 0,
+      "diagnostics": "src/hack_npc_text_color.c:5:10: fatal error: Tables/npc_text_colors.h: No such file or directory\n    5 | #include \"Tables/npc_text_colors.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hack_oak_intro.c",
+      "exit_code": 0,
+      "source_sha256": "e3b96a56e5049b17c743cb8c85dd79818d37fe24864e0be69b00ce9225e78680",
+      "object_bytes": 1248,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_packed_layout.c",
+      "exit_code": 0,
+      "source_sha256": "a0c2de624bf9c81954f8258a0f4af6e2a093ffc6de90d39610042c3360e11344",
+      "object_bytes": 2168,
+      "diagnostics": "src/hack_packed_layout.c: In function 'FillNorthConnection':\nsrc/hack_packed_layout.c:163:57: warning: unused parameter 'mapHeader' [-Wunused-parameter]\n  163 | static void FillNorthConnection(const struct MapHeader* mapHeader, const struct MapHeader* connectedMapHeader, s32 offset)\n      |                                 ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~\nsrc/hack_packed_layout.c: In function 'FillWestConnection':\nsrc/hack_packed_layout.c:189:56: warning: unused parameter 'mapHeader' [-Wunused-parameter]\n  189 | static void FillWestConnection(const struct MapHeader* mapHeader, const struct MapHeader* connectedMapHeader, s32 offset)\n      |                                ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~\n"
+    },
+    {
+      "path": "src/hack_regi.c",
+      "exit_code": 0,
+      "source_sha256": "8e95bc90266810375e56b4e5e07fbddfdf98621ac993cd6dc3a7dc2210a3638b",
+      "object_bytes": 1268,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_save_crypt.c",
+      "exit_code": 0,
+      "source_sha256": "b319ae7791162497cb1f131365d10df608825a0687047701a3ba04b2d8d2ae30",
+      "object_bytes": 1504,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_save_slot.c",
+      "exit_code": 0,
+      "source_sha256": "05b899bec5b9bd23ac9ce0361b21ed8e328f0e344ea59d5f54a0b55ee2558373",
+      "object_bytes": 6280,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_scsd.c",
+      "exit_code": 0,
+      "source_sha256": "00cc9b4f800f9c76ae41d4b3fce8b52f969af51273751fa5fcf4a20c65a9535b",
+      "object_bytes": 4240,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_shining_charm.c",
+      "exit_code": 0,
+      "source_sha256": "45ae9b49933dcb3f65621685deae8b147eacc3b6664a045ea0b8b6d5ef42d657",
+      "object_bytes": 1704,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_split_pics.c",
+      "exit_code": 0,
+      "source_sha256": "6fc5d250f54e74b7d29f3cd2832a262221ac40c7e7c7b072f8868d3be466622c",
+      "object_bytes": 1344,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_story_partner.c",
+      "exit_code": 0,
+      "source_sha256": "9ea31be75cdae763a9b69390c2e0cfcc3f8f1a530261e99faef71ccbb8b81f49",
+      "object_bytes": 1616,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_tera_changer.c",
+      "exit_code": 0,
+      "source_sha256": "85022b929344e4216b1105ded615c9f9860e5aec68992d4de46faa634565cb7f",
+      "object_bytes": 3428,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_thirsty_girl.c",
+      "exit_code": 0,
+      "source_sha256": "b6fc4bd46e4811976cfb4889ce5e29238213b81924f501d4ef4529f3ba71bd0f",
+      "object_bytes": 1088,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_title_mouth.c",
+      "exit_code": 0,
+      "source_sha256": "68d9783b0c14622eed5817f88a1c4aa8e146ba83ec82648f2036a5981f482eec",
+      "object_bytes": 1480,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_training_pouch.c",
+      "exit_code": 0,
+      "source_sha256": "a4422427d493b92b293bcfe4adac46637bc18f1b9f6496799478bf0656375e29",
+      "object_bytes": 5332,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_vanilla_tutor.c",
+      "exit_code": 1,
+      "source_sha256": "8fd1fbb0b10c262950a5f5c8f0ab624ffdb5cb2b16a5bea9f88a57467c576d66",
+      "object_bytes": 0,
+      "diagnostics": "src/hack_vanilla_tutor.c:25:10: fatal error: Tables/hack_vanilla_tutor_compat.h: No such file or directory\n   25 | #include \"Tables/hack_vanilla_tutor_compat.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hack_wonder_trade.c",
+      "exit_code": 1,
+      "source_sha256": "8677a1b3e214ea690cfb346331e32a5e477738c1e96db0e46861bc9aa16b0fd0",
+      "object_bytes": 0,
+      "diagnostics": "src/hack_wonder_trade.c:14:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   14 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hack_xram.c",
+      "exit_code": 0,
+      "source_sha256": "f172a35fa026fdf3ca145db0a02e6ed9e53715e9b8485de05b72d05106f326ff",
+      "object_bytes": 792,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hall_of_fame.c",
+      "exit_code": 0,
+      "source_sha256": "44be54b77aa0434fdf4b8aa63cd7fee10e1d0346daeb5b6ec117717d5710bb03",
+      "object_bytes": 7288,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_abnormal_weather.c",
+      "exit_code": 1,
+      "source_sha256": "75952ff35228a9e5cf26de91989382b3e3f4522080bf1c409fcc90235c80ff7f",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_abnormal_weather.c:4:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    4 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_arena.c",
+      "exit_code": 1,
+      "source_sha256": "84d457ad81e6ac38a8d72250c7ff5bce01e7770f3f11aef22bed9a0dda6654e8",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_arena.c:7:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    7 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_bike.c",
+      "exit_code": 1,
+      "source_sha256": "4395c81f3b96a4182cff2587f15c8b6ac8c52bb82a583be411619a2d2f327c26",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_bike.c:8:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    8 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_cable_car.c",
+      "exit_code": 0,
+      "source_sha256": "ff6a2d27831011b54c9bce450709b7024b8ff33f84e5699cabd8af471e1a1670",
+      "object_bytes": 15164,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_dome.c",
+      "exit_code": 1,
+      "source_sha256": "deebc5b067757b38460a101dc9c45fcbcd5ff7c5c633314605ac36f773f6576b",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_dome.c:33:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   33 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_dome_anim.c",
+      "exit_code": 0,
+      "source_sha256": "8978163faf975be702255bc9b887ab627d06242dccb5e3cc4b9d3040cdebd9e3",
+      "object_bytes": 1388,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_factory.c",
+      "exit_code": 1,
+      "source_sha256": "5886277a24d9d870121bc2596e050b280f71e8177e5aa07929df3a8ab81e452c",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_factory.c:8:10: fatal error: hoenn_factory_data.h: No such file or directory\n    8 | #include \"hoenn_factory_data.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_factory_screen.c",
+      "exit_code": 1,
+      "source_sha256": "04574593edc48446d6a1a389a7e8326614dd103a87e121bc0925a2d3fd367b3f",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_factory_screen.c:25:10: fatal error: hoenn_factory_gfx.h: No such file or directory\n   25 | #include \"hoenn_factory_gfx.h\"   /* 絵と文字（tools/frontier/build_frontier_factory.py の生成物） */\n      |          ^~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_flash.c",
+      "exit_code": 0,
+      "source_sha256": "22b173f34fd14f92988939c403f65089de33221a444a3ca64f7ee6671941a857",
+      "object_bytes": 812,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_frontier.c",
+      "exit_code": 1,
+      "source_sha256": "e4ee50d856f26811d070b2f7146c70718dfdb6d4a5ded4cb4a2ed72c3e4be224",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_frontier.c:9:10: fatal error: hoenn_frontier_data.h: No such file or directory\n    9 | #include \"hoenn_frontier_data.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_gates.c",
+      "exit_code": 1,
+      "source_sha256": "d2f1d0ec27ffffe060cefdd16f16fe50c7d208e431d6262d0df2b8fae4b29c0f",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_gates.c:10:10: fatal error: Tables/hoenn_gates.h: No such file or directory\n   10 | #include \"Tables/hoenn_gates.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_gym_puzzles.c",
+      "exit_code": 1,
+      "source_sha256": "5348f353432f38c1a8fc9c142f54bc0569adcee80ab9822063bd106d95763818",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_gym_puzzles.c:11:10: fatal error: Tables/hoenn_gym_puzzles.h: No such file or directory\n   11 | #include \"Tables/hoenn_gym_puzzles.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_islands.c",
+      "exit_code": 1,
+      "source_sha256": "92ff2e46ffbf58a2853f37c51b37c2563b9a4391a58d7cc4faf0e24d3494eb20",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_islands.c:11:10: fatal error: Tables/hoenn_islands.h: No such file or directory\n   11 | #include \"Tables/hoenn_islands.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_league.c",
+      "exit_code": 1,
+      "source_sha256": "7e36a8622916dbe963e647f617aa106605f49b512aec226029e00885b8a31987",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_league.c:6:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    6 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_music.c",
+      "exit_code": 1,
+      "source_sha256": "bab47e59d3121c60da6f2d0f339f0abc8adabb609301b1626c63bee1d8da6a4a",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_music.c:4:10: fatal error: Tables/hoenn_music.h: No such file or directory\n    4 | #include \"Tables/hoenn_music.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_palace.c",
+      "exit_code": 1,
+      "source_sha256": "2643e8708b41dd4493650ff47c7de3772b9f63decd30407a4e83bc05080f01a1",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_palace.c:10:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   10 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_pc_monitor.c",
+      "exit_code": 1,
+      "source_sha256": "34c603867db16bf9807fbdd9f858fd88acc064b287bcf34dc57b6c96772d7cab",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_pc_monitor.c:4:10: fatal error: Tables/hoenn_pc_monitor.h: No such file or directory\n    4 | #include \"Tables/hoenn_pc_monitor.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_pike.c",
+      "exit_code": 1,
+      "source_sha256": "aa37efb94dbc5a59f9e44614332bfe756d29d8f93d3752464ce14096d3a256fd",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_pike.c:16:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   16 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_pyramid.c",
+      "exit_code": 1,
+      "source_sha256": "1c3c4f129dda7619b86758c73072e60e97fafa00275c30715d87fdfaef60e657",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_pyramid.c:22:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   22 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_safari.c",
+      "exit_code": 0,
+      "source_sha256": "57ca4db220beb4ddfffbf4a5c3635fe825393419d3b0ccfdf17aaf57b2e96fdd",
+      "object_bytes": 864,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_sky_pillar.c",
+      "exit_code": 1,
+      "source_sha256": "e72002d376954e7d160d3e412e42d63a0f79d913f9adf08fc1cdfbf95e5dc799",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_sky_pillar.c:6:10: fatal error: Tables/hoenn_gym_puzzles.h: No such file or directory\n    6 | #include \"Tables/hoenn_gym_puzzles.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_steps.c",
+      "exit_code": 1,
+      "source_sha256": "8146b64648c203d0c8670fdd1c874793803c760e5efeeb0a3c40ba3b366a52f0",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_steps.c:13:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   13 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_tileset_anim.c",
+      "exit_code": 0,
+      "source_sha256": "8f855968b9b5d6512c405d7528f1b5de409c5c9663b6558faf96d3b624641e8a",
+      "object_bytes": 860,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_tower.c",
+      "exit_code": 1,
+      "source_sha256": "ed2203335a35522e2b7fad8dd0ccc15522d74cf0be14efb5584eddcf1f699d80",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_tower.c:16:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   16 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_townmap.c",
+      "exit_code": 1,
+      "source_sha256": "eee3ac4e765d5a3ed30d4456896e74e0fd76aeb755648b96a23590aa51d36482",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_townmap.c:7:10: fatal error: Tables/hoenn_fly.h: No such file or directory\n    7 | #include \"Tables/hoenn_fly.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_trainer_flags.c",
+      "exit_code": 0,
+      "source_sha256": "6ba4689c7c72398f4dbda5ff28d7273bed6a0307e39a33c9b21196ef00fd2c78",
+      "object_bytes": 1668,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_trainer_hill.c",
+      "exit_code": 1,
+      "source_sha256": "1fdc571b4aae4f7129c72d5e0ac2d3450c951527a3ff9540236167e095875cca",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_trainer_hill.c:16:10: fatal error: hoenn_trainer_hill_data.h: No such file or directory\n   16 | #include \"hoenn_trainer_hill_data.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_warps.c",
+      "exit_code": 1,
+      "source_sha256": "47c485d394a90641852a1a326f7ee80021c90c5e32d1ba3736506826b664e094",
+      "object_bytes": 0,
+      "diagnostics": "src/hoenn_warps.c:3:10: fatal error: Tables/hoenn_warps.h: No such file or directory\n    3 | #include \"Tables/hoenn_warps.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/hoenn_weather.c",
+      "exit_code": 0,
+      "source_sha256": "0cf1ac1ebe62089da7c38e7878f3a6bb5a9a014fa04c2ce1b294aa62e685906d",
+      "object_bytes": 1064,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/item.c",
+      "exit_code": 0,
+      "source_sha256": "136052d94cc017b71546c2740aa08ac9e3d89cce249c1d64393cc3fa074e704b",
+      "object_bytes": 24452,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/item_battle_effects.c",
+      "exit_code": 0,
+      "source_sha256": "8f5e572024983c228f668df7f7ecc100a2645d6c330e987c52267b387853ea2c",
+      "object_bytes": 21144,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/kagenonakani_follower.c",
+      "exit_code": 0,
+      "source_sha256": "f5931d59092ddf17bedcbb0ff2c869ee796a4b062a784c2f0ee007d1833dcdb5",
+      "object_bytes": 2280,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/kanto_mom_pikachu.c",
+      "exit_code": 0,
+      "source_sha256": "b1e1fa9f7a678d1becf056b49d9a33057912914b0a1f045dafc6eb6b781ed06a",
+      "object_bytes": 1864,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/learn_move.c",
+      "exit_code": 0,
+      "source_sha256": "110c3196a19f7197933fdfaff7286f92219aa1e2ba84d4833aab7fb0f5e58369",
+      "object_bytes": 6552,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/link.c",
+      "exit_code": 0,
+      "source_sha256": "b443d1b3716e36dfe653a05d1f879f9340ddb41a137718bf526e05609d721c6d",
+      "object_bytes": 1616,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/map_region.c",
+      "exit_code": 1,
+      "source_sha256": "750ee6581efac2f7757f73d29b957857218b3fe5891a0874ade5d40f780ca8aa",
+      "object_bytes": 0,
+      "diagnostics": "src/map_region.c:3:10: fatal error: Tables/sinnoh_townmap.h: No such file or directory\n    3 | #include \"Tables/sinnoh_townmap.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/mega.c",
+      "exit_code": 0,
+      "source_sha256": "264b927ebb81159a711a96fe6621e3c269ab4a13f1e2b40c1f7df37341a54dda",
+      "object_bytes": 7004,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/mega_shop.c",
+      "exit_code": 1,
+      "source_sha256": "7eb401026e73f7a11417ad7467da95b09bd3e6953a51326a83a7bf9452627fa4",
+      "object_bytes": 0,
+      "diagnostics": "src/mega_shop.c:13:10: fatal error: Tables/mega_shop_items.h: No such file or directory\n   13 | #include \"Tables/mega_shop_items.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/mgba.c",
+      "exit_code": 0,
+      "source_sha256": "15df7af7be84ec939537af6068fd2c1aa93a7a8ea5f808f110ca552a5fc2392f",
+      "object_bytes": 1248,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/move_menu.c",
+      "exit_code": 0,
+      "source_sha256": "ca165e85902c51e39f33d4e2311f8a19f77098e488897f48b1419aeb6849c38d",
+      "object_bytes": 34504,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/multi.c",
+      "exit_code": 0,
+      "source_sha256": "9672e20d0060fc502c9625f752311579268f6914ac9dfb0989adf91fcd5c87cc",
+      "object_bytes": 14840,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/music_player.c",
+      "exit_code": 0,
+      "source_sha256": "2d29719484ded49ea77d45d1c47aae0ae108b3baedd067003eaaada8e3cc4720",
+      "object_bytes": 2588,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/new_bs_commands.c",
+      "exit_code": 0,
+      "source_sha256": "5d76739dac2e80be30c75c46803f270932f27558c62eb155cc11e7ba8f52ded8",
+      "object_bytes": 28592,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/overworld.c",
+      "exit_code": 0,
+      "source_sha256": "63b732bef00194177af87539c6c6e53e450227781aea4a2b98b48b0798faba91",
+      "object_bytes": 31248,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/overworld_speedup.c",
+      "exit_code": 1,
+      "source_sha256": "8fc992559ec84c482fde7a3660f41a8fe2adade95930e0be90490aad7226581f",
+      "object_bytes": 0,
+      "diagnostics": "src/overworld_speedup.c:12:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   12 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/party_menu.c",
+      "exit_code": 0,
+      "source_sha256": "5be8360894046d60594104331f397250e9878c3090a133b22b9455cbc13d10f0",
+      "object_bytes": 36860,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/play_clock.c",
+      "exit_code": 1,
+      "source_sha256": "f918165d451f80c62eeb8c7ebaae93a0f979f4757415fb7690489a774bd41f69",
+      "object_bytes": 0,
+      "diagnostics": "src/play_clock.c:6:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    6 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/pokemon_storage_system.c",
+      "exit_code": 0,
+      "source_sha256": "730e6d881d8ad1fb55711b616e0fdc2c717d06d5cd5a67348831965c91d3f1f0",
+      "object_bytes": 7920,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/pokemon_summary_screen.c",
+      "exit_code": 0,
+      "source_sha256": "01a29514991b5910dbe089121eff71f81b4ef5d9ca893121fba708a58043acbe",
+      "object_bytes": 4284,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/raid_intro.c",
+      "exit_code": 0,
+      "source_sha256": "f2ebdbb31df76fedf65182f0110a1e2214ba015c20155fd05739d08f45e7df37",
+      "object_bytes": 10192,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/read_keys.c",
+      "exit_code": 0,
+      "source_sha256": "e376dd71017eb99d134122df190663d5cf4dc0940215a832968d1dd7736a741f",
+      "object_bytes": 5084,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/region_fly.c",
+      "exit_code": 0,
+      "source_sha256": "2b6791d23f68e22a402d830e59ce04c2f7ef0268b874a4b01c6da650cccda43b",
+      "object_bytes": 2496,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/rindoris_follower.c",
+      "exit_code": 0,
+      "source_sha256": "bd17f3f100b3a20308237bb94028128a69ae1b38cd7cc54ec73cf959a740f878",
+      "object_bytes": 2272,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/roamer.c",
+      "exit_code": 1,
+      "source_sha256": "b621d11be7dcfc82945ee1f90fc467c78ba5c4549f2a17128f7bb1fac50315a0",
+      "object_bytes": 0,
+      "diagnostics": "src/roamer.c:19:10: fatal error: Tables/hoenn_roamer_locations.h: No such file or directory\n   19 | #include \"Tables/hoenn_roamer_locations.h\" //[hack] patches/0093: ラティ兄妹のホウエンの徘徊（tools/rom/build_hoenn_roamers.py）\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/rtc.c",
+      "exit_code": 0,
+      "source_sha256": "326140a013526e92a4c6ac4ebf8895579662424738e194c5cf40b73975ab1a88",
+      "object_bytes": 4232,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/save.c",
+      "exit_code": 0,
+      "source_sha256": "9071e81a5cea158f3379275c7c66322f630a31e709e43ee0c5f9faa0e490649e",
+      "object_bytes": 5668,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/scripting.c",
+      "exit_code": 0,
+      "source_sha256": "869075d8df47208483c524b7e81e363889bfa2cf5c486d343b3489ed07e64e32",
+      "object_bytes": 32508,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/second_ability.c",
+      "exit_code": 1,
+      "source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+      "object_bytes": 0,
+      "diagnostics": "src/second_ability.c:7:10: fatal error: Tables/second_abilities.h: No such file or directory\n    7 | #include \"Tables/second_abilities.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/set_effect.c",
+      "exit_code": 0,
+      "source_sha256": "11c1edcf18d5653886c84c6bcad55bd6a9494faac0a009beb3d0a55ac4cca508",
+      "object_bytes": 13060,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/set_z_effect.c",
+      "exit_code": 0,
+      "source_sha256": "dbf7b8914873180842b748671bbcd70660a96588713653b3e20a84cb6bddf7a8",
+      "object_bytes": 5584,
+      "diagnostics": "src/set_z_effect.c: In function 'SetZEffect':\nsrc/set_z_effect.c:163:89: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  163 |                         gBattlescriptCurrInstr = BattleScript_SetUpHealReplacementZMove - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/set_z_effect.c:15:\nsrc/../include/new/z_move_battle_scripts.h:18:11: note: at offset -5 into object 'BattleScript_SetUpHealReplacementZMove' of size [0, 2147483647]\n   18 | extern u8 BattleScript_SetUpHealReplacementZMove[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/set_z_effect.c:156:86: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  156 |                                 gBattlescriptCurrInstr = BattleScript_RecoverHPZMove - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/z_move_battle_scripts.h:16:11: note: at offset -5 into object 'BattleScript_RecoverHPZMove' of size [0, 2147483647]\n   16 | extern u8 BattleScript_RecoverHPZMove[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/set_z_effect.c:148:77: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  148 |                         gBattlescriptCurrInstr = BattleScript_FollowMeZMove - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/z_move_battle_scripts.h:15:11: note: at offset -5 into object 'BattleScript_FollowMeZMove' of size [0, 2147483647]\n   15 | extern u8 BattleScript_FollowMeZMove[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/set_z_effect.c:140:87: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  140 |                                 gBattlescriptCurrInstr = BattleScript_BoostCritsZMove - 5;\n      |                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/z_move_battle_scripts.h:14:11: note: at offset -5 into object 'BattleScript_BoostCritsZMove' of size [0, 2147483647]\n   14 | extern u8 BattleScript_BoostCritsZMove[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/set_z_effect.c:101:79: warning: array subscript -5 is outside array bounds of 'u8[2147483647]' {aka 'unsigned char[2147483647]'} [-Warray-bounds=]\n  101 |                         gBattlescriptCurrInstr = BattleScript_StatsResetZMove - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/../include/new/z_move_battle_scripts.h:10:11: note: at offset -5 into object 'BattleScript_StatsResetZMove' of size [0, 2147483647]\n   10 | extern u8 BattleScript_StatsResetZMove[];\n      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+    },
+    {
+      "path": "src/sideways_stairs.c",
+      "exit_code": 1,
+      "source_sha256": "91da0fd16e7a82493232b7c9aca138fd84f61591ccb7229cc83a768e201c3c2b",
+      "object_bytes": 0,
+      "diagnostics": "src/sideways_stairs.c:7:10: fatal error: Tables/sideways_stairs_table.h: No such file or directory\n    7 | #include \"Tables/sideways_stairs_table.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/siirtc.c",
+      "exit_code": 0,
+      "source_sha256": "90a73c349d6312115f27cda511c830e5d2714063cc7665c496fd9b814e82b8c5",
+      "object_bytes": 2372,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/sinnoh_eterna_gym.c",
+      "exit_code": 1,
+      "source_sha256": "6f8db26a124fd6acdb18acf20867e935478f2bd9a85461a9b69844c7ac25d84a",
+      "object_bytes": 0,
+      "diagnostics": "src/sinnoh_eterna_gym.c:6:10: fatal error: Tables/sinnoh_eterna_clock.h: No such file or directory\n    6 | #include \"Tables/sinnoh_eterna_clock.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/start_menu.c",
+      "exit_code": 0,
+      "source_sha256": "700af269542ac04ea38f2d8223e198ce4d23d8541a7ba8f441c28c219a065b14",
+      "object_bytes": 7100,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/stat_buffs.c",
+      "exit_code": 0,
+      "source_sha256": "93bde0923086a8db4467e5b1912c442fbb6fd2b0f96bccfa2ac36c600e877e31",
+      "object_bytes": 8496,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/switching.c",
+      "exit_code": 0,
+      "source_sha256": "ea85fc94f17862264a761c710db0f70a74eec43b5290814c190f84971c4f99d8",
+      "object_bytes": 22064,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/back_pic_tables.c",
+      "exit_code": 0,
+      "source_sha256": "9c5abfd8a1a7216e024083fd5c1c0a542745e7c87111eb2d4c688ba68fbaa79b",
+      "object_bytes": 1640,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/ball_graphics_tables.c",
+      "exit_code": 0,
+      "source_sha256": "c0174357983d823ad2164ff87521874a5d3b8105a68bd498b8044f977a363161",
+      "object_bytes": 8328,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/base_stats.c",
+      "exit_code": 0,
+      "source_sha256": "a0a108eea644a13b3fb5866050891fdbf44d805551b131b11157c01e8a95e696",
+      "object_bytes": 672,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/battle_frontier_trainers.c",
+      "exit_code": 1,
+      "source_sha256": "13425947d53b444701ba370b27c96b018cfcba70b4988f6ced4e8dfd25e8b38b",
+      "object_bytes": 0,
+      "diagnostics": "src/Tables/battle_frontier_trainers.c:2291:18: fatal error: hoenn_frontier_trainers.h: No such file or directory\n 2291 |         #include \"hoenn_frontier_trainers.h\"\n      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/Tables/battle_moves.c",
+      "exit_code": 0,
+      "source_sha256": "3e4055a52b5ac3880465f7bea02ab7dab28935a651e4f6bbec704678f139ccce",
+      "object_bytes": 13836,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/class_based_pokeball_table.c",
+      "exit_code": 0,
+      "source_sha256": "8a6e4354b208835d2660a4e5db30f6f24e6eade42c7615c81a654bb749a2adfe",
+      "object_bytes": 908,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/experience_tables.c",
+      "exit_code": 0,
+      "source_sha256": "0d48d665ec7cac63eaa571a5a2b8dc169884fce48ddc9c977607458e85a14b7f",
+      "object_bytes": 6940,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/item_tables.c",
+      "exit_code": 0,
+      "source_sha256": "ebaa822e546822c0d10c93c5da02b43f6511d72e89a90fe0d692fbf27689d4f9",
+      "object_bytes": 120852,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/level_up_learnsets.c",
+      "exit_code": 0,
+      "source_sha256": "c619fcc8e907f1efd018f69768ba917f67ea079b5151c8790d8283c9c1385432",
+      "object_bytes": 680,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/mugshot_tables.c",
+      "exit_code": 1,
+      "source_sha256": "8d196b4f681623dc2fb882154b964d79d1cca91f37e9d3d002b1cecd1720a062",
+      "object_bytes": 0,
+      "diagnostics": "src/Tables/mugshot_tables.c:4:10: fatal error: bw_mugshot_gfx.h: No such file or directory\n    4 | #include \"bw_mugshot_gfx.h\" //#20 BW protagonist (tools/bwplayer/build_bw_mugshot.py)\n      |          ^~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/Tables/music_tables.c",
+      "exit_code": 0,
+      "source_sha256": "461a6b803e828cc66ee7f5f4bc543503823e363d961fbed6cf912f1224ed9cc4",
+      "object_bytes": 2032,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/pokemon_tables.c",
+      "exit_code": 0,
+      "source_sha256": "e3628a0affe9da2c1ffae5e7c67b74073270d82a1dba729f26854b80e0209437",
+      "object_bytes": 6460,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/terrain_tables.c",
+      "exit_code": 0,
+      "source_sha256": "837fa7d44b9072e6bd12679b97e9f6ea9502e803bd7a7d3f05a0593a0f65f6f6",
+      "object_bytes": 1780,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/wild_encounter_tables.c",
+      "exit_code": 0,
+      "source_sha256": "b952ab5da315d27fedd9dc989850bb87a3b4c3b65997151f1e6ed44357df20c7",
+      "object_bytes": 1136520,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/tall_trainer_pic.c",
+      "exit_code": 1,
+      "source_sha256": "7bf253e3dd6f84415d1607b81b06e6c90dd83a7aee5c435707837c29f95d3747",
+      "object_bytes": 0,
+      "diagnostics": "src/tall_trainer_pic.c:6:10: fatal error: Tables/tall_trainer_pics.h: No such file or directory\n    6 | #include \"Tables/tall_trainer_pics.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/terastal.c",
+      "exit_code": 0,
+      "source_sha256": "58013ece58fe3ee3f103a66991668c686bd04ce093ef71d48e41e8990a61bb0f",
+      "object_bytes": 5496,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/text_printer.c",
+      "exit_code": 0,
+      "source_sha256": "75a5a424e772eb0900b2355510cfcfaeb0842c002e1ac2e97825dfd6bc2e60be",
+      "object_bytes": 1600,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/trainer_sliding.c",
+      "exit_code": 0,
+      "source_sha256": "d4de70b96e53258b667aa439374597a9a13899cd44b4a0d6e9faee51bb42e5e6",
+      "object_bytes": 4368,
+      "diagnostics": "src/trainer_sliding.c: In function 'TryDoDynamaxTrainerSlide':\nsrc/trainer_sliding.c:241:66: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  241 |         gBattlescriptCurrInstr = BattleScript_TrainerSlideMsgRet - 5;\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/trainer_sliding.c:9:\nsrc/../include/new/trainer_sliding_data.h:11:17: note: at offset -5 into object 'BattleScript_TrainerSlideMsgRet' of size [0, 2147483647]\n   11 | extern const u8 BattleScript_TrainerSlideMsgRet[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+    },
+    {
+      "path": "src/util.c",
+      "exit_code": 0,
+      "source_sha256": "a5a6ce84ce345fa252c6470d52277781094c25025fdaaf5ea9ced75ccf592827",
+      "object_bytes": 7056,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/wild_encounter.c",
+      "exit_code": 0,
+      "source_sha256": "75ea7e261a6183106488b634b1f3f9815ba6208da489d5a6ae73fb4304d09291",
+      "object_bytes": 17636,
+      "diagnostics": ""
+    },
+    {
+      "path": "src/wild_mega_stone.c",
+      "exit_code": 1,
+      "source_sha256": "9d4637e8b76c1cad6b0ab00ceab4790bf1275298e2dbbaac256650a36f14f7ac",
+      "object_bytes": 0,
+      "diagnostics": "src/wild_mega_stone.c:3:10: fatal error: Tables/wild_mega_stones.h: No such file or directory\n    3 | #include \"Tables/wild_mega_stones.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    },
+    {
+      "path": "src/wild_shuffle.c",
+      "exit_code": 1,
+      "source_sha256": "2e29b39595a2eb8ddbfd2ea3310553f21f8289aae885850688478d9e4ca86ec6",
+      "object_bytes": 0,
+      "diagnostics": "src/wild_shuffle.c:7:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    7 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+    }
+  ]
+}

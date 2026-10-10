@@ -1,0 +1,695 @@
+{
+  "command": [
+    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\bin\\arm-none-eabi-as.exe",
+    "-mthumb",
+    "-I",
+    "assembly"
+  ],
+  "scope": "All assembly .s build inputs; assembling does not prove linking, hook addresses or runtime correctness.",
+  "files": [
+    {
+      "path": "assembly/battle_scripts/ability_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "29132a01c6e2ff16d95385334032898afd54e2f2f840a1e619a6be220c885a01",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/attackcanceler_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "06d1c96d7c9bf1851ba6dc9b3f03cc66ce6951536de73b8a256685c80971d1dc",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/battle_start_turn_start_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "3d7e03b9cdee56c5fd83f98d2161fd44297c9686534ab9b02d1236293b20d882",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/cmd49_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "556f9173da084d5a88689f91d048a0be9ad5d38bda96dea95904bc4e13606042",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/et_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "44467524064b6984a564f61c4909300269a53d5252d2e76af07b16e271b349a8",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/fainting_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "00fedc184920f437e271f80078646fbc946dad61f1e238b09081cf9eba6d5a52",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/general_attack_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "290c9ad76f52c101cb2fda60a38763fff4e01bdc6cb0293a678ccbbe236428da",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/item_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "2383dc812c01ccfc41170eb14d1b923757d08e93fa1226d453aaf9e394a26b14",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/kagenonakani.s",
+      "exit_code": 0,
+      "sha256": "aed9fbb150cb6212d73a5f9af84462c0058c2bc55f9a59545900f11ee1bb3411",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/mega_battle_script.s",
+      "exit_code": 0,
+      "sha256": "783a3b04155a65f14220440cf8fd3b69346e4e133c2f7963de4faec6aa005e4a",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/move_menu_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "19cd00914e3530037f93019a7d65bc7f0813c74d6059376b6844455d691bc2b0",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/second_ability_scripts.s",
+      "exit_code": 0,
+      "sha256": "aedec8151fb0a0364de147fdffa31829e40cbaf154de87f6756611c0dc5f6aff",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/set_effect_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "fdebd5ac8fcc6ebb96348c82d326214550f8e01776f494837d37bd15106a0de3",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/standard_damage_battle_script.s",
+      "exit_code": 0,
+      "sha256": "9c935a79f001aaf2e6852ee24b918f48645641e8db9a6376b2564c581f1bbc4f",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/switch_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "5dd847e2686270559224c2218fbb34dd61f543cc431f6a50c726e41493513bda",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/trainer_sliding_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "5de2253d56ebaa78487bd37ee30ad1f6b02cc593a7467c9337f176d23b443dd6",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/battle_scripts/z_effect_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "c4ffe605ea9b69e108f043df32c83fd7209e9510007e22c34277edc3c2ab9238",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/bwbag/bw_bag_hooks.s",
+      "exit_code": 0,
+      "sha256": "72b403c150ae0e7298930970ae8b3ff445d2c1c4fcbd63b6693f03ade9cb57e1",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/bwfollow/bw_follower_hooks.s",
+      "exit_code": 0,
+      "sha256": "08117fddf58acb5a19a40d834b9f3e6b4368927ac8c32ef4b9b3d2a84f01b3ac",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/bwhp/bw_hpbar_hooks.s",
+      "exit_code": 0,
+      "sha256": "ec75ffe7d81c7c2ef5427d54949d5d16b2a21e41b8a0d603c355ac498511961e",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/bwparty/bw_party_hooks.s",
+      "exit_code": 0,
+      "sha256": "5a34400934cc3a20787b24b8784ac2da28c791fd910e9ce8e5138fbd536eb375",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/bwplayer/bw_card_hook.s",
+      "exit_code": 0,
+      "sha256": "dc7a06df39f1df8c9db302f8d17d1854f69b7c4138d12139cf0729998812415c",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/bwplayer/bw_hof_hook.s",
+      "exit_code": 0,
+      "sha256": "94ead1ed62210bc3cc461dacd2cc1ab32564fb2fe65e740a4d862d46515c056c",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/bwplayer/bw_player_pal_hook.s",
+      "exit_code": 0,
+      "sha256": "b6800ca5e823d452cc92586f5f084778e56d2fd63ef571f5d07671f37556fb27",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/bwstartmenu/bw_start_menu_scripts.s",
+      "exit_code": 0,
+      "sha256": "3c2ae67847bfb1d062f61d9467386beae6692910ad31140aaf4adffea7f50ba0",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/ability_description_table.s",
+      "exit_code": 0,
+      "sha256": "ba2ff769a1008078d13c5d37c547a208294e9ae3748a7686dc6c8e20bbb4ed38",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/ability_tables.s",
+      "exit_code": 0,
+      "sha256": "5491aee0331bfb51f1ba01496111521b04ed8e03749059be61a9052d5f5066f5",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/anim_background_table.s",
+      "exit_code": 0,
+      "sha256": "132ae9f86ecfe861c05f8ce6da99c7eb25fe487e0021a8193c30e8fe9d60e112",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/anim_backgrounds_graphics_defines.s",
+      "exit_code": 0,
+      "sha256": "cfb4cec322f2210271109ce45c89acac0b70eae11b231fdf11458955214899bf",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/anim_particle_graphics_defines.s",
+      "exit_code": 0,
+      "sha256": "1906959d739a8fb4e674409d19c56eb55d8a0236e382a5c676b4827a5815d961",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/anim_particle_table.s",
+      "exit_code": 0,
+      "sha256": "e8fa2fffcbe7d5047dc1411425fc2b5953612abe8b7f397ce2d85fde16f80ee3",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/attack_anim_table.s",
+      "exit_code": 0,
+      "sha256": "1e696a7fadbfd2bf770b8b0bb4f64b8a3d3de7fe47266d4764cd0b62c2bdd9c4",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/attack_description_table.s",
+      "exit_code": 0,
+      "sha256": "4c4836324c5bf39432c61c4c856585bcb00186958e291d98ebd50467580f3713",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/battle_script_commands_table.s",
+      "exit_code": 0,
+      "sha256": "e4fd0f815fd1937cedf1d36ef056ebea92cf0c9886bdb3c638e52d342fa9326d",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/item_tables.s",
+      "exit_code": 0,
+      "sha256": "bb894aac89d5ee9427db93b23bf75407c0368665d45fd722738aabd086b6a5c2",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/move_effect_table.s",
+      "exit_code": 0,
+      "sha256": "5bf4acaf10ed9f15e629d3ce84a84fb7cb4d18949128d7ea0c208adfd8365104",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/move_tables.s",
+      "exit_code": 0,
+      "sha256": "b7d4d8ac15c94eba2fb99a1d53e1b65f13ddaf2bfb9231b4e3d76456df92be6a",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/special_battle_anim_table.s",
+      "exit_code": 0,
+      "sha256": "b55644f18b9a61b944ea453e1db7b0b84593f4961b1e3fb985258c8f7ef01a13",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/type_tables.s",
+      "exit_code": 0,
+      "sha256": "1f8ad1425141749b88dc7e53da68bbf776d544d768aed04d765d319e66851eae",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/data/z_move_name_table.s",
+      "exit_code": 0,
+      "sha256": "3f59be8650dac25f703e3035ad05461caf47d2d9f305f5b1f1dbd4fc96ff9150",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/fcomp/lz_dispatch.s",
+      "exit_code": 0,
+      "sha256": "b7e894137f59846177b00e80f106f5b4c3ef5f365d388da5c3453443adac6b0f",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_affection/affection_scripts.s",
+      "exit_code": 0,
+      "sha256": "5a43c80507a46cab1a2439cee09a9535f16a2c32bf91d5b629c717dde0e74fbd",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_box_shelf/box_shelf_hooks.s",
+      "exit_code": 0,
+      "sha256": "bf34bf3d0ad2291f3a786ee8a945a7f48d9ba1108da4657126f2695a560de5db",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_bwreload/bw_main_menu_hook.s",
+      "exit_code": 0,
+      "sha256": "9d9de0c1a38db31f5f64556a6a369322427b7c8c2f579fccc9022852a57d3cf7",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_charm/charm_scripts.s",
+      "exit_code": 0,
+      "sha256": "542edb21c1ff89285dae86e18036658343c9f07019f2d70b7631a51debf494ba",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_danger_leaf/danger_leaf_scripts.s",
+      "exit_code": 0,
+      "sha256": "876f86dbffb0bc43583b59479c6540f3d04c9199c917e713d670f5e83d203e8f",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_dept_elevator/dept_elevator.s",
+      "exit_code": 0,
+      "sha256": "3ad661e04930df2a62013aad99c13892d61fb294cf77708b443befc66ab0c480",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_dex/dex_hooks.s",
+      "exit_code": 0,
+      "sha256": "e2f0ff4d94ec7bee13b8f945ed2209d2121a28ca9abe4f2917f6ab3665769fad",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_gamecorner/mauville_gamecorner.s",
+      "exit_code": 0,
+      "sha256": "803f4b66273078479f1aca306b492f2f0b16f8bf32f2f29297cbe6ffa67a23a1",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_gift/gift_scripts.s",
+      "exit_code": 0,
+      "sha256": "b546c639335e26a663512d5d476ee60c591dc8ae0faf38f156e05d96d2b78665",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_habitat_switch/habitat_switch.s",
+      "exit_code": 0,
+      "sha256": "ad07fc23531208bf8883ab1d788530588a4e55f9932893fbdd16067e401cea32",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_hqmixer/hq_mixer.s",
+      "exit_code": 0,
+      "sha256": "04e64716a158ff7726e02a0df60b61604965ac86baefe3eb3afebecc41dde529",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_jirachi/jirachi_script.s",
+      "exit_code": 0,
+      "sha256": "5a08a48fc971d774ae6b5472b922f344ac4b3a56e3e41891b33455db555daf39",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_legend_raid/legend_raid_scripts.s",
+      "exit_code": 0,
+      "sha256": "279b2b5142de1d270f63415f731929d53268e346975dcc0d2bfa196142b6f0e9",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_moemon_switch/moemon_switch.s",
+      "exit_code": 0,
+      "sha256": "00266355179fa77b20d896c966b19bc9e901586629b56abb603a22a4d2a360be",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_mom_savings/mom_savings_battle.s",
+      "exit_code": 0,
+      "sha256": "359e678e6b9910d58c3d442557a91dcdbeef9dcbbd520360c494a2f2f01ad1db",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_momo_ice/momo_ice_hooks.s",
+      "exit_code": 0,
+      "sha256": "340bfaba68e5e42b13d1e1f592abf78ff5db99923ec45953b60253f66985bf7e",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_momoka/momoka_lab.s",
+      "exit_code": 0,
+      "sha256": "53ff69447faf5d650691470aebc1c230ae76f166c673f64e5fa5c926dc00590f",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_oak_intro/oak_intro_hooks.s",
+      "exit_code": 0,
+      "sha256": "5a7b3efeab1d58d2f8bd0412a39d9ddc10f89491553f01d4c901dabd35609a49",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_tera_changer/tera_changer_scripts.s",
+      "exit_code": 0,
+      "sha256": "41c72cd571a13c125c4e001a1c4dcdf4bda9482da806806015431272266e4739",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_title/title_hooks.s",
+      "exit_code": 0,
+      "sha256": "d8846ba121ca7b0007c6637ed4dd0f2ca6a674d1c1d0d28a89020ec260f58606",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_wonder_trade/wonder_trade_hooks.s",
+      "exit_code": 0,
+      "sha256": "e8538ef4d8cb37ef2084648a64a317032cff9203e6a6be16f60b25ba95bfdb18",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hack_wonder_trade/wonder_trade_script.s",
+      "exit_code": 0,
+      "sha256": "8f2b49578ed72fc91efe51a86266befaf5213b0ac85126cc8287afd27a3d12c0",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn/badges_hook.s",
+      "exit_code": 0,
+      "sha256": "96ab154f22a005ed3322902dafe8fc4a989e49e7853b829d61713872488cea91",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn/gates_hook.s",
+      "exit_code": 0,
+      "sha256": "eb34e1ee9e8d9bb0e89b144fba525d71bd1b6e38e45fc10458fd4f5173054f6e",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn/hoenn_weather_hook.s",
+      "exit_code": 0,
+      "sha256": "40e3b23d27c5c983712c573c63d1272375d9ce10fd2ecfb77dae8f6508a0a39f",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn/hof_hook.s",
+      "exit_code": 0,
+      "sha256": "d8573d13e1465fe1f0477062bb770c6f2afa7981a349476c07490312c93bf2e5",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn/mossdeep_gym_warp_hook.s",
+      "exit_code": 0,
+      "sha256": "728209401093acb0ad6104ee09bfd096bf06f299784da1cf15bfc29c5b6c0e27",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn/steps_hook.s",
+      "exit_code": 0,
+      "sha256": "3341d2d324ff688badad36c05e313760d0c909f9c1ce7470a9fc7757ce39b127",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn/townmap_hook.s",
+      "exit_code": 0,
+      "sha256": "83f080826855788bd494f1b91f4f8003aa0cd556cc32c773b1aa80c297e0e7ef",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn_bike/hoenn_bike_scripts.s",
+      "exit_code": 0,
+      "sha256": "04aebe0c5e23f3cc475952e8946c6421f009eabc7fa801878cb75c1437c89aa5",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn_frontier_mart/frontier_mart_scripts.s",
+      "exit_code": 0,
+      "sha256": "e7c54a189b5d26ae9207af32d12b35779683ed627f81a85667a42461af90ef7f",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hoenn_safari/safari_exit.s",
+      "exit_code": 0,
+      "sha256": "699ead6f51b5b2471cbfddd58d91449bcc1b10ff414deee6fc6355fb56c6245b",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/bag_expansion_hooks.s",
+      "exit_code": 0,
+      "sha256": "cf03e3f974e5852e19b8c9be99d1a0f7ae9717329b7535c5d26ee9eb6938fe20",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/character_customization_hooks.s",
+      "exit_code": 0,
+      "sha256": "e88e3a3d7deb1e971487aeb61b2547bb080ba6ae2144fae1cddd66814f417fcb",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/dynamic_ow_pal_hooks.s",
+      "exit_code": 0,
+      "sha256": "7f3c99f0de567d4dcd8c1c9bfe8da2d53dceef12ae690392f8d54b454620dfe3",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/follow_me_hooks.s",
+      "exit_code": 0,
+      "sha256": "93342cf2a4ee2be2b7400b170b0859f5527c71634335078ac98943857c9a6906",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/general_hooks.s",
+      "exit_code": 0,
+      "sha256": "0315f864ce42aaa00ef4ed638683a4b1c489952dfd8ee415bb0191f37638663e",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/illusion_hooks.s",
+      "exit_code": 0,
+      "sha256": "b83393c8c22bbc299f11031ad2c477fefe48bae4e2d7a524e53cfa0fc44ff1b7",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/instant_text_hooks.s",
+      "exit_code": 0,
+      "sha256": "5ba3f8c205a652fd35dac32f061cb4230078f66a18866adf240eab35ca62d83b",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/mega_hooks.s",
+      "exit_code": 0,
+      "sha256": "e2d233b4f0d6979b1f6cadde2130119b056b6fcf6fbc045d2ecb56db6ca5b2d4",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/move_reminder_hooks.s",
+      "exit_code": 0,
+      "sha256": "edaf19a833b5c2a3cc4c3d4a01a12f75ceec46147679a5b70644db149913535b",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/multi_hooks.s",
+      "exit_code": 0,
+      "sha256": "8edbc5caf9b0d97149b4d3af71af52883a1baac4923f44ff74daa5ea65add11a",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/multi_partner_hooks.s",
+      "exit_code": 0,
+      "sha256": "aded0870c96c46f934cc270adb65c89f2ed554c371add1b6814f5bd1fcc28220",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/pc_select_hooks.s",
+      "exit_code": 0,
+      "sha256": "fa172c7e9c0ed2f62c2f00ffb17363add9244af0508a2aaedaf04a29e5c25af9",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/pokemon_data_hooks.s",
+      "exit_code": 0,
+      "sha256": "9edf7da44b45e70631525c42dc59bafb9a5d8088ea4cd8bf7001aac8ccb26be0",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/hooks/tmhm_hooks.s",
+      "exit_code": 0,
+      "sha256": "11f3318cb7972616f36a3ad6678a540999bb76c78df49a2756cd8158a61d366d",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_ball_change.s",
+      "exit_code": 0,
+      "sha256": "edd29703390816b72c7deb71178e5ea6900bb500ac4dc5103c03838cae3fea6c",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_box_link.s",
+      "exit_code": 0,
+      "sha256": "8ea13ee333fcf7ffdbf912bb76a20f664e964b3f766ff044bf26091579ab9532",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_daisy_scripts.s",
+      "exit_code": 0,
+      "sha256": "9c8e587b1f800d46da2dffcf41f5461c2f37c6e2495e2eaff96590cf8f3b4312",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_evo_items.s",
+      "exit_code": 0,
+      "sha256": "fe6f40285d19fcc1b61221fc131fb38cd6ae1203c6c23410472ac9122e6bcc53",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_gible_egg.s",
+      "exit_code": 0,
+      "sha256": "35abc5594f90af5a957a3c1fc7bc2df5b03a09f2456eaa846bd52c0b30e92974",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_golden_wedding.s",
+      "exit_code": 0,
+      "sha256": "a374c4e34fa5d4d7b5e2d252dfe61b856792988a1525946ee8f6e8ea8bcb3ee9",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_home_pikachu.s",
+      "exit_code": 0,
+      "sha256": "99087dc9c1c2fd880bf91185e424af58d9590bbef776a1a7f386662905932e47",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_home_scripts.s",
+      "exit_code": 0,
+      "sha256": "08618a0605bb0bc5826bb0f516a2cac50b8c87510e31af8b2a09e4543a8496ea",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_hyper_training.s",
+      "exit_code": 0,
+      "sha256": "1c4cd0e2afc92479ab8096d4689c50a77fd5d3ff73a749ec4d98e1f544106836",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_mart.s",
+      "exit_code": 0,
+      "sha256": "40f3c3dc6b0671fcdfad72f951fe6561099b713515c27336024a98060c32b3be",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_moemon_fossil.s",
+      "exit_code": 0,
+      "sha256": "4e2f31da805433e90a459c1a7465361522e264619563152e7cb6ffff3055d7b7",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_mom_savings.s",
+      "exit_code": 0,
+      "sha256": "35749dd66f125eaf37a57ecccf61f6af8e9a1da65b83e405191f5005d84dc7bb",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_oak_dex.s",
+      "exit_code": 0,
+      "sha256": "1b1841de83f416d37dfecedd2fec1eb54ba9781f414f7fc0ef6ade8971e5a658",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_silph_master_ball.s",
+      "exit_code": 0,
+      "sha256": "1006296c62c879472d70667c76ab15acc34020ae7609bbe59f3da9aa51cd31f7",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/kanto_thirsty_girl.s",
+      "exit_code": 0,
+      "sha256": "6dec5b5b1279ec3b3940f6341b8aa8c4b93061ad19a45dbe72837c2095a93a90",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/kanto/mega_shop_hooks.s",
+      "exit_code": 0,
+      "sha256": "1f6755ae1f1ba27b1bb89eb2c399da7334edd7b852a84c017738e5f55fc4e764",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/main.s",
+      "exit_code": 0,
+      "sha256": "e9be33a9dfcb6d3a4fac16c12e34605509cd7ed8807e7c37a21c0943f941a232",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/move_menu_tilemap.s",
+      "exit_code": 0,
+      "sha256": "020ece7191b32bb706d36f883d65a18209e5acedae7b28b869a53478b3400328",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/overworld_scripts/achievements.s",
+      "exit_code": 0,
+      "sha256": "9658eca7c0c9da5ba710f3ff3600dd05d39a2f20c5580436971ca21b897dbb4b",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/overworld_scripts/derby.s",
+      "exit_code": 0,
+      "sha256": "fc266504829d2299d685861e6ab2189e9ad681db6ae8b647fe70a4d91c664f14",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/overworld_scripts/gacha.s",
+      "exit_code": 0,
+      "sha256": "426cb1d4ac35c0a59c43bbfcba0aba9f5c6962e2df26be14412043cfcccf64c3",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/overworld_scripts/system_scripts.s",
+      "exit_code": 0,
+      "sha256": "bb181c4922bf3e107a5daf523c3313e698f66f5152c94c23b64a4c5fa8071e72",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/overworld_scripts/trainer_battle_scripts.s",
+      "exit_code": 0,
+      "sha256": "0e773632e4ab528b368d441b5e8d4ef195b83db4bed5210f08dcffd7dedf6838",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/pokedex_screen_stats.s",
+      "exit_code": 0,
+      "sha256": "540d9faea3beedfa096b45687ecbfde9951540a6c66bc0d9af3efb1e353c41a4",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/region_fly_hook.s",
+      "exit_code": 0,
+      "sha256": "27ab972c0147f0edf16ca7fd12bb6c3b53d275cb61945add1861bf2c2e4351c1",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/thumb_compiler_helper.s",
+      "exit_code": 0,
+      "sha256": "1683f268c9fe27460896c481652b0ce6371a326e7ac70162ab8ef2e6225a0d89",
+      "diagnostics": ""
+    },
+    {
+      "path": "assembly/triple_layer_blocks.s",
+      "exit_code": 0,
+      "sha256": "89b04c78b5e83b8bb56cb89415d267e13105c8855bbf669f9560082611dbcb65",
+      "diagnostics": ""
+    }
+  ]
+}

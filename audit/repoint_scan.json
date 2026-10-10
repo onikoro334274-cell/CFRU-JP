@@ -1,0 +1,100 @@
+{
+  "scope": "All 16 active repository repoint requests on supplied BPRJ ROM; replacement targets are synthetic, not linked game symbols; source file unchanged",
+  "source_sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "requests": [
+    [
+      460,
+      9437184,
+      "gBattleMoves"
+    ],
+    [
+      321460,
+      9437440,
+      "gMoveNames"
+    ],
+    [
+      88952,
+      9437696,
+      "gBattleScriptsForMoveEffects"
+    ],
+    [
+      448,
+      9437952,
+      "gAbilityNames"
+    ],
+    [
+      60940,
+      9438208,
+      "MoveMenuTilemap"
+    ],
+    [
+      464,
+      9438464,
+      "gBallSpriteSheets"
+    ],
+    [
+      468,
+      9438720,
+      "gBallSpritePalettes"
+    ],
+    [
+      303732,
+      9438976,
+      "gBallSpriteTemplates"
+    ],
+    [
+      987604,
+      9439232,
+      "gBallOpenParticleAnimNums"
+    ],
+    [
+      988480,
+      9439488,
+      "gBallParticleSpritesheets"
+    ],
+    [
+      988488,
+      9439744,
+      "gBallParticlePalettes"
+    ],
+    [
+      988620,
+      9440000,
+      "gBallOpenParticleAnimationFuncs"
+    ],
+    [
+      988900,
+      9440256,
+      "gBallParticleSpriteTemplates"
+    ],
+    [
+      991716,
+      9440512,
+      "gBallOpenMonFadePal"
+    ],
+    [
+      631524,
+      9440768,
+      "gItemData"
+    ],
+    [
+      1202608,
+      9441024,
+      "gItemEffectTable2"
+    ]
+  ],
+  "results": [
+    {
+      "implementation": "original",
+      "seconds": 3.8425034999963827,
+      "matches": 251,
+      "output_sha256": "a0b50772caf5fe07d176cda14a9e5adb352ad85c6c5374b50420d2aecaeaab85"
+    },
+    {
+      "implementation": "current",
+      "seconds": 0.47942909999983385,
+      "matches": 251,
+      "output_sha256": "a0b50772caf5fe07d176cda14a9e5adb352ad85c6c5374b50420d2aecaeaab85"
+    }
+  ]
+}

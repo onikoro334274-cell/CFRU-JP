@@ -1,0 +1,79 @@
+{
+  "temporary_directory": "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools",
+  "packages": [
+    {
+      "file": "mingw-w64-x86_64-arm-none-eabi-binutils-2.46.0-1-any.pkg.tar.zst",
+      "sha256": "6d26b7869fbc4dfff44e39b91420d856ccfca7ea59018a2f2c610688a5f81ee7",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-arm-none-eabi-binutils-2.46.0-1-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-arm-none-eabi-gcc-13.3.0-1-any.pkg.tar.zst",
+      "sha256": "3734ddb1e749ff5758b8f28ce0b96652c0c3fe1badbb13964df0b45462005b74",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-arm-none-eabi-gcc-13.3.0-1-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-arm-none-eabi-newlib-4.5.0.20241231-1-any.pkg.tar.zst",
+      "sha256": "0f456dd58f94b0a28cd102115bf25950f348f7042aa694c546f9de49820ec3c4",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-arm-none-eabi-newlib-4.5.0.20241231-1-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-cc-libs-16.2.0-5-any.pkg.tar.zst",
+      "sha256": "634be1b3679f61a13cb02509870c458c5da0dee0b5e3276a81e916e45b65f363",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-cc-libs-16.2.0-5-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-gcc-libs-16.2.0-5-any.pkg.tar.zst",
+      "sha256": "8b21408d59a0b92421eebdd681d052c6ee94124efb30ede65e838cca54967981",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-gcc-libs-16.2.0-5-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-gmp-6.3.0-2-any.pkg.tar.zst",
+      "sha256": "8924433974c4add46cb46ea4f6ef283b5c5139d3f552375115b5580f855015cc",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-gmp-6.3.0-2-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-isl-0.28-1-any.pkg.tar.zst",
+      "sha256": "03ed191718a89edc46e783deed46b8fd20ec47a09fcdefb37c6c4169b6188b08",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-isl-0.28-1-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-libgcc-16.2.0-5-any.pkg.tar.zst",
+      "sha256": "6cc48c5efe5ebab70a1ee1f6806c422205d5515c0f50d7a0e6a67336268c2afe",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-libgcc-16.2.0-5-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-libstdc++-16.2.0-5-any.pkg.tar.zst",
+      "sha256": "2ec9a91ce896249b1a440a44e1bc0126f82efb540955827adec30e83a9bfb1f6",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-libstdc++-16.2.0-5-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-libwinpthread-git-12.0.0.r747.g1a99f8514-1-any.pkg.tar.zst",
+      "sha256": "38e0a33fc8b3b6b761d4958fa69afef6e0804e4ef7ea64018004da02f9b2294f",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-libwinpthread-git-12.0.0.r747.g1a99f8514-1-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-mpc-1.4.1-1-any.pkg.tar.zst",
+      "sha256": "ce024a90d59c8a591d2c88ef94a386c6367750bf9edc6a944e80815ec5d93344",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-mpc-1.4.1-1-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-mpfr-4.2.2-3-any.pkg.tar.zst",
+      "sha256": "9ecbc05f1f855bc656a8f111d367f61fbd90dbbfcf469ba74d6d5dd1ec07a542",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-mpfr-4.2.2-3-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-zlib-ng-compat-2.3.3-2-any.pkg.tar.zst",
+      "sha256": "4ab8ceca5131272225023759fbc7999ccde8dd55b681fcd6787177f75aba9954",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-zlib-ng-compat-2.3.3-2-any.pkg.tar.zst"
+    },
+    {
+      "file": "mingw-w64-x86_64-zstd-1.5.7-2-any.pkg.tar.zst",
+      "sha256": "1add6705b344664f6aca108c85f79ab5bdd9e1162662bb06a4cf40a34f6e0907",
+      "source": "https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-zstd-1.5.7-2-any.pkg.tar.zst"
+    }
+  ],
+  "assembler": "GNU assembler (GNU Binutils) 2.46.0.20260210",
+  "clang": "clang version 21.1.6",
+  "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
+  "gnu_compiler": "arm-none-eabi-gcc.exe (GCC) 13.3.0"
+}

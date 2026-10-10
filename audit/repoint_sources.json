@@ -1,0 +1,117 @@
+{
+  "scope": "Active repointall pointer source reads against user-supplied BPRJ ROM; target linkage and semantics unverified",
+  "items": [
+    {
+      "line": 3,
+      "symbol": "gBattleMoves",
+      "source_offset": 460,
+      "old_pointer": 136369676,
+      "valid_read": true
+    },
+    {
+      "line": 4,
+      "symbol": "gMoveNames",
+      "source_offset": 321460,
+      "old_pointer": 136332896,
+      "valid_read": true
+    },
+    {
+      "line": 5,
+      "symbol": "gBattleScriptsForMoveEffects",
+      "source_offset": 88952,
+      "old_pointer": 136029540,
+      "valid_read": true
+    },
+    {
+      "line": 6,
+      "symbol": "gAbilityNames",
+      "source_offset": 448,
+      "old_pointer": 136364660,
+      "valid_read": true
+    },
+    {
+      "line": 7,
+      "symbol": "MoveMenuTilemap",
+      "source_offset": 60940,
+      "old_pointer": 146801948,
+      "valid_read": true
+    },
+    {
+      "line": 10,
+      "symbol": "gBallSpriteSheets",
+      "source_offset": 464,
+      "old_pointer": 136433640,
+      "valid_read": true
+    },
+    {
+      "line": 11,
+      "symbol": "gBallSpritePalettes",
+      "source_offset": 468,
+      "old_pointer": 136433736,
+      "valid_read": true
+    },
+    {
+      "line": 12,
+      "symbol": "gBallSpriteTemplates",
+      "source_offset": 303732,
+      "old_pointer": 136434032,
+      "valid_read": true
+    },
+    {
+      "line": 13,
+      "symbol": "gBallOpenParticleAnimNums",
+      "source_offset": 987604,
+      "old_pointer": 138224192,
+      "valid_read": true
+    },
+    {
+      "line": 14,
+      "symbol": "gBallParticleSpritesheets",
+      "source_offset": 988480,
+      "old_pointer": 138223904,
+      "valid_read": true
+    },
+    {
+      "line": 15,
+      "symbol": "gBallParticlePalettes",
+      "source_offset": 988488,
+      "old_pointer": 138224000,
+      "valid_read": true
+    },
+    {
+      "line": 16,
+      "symbol": "gBallOpenParticleAnimationFuncs",
+      "source_offset": 988620,
+      "old_pointer": 138224204,
+      "valid_read": true
+    },
+    {
+      "line": 17,
+      "symbol": "gBallParticleSpriteTemplates",
+      "source_offset": 988900,
+      "old_pointer": 138224252,
+      "valid_read": true
+    },
+    {
+      "line": 18,
+      "symbol": "gBallOpenMonFadePal",
+      "source_offset": 991716,
+      "old_pointer": 138224540,
+      "valid_read": true
+    },
+    {
+      "line": 20,
+      "symbol": "gItemData",
+      "source_offset": 631524,
+      "old_pointer": 138020600,
+      "valid_read": true
+    },
+    {
+      "line": 21,
+      "symbol": "gItemEffectTable2",
+      "source_offset": 1202608,
+      "old_pointer": 136377028,
+      "valid_read": true
+    }
+  ]
+}

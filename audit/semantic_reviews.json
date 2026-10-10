@@ -1,0 +1,185 @@
+{
+  "scope": "Section-specific semantic reviews; no entry certifies an entire file or game runtime.",
+  "reviews": [
+    {
+      "path": "src/dns.c",
+      "source_sha256": "234715d751e275eb71e163fd2aec7b373b2f5a24597f81e895fe1ef2902a07f6",
+      "sections": [
+        "BlendFadedPalette",
+        "BlendFadedUnfadedPalette",
+        "FadeColourForDNS",
+        "DNSBattleBGPalFade"
+      ],
+      "verification": "check_dns_colour.py; GNU ARM compilation without warnings",
+      "remaining": "Remaining DNS/date/weather functions and in-game visual behavior are not certified"
+    },
+    {
+      "path": "src/hack_ext_save.c",
+      "source_sha256": "fb4ff5d016f262b8d0144ead59467cf8d89ee3ccc0fbd3f54f11c207f835bb25",
+      "sections": [
+        "HackExtSave_ReadSector",
+        "HackExtSave_Read",
+        "HackExtSave_WriteSector"
+      ],
+      "verification": "check_ext_save.py with original HEAD reproduction; GNU ARM compilation without warnings",
+      "remaining": "Actual flash-bank hardware and modified emulator runtime remain unverified"
+    },
+    {
+      "path": "scripts/insert.py",
+      "source_sha256": "728d7f399016c546723026404d03eb4211b1688cc31e86916cf1c32d3e4d3a2e",
+      "sections": [
+        "UTF-8 table reading in main"
+      ],
+      "verification": "test_insert.py synthetic-ROM insertion under CP1252 defaults",
+      "remaining": "Missing-symbol behavior and failure-output atomicity require fixes; actual payload/linker unresolved"
+    },
+    {
+      "path": "src/hack_save_slot.c",
+      "source_sha256": "2438fbd0b3b1849aff9495c16048322b2ba50749cf2c44f9101728d5bf01f3e9",
+      "sections": [
+        "Heap constant collision; failure-path inspection of CB2_HackSaveSlotSelect"
+      ],
+      "verification": "GNU ARM compilation without warnings; source inspection",
+      "remaining": "Unchecked AllocZeroed and ignored window-initialization result still require handling"
+    },
+    {
+      "path": "src/hoenn_frontier.c",
+      "source_sha256": "9a3c42fb9070af1d37947ff3c024fd178a1d36c36a32e5e600c74e92ca0f3b2d",
+      "sections": [
+        "HoennFrontier_InitWindowsZeroed failure-path inspection"
+      ],
+      "verification": "Source inspection",
+      "remaining": "InitWindows failure is not checked before pixel fills; missing headers still prevent whole-file compilation"
+    },
+    {
+      "path": "scripts/insert.py",
+      "source_sha256": "7d57ce3a8fcd2c82b85c1e66fa6e36fd152d1b99485ed27c7590b209a3c16f10",
+      "sections": [
+        "Missing active symbol handling",
+        "Publication and rollback of ROM and metadata",
+        "Conditional cache filtering",
+        "Song table state initialization",
+        "Malformed event and repoint rows"
+      ],
+      "verification": "test_insert.py (8 tests with multiple table cases); reproduced original missing-symbol success before modification",
+      "remaining": "Source-ROM/request-signature cache invalidation and full write-address validation remain; no actual linked game payload available"
+    },
+    {
+      "path": "src/hack_save_slot.c",
+      "source_sha256": "05b899bec5b9bd23ac9ce0361b21ed8e328f0e344ea59d5f54a0b55ee2558373",
+      "sections": [
+        "CreateSlotScreen",
+        "SkipSlotScreen",
+        "CB2_HackSaveSlotSelect window/allocation failures"
+      ],
+      "verification": "check_slot_screen.py; GNU ARM object compilation without warnings",
+      "remaining": "Full screen rendering, selection and callback transitions have not been run in the game"
+    },
+    {
+      "path": "src/hoenn_frontier.c",
+      "source_sha256": "e4ee50d856f26811d070b2f7146c70718dfdb6d4a5ded4cb4a2ed72c3e4be224",
+      "sections": [
+        "HoennFrontier_InitWindowsZeroed initialization failure"
+      ],
+      "verification": "check_slot_screen.py and --baseline-windows original failure reproduction",
+      "remaining": "Whole-file compilation remains blocked by hoenn_frontier_data.h; other window callers require failure review"
+    },
+    {
+      "path": "scripts/insert.py",
+      "source_sha256": "0c36babce982386407097b3a15926e60e924c550db7f672afe89933c0da8a0a5",
+      "sections": [
+        "RealRepoint"
+      ],
+      "verification": "test_repoint_scan.py; original HEAD comparison using all 16 active requests on actual BPRJ ROM; 251 locations and all output bytes identical, 3.84 seconds versus 0.48 seconds in this run",
+      "remaining": "Replacement targets in benchmark are synthetic; actual linker/game behavior and source/request cache signatures remain unverified"
+    },
+    {
+      "path": "scripts/insert.py",
+      "source_sha256": "1e84dccd20eac264ed95b8538e892d44c1d17212e7e6898e928ce66793c65994",
+      "sections": [
+        "Active repoint request parsing",
+        "Repoint cache fingerprint, validation and regeneration"
+      ],
+      "verification": "test_insert.py: reuse, source changes, request changes, corruption, conditional feature changes; full regression suite 42 tests passed",
+      "remaining": "Insertion address/register/wrapper/event validation and actual game linkage/runtime remain incomplete"
+    },
+    {
+      "path": "scripts/insert.py",
+      "source_sha256": "664c909db9a152a504cb96614a2eab70e99c579acd3dfa7a55e84001c8b67088",
+      "sections": [
+        "Hook",
+        "FunctionWrap",
+        "_check_code_patch"
+      ],
+      "verification": "test_code_patches.py independent Thumb instruction decoding; code_patches.json all active entries match original byte output on BPRJ with even synthetic targets; original odd-target failure reproduced",
+      "remaining": "Actual target symbol linkage, stolen-instruction boundaries and in-game wrapper execution are unverified; data/event patch bounds need continued review"
+    },
+    {
+      "path": "scripts/insert.py",
+      "source_sha256": "eecb4762a93133171f9541df014a72dc7044eaf67d393541c428a08b5023cfc9",
+      "sections": [
+        "Repoint",
+        "ReplaceBytes",
+        "_check_existing_write",
+        "Byte replacement macro fallback"
+      ],
+      "verification": "test_rom_writes.py; insertion failure/output preservation tests; data_patches.json all 1644 active entries byte-identical to HEAD on BPRJ; original partial-write failure reproduced",
+      "remaining": "Event indices/header reads and full combined game build/runtime remain unverified"
+    },
+    {
+      "path": "scripts/insert.py",
+      "source_sha256": "f603a2dd747c68fec46a51e27c222df3516e3df71f1b62b4b8c7bb641e2f70c9",
+      "sections": [
+        "_read_rom_pointer",
+        "_event_script_offset",
+        "Event script table processing"
+      ],
+      "verification": "test_event_offsets.py and end-to-end test_insert.py for all event kinds and preserved outputs; event_sources.json vanilla map 0/0; regression suite 55 tests passed",
+      "remaining": "Actual map-bank/map counts beyond byte identifier range and sign union kind semantics need metadata; full-game linker/runtime remains unavailable"
+    },
+    {
+      "path": "src/hack_full_tutor.c",
+      "source_sha256": "45f3ea3c21d20d18f7cd21a6e32df3089ac5fb049eb4e63e3791191646fce57f",
+      "sections": [
+        "FullTutorAllMoves",
+        "HackFullTutor_GetMoves",
+        "HackFullTutor_CountPages"
+      ],
+      "verification": "check_full_tutor.py constrained heap and pagination checks; --baseline memory/page failures reproduced; 1000 comparisons with original helper; GNU ARM and Clang full-file compilation passed",
+      "remaining": "Actual species/move data and tutor menu runtime remain unverified; generated game assets missing"
+    },
+    {
+      "path": "src/hack_training_pouch.c",
+      "source_sha256": "a4422427d493b92b293bcfe4adac46637bc18f1b9f6496799478bf0656375e29",
+      "sections": [
+        "HackTrainingPouch_Arrange allocation failure and stable partition"
+      ],
+      "verification": "check_training_pouch.py 1000 allocation/no-allocation comparisons and original HEAD failure reproduction; GNU ARM and Clang whole-file checks passed",
+      "remaining": "Actual item category data, pouch navigation and in-game timing of the O(n^2) allocation-failure path are unverified; normal fast path remains unchanged"
+    },
+    {
+      "path": "src/hoenn_factory_screen.c",
+      "source_sha256": "04574593edc48446d6a1a389a7e8326614dd103a87e121bc0925a2d3fd367b3f",
+      "sections": [
+        "DoBattleFactorySelectScreen",
+        "DoBattleFactorySwapScreen",
+        "CB2_InitSelectScreen case 0..5",
+        "CB2_InitSwapScreen case 0..1",
+        "Select_Task_OpenSummaryScreen",
+        "Select_Task_Exit",
+        "Swap_Task_Exit"
+      ],
+      "verification": "Source inspection only; no change or runtime verification",
+      "remaining": "Root/window/summary allocations are unchecked in reviewed portions; several cleanup states dereference screen structures and cannot be used before those structures exist; whole-file compilation blocked by generated headers"
+    },
+    {
+      "path": "src/hoenn_factory_screen.c",
+      "source_sha256": "3166e5e42dff89f8449698b169493b3f618a2033fd1ad131c44e108ef21e5de5",
+      "sections": [
+        "Select_Task_OpenSummaryScreen"
+      ],
+      "verification": "check_factory_summary.py and --baseline: failure preserves menu before fading/cleanup; success waits for fade and copies all six mons",
+      "remaining": "Root/select/swap allocations and InitWindows callers remain unchecked; complete-file compilation blocked by generated headers; GBA runtime unverified"
+    }
+  ]
+}

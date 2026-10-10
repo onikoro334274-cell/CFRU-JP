@@ -1,0 +1,1236 @@
+{
+  "command": [
+    "clang",
+    "--target=arm-none-eabi",
+    "-mcpu=arm7tdmi",
+    "-mthumb",
+    "-std=gnu11",
+    "-Wno-unknown-attributes",
+    "-Wno-error=incompatible-pointer-types",
+    "-Wno-error=int-conversion",
+    "-isystem",
+    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\arm-none-eabi\\include",
+    "-fsyntax-only"
+  ],
+  "scope": "All C files under src; ARM syntax checking with Clang does not establish GNU code generation, linking or runtime correctness.",
+  "files": [
+    {
+      "path": "src/ability_battle_effects.c",
+      "exit_code": 0,
+      "sha256": "a6d2cf89eff83ba87751a37a231cfdcd837e3392005906f0add083d5e946db4e",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/ability_util.c",
+      "exit_code": 0,
+      "sha256": "b47ccb5eeee0ff2b00c0369f116426d24b276e22a3afdb0308d39d55d9e74f3a",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/accuracy_calc.c",
+      "exit_code": 0,
+      "sha256": "918bd54f5cb108b584bf3b2488ecfc62f207df3946d820b7b22aa152e4518e96",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/achievements.c",
+      "exit_code": 1,
+      "sha256": "dc2805e6d46674557974a6dafc916fbdb55244ee234c0ded32254e39dd02c4d4",
+      "diagnostics": "src/achievements.c:52:10: fatal error: 'achievements_gfx.h' file not found\n   52 | #include \"achievements_gfx.h\" //Generated (scripts/achievements_gfx.py)\n      |          ^~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/ai_hack.c",
+      "exit_code": 0,
+      "sha256": "09a5dc508b4f9b094fbe88f0be31f8f7f025e6e0d4079cf0451b077d6924ea7d",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/attackcanceler.c",
+      "exit_code": 0,
+      "sha256": "9c5677ac3176f093cc20c01be95567e953d545fc56bb73d60bf0c3177f1489c1",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/badge_count.c",
+      "exit_code": 1,
+      "sha256": "c530fc25a7193f0e792cc951d7a2efd0916e3adaaf350fa7ae90acad91542d4e",
+      "diagnostics": "src/badge_count.c:6:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n    6 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/Battle_AI/ai_advanced.c",
+      "exit_code": 0,
+      "sha256": "1b5f0854f56babd63a8b5bece4844334badd353e64f69a8ac5329674a9ebdfe6",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Battle_AI/ai_master.c",
+      "exit_code": 0,
+      "sha256": "cdd089d74ce092f3e823e230b6e6a68880fd569ad67a55486a511f80195d37a3",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Battle_AI/ai_negatives.c",
+      "exit_code": 0,
+      "sha256": "21a2e2844278d8fad16ecb973efe541e5032b012fefc21dc23ac4f76cd6394e4",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Battle_AI/ai_partner.c",
+      "exit_code": 0,
+      "sha256": "4529475009b85744968413d34cb36bb39fd25b78bbb4ec3d474b51d534724bc3",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Battle_AI/ai_positives.c",
+      "exit_code": 0,
+      "sha256": "0ddffbae90876608b9f1c27a2b071dedd3ddee67e212e7f015bf684e19a8b279",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Battle_AI/ai_util.c",
+      "exit_code": 0,
+      "sha256": "daae602fdd8bc1e6b394f43df35e68e909a0d6569c90e4e0d30fd4d3ae961b3d",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_anims.c",
+      "exit_code": 0,
+      "sha256": "79b0339a1e60f22c68081ec03d06ee55dbcdda3d0cef17242804468ef9c5e84f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_controller_opponent.c",
+      "exit_code": 0,
+      "sha256": "827a2327a32a5ca3c6a8995a86c8f7409cc28150d81abaad2bda58a3fe9d7f49",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_indicators.c",
+      "exit_code": 0,
+      "sha256": "ec6cce6d6d779c89941a9fe9f66104f450c63b4c8b4b6ec877de7945715f8d0d",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_script_util.c",
+      "exit_code": 0,
+      "sha256": "af71848a968d5e4ef79c22b8c1651d201bba39428d2eb75eb819aa108b5b955e",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_start_turn_start.c",
+      "exit_code": 0,
+      "sha256": "0f7746aeb4985ef83a3139c4654b304a5bf2c33bf0de596edc5b6d59b6bbbd8e",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_strings.c",
+      "exit_code": 0,
+      "sha256": "df52afacd44dba55bd8b4092dd2a61adc28f6ec68971483b38bc16d0b7d2f11d",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_terrain.c",
+      "exit_code": 0,
+      "sha256": "9b9398f3420d96af3c8858d4ca1f90d23a75c083dd2d60b3115f0e9b75040f2b",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_transition.c",
+      "exit_code": 0,
+      "sha256": "278045d4e5b9589c00cddb53f454726f2d92d88dd7d3033f219fbbea71e0a298",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/battle_util.c",
+      "exit_code": 0,
+      "sha256": "c42acedf5b9eb80a8727bf582f4460b139605bbe582b03b84e5b9560bc6e1c78",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/build_pokemon.c",
+      "exit_code": 0,
+      "sha256": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_card_pic.c",
+      "exit_code": 1,
+      "sha256": "9b95a6aee6fe2b8c3302121eb173534b29659a0f168da251352244fcc2f6be48",
+      "diagnostics": "src/bw_card_pic.c:3:10: fatal error: 'Tables/bw_card_pic.h' file not found\n    3 | #include \"Tables/bw_card_pic.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/bw_follower.c",
+      "exit_code": 0,
+      "sha256": "806c43515d5b142eceae64ff5d7418b019df2c7c3e3e31f80021ffd26c6e7a43",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_frontier_pass.c",
+      "exit_code": 1,
+      "sha256": "b58393d3b7e8b0195421f8e22535e5cc08aa228a6f6a2580fd9456ceb41d2be5",
+      "diagnostics": "src/bw_frontier_pass.c:19:10: fatal error: 'Tables/bw_frontier_pass_gfx.h' file not found\n   19 | #include \"Tables/bw_frontier_pass_gfx.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/bw_hof_pic.c",
+      "exit_code": 1,
+      "sha256": "16941ff390e9d45979eb58d5a92b65ea34d7c0bc1e431c89e18dfab9c5173b91",
+      "diagnostics": "src/bw_hof_pic.c:3:10: fatal error: 'Tables/bw_card_pic.h' file not found\n    3 | #include \"Tables/bw_card_pic.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/bw_hpbar.c",
+      "exit_code": 1,
+      "sha256": "c61f6fbd0e15a0627089d311aa74c02c99bbf9e0a4127a7c93c707712cfb56e6",
+      "diagnostics": "src/bw_hpbar.c:11:10: fatal error: 'bw_hpbar_gfx.h' file not found\n   11 | #include \"bw_hpbar_gfx.h\"\n      |          ^~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/bw_main_menu.c",
+      "exit_code": 0,
+      "sha256": "6f3b568280528a5a8c2076e9fc6e255612e456f581deac6c445c58c942eca8d9",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_map_popup.c",
+      "exit_code": 0,
+      "sha256": "5d464da732f8e1c465021d0dc2eca214b4862519b6ab0430c65d14eae20b4273",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_option_menu.c",
+      "exit_code": 1,
+      "sha256": "52a933291191c39f7c44d804fab00f7e1c71eed42352bb24026b526d8da0dd15",
+      "diagnostics": "src/bw_option_menu.c:17:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   17 | #include \"Tables/hoenn_script_flags.h\"   /* HOENN_VAR_OVERWORLD_SPEED */\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/bw_party_menu.c",
+      "exit_code": 0,
+      "sha256": "1c96152c44dfc967d979e599032f9d6e7a0ad0e46fe5b117b667fcfd1fb90171",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_player_pal.c",
+      "exit_code": 0,
+      "sha256": "dc622f65f62ecffdc90d5ac14ccda8cfde5bbbf16c1152f3fc703ac92cc42741",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_start_menu.c",
+      "exit_code": 1,
+      "sha256": "0f6a0f0af010886aafde24984871d3b5aedc48674fe436ea038c5c1bc5f53156",
+      "diagnostics": "src/bw_start_menu.c:26:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   26 | #include \"Tables/hoenn_script_flags.h\"   /* HOENN_FLAG_CAN_GO_HOENN */\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/bw_summary_screen.c",
+      "exit_code": 0,
+      "sha256": "021d1e50633dcb3529d789385d0c1de3e8d65f9d63c18d08f298551de0aa6ef7",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/bw_throwball.c",
+      "exit_code": 1,
+      "sha256": "b6907b4880989de914fd69fdf3323fae7017f6eb1a717380759c238224eb1e0f",
+      "diagnostics": "src/bw_throwball.c:7:10: fatal error: 'bw_throwball_pos.h' file not found\n    7 | #include \"bw_throwball_pos.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/catching.c",
+      "exit_code": 0,
+      "sha256": "b03b650f3e96fe46341b7db38854970f37fdaa756ae5a04c1479a62ad8f43ba2",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/character_customization.c",
+      "exit_code": 0,
+      "sha256": "6f246b40003a2e89f0451b6da531dfe6294ee44b2c0f23d560061164c4494609",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/cmd49.c",
+      "exit_code": 0,
+      "sha256": "dafe142d1a2d6cad23bf689802aed9a7e134ab40084a827abe3c340aa56a9dfe",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/damage_calc.c",
+      "exit_code": 0,
+      "sha256": "faf275d269244d40e6ec0aacb4be87a7dd149f6821d74e8225258e823548fa08",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/daycare.c",
+      "exit_code": 0,
+      "sha256": "6aa1ee563d85afe20536f5cf67c3c22d847da4e816eceebce0d37ebe5253e7d0",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/debug_menu.c",
+      "exit_code": 0,
+      "sha256": "fa5a802a73057dc8b1e63e8608011c7c451bd99000e79d09ea84b08a9e242bc9",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/derby.c",
+      "exit_code": 0,
+      "sha256": "c7e558bf2e9c0db557aa9afb305c60966c36bc738cc666497ca6c61faeaa359e",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/dexnav.c",
+      "exit_code": 0,
+      "sha256": "55038939b5e6210bdf67d84ced1f495bdb650151f37d87d6ae5a0c095fca36fc",
+      "diagnostics": "src/dexnav.c:896:21: warning: equality comparison with extraneous parentheses [-Wparentheses-equality]\n  896 |                 else if ((element == 0x0))\n      |                           ~~~~~~~~^~~~~~\nsrc/dexnav.c:896:21: note: remove extraneous parentheses around the comparison to silence this warning\n  896 |                 else if ((element == 0x0))\n      |                          ~        ^     ~\nsrc/dexnav.c:896:21: note: use '=' to turn this equality comparison into an assignment\n  896 |                 else if ((element == 0x0))\n      |                                   ^~\n      |                                   =\n1 warning generated.\n"
+    },
+    {
+      "path": "src/dns.c",
+      "exit_code": 0,
+      "sha256": "234715d751e275eb71e163fd2aec7b373b2f5a24597f81e895fe1ef2902a07f6",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/dynamax.c",
+      "exit_code": 0,
+      "sha256": "824ec9d7d251c4f74e4d38d96959df5c55a8081c7b522516848f58bc8534578a",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/dynamic_ow_pals.c",
+      "exit_code": 0,
+      "sha256": "c2029988c702056473e922be0237d1c1c79262e1c4cae040d70fede83104cd2d",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/em_mining.c",
+      "exit_code": 0,
+      "sha256": "23a24a04abf1599da14ada1be0fb9c581d58e170468db48eca3c8e849983e79b",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/end_battle.c",
+      "exit_code": 0,
+      "sha256": "c029853c28570a7998ec9eef7a755ba94f8961325cb11eba60038d1645057df3",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/end_turn.c",
+      "exit_code": 0,
+      "sha256": "3833c146e8b7c78353e94f95389663ff3506861fb36a89081801808b26de1efa",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/evolution.c",
+      "exit_code": 0,
+      "sha256": "3a61f7c9e911e8cb6b3541b760ef700d2898499668d64614d471e6d67e7c8a21",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/exp.c",
+      "exit_code": 0,
+      "sha256": "4ce85017cca05a34bd0c9ec3e202c59b312305d27e0eac5b66f74205cdc4e171",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/exp_candy.c",
+      "exit_code": 0,
+      "sha256": "58a55fced21c161c0e422265e23be7590b264451b4d4a04508afa5116dbd1515",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/fcomp.c",
+      "exit_code": 1,
+      "sha256": "c0acf1bef3067e3155b8c1f4c8f020afedcd08ed378f2d0bf6e52b3450b53926",
+      "diagnostics": "src/fcomp.c:2:10: fatal error: 'fcomp.h' file not found\n    2 | #include \"fcomp.h\"\n      |          ^~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/fcomp_dpe.c",
+      "exit_code": 1,
+      "sha256": "a454c51dcd332c02662d7344cab37221eb4100983ce2e72ac518de7f0b792625",
+      "diagnostics": "src/fcomp_dpe.c:2:10: fatal error: 'fcomp.h' file not found\n    2 | #include \"fcomp.h\"\n      |          ^~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/field_effects.c",
+      "exit_code": 0,
+      "sha256": "d0d1c71fc1d6990e562a849f88b99164c861952ce1f7626c8cd396cb2a9e771b",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/follow_me.c",
+      "exit_code": 0,
+      "sha256": "990a4b7c2718efa5b9b65756d0543f02de65228c29b2e50d156b698c64517a9f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/form_change.c",
+      "exit_code": 0,
+      "sha256": "9bcdb60c8bb178f6bb510617a3c36583ca330faaffbf791a4028e943c8366371",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/frontier.c",
+      "exit_code": 0,
+      "sha256": "a3cfd3174b1b4f3323a586530876c67511d8c22e491411ccfdac4445e469777c",
+      "diagnostics": "src/frontier.c:178:25: warning: use of GNU 'missing =' extension in designator [-Wgnu-designator]\n  178 |         [BATTLE_FACILITY_UBER] gText_SmogonGen7Uber,\n      |                                ^\n      |                                = \n1 warning generated.\n"
+    },
+    {
+      "path": "src/frontier_records.c",
+      "exit_code": 0,
+      "sha256": "61a60e9efa28fb14860aa67d58f9c619f82989a2c0bcd4b9b805249ea71b12ff",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/game_corner_gacha.c",
+      "exit_code": 0,
+      "sha256": "a9f909ddb472983e489b48a4ce2be2624865161957457ddb12e3fa5d0f861a3c",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/general_bs_commands.c",
+      "exit_code": 0,
+      "sha256": "a2abecd7faabd779933602cc0b4b21c5bc11c56e98a1375116488a9ea056a0f8",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_affection.c",
+      "exit_code": 0,
+      "sha256": "3238f02737fe18f1c3da339dde86b116ffab28e4edcf2150bdde0e24b77691a0",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_bag_scroll.c",
+      "exit_code": 0,
+      "sha256": "0dc6d3c4b4e5561a0c7b9f8de0f9b96c59b5277e080aee25ef2f48604c997ae5",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_ball_change.c",
+      "exit_code": 0,
+      "sha256": "bc074186ab0aa2cd04edda1b99bb8d718b87cdd150069dc4635664dc44d36593",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_battle_speed.c",
+      "exit_code": 0,
+      "sha256": "e91ebbb28fdf10457192740f1d78ec04895fce647c686e09768b1691e8f98900",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_box_link.c",
+      "exit_code": 0,
+      "sha256": "22c0e5344eb1eaaec4fa939b6e711662c65b80ef714f23aecf181041ff01422a",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_box_shelf.c",
+      "exit_code": 0,
+      "sha256": "9a8ccae054dd65efcde2c6964c7548e427864d268123f3715d368ce495b8ab57",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_box_speed.c",
+      "exit_code": 0,
+      "sha256": "aa61fc73ac4c113351b1f74c8f985d9b123778e93b4de6dcaa9155cc9683184a",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_daisy_zigzagoon.c",
+      "exit_code": 0,
+      "sha256": "6620f3610c089f366aac9ea74ac337ddc5733694660278d405eaba604b64d655",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_danger_leaf.c",
+      "exit_code": 0,
+      "sha256": "1881d10ebb8a3c4a754a60dfe07257a2c33e5948d275e5b49aacca69e4cdf3dc",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_danger_sugar.c",
+      "exit_code": 0,
+      "sha256": "1f4e2f46f36556e85fea02b14463d1a387dd3319d58b27be1cea06e6b2e631f4",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_dex_habitat.c",
+      "exit_code": 0,
+      "sha256": "4694f0cd4486469acc6933ae1ee598921c36c4c0b60588eedb3df47db3ebc0d3",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_difficulty.c",
+      "exit_code": 1,
+      "sha256": "db7e8e25ff248630bfdfaf21ba490338a35ac6fc021725074ec28913ddbaf58e",
+      "diagnostics": "src/hack_difficulty.c:7:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n    7 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hack_dragon_boulder.c",
+      "exit_code": 0,
+      "sha256": "6e805c9e9f2e66b89bfb3e328892f35c4830813dac7d64947afe04a1e3582811",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_ev_reset.c",
+      "exit_code": 0,
+      "sha256": "8fb632a2d434d09e92c587a521bb45a62bcf1e8de7bb32b04ba26c628da8e5ad",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_ext_save.c",
+      "exit_code": 0,
+      "sha256": "fb4ff5d016f262b8d0144ead59467cf8d89ee3ccc0fbd3f54f11c207f835bb25",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_friend_ot.c",
+      "exit_code": 0,
+      "sha256": "9dddcd0fd505f2d2cad71caaab0f5b4d85d71a913c438e6a8ec5b67fc6d4c3d1",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_full_tutor.c",
+      "exit_code": 0,
+      "sha256": "45f3ea3c21d20d18f7cd21a6e32df3089ac5fb049eb4e63e3791191646fce57f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_gender_tool.c",
+      "exit_code": 0,
+      "sha256": "be39e8fd01eba7447a3223ba409e75d8e0fdfc3123fcec7933bfaa1781cde376",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_gible_egg.c",
+      "exit_code": 0,
+      "sha256": "6fa3f192f0deceab627a3204cba7dc3ef872cbfac8f2b3338334790fcbd86e61",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_gift_shiny.c",
+      "exit_code": 0,
+      "sha256": "a57f76cc1de1edeee72c06414e419dc55064a11ec0a8e834f8578ffd708b7948",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_golden_wedding.c",
+      "exit_code": 0,
+      "sha256": "120c442bdd2b6e62033b5dc53f4715fe7326451bc61f21146fb646d6ce94c129",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_habitat_switch.c",
+      "exit_code": 1,
+      "sha256": "865fbf0dccd9326a4b6322106b8e656acd0005d0f94ca90b7e9bebe7699745d9",
+      "diagnostics": "src/hack_habitat_switch.c:10:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   10 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hack_hoenn_battle_music.c",
+      "exit_code": 1,
+      "sha256": "67d4883bf2a8e960c209485e53d3efc1e0e32e05a490b48a1da8d3b47cf31609",
+      "diagnostics": "src/hack_hoenn_battle_music.c:9:10: fatal error: 'Tables/hoenn_battle_music.h' file not found\n    9 | #include \"Tables/hoenn_battle_music.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hack_jirachi.c",
+      "exit_code": 0,
+      "sha256": "633d200ee77b12acb7b7e31a798c2a7c9a3824affc5ab04b9108d4b77ec4ef24",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_kanto_dynamax.c",
+      "exit_code": 0,
+      "sha256": "2b5cb0c11aeb96e493576acc4c8e94aef1e932353366e54ecef8f960d24b7d8c",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_legend_raid.c",
+      "exit_code": 0,
+      "sha256": "1e221fc7c51de6a853d911a6f7be830e43503026d3d0cc921f50acdb5b763ecb",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_level_down.c",
+      "exit_code": 0,
+      "sha256": "5f67dbaa3f780d4a280bb4a91a1dd59fb880f9090830538f2da20e275ab6924d",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_link_lag.c",
+      "exit_code": 0,
+      "sha256": "1363d10c3a4cb2649be88df0aeaf8b6764c8ed9371f4d90c29b37899ce2812b4",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_meteorite.c",
+      "exit_code": 0,
+      "sha256": "84682d684b985a97d7f41e89433d2f22970f9d4e08df349c04d84a0ea7469420",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_moemon_fossil.c",
+      "exit_code": 0,
+      "sha256": "e7d54cd77564d4bf18f04aba0a4e3eabcc526b66e3d6cc57fa191c67bfa16ea3",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_moemon_switch.c",
+      "exit_code": 0,
+      "sha256": "70f3bcba4f134c944ed07ee917864884199c88684e215fac2d3e5e11fb7e749f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_mom_savings.c",
+      "exit_code": 0,
+      "sha256": "0aa70370e4bd70c04ac1f0f605687f141704b94db25f9b79d770af105281cb7b",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_momo_ice.c",
+      "exit_code": 0,
+      "sha256": "6cb92bdb7551da69303f09113f2d319c4571812aba20aae7dda1a9f964a61673",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_mon_id.c",
+      "exit_code": 0,
+      "sha256": "2271fdb2287590a6d8ca260e2ca35fa15229ee39d703a65b5e2e77a274fbfc4f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_mystery_gift.c",
+      "exit_code": 0,
+      "sha256": "2c3bcf6243bc8cc258ad2e53398f7e2a333fd010bbcd1298ac8896b0405ceca2",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_npc_text_color.c",
+      "exit_code": 1,
+      "sha256": "cd449ec74307c96db1ec5bce70a9dfdf44650e5c234c168c7306d998a29eb14d",
+      "diagnostics": "src/hack_npc_text_color.c:5:10: fatal error: 'Tables/npc_text_colors.h' file not found\n    5 | #include \"Tables/npc_text_colors.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hack_oak_intro.c",
+      "exit_code": 0,
+      "sha256": "e3b96a56e5049b17c743cb8c85dd79818d37fe24864e0be69b00ce9225e78680",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_packed_layout.c",
+      "exit_code": 0,
+      "sha256": "a0c2de624bf9c81954f8258a0f4af6e2a093ffc6de90d39610042c3360e11344",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_regi.c",
+      "exit_code": 0,
+      "sha256": "8e95bc90266810375e56b4e5e07fbddfdf98621ac993cd6dc3a7dc2210a3638b",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_save_crypt.c",
+      "exit_code": 0,
+      "sha256": "b319ae7791162497cb1f131365d10df608825a0687047701a3ba04b2d8d2ae30",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_save_slot.c",
+      "exit_code": 0,
+      "sha256": "05b899bec5b9bd23ac9ce0361b21ed8e328f0e344ea59d5f54a0b55ee2558373",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_scsd.c",
+      "exit_code": 0,
+      "sha256": "00cc9b4f800f9c76ae41d4b3fce8b52f969af51273751fa5fcf4a20c65a9535b",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_shining_charm.c",
+      "exit_code": 0,
+      "sha256": "45ae9b49933dcb3f65621685deae8b147eacc3b6664a045ea0b8b6d5ef42d657",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_split_pics.c",
+      "exit_code": 0,
+      "sha256": "6fc5d250f54e74b7d29f3cd2832a262221ac40c7e7c7b072f8868d3be466622c",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_story_partner.c",
+      "exit_code": 0,
+      "sha256": "9ea31be75cdae763a9b69390c2e0cfcc3f8f1a530261e99faef71ccbb8b81f49",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_tera_changer.c",
+      "exit_code": 0,
+      "sha256": "85022b929344e4216b1105ded615c9f9860e5aec68992d4de46faa634565cb7f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_thirsty_girl.c",
+      "exit_code": 0,
+      "sha256": "b6fc4bd46e4811976cfb4889ce5e29238213b81924f501d4ef4529f3ba71bd0f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_title_mouth.c",
+      "exit_code": 0,
+      "sha256": "68d9783b0c14622eed5817f88a1c4aa8e146ba83ec82648f2036a5981f482eec",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_training_pouch.c",
+      "exit_code": 0,
+      "sha256": "a4422427d493b92b293bcfe4adac46637bc18f1b9f6496799478bf0656375e29",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hack_vanilla_tutor.c",
+      "exit_code": 1,
+      "sha256": "8fd1fbb0b10c262950a5f5c8f0ab624ffdb5cb2b16a5bea9f88a57467c576d66",
+      "diagnostics": "src/hack_vanilla_tutor.c:25:10: fatal error: 'Tables/hack_vanilla_tutor_compat.h' file not found\n   25 | #include \"Tables/hack_vanilla_tutor_compat.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hack_wonder_trade.c",
+      "exit_code": 1,
+      "sha256": "8677a1b3e214ea690cfb346331e32a5e477738c1e96db0e46861bc9aa16b0fd0",
+      "diagnostics": "src/hack_wonder_trade.c:14:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   14 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hack_xram.c",
+      "exit_code": 0,
+      "sha256": "f172a35fa026fdf3ca145db0a02e6ed9e53715e9b8485de05b72d05106f326ff",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hall_of_fame.c",
+      "exit_code": 0,
+      "sha256": "44be54b77aa0434fdf4b8aa63cd7fee10e1d0346daeb5b6ec117717d5710bb03",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_abnormal_weather.c",
+      "exit_code": 1,
+      "sha256": "75952ff35228a9e5cf26de91989382b3e3f4522080bf1c409fcc90235c80ff7f",
+      "diagnostics": "src/hoenn_abnormal_weather.c:4:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n    4 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_arena.c",
+      "exit_code": 1,
+      "sha256": "84d457ad81e6ac38a8d72250c7ff5bce01e7770f3f11aef22bed9a0dda6654e8",
+      "diagnostics": "src/hoenn_arena.c:7:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n    7 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_bike.c",
+      "exit_code": 1,
+      "sha256": "4395c81f3b96a4182cff2587f15c8b6ac8c52bb82a583be411619a2d2f327c26",
+      "diagnostics": "src/hoenn_bike.c:8:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n    8 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_cable_car.c",
+      "exit_code": 0,
+      "sha256": "ff6a2d27831011b54c9bce450709b7024b8ff33f84e5699cabd8af471e1a1670",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_dome.c",
+      "exit_code": 1,
+      "sha256": "deebc5b067757b38460a101dc9c45fcbcd5ff7c5c633314605ac36f773f6576b",
+      "diagnostics": "src/hoenn_dome.c:33:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   33 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_dome_anim.c",
+      "exit_code": 0,
+      "sha256": "8978163faf975be702255bc9b887ab627d06242dccb5e3cc4b9d3040cdebd9e3",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_factory.c",
+      "exit_code": 1,
+      "sha256": "5886277a24d9d870121bc2596e050b280f71e8177e5aa07929df3a8ab81e452c",
+      "diagnostics": "src/hoenn_factory.c:8:10: fatal error: 'hoenn_factory_data.h' file not found\n    8 | #include \"hoenn_factory_data.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_factory_screen.c",
+      "exit_code": 1,
+      "sha256": "04574593edc48446d6a1a389a7e8326614dd103a87e121bc0925a2d3fd367b3f",
+      "diagnostics": "src/hoenn_factory_screen.c:25:10: fatal error: 'hoenn_factory_gfx.h' file not found\n   25 | #include \"hoenn_factory_gfx.h\"   /* 絵と文字（tools/frontier/build_frontier_factory.py の生成物） */\n      |          ^~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_flash.c",
+      "exit_code": 0,
+      "sha256": "22b173f34fd14f92988939c403f65089de33221a444a3ca64f7ee6671941a857",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_frontier.c",
+      "exit_code": 1,
+      "sha256": "e4ee50d856f26811d070b2f7146c70718dfdb6d4a5ded4cb4a2ed72c3e4be224",
+      "diagnostics": "src/hoenn_frontier.c:9:10: fatal error: 'hoenn_frontier_data.h' file not found\n    9 | #include \"hoenn_frontier_data.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_gates.c",
+      "exit_code": 1,
+      "sha256": "d2f1d0ec27ffffe060cefdd16f16fe50c7d208e431d6262d0df2b8fae4b29c0f",
+      "diagnostics": "src/hoenn_gates.c:10:10: fatal error: 'Tables/hoenn_gates.h' file not found\n   10 | #include \"Tables/hoenn_gates.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_gym_puzzles.c",
+      "exit_code": 1,
+      "sha256": "5348f353432f38c1a8fc9c142f54bc0569adcee80ab9822063bd106d95763818",
+      "diagnostics": "src/hoenn_gym_puzzles.c:11:10: fatal error: 'Tables/hoenn_gym_puzzles.h' file not found\n   11 | #include \"Tables/hoenn_gym_puzzles.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_islands.c",
+      "exit_code": 1,
+      "sha256": "92ff2e46ffbf58a2853f37c51b37c2563b9a4391a58d7cc4faf0e24d3494eb20",
+      "diagnostics": "src/hoenn_islands.c:11:10: fatal error: 'Tables/hoenn_islands.h' file not found\n   11 | #include \"Tables/hoenn_islands.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_league.c",
+      "exit_code": 1,
+      "sha256": "7e36a8622916dbe963e647f617aa106605f49b512aec226029e00885b8a31987",
+      "diagnostics": "src/hoenn_league.c:6:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n    6 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_music.c",
+      "exit_code": 1,
+      "sha256": "bab47e59d3121c60da6f2d0f339f0abc8adabb609301b1626c63bee1d8da6a4a",
+      "diagnostics": "src/hoenn_music.c:4:10: fatal error: 'Tables/hoenn_music.h' file not found\n    4 | #include \"Tables/hoenn_music.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_palace.c",
+      "exit_code": 1,
+      "sha256": "2643e8708b41dd4493650ff47c7de3772b9f63decd30407a4e83bc05080f01a1",
+      "diagnostics": "src/hoenn_palace.c:10:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   10 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_pc_monitor.c",
+      "exit_code": 1,
+      "sha256": "34c603867db16bf9807fbdd9f858fd88acc064b287bcf34dc57b6c96772d7cab",
+      "diagnostics": "src/hoenn_pc_monitor.c:4:10: fatal error: 'Tables/hoenn_pc_monitor.h' file not found\n    4 | #include \"Tables/hoenn_pc_monitor.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_pike.c",
+      "exit_code": 1,
+      "sha256": "aa37efb94dbc5a59f9e44614332bfe756d29d8f93d3752464ce14096d3a256fd",
+      "diagnostics": "src/hoenn_pike.c:16:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   16 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_pyramid.c",
+      "exit_code": 1,
+      "sha256": "1c3c4f129dda7619b86758c73072e60e97fafa00275c30715d87fdfaef60e657",
+      "diagnostics": "src/hoenn_pyramid.c:22:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   22 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_safari.c",
+      "exit_code": 0,
+      "sha256": "57ca4db220beb4ddfffbf4a5c3635fe825393419d3b0ccfdf17aaf57b2e96fdd",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_sky_pillar.c",
+      "exit_code": 1,
+      "sha256": "e72002d376954e7d160d3e412e42d63a0f79d913f9adf08fc1cdfbf95e5dc799",
+      "diagnostics": "src/hoenn_sky_pillar.c:6:10: fatal error: 'Tables/hoenn_gym_puzzles.h' file not found\n    6 | #include \"Tables/hoenn_gym_puzzles.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_steps.c",
+      "exit_code": 1,
+      "sha256": "8146b64648c203d0c8670fdd1c874793803c760e5efeeb0a3c40ba3b366a52f0",
+      "diagnostics": "src/hoenn_steps.c:13:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   13 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_tileset_anim.c",
+      "exit_code": 0,
+      "sha256": "8f855968b9b5d6512c405d7528f1b5de409c5c9663b6558faf96d3b624641e8a",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_tower.c",
+      "exit_code": 1,
+      "sha256": "ed2203335a35522e2b7fad8dd0ccc15522d74cf0be14efb5584eddcf1f699d80",
+      "diagnostics": "src/hoenn_tower.c:16:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   16 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_townmap.c",
+      "exit_code": 1,
+      "sha256": "eee3ac4e765d5a3ed30d4456896e74e0fd76aeb755648b96a23590aa51d36482",
+      "diagnostics": "src/hoenn_townmap.c:7:10: fatal error: 'Tables/hoenn_fly.h' file not found\n    7 | #include \"Tables/hoenn_fly.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_trainer_flags.c",
+      "exit_code": 0,
+      "sha256": "6ba4689c7c72398f4dbda5ff28d7273bed6a0307e39a33c9b21196ef00fd2c78",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/hoenn_trainer_hill.c",
+      "exit_code": 1,
+      "sha256": "1fdc571b4aae4f7129c72d5e0ac2d3450c951527a3ff9540236167e095875cca",
+      "diagnostics": "src/hoenn_trainer_hill.c:16:10: fatal error: 'hoenn_trainer_hill_data.h' file not found\n   16 | #include \"hoenn_trainer_hill_data.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_warps.c",
+      "exit_code": 1,
+      "sha256": "47c485d394a90641852a1a326f7ee80021c90c5e32d1ba3736506826b664e094",
+      "diagnostics": "src/hoenn_warps.c:3:10: fatal error: 'Tables/hoenn_warps.h' file not found\n    3 | #include \"Tables/hoenn_warps.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/hoenn_weather.c",
+      "exit_code": 0,
+      "sha256": "0cf1ac1ebe62089da7c38e7878f3a6bb5a9a014fa04c2ce1b294aa62e685906d",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/item.c",
+      "exit_code": 0,
+      "sha256": "136052d94cc017b71546c2740aa08ac9e3d89cce249c1d64393cc3fa074e704b",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/item_battle_effects.c",
+      "exit_code": 0,
+      "sha256": "8f5e572024983c228f668df7f7ecc100a2645d6c330e987c52267b387853ea2c",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/kagenonakani_follower.c",
+      "exit_code": 0,
+      "sha256": "f5931d59092ddf17bedcbb0ff2c869ee796a4b062a784c2f0ee007d1833dcdb5",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/kanto_mom_pikachu.c",
+      "exit_code": 0,
+      "sha256": "b1e1fa9f7a678d1becf056b49d9a33057912914b0a1f045dafc6eb6b781ed06a",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/learn_move.c",
+      "exit_code": 0,
+      "sha256": "110c3196a19f7197933fdfaff7286f92219aa1e2ba84d4833aab7fb0f5e58369",
+      "diagnostics": "In file included from src/learn_move.c:13:\nsrc\\../include/new/move_reminder_data.h:93:2: warning: use of GNU 'missing =' extension in designator [-Wgnu-designator]\n   93 |         {\n      |         ^\n      |         = \n1 warning generated.\n"
+    },
+    {
+      "path": "src/link.c",
+      "exit_code": 0,
+      "sha256": "b443d1b3716e36dfe653a05d1f879f9340ddb41a137718bf526e05609d721c6d",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/map_region.c",
+      "exit_code": 1,
+      "sha256": "750ee6581efac2f7757f73d29b957857218b3fe5891a0874ade5d40f780ca8aa",
+      "diagnostics": "src/map_region.c:3:10: fatal error: 'Tables/sinnoh_townmap.h' file not found\n    3 | #include \"Tables/sinnoh_townmap.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/mega.c",
+      "exit_code": 0,
+      "sha256": "264b927ebb81159a711a96fe6621e3c269ab4a13f1e2b40c1f7df37341a54dda",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/mega_shop.c",
+      "exit_code": 1,
+      "sha256": "7eb401026e73f7a11417ad7467da95b09bd3e6953a51326a83a7bf9452627fa4",
+      "diagnostics": "src/mega_shop.c:13:10: fatal error: 'Tables/mega_shop_items.h' file not found\n   13 | #include \"Tables/mega_shop_items.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/mgba.c",
+      "exit_code": 0,
+      "sha256": "15df7af7be84ec939537af6068fd2c1aa93a7a8ea5f808f110ca552a5fc2392f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/move_menu.c",
+      "exit_code": 0,
+      "sha256": "ca165e85902c51e39f33d4e2311f8a19f77098e488897f48b1419aeb6849c38d",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/multi.c",
+      "exit_code": 0,
+      "sha256": "9672e20d0060fc502c9625f752311579268f6914ac9dfb0989adf91fcd5c87cc",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/music_player.c",
+      "exit_code": 0,
+      "sha256": "2d29719484ded49ea77d45d1c47aae0ae108b3baedd067003eaaada8e3cc4720",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/new_bs_commands.c",
+      "exit_code": 0,
+      "sha256": "5d76739dac2e80be30c75c46803f270932f27558c62eb155cc11e7ba8f52ded8",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/overworld.c",
+      "exit_code": 0,
+      "sha256": "63b732bef00194177af87539c6c6e53e450227781aea4a2b98b48b0798faba91",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/overworld_speedup.c",
+      "exit_code": 1,
+      "sha256": "8fc992559ec84c482fde7a3660f41a8fe2adade95930e0be90490aad7226581f",
+      "diagnostics": "src/overworld_speedup.c:12:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n   12 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/party_menu.c",
+      "exit_code": 0,
+      "sha256": "5be8360894046d60594104331f397250e9878c3090a133b22b9455cbc13d10f0",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/play_clock.c",
+      "exit_code": 1,
+      "sha256": "f918165d451f80c62eeb8c7ebaae93a0f979f4757415fb7690489a774bd41f69",
+      "diagnostics": "src/play_clock.c:6:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n    6 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/pokemon_storage_system.c",
+      "exit_code": 0,
+      "sha256": "730e6d881d8ad1fb55711b616e0fdc2c717d06d5cd5a67348831965c91d3f1f0",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/pokemon_summary_screen.c",
+      "exit_code": 0,
+      "sha256": "01a29514991b5910dbe089121eff71f81b4ef5d9ca893121fba708a58043acbe",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/raid_intro.c",
+      "exit_code": 0,
+      "sha256": "f2ebdbb31df76fedf65182f0110a1e2214ba015c20155fd05739d08f45e7df37",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/read_keys.c",
+      "exit_code": 0,
+      "sha256": "e376dd71017eb99d134122df190663d5cf4dc0940215a832968d1dd7736a741f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/region_fly.c",
+      "exit_code": 0,
+      "sha256": "2b6791d23f68e22a402d830e59ce04c2f7ef0268b874a4b01c6da650cccda43b",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/rindoris_follower.c",
+      "exit_code": 0,
+      "sha256": "bd17f3f100b3a20308237bb94028128a69ae1b38cd7cc54ec73cf959a740f878",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/roamer.c",
+      "exit_code": 1,
+      "sha256": "b621d11be7dcfc82945ee1f90fc467c78ba5c4549f2a17128f7bb1fac50315a0",
+      "diagnostics": "src/roamer.c:19:10: fatal error: 'Tables/hoenn_roamer_locations.h' file not found\n   19 | #include \"Tables/hoenn_roamer_locations.h\" //[hack] patches/0093: ラティ兄妹のホウエンの徘徊（tools/rom/build_hoenn_roamers.py）\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/rtc.c",
+      "exit_code": 0,
+      "sha256": "326140a013526e92a4c6ac4ebf8895579662424738e194c5cf40b73975ab1a88",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/save.c",
+      "exit_code": 0,
+      "sha256": "9071e81a5cea158f3379275c7c66322f630a31e709e43ee0c5f9faa0e490649e",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/scripting.c",
+      "exit_code": 0,
+      "sha256": "869075d8df47208483c524b7e81e363889bfa2cf5c486d343b3489ed07e64e32",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/second_ability.c",
+      "exit_code": 1,
+      "sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+      "diagnostics": "src/second_ability.c:7:10: fatal error: 'Tables/second_abilities.h' file not found\n    7 | #include \"Tables/second_abilities.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/set_effect.c",
+      "exit_code": 0,
+      "sha256": "11c1edcf18d5653886c84c6bcad55bd6a9494faac0a009beb3d0a55ac4cca508",
+      "diagnostics": "src/set_effect.c:548:48: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 144 to -112 [-Wconstant-conversion]\n  548 |                                 if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(1) | STAT_BUFF_NEGATIVE,\n      |                                     ~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~\nsrc/set_effect.c:612:48: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 160 to -96 [-Wconstant-conversion]\n  612 |                                 if (ChangeStatBuffs(SET_STAT_BUFF_VALUE(2) | STAT_BUFF_NEGATIVE,\n      |                                     ~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~\n2 warnings generated.\n"
+    },
+    {
+      "path": "src/set_z_effect.c",
+      "exit_code": 0,
+      "sha256": "dbf7b8914873180842b748671bbcd70660a96588713653b3e20a84cb6bddf7a8",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/sideways_stairs.c",
+      "exit_code": 1,
+      "sha256": "91da0fd16e7a82493232b7c9aca138fd84f61591ccb7229cc83a768e201c3c2b",
+      "diagnostics": "src/sideways_stairs.c:7:10: fatal error: 'Tables/sideways_stairs_table.h' file not found\n    7 | #include \"Tables/sideways_stairs_table.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/siirtc.c",
+      "exit_code": 0,
+      "sha256": "90a73c349d6312115f27cda511c830e5d2714063cc7665c496fd9b814e82b8c5",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/sinnoh_eterna_gym.c",
+      "exit_code": 1,
+      "sha256": "6f8db26a124fd6acdb18acf20867e935478f2bd9a85461a9b69844c7ac25d84a",
+      "diagnostics": "src/sinnoh_eterna_gym.c:6:10: fatal error: 'Tables/sinnoh_eterna_clock.h' file not found\n    6 | #include \"Tables/sinnoh_eterna_clock.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/start_menu.c",
+      "exit_code": 0,
+      "sha256": "700af269542ac04ea38f2d8223e198ce4d23d8541a7ba8f441c28c219a065b14",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/stat_buffs.c",
+      "exit_code": 0,
+      "sha256": "93bde0923086a8db4467e5b1912c442fbb6fd2b0f96bccfa2ac36c600e877e31",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/switching.c",
+      "exit_code": 0,
+      "sha256": "ea85fc94f17862264a761c710db0f70a74eec43b5290814c190f84971c4f99d8",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/back_pic_tables.c",
+      "exit_code": 0,
+      "sha256": "9c5abfd8a1a7216e024083fd5c1c0a542745e7c87111eb2d4c688ba68fbaa79b",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/ball_graphics_tables.c",
+      "exit_code": 0,
+      "sha256": "c0174357983d823ad2164ff87521874a5d3b8105a68bd498b8044f977a363161",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/base_stats.c",
+      "exit_code": 0,
+      "sha256": "a0a108eea644a13b3fb5866050891fdbf44d805551b131b11157c01e8a95e696",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/battle_frontier_trainers.c",
+      "exit_code": 1,
+      "sha256": "13425947d53b444701ba370b27c96b018cfcba70b4988f6ced4e8dfd25e8b38b",
+      "diagnostics": "src/Tables/battle_frontier_trainers.c:2291:11: fatal error: 'hoenn_frontier_trainers.h' file not found\n 2291 |         #include \"hoenn_frontier_trainers.h\"\n      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/Tables/battle_moves.c",
+      "exit_code": 0,
+      "sha256": "3e4055a52b5ac3880465f7bea02ab7dab28935a651e4f6bbec704678f139ccce",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/class_based_pokeball_table.c",
+      "exit_code": 0,
+      "sha256": "8a6e4354b208835d2660a4e5db30f6f24e6eade42c7615c81a654bb749a2adfe",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/experience_tables.c",
+      "exit_code": 0,
+      "sha256": "0d48d665ec7cac63eaa571a5a2b8dc169884fce48ddc9c977607458e85a14b7f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/item_tables.c",
+      "exit_code": 0,
+      "sha256": "ebaa822e546822c0d10c93c5da02b43f6511d72e89a90fe0d692fbf27689d4f9",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/level_up_learnsets.c",
+      "exit_code": 0,
+      "sha256": "c619fcc8e907f1efd018f69768ba917f67ea079b5151c8790d8283c9c1385432",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/mugshot_tables.c",
+      "exit_code": 1,
+      "sha256": "8d196b4f681623dc2fb882154b964d79d1cca91f37e9d3d002b1cecd1720a062",
+      "diagnostics": "src/Tables/mugshot_tables.c:4:10: fatal error: 'bw_mugshot_gfx.h' file not found\n    4 | #include \"bw_mugshot_gfx.h\" //#20 BW protagonist (tools/bwplayer/build_bw_mugshot.py)\n      |          ^~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/Tables/music_tables.c",
+      "exit_code": 0,
+      "sha256": "461a6b803e828cc66ee7f5f4bc543503823e363d961fbed6cf912f1224ed9cc4",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/pokemon_tables.c",
+      "exit_code": 0,
+      "sha256": "e3628a0affe9da2c1ffae5e7c67b74073270d82a1dba729f26854b80e0209437",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/terrain_tables.c",
+      "exit_code": 0,
+      "sha256": "837fa7d44b9072e6bd12679b97e9f6ea9502e803bd7a7d3f05a0593a0f65f6f6",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/Tables/wild_encounter_tables.c",
+      "exit_code": 0,
+      "sha256": "b952ab5da315d27fedd9dc989850bb87a3b4c3b65997151f1e6ed44357df20c7",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/tall_trainer_pic.c",
+      "exit_code": 1,
+      "sha256": "7bf253e3dd6f84415d1607b81b06e6c90dd83a7aee5c435707837c29f95d3747",
+      "diagnostics": "src/tall_trainer_pic.c:6:10: fatal error: 'Tables/tall_trainer_pics.h' file not found\n    6 | #include \"Tables/tall_trainer_pics.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/terastal.c",
+      "exit_code": 0,
+      "sha256": "58013ece58fe3ee3f103a66991668c686bd04ce093ef71d48e41e8990a61bb0f",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/text_printer.c",
+      "exit_code": 0,
+      "sha256": "75a5a424e772eb0900b2355510cfcfaeb0842c002e1ac2e97825dfd6bc2e60be",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/trainer_sliding.c",
+      "exit_code": 0,
+      "sha256": "d4de70b96e53258b667aa439374597a9a13899cd44b4a0d6e9faee51bb42e5e6",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/util.c",
+      "exit_code": 0,
+      "sha256": "a5a6ce84ce345fa252c6470d52277781094c25025fdaaf5ea9ced75ccf592827",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/wild_encounter.c",
+      "exit_code": 0,
+      "sha256": "75ea7e261a6183106488b634b1f3f9815ba6208da489d5a6ae73fb4304d09291",
+      "diagnostics": ""
+    },
+    {
+      "path": "src/wild_mega_stone.c",
+      "exit_code": 1,
+      "sha256": "9d4637e8b76c1cad6b0ab00ceab4790bf1275298e2dbbaac256650a36f14f7ac",
+      "diagnostics": "src/wild_mega_stone.c:3:10: fatal error: 'Tables/wild_mega_stones.h' file not found\n    3 | #include \"Tables/wild_mega_stones.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "path": "src/wild_shuffle.c",
+      "exit_code": 1,
+      "sha256": "2e29b39595a2eb8ddbfd2ea3310553f21f8289aae885850688478d9e4ca86ec6",
+      "diagnostics": "src/wild_shuffle.c:7:10: fatal error: 'Tables/hoenn_script_flags.h' file not found\n    7 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    }
+  ]
+}

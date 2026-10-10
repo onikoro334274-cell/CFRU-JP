@@ -1,0 +1,742 @@
+[
+  {
+    "path": "strings/ability_descriptions.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "Error including file on line \"#include \"src/config.h\"\".\n'charmap' codec can't decode byte 0x90 in position 424: character maps to <undefined>\n",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "091ada60d420586aa297d7eb64d9adc2721d36e364fc395e99f298db19f2c286"
+  },
+  {
+    "path": "strings/ability_name_table.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "13ee16fea9d9785054bf16d801f541b67b66784fd275669fd77ae60c392e61a1"
+  },
+  {
+    "path": "strings/ability_strings.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "77260fa40d311ccd9c5e4b1e11a1489f2d35015e396de22ac05a5bb48bfe4185"
+  },
+  {
+    "path": "strings/achievements.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "6e80c62ce82bb45d7e431d253921caefe747e2fbacecb287d1f1cf2e6b6a7e72"
+  },
+  {
+    "path": "strings/attack_descriptions.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "ce1b6e752c0f527e4e37869827024b7b463d6056e9e3524c65d5bf525c8a0c93"
+  },
+  {
+    "path": "strings/attack_name_table.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "f0fb54a8ec0d23216ddf793eca4eeaae71c43db880c3c9bd3f49164f91c65801"
+  },
+  {
+    "path": "strings/bag_pages.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "f1061a33496c2cd4266c30a1f824b0035b5718da218c75e0f3ff8abe1c7704d2"
+  },
+  {
+    "path": "strings/box_shelf.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "c3bd07fb437bc5d26e6b955288a665435c150989b2878b52231f91f4190569a4"
+  },
+  {
+    "path": "strings/bw_follower.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "99991ff84637dc98ab7a396be555b64ccb1c949bc0c2681b3714ddafc60dab90"
+  },
+  {
+    "path": "strings/bw_frontier_pass.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "e9005d2e426fc4681a067848dfe9e6f1a02ba0c1a2a8cb1fd333069963e51a78"
+  },
+  {
+    "path": "strings/bw_main_menu.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "21bedb1376fc3a08c91b1733415939e9aae60474ae8af159b7ba1fba0c638d79"
+  },
+  {
+    "path": "strings/bw_map_popup.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "2861b783b2af1a327c8d1daed5d92f287f9cbc888ab29ba7e915c10f16832968"
+  },
+  {
+    "path": "strings/bw_option_menu.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "9d687e7f7d9164fda84b46ca214a2c4d5c683f6de10558057035918d2450f69f"
+  },
+  {
+    "path": "strings/bw_start_menu.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "9e8422285a36c1c9d3f9ed04cb8eaad406e8e9b03607cafcbbfe92cd19d8e806"
+  },
+  {
+    "path": "strings/champions_snow.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "bf08b60d2a3bd0e1975baae06f71ad9285d5fe2da5c766ccc08512a7b3dffac7"
+  },
+  {
+    "path": "strings/debug_strings.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "df51e49a8708d4ae294b6f2f837f5dfee517a482dd3ad0b6a812ac3dd8fab647"
+  },
+  {
+    "path": "strings/derby.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "839b22c99d6be103cf687c984450e3d5445f407e6c7bb682c2ccc45d9c28108b"
+  },
+  {
+    "path": "strings/dexnav.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "0888acb92f274da44c90390a37e76e127e35601ea4552ac85fe4f18edf9006a6"
+  },
+  {
+    "path": "strings/entry_hazards_strings.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "c288552dd23e96452a535edfc6c35a58966b64a32d5665bd6cae33f6ea70136a"
+  },
+  {
+    "path": "strings/frontier_records.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "302446b05b5e8fd5c0a3bc393fbeda49b7b2de0267c249b614dd8aa431098276"
+  },
+  {
+    "path": "strings/frontier_trainer_names.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "Error including file on line \"#include \"src/config.h\"\".\n'charmap' codec can't decode byte 0x90 in position 424: character maps to <undefined>\n",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "f0863c61d9c05d898a0acd6f34e88501abb1f55770f7f169100d0613912c8a2a"
+  },
+  {
+    "path": "strings/frontier_trainer_text.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "Error including file on line \"#include \"src/config.h\"\".\n'charmap' codec can't decode byte 0x90 in position 424: character maps to <undefined>\n",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "a8c73b355599aa11bbd24f995b94c02f8ed2ec4532fb5845f3af855e00bc81bf"
+  },
+  {
+    "path": "strings/gacha.string",
+    "baseline_space_normalization": true,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "4b0d2a0ac04cfc3c0932f9bd819934b9dfabc0331ccd3ccfd1b4e8b7e88920a4"
+  },
+  {
+    "path": "strings/general_battle_script_strings.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "349eb6ecc29a6b4d922182aa7635ed10cf84d098ffad9948f655bc652343c379"
+  },
+  {
+    "path": "strings/general_battle_strings.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "bc13c28921ec64ac906fe04f85ba2ab82e11b0c0b79ad594d9842b826bb90699"
+  },
+  {
+    "path": "strings/hack_affection.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "7507c987e5e7f4ec35846af6c1b7b002fbffad0b7e64cc02cbd944e992dd83d4"
+  },
+  {
+    "path": "strings/hack_boxwall.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "6387dd09bef728d8c958385d19975fbcaf6c584cd59feaba7d5dd69df93fb757"
+  },
+  {
+    "path": "strings/hack_danger_leaf.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "5173e777e581d627ae208250f74e32d9fba5e7c4756c2bc0614645d4d32fd3e0"
+  },
+  {
+    "path": "strings/hack_danger_sugar.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "e9a5b4cd0442c50690e24b1a4551622505d7c650c2100466ead96847d58c149f"
+  },
+  {
+    "path": "strings/hack_ev_reset.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "c7f23f39ddc50bdd7418c8181ac503046351d1f3daa26f603660cfccd2bbfdae"
+  },
+  {
+    "path": "strings/hack_frontier_mart.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "3264035cabd3eb5eaffd14ffda5a5a1129b6a36d5e51c2189651960d71a4cceb"
+  },
+  {
+    "path": "strings/hack_gender_tool.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "3addf20a1fef59099db8ae684d51447447e05d9258706c71ccec3d0691eb98b5"
+  },
+  {
+    "path": "strings/hack_habitat_switch.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "833849a7e18e581bfec183019fd39ce1ad68493673c6e64bc6b9e0bc335f210c"
+  },
+  {
+    "path": "strings/hack_jirachi.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "dcdb1a7216fdc8b180d83ff296f390b8a4cef0273dae65f9d46f965845048daf"
+  },
+  {
+    "path": "strings/hack_legend_raid.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "fe0f2bc9ac74545dca47e035f8a21bf5a6bb1f36a9503b804eb4357ac95d297b"
+  },
+  {
+    "path": "strings/hack_level_down.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "754766876a60d605f02cafaffccf7da2f84fb3bed87525db45f375d8ce8708dc"
+  },
+  {
+    "path": "strings/hack_moemon_switch.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "f007a069e8ff3c9cf23d01327f999cab4a07d5415399feba677e1dafed0d30b4"
+  },
+  {
+    "path": "strings/hack_momo_ice.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "5bb8b82567fb6d6b29e17dcbc465b1c4c6fa394e0ef0206f40a3e245bbf86684"
+  },
+  {
+    "path": "strings/hack_momoka.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "9571bbacd0e1a01bda373732a06fad19b78043aa9510793f8d7f518185619a5c"
+  },
+  {
+    "path": "strings/hack_mystery_gift.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "1170a6e178e470f2ec76e5bb6f2a133804c32287aaeef50d1c8cf8137ba7c575"
+  },
+  {
+    "path": "strings/hack_save_slot.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "a5cbdc664aa5f56c4fea483500b63a9f6a40174d42a3076267d9c982f2ad71b8"
+  },
+  {
+    "path": "strings/hack_shining_charm.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "92e4deafb95a18c6d8a3baf849c837a87a841cb306598c0ce3659222181f695c"
+  },
+  {
+    "path": "strings/hack_tera_changer.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "3d0883d0893b344a01c39c41efcd22fa0e13d4f120d9fd5be58b655ea45aef35"
+  },
+  {
+    "path": "strings/hack_wonder_trade.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "b57035fcf918f7255b0c43e0227560019d31a8c496c165eb18bae8866a6c625e"
+  },
+  {
+    "path": "strings/hoenn_bike.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "bc13225bc729e6113fc9af6bc24077cdc6229f4b89005625fe99afb939906d5d"
+  },
+  {
+    "path": "strings/instant_text.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "f721dbe844aeeed91c026b8a3f9a8e45729b3ef1a6ae01ad1e9ed46a32044400"
+  },
+  {
+    "path": "strings/item_descriptions.string",
+    "baseline_space_normalization": true,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "e915001fc31bdbb89fb435971cc74a6161b624e6948b268f3898b7422a0701e0"
+  },
+  {
+    "path": "strings/kagenonakani.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "6a67b2ec4de9e488ada3a0108d7de9ff51297fc8a3302059368ab43e537ae499"
+  },
+  {
+    "path": "strings/kanto_ball_change.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "a9802c9d9fb4196bd1001e9dd5bdbfe6aceacba57ccf1d5512d147537d74128f"
+  },
+  {
+    "path": "strings/kanto_box_link.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "6ac284fbd66d0391022d0988075096951d0993ab64e4ac86823f76c01bda7cf0"
+  },
+  {
+    "path": "strings/kanto_daisy.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "a31fe3aa5f953f5e91a51fc77f9e835b2b05c658138fcb06112e722d9eba91ca"
+  },
+  {
+    "path": "strings/kanto_evo_items.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "e643db4d8208e45c2d760878f6034a423b9b0d115c1997ff9f28cf4c744de550"
+  },
+  {
+    "path": "strings/kanto_gible_egg.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "e91ddeb7351d5bf4c2e5e9f8740f28d01ed2ae08f7fdca2ed8e1d237da701fa9"
+  },
+  {
+    "path": "strings/kanto_golden_wedding.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "693ad563478de203564ab0214df142925a91395b973d65569c46f46f661e3838"
+  },
+  {
+    "path": "strings/kanto_home.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "01cf379ec934d1081c939bcf325d3b7b787c4e1b4fdb45a3d9379cdb84516d8d"
+  },
+  {
+    "path": "strings/kanto_home_pikachu.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "f6ae1b86e8145d37fcba476869273bdd401f59882aaec0692438d9d187be981a"
+  },
+  {
+    "path": "strings/kanto_hyper_training.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "fcc130cf3f5b3ee6643a886567fafece1521fca73646d713c369b6fadf594a88"
+  },
+  {
+    "path": "strings/kanto_moemon_fossil.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "463527ad1f677bf29e8e6566a87318def886c84f10d351c22767290827c0a2db"
+  },
+  {
+    "path": "strings/kanto_mom_savings.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "128bc3b98b31ba05f7f9b5bedd3824d1b49961ee49e277eb24981291f1d0b22f"
+  },
+  {
+    "path": "strings/kanto_oak.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "ab3e478d90b9b6deb1f2a8592ec23f88867a95467b96ce986753f4d95102842c"
+  },
+  {
+    "path": "strings/kanto_silph_master_ball.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "3010feb1d81bf3cb2a2f89d314bdb9dfd5e906585ec5da981393ea7325e44629"
+  },
+  {
+    "path": "strings/kanto_tm_texts.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "fc0f1960ba1a9d1154556e15cd13ca0d44680366a2ea37d96fd6d2ea3cc182bf"
+  },
+  {
+    "path": "strings/mauville_gamecorner.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "4effa4a671d04ad72d94cbadc099dfbb09967ad5d60e32d10fb6b9049c22b316"
+  },
+  {
+    "path": "strings/mega_shop.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "08035b3f460f65434864965a877a01986595ee9cb22840f17b6f0a623a47db64"
+  },
+  {
+    "path": "strings/mining_em.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "0e021de6388cb0d13d94ba250bef169f69f80e083d3da4ba4f50c0490e8ac898"
+  },
+  {
+    "path": "strings/music_player.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "8ac25f41ebaa4b6fb50eab702c37933b426d8caf6691cad1d6f4f688f020cd5c"
+  },
+  {
+    "path": "strings/overworld_strings.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "56b8839d24a2f466e31ac282de8840043ccccab5f16d0c9d44933318e29839be"
+  },
+  {
+    "path": "strings/party_menu.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "6a97ad6175d6c23cdd1591e8b1fe1a97ab5d2e5e7dac55ae1f156f4827f4abc5"
+  },
+  {
+    "path": "strings/raid_battle.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "9d33522fdb70ce0e92c81baeda9be51e50a1cb858ac1a9132d00a176e4eee2af"
+  },
+  {
+    "path": "strings/scrolling_multichoice.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "Error including file on line \"#include \"src/config.h\"\".\n'charmap' codec can't decode byte 0x90 in position 424: character maps to <undefined>\n",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "747be6c4fb60626decae14fa9a596ffd355043eedf58c193ef21dc9b3f37f9b0"
+  },
+  {
+    "path": "strings/start_menu.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "eb542c0aab560819552503ca0969c53305b9945cfad0e3d9a620bc97b9e3fee0"
+  },
+  {
+    "path": "strings/trainer_sliding_strings.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "Error including file on line \"#include \"src/config.h\"\".\n'charmap' codec can't decode byte 0x90 in position 424: character maps to <undefined>\n",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "453c92f82597940b3ba2f0db33f0bc7cdc0ceb1c68a41c2a2562b9bc5b355015"
+  },
+  {
+    "path": "strings/type_names.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "5ade2c252f708daa0e504295e729282f25e9a21b74f1cd02cdb21ca9412c8125"
+  },
+  {
+    "path": "strings/z_move_names.string",
+    "baseline_space_normalization": false,
+    "diagnostics": [
+      "",
+      ""
+    ],
+    "identical": true,
+    "output_sha256": "f05c6b05f45897b922f616f7616cc6ac5390c89620327c070f7ae03e7ee8472f"
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "function": "MakeOutputAudioFile",
+    "source_paths": [
+      "audio\\a\\Wav_same.s",
+      "audio\\b\\Wav_same.s"
+    ],
+    "baseline_outputs": [
+      "./build\\SND_same.o",
+      "./build\\SND_same.o"
+    ],
+    "current_outputs": [
+      "./build\\SND_68be009ae0ddc0f318f434b98b8afa37.o",
+      "./build\\SND_8dcbec2fca4f012009a86235f458e8a9.o"
+    ],
+    "baseline_collision": true,
+    "current_collision": false
+  },
+  {
+    "function": "MakeOutputMusicFile",
+    "source_paths": [
+      "audio\\a\\same.s",
+      "audio\\b\\same.s"
+    ],
+    "baseline_outputs": [
+      "./build\\MUS_same.o",
+      "./build\\MUS_same.o"
+    ],
+    "current_outputs": [
+      "./build\\MUS_558ddfc2f178e5103efeafdb454114ba.o",
+      "./build\\MUS_f1a88e55c2e99648b084e65a4437134b.o"
+    ],
+    "baseline_collision": true,
+    "current_collision": false
+  }
+]

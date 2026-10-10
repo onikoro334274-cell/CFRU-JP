@@ -1,0 +1,10 @@
+{
+  "path": "C:\\Users\\liru55\\Documents\\PokemonStart解凍\\Pocket Monsters - FireRed (Japan).gba",
+  "size": 16777216,
+  "game_code": "BPRJ",
+  "revision": 0,
+  "header_checksum_valid": true,
+  "sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "verification": "Header identification only; no trusted whole-ROM reference hash comparison performed",
+  "adjacent_missing_inputs": "No hoenn_script_flags.h, fcomp.h, grit.exe, wav2agb.exe or mid2agb.exe found recursively in the supplied parent folder"
+}
