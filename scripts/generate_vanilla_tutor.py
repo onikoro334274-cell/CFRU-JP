@@ -54,14 +54,20 @@ def build(rom_path, output=OUT):
     sp, nat = species_ids(), national_ids()
     table = [0] * 387
     hits = 0
+    seen_species = set()
+    seen_dex = set()
     for name, sid in sp.items():
         if 1 <= sid < NUM_VANILLA_SPECIES and name in nat and 1 <= nat[name] <= 386:
+            if sid in seen_species or nat[name] in seen_dex:
+                raise ValueError('Duplicate species/dex mapping: ' + name)
+            seen_species.add(sid)
+            seen_dex.add(nat[name])
             table[nat[name]] = learn[sid] & 0x7FFF
             hits += 1
-    if hits != 386:
+    if hits != 386 or seen_dex != set(range(1, 387)):
         sys.exit('種族と全国図鑑の突き合わせが %d 件（386 のはず）' % hits)
 
-    lines = ['/* 生成物: tools/tutor/build_vanilla_tutor.py（手で直さない）',
+    lines = ['/* 生成物: scripts/generate_vanilla_tutor.py（手で直さない）',
              '   素の FRLG の技教え 0〜14 番の「覚えられるか」（素の ROM の sTutorLearnsets を全国図鑑の番号で並べ直した）。',
              '   bit n = 素の技教え n 番（0 メガトンパンチ … 14 みがわり）。src/hack_vanilla_tutor.c */',
              'static const u16 sHackVanillaTutorCompat[387] =', '{']
@@ -72,7 +78,7 @@ def build(rom_path, output=OUT):
     old = open(output, encoding='utf-8').read() if os.path.exists(output) else None
     if old != text:
         open(output, 'w', encoding='utf-8', newline='\n').write(text)
-    print('OK: %d 種（全国図鑑 1〜386）→ %s' % (hits, os.path.relpath(OUT, ROOT)))
+    print('OK: %d 種（全国図鑑 1〜386）→ %s' % (hits, os.path.relpath(output, ROOT)))
     return table
 
 

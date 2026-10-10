@@ -1,4 +1,4 @@
-/* 生成物: tools/tutor/build_vanilla_tutor.py（手で直さない）
+/* 生成物: scripts/generate_vanilla_tutor.py（手で直さない）
    素の FRLG の技教え 0〜14 番の「覚えられるか」（素の ROM の sTutorLearnsets を全国図鑑の番号で並べ直した）。
    bit n = 素の技教え n 番（0 メガトンパンチ … 14 みがわり）。src/hack_vanilla_tutor.c */
 static const u16 sHackVanillaTutorCompat[387] =
