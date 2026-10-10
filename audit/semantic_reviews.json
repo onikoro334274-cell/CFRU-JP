@@ -492,6 +492,18 @@
         "siirtc_gpio_review.json"
       ],
       "remaining": "Actual GPIO timing, interrupt preemption, hardware test-mode recovery with this status-only reset, and full native ROM linking remain unverified."
+    },
+    {
+      "path": "src/hack_thirsty_girl.c",
+      "source_sha256": "b6fc4bd46e4811976cfb4889ce5e29238213b81924f501d4ef4529f3ba71bd0f",
+      "sections": [
+        "sThirstyGirlLists",
+        "HackThirstyGirl_LoadChoices"
+      ],
+      "verification_records": [
+        "thirsty_girl_review.json"
+      ],
+      "remaining": "Actual drawing/width, caller scripts and rewards, and linked GBA integration remain unverified."
     }
   ]
 }

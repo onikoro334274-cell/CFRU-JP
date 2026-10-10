@@ -1,0 +1,10 @@
+{
+  "scope": "HackThirstyGirl_LoadChoices in src/hack_thirsty_girl.c",
+  "source_sha256": "b6fc4bd46e4811976cfb4889ce5e29238213b81924f501d4ef4529f3ba71bd0f",
+  "rom_sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "rom": "Supplied read-only BPRJ revision 0, 16 MiB",
+  "native_descriptor_table": "0x83a557c",
+  "verification": "Six native descriptor pointers/counts match one contiguous ROM sequence; text pointers, terminators and drink/cancel combinations validated. All 65536 script inputs preserve untouched menu slots and invalid-input width state; valid entries copy names and assign selection IDs.",
+  "change": "No handler fix indicated by these checks.",
+  "limitations": "Native fixture substitutes ROM address resolution only. Actual multichoice drawing, widths, event script rewards and linked GBA behavior remain unverified."
+}
