@@ -231,8 +231,8 @@
     {
       "path": "src/bw_option_menu.c",
       "exit_code": 0,
-      "source_sha256": "34b168bb5b83e49cac592383cf27f01e51a0448cc22294dc2b16a370122f8d4e",
-      "object_bytes": 10664,
+      "source_sha256": "b0abc1219ccb939450f153ba4927448fd7c89c794727d2a7ff8c9c943eaa3a4c",
+      "object_bytes": 10676,
       "diagnostics": ""
     },
     {

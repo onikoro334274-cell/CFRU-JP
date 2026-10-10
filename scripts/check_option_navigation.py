@@ -12,7 +12,7 @@ def main():
     source = (ROOT / 'src/bw_option_menu.c').read_text(encoding='utf-8')
     enums = '\n'.join(re.search(r'enum\s*\{\s*' + name + r'\b.*?\};', source, re.S)[0]
                       for name in ('TD_MENUSELECTION', 'MENUITEM_TEXTSPEED'))
-    production = '\n'.join(function(source, name) for name in ('CycleInput', 'ProcessInputFor', 'Task_ProcessInput'))
+    production = '\n'.join(function(source, name) for name in ('CycleInput', 'ProcessInputFor', 'Task_ProcessInput', 'LoadFrameGfx'))
     beginning = source.index('data[TD_TEXTSPEED] = gSaveBlock2->optionsTextSpeed;')
     ending = source.index('data[TD_BATTLESCENE] =', beginning)
     production += '\nstatic void InitTextSpeed(s16* data) {\n' + source[beginning:ending] + '\n}\n'
@@ -32,6 +32,9 @@ typedef unsigned char u8;typedef short s16;
 #define DIFFICULTY_COUNT 5
 #define OPTIONS_TEXT_SPEED_FAST 2
 #define OPTIONS_TEXT_SPEED_MID 1
+#define BWOPT_FRAME_COUNT 10
+#define BWOPT_FRAME_TILE 0x1A2
+#define BWOPT_FRAME_PAL 14
 #define VRAM 0
 #define JOY_NEW(k) (keys&(k))
 ENUMS
@@ -39,6 +42,17 @@ static unsigned keys;static int errors,descriptions,rows,mapIndex;
 static struct {unsigned optionsTextSpeed:3;} saved;
 #define gSaveBlock2 (&saved)
 static int cryCalls,cryMode;
+struct TilesPal {const u8* tiles;const unsigned short* pal;};
+static const u8 frameTiles[288]={0};static const unsigned short framePal[16]={0};
+static const struct TilesPal frame={frameTiles,framePal};
+static int frameIndex,frameLoads;
+static const struct TilesPal* GetWindowFrameTilesPal(u8 index) {frameIndex=index;return &frame;}
+static void LoadBgTiles(int bg,const u8* tiles,int size,int start) {
+    if(bg!=2 || tiles!=frameTiles || size!=288 || start!=0x1A2) errors++;frameLoads++;
+}
+static void LoadPalette(const unsigned short* pal,int start,int size) {
+    if(pal!=framePal || start!=224 || size!=32) errors++;frameLoads++;
+}
 static struct {s16 data[16];void (*func)(u8);} gTasks[1];
 static const u8 maps[6]={0,1,2,3,4,5};
 static const u8* sMaps[6]={maps,maps+1,maps+2,maps+3,maps+4,maps+5};
@@ -57,6 +71,10 @@ static void CopyWindowToVram(u8 id,u8 mode) {(void)id;(void)mode;}
 PRODUCTION
 int main(void) {
     if(TD_TOP>=16 || TD_TEXTSPEED+MENUITEM_COUNT!=TD_TIMER) return 1;
+    for(int raw=0;raw<256;raw++) {
+        frameIndex=-1;frameLoads=errors=0;LoadFrameGfx(raw);
+        if(frameIndex!=(raw<10 ? raw : 0) || frameLoads!=2 || errors) return 9;
+    }
     for(int raw=0;raw<8;raw++) {
         saved.optionsTextSpeed=raw;
         InitTextSpeed(gTasks[0].data);

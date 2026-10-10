@@ -278,6 +278,8 @@ static void DrawFramePreview(void)
 
 static void LoadFrameGfx(u8 frameType)
 {
+	if (frameType >= BWOPT_FRAME_COUNT)
+		frameType = 0;
     const struct TilesPal *frame = GetWindowFrameTilesPal(frameType);
 
     LoadBgTiles(2, frame->tiles, 0x120, BWOPT_FRAME_TILE);

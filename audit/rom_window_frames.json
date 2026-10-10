@@ -1,0 +1,60 @@
+{
+  "scope": "Original BPRJ GetWindowFrameTilesPal at 0x08069048 and its referenced table",
+  "rom_sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "table": "0x843fac4",
+  "assets": [
+    {
+      "index": 0,
+      "tiles": "0x843e9a4",
+      "palette": "0x843f544"
+    },
+    {
+      "index": 1,
+      "tiles": "0x843eac4",
+      "palette": "0x843f564"
+    },
+    {
+      "index": 2,
+      "tiles": "0x843ec04",
+      "palette": "0x843f584"
+    },
+    {
+      "index": 3,
+      "tiles": "0x843ed24",
+      "palette": "0x843f5a4"
+    },
+    {
+      "index": 4,
+      "tiles": "0x843ee44",
+      "palette": "0x843f5c4"
+    },
+    {
+      "index": 5,
+      "tiles": "0x843ef64",
+      "palette": "0x843f5e4"
+    },
+    {
+      "index": 6,
+      "tiles": "0x843f084",
+      "palette": "0x843f604"
+    },
+    {
+      "index": 7,
+      "tiles": "0x843f1a4",
+      "palette": "0x843f624"
+    },
+    {
+      "index": 8,
+      "tiles": "0x843f2e4",
+      "palette": "0x843f644"
+    },
+    {
+      "index": 9,
+      "tiles": "0x843f404",
+      "palette": "0x843f664"
+    }
+  ],
+  "verified": "Thumb byte sequence masks the parameter to u8, accepts 0..19, indexes eight-byte entries and returns the first entry for larger IDs. Only ten frame entries are valid: all ten raw 288-byte tile and 32-byte palette extents lie within ROM.",
+  "defect": "Entry ten contains odd Thumb code pointers rather than frame assets. The option menu now clamps frame IDs to its verified ten-entry table before calling the original function.",
+  "limitations": "Instruction inspection and pointer extents only; actual frame drawing, changed linked-ROM routine and GBA runtime unverified."
+}
