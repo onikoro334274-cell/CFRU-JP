@@ -1,0 +1,7 @@
+{
+  "source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+  "result": "pass",
+  "verification": "check_second_ability_switch.py: 4096 state/dispatch cases plus immediate retry of each; all four banks, dead/empty/already-seen gates, no ability, six dedicated routes and default route, effect outcomes and primary done-bit states.",
+  "verified": "Once-per-species record, effect-dependent popup retention, temporary done-bit clearing/restoration and preservation of other status bits/banks.",
+  "limitations": "Mock effect functions; terrain creation itself, scripts, bank lifecycle reset and GBA runtime remain unverified. Fixture status bit value is controlled, not ROM ABI evidence."
+}

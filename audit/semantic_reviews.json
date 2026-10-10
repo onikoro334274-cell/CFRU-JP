@@ -705,6 +705,16 @@
       "verification": "check_second_ability_bank.py: 331776 controlled combinations; check_second_ability_lookup.py: 65536 identifiers; check_second_ability_conditions.py: 100663296 provenance combinations, 256 levels, 768 NULL cases",
       "current_report": "audit/second_ability_current_review.json",
       "remaining": "Bank fixture mocks ability sources/suppression and assumes four valid battler IDs; actual ability activation scripts, terrain, AI integration and GBA execution remain unverified. Unlock fixture config is 50, matching current generated table."
+    },
+    {
+      "path": "src/second_ability.c",
+      "source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+      "sections": [
+        "SecondAbility_TrySwitchIn"
+      ],
+      "verification": "check_second_ability_switch.py: 4096 state/dispatch cases plus immediate retry of each; all four banks, dead/empty/already-seen gates, no ability, six dedicated routes and default route, effect outcomes and primary done-bit states.",
+      "current_report": "audit/second_ability_switch_review.json",
+      "remaining": "Mock effect functions; terrain creation itself, scripts, bank lifecycle reset and GBA runtime remain unverified. Fixture status bit value is controlled, not ROM ABI evidence."
     }
   ]
 }

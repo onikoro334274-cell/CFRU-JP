@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 856,
+    "source_files": 857,
     "files_with_indexed_scopes": 34,
-    "indexed_scopes": 55,
+    "indexed_scopes": 56,
     "scope_states": {
       "source_changed": 14,
-      "current": 40,
+      "current": 41,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3840,6 +3840,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_second_ability_switch.py",
+      "source_sha256": "e8632bd8a46b8ed76a6a020d8c987359d5ff07acbef8c714d9b2acc28413e617",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_shiny_pid_shift.py",
       "source_sha256": "7085676e7f6f375eff209f8d8d16956568ec65a341e92620bc60c8b3f34409a5",
       "gnu_c_object": "not_applicable",
@@ -6691,6 +6698,16 @@
           "evidence": [],
           "verification": "check_second_ability_bank.py: 331776 controlled combinations; check_second_ability_lookup.py: 65536 identifiers; check_second_ability_conditions.py: 100663296 provenance combinations, 256 levels, 768 NULL cases",
           "remaining": "Bank fixture mocks ability sources/suppression and assumes four valid battler IDs; actual ability activation scripts, terrain, AI integration and GBA execution remain unverified. Unlock fixture config is 50, matching current generated table."
+        },
+        {
+          "state": "current",
+          "sections": [
+            "SecondAbility_TrySwitchIn"
+          ],
+          "recorded_source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+          "evidence": [],
+          "verification": "check_second_ability_switch.py: 4096 state/dispatch cases plus immediate retry of each; all four banks, dead/empty/already-seen gates, no ability, six dedicated routes and default route, effect outcomes and primary done-bit states.",
+          "remaining": "Mock effect functions; terrain creation itself, scripts, bank lifecycle reset and GBA runtime remain unverified. Fixture status bit value is controlled, not ROM ABI evidence."
         }
       ],
       "whole_file_completion": "not_established"
