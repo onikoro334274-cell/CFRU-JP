@@ -475,12 +475,23 @@
       "path": "src/siirtc.c",
       "source_sha256": "88acc23b03a4596fbea5018b216526040b2fe2803b699aa36dcb013b5a0892d6",
       "sections": [
-        "SiiRtcProbe"
+        "SiiRtcProbe",
+        "WriteCommand",
+        "WriteData",
+        "ReadData",
+        "EnableGpioPortRead",
+        "SiiRtcUnprotect",
+        "SiiRtcGetStatus",
+        "SiiRtcSetStatus",
+        "SiiRtcGetDateTime",
+        "SiiRtcGetTime",
+        "SiiRtcReset"
       ],
       "verification_records": [
-        "siirtc_probe_review.json"
+        "siirtc_probe_review.json",
+        "siirtc_gpio_review.json"
       ],
-      "remaining": "Other GPIO transfer functions and actual cartridge behavior remain unverified."
+      "remaining": "Actual GPIO timing, interrupt preemption, hardware test-mode recovery with this status-only reset, and full native ROM linking remain unverified."
     }
   ]
 }

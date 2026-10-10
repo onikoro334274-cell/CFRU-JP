@@ -1,0 +1,12 @@
+{
+  "scope": "Active GPIO byte and transaction routines in src/siirtc.c",
+  "sections": [
+    "WriteCommand", "WriteData", "ReadData", "EnableGpioPortRead",
+    "SiiRtcUnprotect", "SiiRtcGetStatus", "SiiRtcSetStatus",
+    "SiiRtcGetDateTime", "SiiRtcGetTime", "SiiRtcReset"
+  ],
+  "verification": "check_siirtc_gpio.py executes source with only hardware-register reads/writes instrumented as trace calls. All 256 byte values verify command MSB ordering, data LSB ordering, read reconstruction and status conversion. 2560 date/time inputs verify commands, direction changes, hour-bit normalization, untouched fields and adjacent canaries. Lock rejection performs no register writes and leaves the held lock intact; successful transactions release it.",
+  "reset_observation": "The physical RESET transaction in SiiRtcReset is commented out in this port. Its active implementation delegates to SiiRtcSetStatus with 24-hour mode. The fixture checks that actual behavior; it does not claim test-mode recovery.",
+  "outcome": "No additional byte-order, transaction-trace, lock-exit or buffer-bound fix indicated by these controlled tests.",
+  "limitations": "Register tracing cannot verify electrical timing, external hardware behavior, interrupt preemption or whether status-only reset exits RTC test mode. Commented-out date/time/alarm setters are outside this execution scope. Full ROM linking and native hardware integration remain incomplete."
+}
