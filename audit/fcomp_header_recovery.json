@@ -1,0 +1,23 @@
+{
+  "method": "Reconstructed header from actual C descriptor accesses and original Python serializer; no data placeholders.",
+  "layout": {
+    "BwFTable": "first/count/index: three arrays of 16 little-endian halfwords, 96 bytes",
+    "stream": "<HHBxH: tiles@0, unique@2, width@4, version@5, words@6",
+    "FCompSet": "C-only descriptor populated by DpeFExpand; no serialized external ABI"
+  },
+  "inputs": {
+    "..\\PokemonStart-src\\tools\\bwfollow\\fcomp.py": "fcb1396d6f5c2b4b964433437ce8a753d790a8901782770f471982dca7f2ae77",
+    "src\\fcomp.c": "c0acf1bef3067e3155b8c1f4c8f020afedcd08ed378f2d0bf6e52b3450b53926",
+    "src\\fcomp_dpe.c": "a454c51dcd332c02662d7344cab37221eb4100983ce2e72ac518de7f0b792625"
+  },
+  "verification": [
+    "scripts/check_fcomp_header.py: 393216 u16 cases, 512 width/version cases, struct size and offsets",
+    "scripts/check_fcomp_arm.py: ARM core 1516 bytes fits 1696-byte copy; no BL/BLX",
+    "audit/gnu_c.json: fcomp.c and fcomp_dpe.c ARM object generation succeeds without diagnostics"
+  ],
+  "limitations": [
+    "No compressed-stream round-trip or damaged-input coverage yet",
+    "Does not prove linked dictionary or stream tables exist",
+    "No GBA runtime or IWRAM reserved-region verification"
+  ]
+}

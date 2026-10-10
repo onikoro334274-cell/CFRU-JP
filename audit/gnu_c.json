@@ -391,17 +391,17 @@
     },
     {
       "path": "src/fcomp.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "c0acf1bef3067e3155b8c1f4c8f020afedcd08ed378f2d0bf6e52b3450b53926",
-      "object_bytes": 0,
-      "diagnostics": "src/fcomp.c:2:10: fatal error: fcomp.h: No such file or directory\n    2 | #include \"fcomp.h\"\n      |          ^~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 3004,
+      "diagnostics": ""
     },
     {
       "path": "src/fcomp_dpe.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "a454c51dcd332c02662d7344cab37221eb4100983ce2e72ac518de7f0b792625",
-      "object_bytes": 0,
-      "diagnostics": "src/fcomp_dpe.c:2:10: fatal error: fcomp.h: No such file or directory\n    2 | #include \"fcomp.h\"\n      |          ^~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 1808,
+      "diagnostics": ""
     },
     {
       "path": "src/field_effects.c",

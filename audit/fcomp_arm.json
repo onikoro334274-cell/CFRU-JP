@@ -1,0 +1,23 @@
+{
+  "core_bytes": 1516,
+  "copy_capacity_bytes": 1696,
+  "relative_calls": 0,
+  "compiler_flags": [
+    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\bin\\arm-none-eabi-gcc.exe",
+    "-mthumb",
+    "-mno-thumb-interwork",
+    "-mcpu=arm7tdmi",
+    "-mtune=arm7tdmi",
+    "-mno-long-calls",
+    "-march=armv4t",
+    "-Wall",
+    "-Wextra",
+    "-O2",
+    "-fira-loop-pressure",
+    "-fipa-pta",
+    "-isystem",
+    "C:\\Users\\liru55\\AppData\\Local\\Temp/cfru-jp-arm-tools/mingw64/arm-none-eabi/include",
+    "-c"
+  ],
+  "scope": "ARM object core size and absence of BL/BLX instructions; not linked ROM or IWRAM runtime."
+}
