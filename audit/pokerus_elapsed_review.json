@@ -6,9 +6,10 @@
   },
   "verification": [
     "check_pokerus_time.py: 16777216 byte/day cases",
-    "check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature",
+    "check_swarm_timestamp_backup.py: 14155776 task cases, 9 elapsed spans (0,1,4,5,17,65535,65536,65537,4294967295), actual u16 consumer signature, hourly and daily configs",
     "ARM wild_encounter.c object compile"
   ],
   "fix": "Saturate u32 daily elapsed count at 65535 before u16 Pokerus consumer to prevent wrap to zero.",
-  "limitations": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
+  "limitations": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified.",
+  "regression_suite": "python -m unittest discover -s scripts -p test_*.py: 72 total, 69 passed, 3 skipped"
 }

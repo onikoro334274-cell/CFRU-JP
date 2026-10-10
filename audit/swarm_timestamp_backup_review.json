@@ -8,5 +8,22 @@
     "Trapping shift sanitizer passes after the fix and traps baseline 73fbd19 with status 3221225501",
     "GNU ARM compilation of src/wild_encounter.c passes without diagnostics"
   ],
-  "limitations": "Clock, RNG, event-variable and task APIs are controlled mocks. Actual staged task timing, daily event flags/statistics, Pokerus arithmetic and native GBA integration remain unverified. This scope does not constitute whole-file review."
+  "limitations": "Clock, RNG, event-variable and task APIs are controlled mocks. Actual staged task timing, daily event flags/statistics, Pokerus arithmetic and native GBA integration remain unverified. This scope does not constitute whole-file review.",
+  "current_source_sha256": "d40891cf94440ebdf389e7fb15169eae3f90f94feadc89f966bf269c0edb7ddb",
+  "current_extended_verification": {
+    "cases": 14155776,
+    "elapsed_days": [
+      0,
+      1,
+      4,
+      5,
+      17,
+      65535,
+      65536,
+      65537,
+      4294967295
+    ],
+    "command": "python scripts/check_swarm_timestamp_backup.py",
+    "result": "pass"
+  }
 }

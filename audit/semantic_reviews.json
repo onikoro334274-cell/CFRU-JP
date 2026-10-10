@@ -679,7 +679,7 @@
       "sections": [
         "Task_UpdateDailyValues elapsed-day conversion"
       ],
-      "verification": "check_pokerus_time.py: 16777216 byte/day cases; check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature; ARM wild_encounter.c object compile",
+      "verification": "check_swarm_timestamp_backup.py: 14155776 cases across 9 elapsed spans and both swarm configurations; recorded ARM compile",
       "current_report": "audit/pokerus_elapsed_review.json",
       "remaining": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
     }

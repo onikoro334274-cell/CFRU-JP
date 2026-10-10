@@ -3890,7 +3890,7 @@
     },
     {
       "path": "scripts/check_swarm_timestamp_backup.py",
-      "source_sha256": "2a402729a09d3b2b66be4c099d176be2ec17d27e25841e9045804b28f92e1e6c",
+      "source_sha256": "9b3edb179c7c996b07da2253125ec899adec812dab6fd770368ceb71fca21fbd",
       "gnu_c_object": "not_applicable",
       "scoped_reviews": [],
       "whole_file_completion": "not_established"
@@ -6836,7 +6836,7 @@
           ],
           "recorded_source_sha256": "d40891cf94440ebdf389e7fb15169eae3f90f94feadc89f966bf269c0edb7ddb",
           "evidence": [],
-          "verification": "check_pokerus_time.py: 16777216 byte/day cases; check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature; ARM wild_encounter.c object compile",
+          "verification": "check_swarm_timestamp_backup.py: 14155776 cases across 9 elapsed spans and both swarm configurations; recorded ARM compile",
           "remaining": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
         }
       ],

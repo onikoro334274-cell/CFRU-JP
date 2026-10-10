@@ -51,7 +51,7 @@ static void VarSet(u16 id,u16 value){
 #endif
     }else errors++;
 }
-static u32 elapsed=65536;
+static u32 elapsed;
 static u32 GetDaysSinceTimeInValue(u32 value){days++;if(value!=expectedBackup||updates!=1) errors++;return elapsed;}
 static void UpdatePartyPokerusTime(u16 value){pokerus++;if(value!=(elapsed>65535?65535:elapsed)) errors++;}
 static void ClearDailyEventFlags(void){clears++;}
@@ -60,6 +60,9 @@ static void DestroyTask(u8 id){destroys++;if(id!=3) errors++;}
 PRODUCTION
 int main(void){
     const u16 lows[]={0,0xffff,0xa5a5};
+const u32 spans[]={0,1,4,5,17,65535,65536,65537,0xffffffff};
+for(unsigned span=0;span<9;span++){
+elapsed=spans[span];
     for(unsigned high=0;high<65536;high++) for(unsigned low=0;low<3;low++)
     for(int same=0;same<2;same++) for(int tick=0;tick<2;tick++){
         vars[0]=lows[low];vars[1]=high;expectedBackup=high*65536u+lows[low];
@@ -70,6 +73,7 @@ int main(void){
         if(clocks!=tick||destroys!=tick||reads!=process*2||updates!=process||sets!=process*2||days!=process||pokerus!=process||clears!=process||statistics!=process*2||errors) return 1;
         if(!process&&(vars[0]!=lows[low]||vars[1]!=high)) return 2;
     }
+}
     return 0;
 }
 '''.replace('DEFINES', defines).replace('PRODUCTION', production)
@@ -86,7 +90,7 @@ int main(void){
             subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                             '/out:' + str(exe), str(obj)], check=True)
             subprocess.run([str(exe)], check=True)
-    print('Swarm backup: 1572864 timestamp/date/timer/config cases preserve old bits through live-variable replacement; shift sanitizer passes.')
+    print('Swarm backup: 14155776 timestamp/date/timer/config/day-span cases preserve old bits through live-variable replacement; shift sanitizer passes.')
 
 
 if __name__ == '__main__':
