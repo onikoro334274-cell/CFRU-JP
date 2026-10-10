@@ -1,0 +1,30 @@
+{
+  "result": "generated",
+  "upstream_commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+  "inputs": {
+    "src/battle_factory.c": {
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/src/battle_factory.c",
+      "sha256": "7762bf366045ed91a3c280a7e4d20ccc9df9bba305c529ad6b24df2250a072f6"
+    },
+    "include/constants/moves.h": {
+      "url": "https://raw.githubusercontent.com/pret/pokeemerald/731ad5bfd6e6f265508d0efcca0ba42f9dcf5881/include/constants/moves.h",
+      "sha256": "d32746c9ad3ed1bbfbb93712f13e01ab1c43f48a78f3605ef9db5095e8d19d27"
+    }
+  },
+  "generator": "C:\\Users\\liru55\\Desktop\\pokemon-start\\PokemonStart-src\\tools\\frontier\\build_frontier_factory.py",
+  "generator_sha256": "892c7094ed4cb812288ef8930c27b6920e107de5109835d9543db83db624f855",
+  "output": "src/hoenn_factory_data.h",
+  "output_sha256": "11ea1fe60b261a647a0b68bc502f9be09a62d71dfc52fa059be6869c547a79f9",
+  "style_lists": 7,
+  "required_move_counts": [
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2
+  ],
+  "scope": "Original generator data-only functions; pinned public pokeemerald source, all move IDs checked against current CFRU. No ROM/graphics extraction or placeholder data.",
+  "limitations": "Factory graphics/script assets and complete linked game remain unverified."
+}
