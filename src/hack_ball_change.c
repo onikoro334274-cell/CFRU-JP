@@ -39,7 +39,11 @@ void HackBallChange_Apply(void)
 		return;
 	}
 
+	if (!RemoveBagItem(item, 1))
+	{
+		gSpecialVar_LastResult = 1;
+		return;
+	}
 	SetMonData(mon, MON_DATA_POKEBALL, &ball);
-	RemoveBagItem(item, 1);
 	gSpecialVar_LastResult = 0;
 }

@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "cases": 128,
+  "baseline_failure_reproduced": true,
+  "scope": "Production ball-change handler with controlled Pokemon/inventory APIs: slot boundaries, cancel, wrong pocket, same ball, missing item and successful consumption.",
+  "limitations": "Does not verify actual inventory implementation, event selection, encrypted Pokemon data, or GBA execution."
+}
