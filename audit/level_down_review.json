@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "cases": 3072,
+  "scope": "Production callback: all byte levels, eggs, failed/successful consumption, experience lookup and fainted/low/excess HP.",
+  "limitations": "Controlled stat/inventory APIs and synthetic experience table; does not verify actual growth curves, selected-slot validation or GBA runtime."
+}

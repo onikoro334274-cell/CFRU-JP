@@ -32,7 +32,8 @@ static void ItemUseCB_LevelDown(u8 taskId, TaskFunc func)
 	u16 oldHP, maxHP;
 
 	PlaySE(SE_SELECT);
-	if (level <= 1 || GetMonData(mon, MON_DATA_IS_EGG, NULL))
+	if (level <= 1 || GetMonData(mon, MON_DATA_IS_EGG, NULL)
+	|| !RemoveBagItem(item, 1))
 	{
 		gPartyMenuUseExitCallback = FALSE;
 		DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
@@ -61,7 +62,6 @@ static void ItemUseCB_LevelDown(u8 taskId, TaskFunc func)
 	GetMonNickname(mon, gStringVar1);
 	ConvertIntToDecimalStringN(gStringVar2, level, STR_CONV_MODE_LEFT_ALIGN, 3);
 	StringExpandPlaceholders(gStringVar4, gText_LevelDown_Done);
-	RemoveBagItem(item, 1);
 	DisplayPartyMenuMessage(gStringVar4, TRUE);
 	ScheduleBgCopyTilemapToVram(2);
 	gTasks[taskId].func = func;
