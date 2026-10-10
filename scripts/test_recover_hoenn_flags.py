@@ -50,6 +50,17 @@ class ReservedAllocationTests(unittest.TestCase):
     def test_upper_var_boundary_rejected(self):
         self.run_recovery({}, {'FIRST': 600}, True)
 
+    def test_noninteger_reserved_ids_rejected(self):
+        for value in (True, False, 100.0, '100', None, -1, 65536):
+            with self.subTest(value=value):
+                self.run_recovery({'FIRST': value}, {}, True)
+
+    def test_definition_name_collision_rejected(self):
+        self.run_recovery({'SAME': 100}, {'SAME': 500}, True)
+
+    def test_ferry_name_collision_rejected(self):
+        self.run_recovery({'HOENN_FLAG_CAN_GO_HOENN': 100}, {}, True)
+
 
 if __name__ == '__main__':
     unittest.main()
