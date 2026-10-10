@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "date_cases": 146097,
+  "years": "2000..2399",
+  "scope": "Production previous-night date key against Python Gregorian date subtraction; complete 400-year leap cycle including month/year boundaries.",
+  "limitations": "Date helper only; final variant hash/timeband predicates, invalid clock fields and GBA runtime unverified."
+}

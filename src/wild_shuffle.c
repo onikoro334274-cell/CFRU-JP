@@ -51,6 +51,19 @@ static __attribute__((unused)) bool8 KantoStrongLeagueCleared(void)   //★ 2026
 	return FlagGet(KANTO_FLAG_WILD_SHUFFLE) || HasTrainerBeenFought(TRAINER_ELITE_FOUR_LANCE_2);
 }
 
+static u32 PreviousWildDate(u32 year, u32 month, u32 day)
+{
+	static const u8 monthDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	u32 value = year * 372u + month * 31u + day;
+	u32 previousDays;
+	if (day != 1 || month < 2 || month > 12)
+		return value - 1;
+	previousDays = monthDays[month - 2];
+	if (month == 3 && year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+		++previousDays;
+	return year * 372u + (month - 1) * 31u + previousDays;
+}
+
 //日付と時間帯（朝 0・昼 1・夕 2・夜 3）→ 通りの番号（0〜HACK_WILD_KANTO_VARIANTS-1）
 static u8 KantoVariant(void)
 {
@@ -59,7 +72,7 @@ static u8 KantoVariant(void)
 	u32 x;
 
 	if (IsNightTime() && gClock.hour < TIME_MORNING_START)
-		day -= 1;                       //0〜3 時の夜は前の日の夜
+		day = PreviousWildDate(gClock.year, gClock.month, gClock.day);
 	x = day * 4u + slot;
 	x = (x ^ 0x5A17u) * 0x9E3779B1u;
 	x ^= x >> 15;
