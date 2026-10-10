@@ -392,8 +392,8 @@
     {
       "path": "src/fcomp.c",
       "exit_code": 0,
-      "source_sha256": "334cb2b7f025735af5cec48e579cd1cc3067b44a39e80f6e62c0c7c93f1a398f",
-      "object_bytes": 3020,
+      "source_sha256": "9e71a9a0f024e7dead146354d67b197ee5631a848b8af560b28591a6d213878c",
+      "object_bytes": 3116,
       "diagnostics": ""
     },
     {

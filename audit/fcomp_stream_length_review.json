@@ -1,0 +1,17 @@
+{
+  "scope": "FCompInflateArm declared bitstream length, including v2 pixel/context decoding",
+  "defect": "FC_REFILL supplied zeros after the declared word count and FC_DROP consumed them as real data, permitting truncated zero-coded streams to succeed; pointer also advanced beyond end.",
+  "fix": "Track declared remaining bits and reject over-consumption; zero lookahead remains for short final symbols, but stream pointer stops at end.",
+  "checks": {
+    "scripts/check_fcomp_pixel_bounds.py": "679 output-size cases and 36 declared-word-count cases pass; zero-coded complete streams decode and truncations fail",
+    "scripts/check_fcomp_pixel_bounds.py --baseline d30077a": "Fixture return 4 reproduces acceptance of truncated stream",
+    "scripts/check_fcomp_arm.py": "1628/1696 bytes; no BL/BLX instructions",
+    "audit/gnu_c.json": "174/203 C sources ARM-compiled"
+  },
+  "limitations": [
+    "Input allocation length is not part of the API: cannot validate declared words against actual backing storage",
+    "No full compressor corpus or arbitrary malformed Huffman-table coverage",
+    "Extra bit-consumption checks add code and instructions; runtime cost not measured on GBA",
+    "Linked reserved IWRAM placement and game behavior remain unverified"
+  ]
+}

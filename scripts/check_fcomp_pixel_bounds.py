@@ -54,6 +54,17 @@ int main(void) {
         for(int i=0;i<written;i++) if(output[i]!=0) return 2;
         for(int i=written;i<128;i++) if(output[i]!=0xA5) return 3;
     }
+    /* Two one-bit pixel codes per byte, plus a one-bit end symbol. */
+    for(int uniq=0;uniq<=3;uniq++) for(int words=0;words<=8;words++) {
+        for(int i=0;i<40;i++) data[i]=0;
+        data[2]=uniq;data[5]=1;data[6]=words;
+        for(int i=0;i<128;i++) output[i]=0xA5;
+        int size=uniq*32;
+        int enough=words*32>=size*2+1;
+        if(FCompInflateArm(&set,data,output,size)!=enough) return 4;
+        if(enough) for(int i=0;i<size;i++) if(output[i]!=0) return 5;
+        for(int i=size;i<128;i++) if(output[i]!=0xA5) return 6;
+    }
     return 0;
 }
 '''.replace('SOURCE', source)
@@ -66,7 +77,7 @@ int main(void) {
         subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
-    print('FComp v2 pixel bounds: 679 size/header combinations preserve output canaries; valid pixel streams expand.')
+    print('FComp v2: 679 output-bound cases and 36 declared-word-length cases pass; valid streams expand.')
 
 
 if __name__ == '__main__':

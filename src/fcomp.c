@@ -43,11 +43,11 @@ static inline __attribute__((always_inline)) FC_ARM u32 FCompSlowSym(u32 bits, c
 
 //★ ビットの状態（buf・n・p）は関数の中の変数（レジスタ）に置き、記号を引く所はループの中に直接書く
 //  （関数を呼んで状態をメモリに通すと 1 記号 約 49 命令かかった・エミュレータでの測定）
-//buf を 17 ビット以上にする（下の FC_REFILL）。頭の語の数より先は 0（壊れたデータで暴走しない・範囲の確かめで止める）
+//buf を 17 ビット以上にする（下の FC_REFILL）。末尾の先読みは 0 だが、FC_DROP は宣言されたビット数を超える消費を拒否する。
 //2026-10-06 2 バイトずつ（v2 は 1 バイトに 2 回読み足すので 1 バイトずつだと重かった）。読み足したあと 17 ビット以上（どの記号も 15 ビットまで）。
 //  p はビット列の頭（4 の倍数）から 2 ずつ進むので u16 で読める
-#define FC_REFILL() 	if (n <= 16) { buf |= (u32) ((p < end) ? *(const u16 *) p : 0) << n; p += 2; n += 16; }
-#define FC_DROP(k) do { buf >>= (k); n -= (k); } while (0)
+#define FC_REFILL() 	if (n <= 16) { if (p < end) { buf |= (u32) *(const u16 *) p << n; p += 2; } n += 16; }
+#define FC_DROP(k) do { u32 drop_ = (k); if (drop_ > remainingBits) return FALSE; remainingBits -= drop_; buf >>= drop_; n -= drop_; } while (0)
 
 //★ v2（2026-10-06・ユーザー「F方式 v2 を作る」）: 使うタイルの所（out の頭 使うタイル × 32 バイト）の 1 バイト（2 画素）は、
 //  タイルの中の左・上の画素（無ければ 16）で選んだ表で引く。1 件 = 長さ 1〜15 の数（15 バイト）・空き 1・記号（長さ・番号の順）。
@@ -85,6 +85,7 @@ __attribute__((noinline, used)) FC_ARM u32 FCompInflateArm(const struct FCompSet
 	const u16 *distFast = set->distFast;
 	u32 buf = 0, n = 0, pos = 0, i;
 	u32 pixEnd = 0;
+	u32 remainingBits = FCOMP_NUM_WORDS(data) * 32;
 
 	if (FCOMP_VERSION(data) == 1)
 	{
