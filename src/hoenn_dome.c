@@ -4223,7 +4223,7 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
     int windowId = WIN_TRAINER_NAME;
     int x = 0, y = 0;
     u8 palSlot = 0;
-    s16 *allocatedArray = AllocZeroed(sizeof(s16) * ALLOC_ARRAY_SIZE);
+    s16 allocatedArray[ALLOC_ARRAY_SIZE] = {0};
     trainerId = DOME_TRAINERS[trainerTourneyId].trainerId;
 
     if (flags & CARD_ALTERNATE_SLOT)
@@ -4461,7 +4461,7 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
         for (j = 0, i = 0; i < NUM_STATS; i++)
             j += allocatedArray[NUM_STATS + i];
         for (i = 0; i < NUM_STATS; i++)
-            allocatedArray[i] = (allocatedArray[NUM_STATS + i] * 100) / j;
+            allocatedArray[i] = j != 0 ? (allocatedArray[NUM_STATS + i] * 100) / j : 0;
     }
     // Same as above but for regular trainers instead of the frontier brain or player
     else
@@ -4476,7 +4476,7 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
                     k++;
                 evBits >>= 1;
             }
-            k = MAX_TOTAL_EVS / k;
+            k = k != 0 ? MAX_TOTAL_EVS / k : 0;
             evBits = HoennFrontier_MonEvSpread(DOME_MONS[trainerTourneyId][i]);
             for (j = 0; j < NUM_STATS; j++)
             {
@@ -4507,7 +4507,7 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
         for (j = 0, i = 0; i < NUM_STATS; i++)
             j += allocatedArray[i + NUM_STATS];
         for (i = 0; i < NUM_STATS; i++)
-            allocatedArray[i] = (allocatedArray[NUM_STATS + i] * 100) / j;
+            allocatedArray[i] = j != 0 ? (allocatedArray[NUM_STATS + i] * 100) / j : 0;
     }
 
     // Count the number of good/bad stats for the party
@@ -4603,7 +4603,6 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
     textPrinter.y = 36;
     textPrinter.currentY = 36;
     AddTextPrinter(&textPrinter, 0, NULL);
-    Free(allocatedArray);
 }
 
 static int BufferDomeWinString(u8 matchNum, u8 *tournamentIds)
