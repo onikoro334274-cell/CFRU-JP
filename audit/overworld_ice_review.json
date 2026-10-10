@@ -1,0 +1,8 @@
+{
+  "scope": "IsIceBehavior and PlayerOnIce",
+  "finding": "PlayerOnIce indexed gEventObjects with the avatar ID without checking EVENT_OBJECTS_COUNT.",
+  "fix": "Invalid player object ID returns true before indexing, suppressing additional movement ticks until a valid player object exists.",
+  "verification": "python scripts/check_overworld_ice.py; python scripts/check_overworld_speed.py; GNU ARM C audit",
+  "coverage": "65537 behavior values including all halfwords and UINT32_MAX, using actual metatile constants. All 256 avatar IDs across 36 current/previous behavior combinations (9216 cases); correct signed coordinate routing and short-circuit query counts. Invalid IDs make no map queries.",
+  "limitations": "Controlled event-object/avatar layout and mocked map queries. Actual map-transition lifecycle, active-object status, movement/step synchronization, full callback and linked GBA runtime remain unverified."
+}

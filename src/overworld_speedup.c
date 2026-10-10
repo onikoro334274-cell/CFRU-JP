@@ -47,6 +47,8 @@ static bool8 IsIceBehavior(u32 behavior)
    フレームで数えて割るので、歩きだけ速くすると食い違う → 今いるマスか前のマスが氷なら等倍 */
 static bool8 PlayerOnIce(void)
 {
+    if (gPlayerAvatar->eventObjectId >= EVENT_OBJECTS_COUNT)
+        return TRUE; /* No valid player object: suppress extra movement ticks. */
     struct EventObject* player = &gEventObjects[gPlayerAvatar->eventObjectId];
 
     return IsIceBehavior(MapGridGetMetatileBehaviorAt(player->currentCoords.x, player->currentCoords.y))
