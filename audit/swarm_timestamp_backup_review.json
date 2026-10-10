@@ -1,0 +1,12 @@
+{
+  "scope": "Task_UpdateDailyValues in src/wild_encounter.c",
+  "finding": "The stored timestamp upper u16 was shifted as a signed int. Values with the high bit set cause undefined behavior before the daily timestamp is updated.",
+  "change": "Convert the upper half to u32 before shifting, preserving the exact prior timestamp for GetDaysSinceTimeInValue.",
+  "verification": [
+    "check_swarm_timestamp_backup.py: all 65536 upper halves, three lower halves, matching/mismatching dates, expiring/waiting timers and hourly/daily swarm configurations (1572864 cases)",
+    "The live timestamp is deliberately overwritten during the fixture update; the prior exact 32-bit value must still reach day calculation before Pokerus, flags and daily statistics processing",
+    "Trapping shift sanitizer passes after the fix and traps baseline 73fbd19 with status 3221225501",
+    "GNU ARM compilation of src/wild_encounter.c passes without diagnostics"
+  ],
+  "limitations": "Clock, RNG, event-variable and task APIs are controlled mocks. Actual staged task timing, daily event flags/statistics, Pokerus arithmetic and native GBA integration remain unverified. This scope does not constitute whole-file review."
+}

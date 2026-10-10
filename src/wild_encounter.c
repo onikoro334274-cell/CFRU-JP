@@ -508,7 +508,7 @@ static void Task_UpdateDailyValues(u8 taskId)
 		&& gClock.month == gTasks[taskId].data[2]
 		&& gClock.year == gTasks[taskId].data[3]) //The date change was true and the RTC didn't just glitch out momentarily
 		{
-			u32 backupVar = VarGet(VAR_SWARM_DAILY_EVENT) | (VarGet(VAR_SWARM_DAILY_EVENT + 1) << 16);
+			u32 backupVar = VarGet(VAR_SWARM_DAILY_EVENT) | ((u32)VarGet(VAR_SWARM_DAILY_EVENT + 1) << 16);
 
 			CheckAndSetDailyEvent(VAR_SWARM_DAILY_EVENT, TRUE); //Update the value in the var
 

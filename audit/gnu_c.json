@@ -1428,8 +1428,8 @@
     {
       "path": "src/wild_encounter.c",
       "exit_code": 0,
-      "source_sha256": "75ea7e261a6183106488b634b1f3f9815ba6208da489d5a6ae73fb4304d09291",
-      "object_bytes": 17636,
+      "source_sha256": "2758da7aae0c2fe3bca69ffbfe1bcdefc205fe1f6965bf1f926fb61c51766b22",
+      "object_bytes": 17624,
       "diagnostics": ""
     },
     {
