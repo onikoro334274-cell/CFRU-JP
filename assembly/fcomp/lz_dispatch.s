@@ -5,7 +5,7 @@
 @     081C7A90 LZ77UnCompWram:  movs r2,#0 / b 081C7AF0
 @     081C7AF0（使われていない _call_via_r10 / r11。呼び元 0）: ldr r3,[pc,#0] / bx r3 / .word LzUnCompDispatch|1
 @   r2・r3 は LZ77UnComp の引数ではなく、呼ばれた側が壊してよいレジスタ（BIOS も壊す）
-@ ★ 頭の 1 バイトが F の印 0x46 のときだけ DpeFTryDecode（src/fcomp_dpe.c）。形が合わなければ（0 が返る）BIOS へ。
+@ ★ 頭の 1 バイトが F の印 0x46 のときだけ DpeFTryDecode（src/fcomp_dpe.c）。不正な F データも BIOS には渡さない。
 @   それ以外は今までどおり swi 0x11（WRAM）/ swi 0x12（VRAM）をそのまま撃つ
 @ r0 = 元・r1 = 先・r2 = 1 なら VRAM
 

@@ -82,9 +82,12 @@ static bool8 DpeFExpand(const u8 *data, u8 *out, u32 numTiles, u32 numUniq)
 	return TRUE;
 }
 
-//振り分け役から呼ばれる。→ 1 = こちらで片付けた / 0 = F の形になっていない（振り分け役が BIOS に回す）
+//振り分け役から呼ばれる。→ 1 = F のデータ（不正な形でも BIOS には渡さない） / 0 = 別形式
 u32 DpeFTryDecode(const u8 *src, u8 *dst, u32 vram)
 {
+	if (src[0] != 0x46)
+		return 0;
+
 	u32 rawSize = src[1] | (src[2] << 8) | (src[3] << 16);
 	const u8 *data = src + 4;
 	u32 numTiles = FCOMP_NUM_TILES(data);
@@ -92,7 +95,7 @@ u32 DpeFTryDecode(const u8 *src, u8 *dst, u32 vram)
 
 	if (FCOMP_WIDTH(data) != 1 || FCOMP_VERSION(data) > 1 || numTiles * 32 != rawSize || numTiles > DPEF_MAX_TILES
 	 || numUniq == 0 || numUniq > numTiles || numUniq * 32 + numTiles > rawSize)
-		return 0;
+		return 1;
 
 	if (vram)
 	{

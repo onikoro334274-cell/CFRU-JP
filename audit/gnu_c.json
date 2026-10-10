@@ -399,8 +399,8 @@
     {
       "path": "src/fcomp_dpe.c",
       "exit_code": 0,
-      "source_sha256": "67335cb983ebb97d488fb26739e13c688e51078ab4a40480431ec2c517c2e8ce",
-      "object_bytes": 1824,
+      "source_sha256": "5787ad4118d4c792fc6e9bd67577618d8e067afe29d3f4127df9e27b8bb5b1e7",
+      "object_bytes": 1828,
       "diagnostics": ""
     },
     {

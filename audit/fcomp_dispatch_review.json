@@ -1,0 +1,16 @@
+{
+  "scope": "DpeFTryDecode recognized-format/header validation, allocator handling and controlled expansion results; lz_dispatch.s return contract read",
+  "defect": "Malformed recognized 0x46 headers returned zero, causing assembly dispatcher to call LZ77 BIOS on non-LZ77 data.",
+  "fix": "Return zero only for non-F markers; invalid recognized F headers return handled without allocating or writing.",
+  "baseline": "6a01a74caed1cf53d01ff76ba7e7d2ddd380f270",
+  "checks": {
+    "scripts/check_fcomp_dispatch.py": "23328 header/path/failure combinations plus 512 marker/path cases; allocation/free/call counts and full 4160-byte destination checked",
+    "scripts/check_fcomp_dispatch.py --baseline HEAD (before commit)": "Return 1 reproduces wrong dispatch result",
+    "audit/gnu_c.json": "174/203 C files ARM-compiled"
+  },
+  "limitations": [
+    "Controlled expansion and allocator mocks, not actual compressed-stream or GBA VRAM hardware behavior",
+    "An actual WRAM inflate failure may already have written partial output; fixture does not claim transactional WRAM decoding",
+    "Assembly hook placement and BIOS redirection in linked ROM remain unverified"
+  ]
+}
