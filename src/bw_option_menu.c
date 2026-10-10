@@ -539,6 +539,8 @@ void CB2_BwOptionMenu(void)
 
         data[TD_MENUSELECTION] = 0;
         data[TD_TEXTSPEED] = gSaveBlock2->optionsTextSpeed;
+        if (data[TD_TEXTSPEED] > OPTIONS_TEXT_SPEED_FAST)
+            data[TD_TEXTSPEED] = OPTIONS_TEXT_SPEED_MID;
         data[TD_BATTLESCENE] = gSaveBlock2->optionsBattleSceneOff;
         data[TD_BATTLESTYLE] = gSaveBlock2->optionsBattleStyle;
         data[TD_SOUND] = gSaveBlock2->optionsSound;

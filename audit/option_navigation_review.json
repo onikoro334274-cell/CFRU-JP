@@ -3,5 +3,6 @@
   "verification": "python scripts/check_option_navigation.py",
   "coverage": "Both HACK_NO_MOEMON variants; every valid item/top pair and all A/B/up/down key combinations (1344 navigation cases), plus 112 valid 2..5-choice left/right cases and 216 per-item choice-dispatch cases. Checks task-data layout fits 16 slots, menu fields align with contiguous selections, cursor wrap, scroll top update, 0..5 background map index, save/cancel key priority, countdown setup, simultaneous direction behavior and cry preview calls only on changed sound selection.",
   "findings": "No navigation or valid-selection cycling defect found in this scope.",
-  "limitations": "Drawing, decompression and cry APIs mocked. Choice counts are controlled fixture constants matching current menu definitions. Invalid selection handling, save writes, actual audio/graphics and linked game runtime remain unverified."
+  "text_speed_initialization": "The saved three-bit optionsTextSpeed accepts 0..7, while the menu supports 0..2. Invalid saved values now initialize the editable selection to OPTIONS_TEXT_SPEED_MID without modifying the saved field. Actual initialization statements executed for all eight values in both menu variants (16 cases).",
+  "limitations": "Drawing, decompression and cry APIs mocked. Choice counts are controlled fixture constants matching current menu definitions. Text-speed initializer is an extracted statement section, not full CB2 initialization. Other invalid selection handling, save writes, actual audio/graphics and linked game runtime remain unverified."
 }

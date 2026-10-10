@@ -13,6 +13,9 @@ def main():
     enums = '\n'.join(re.search(r'enum\s*\{\s*' + name + r'\b.*?\};', source, re.S)[0]
                       for name in ('TD_MENUSELECTION', 'MENUITEM_TEXTSPEED'))
     production = '\n'.join(function(source, name) for name in ('CycleInput', 'ProcessInputFor', 'Task_ProcessInput'))
+    beginning = source.index('data[TD_TEXTSPEED] = gSaveBlock2->optionsTextSpeed;')
+    ending = source.index('data[TD_BATTLESCENE] =', beginning)
+    production += '\nstatic void InitTextSpeed(s16* data) {\n' + source[beginning:ending] + '\n}\n'
     fixture = r'''
 typedef unsigned char u8;typedef short s16;
 #define TRUE 1
@@ -27,10 +30,14 @@ typedef unsigned char u8;typedef short s16;
 #define BWOPT_VISIBLE_ROWS 6
 #define BWOPT_SPEED_COUNT 4
 #define DIFFICULTY_COUNT 5
+#define OPTIONS_TEXT_SPEED_FAST 2
+#define OPTIONS_TEXT_SPEED_MID 1
 #define VRAM 0
 #define JOY_NEW(k) (keys&(k))
 ENUMS
 static unsigned keys;static int errors,descriptions,rows,mapIndex;
+static struct {unsigned optionsTextSpeed:3;} saved;
+#define gSaveBlock2 (&saved)
 static int cryCalls,cryMode;
 static struct {s16 data[16];void (*func)(u8);} gTasks[1];
 static const u8 maps[6]={0,1,2,3,4,5};
@@ -50,6 +57,11 @@ static void CopyWindowToVram(u8 id,u8 mode) {(void)id;(void)mode;}
 PRODUCTION
 int main(void) {
     if(TD_TOP>=16 || TD_TEXTSPEED+MENUITEM_COUNT!=TD_TIMER) return 1;
+    for(int raw=0;raw<8;raw++) {
+        saved.optionsTextSpeed=raw;
+        InitTextSpeed(gTasks[0].data);
+        if(gTasks[0].data[TD_TEXTSPEED]!=(raw<3 ? raw : 1) || saved.optionsTextSpeed!=(unsigned)raw) return 8;
+    }
     for(int item=0;item<MENUITEM_COUNT;item++) for(int top=0;top<=item;top++) {
         if(item>=top+6) continue;
         for(keys=0;keys<16;keys++) {
