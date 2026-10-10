@@ -1,0 +1,12 @@
+{
+  "scope": "PlayClock_SetMode in src/play_clock.c",
+  "finding": "Repeated requests for the active mode erased the saved swarm daily-event timestamp.",
+  "change": "Return before save writes and clock updates when the requested mode is already active; preserve existing reset behavior on actual transitions.",
+  "verification": [
+    "check_play_clock_mode.py: all 65536 script inputs, both modes, five day offsets and repeated calls (655360 cases)",
+    "check_play_clock_adjustment.py: forward adjustment and invalid target/mode cases pass",
+    "check_play_clock_calendar.py: Gregorian calendar comparison passes",
+    "GNU ARM compilation of src/play_clock.c passes without diagnostics"
+  ],
+  "limitations": "Controlled native fixtures; actual RTC probe, interrupt lifecycle and GBA runtime remain unverified."
+}

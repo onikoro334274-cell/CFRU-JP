@@ -100,8 +100,12 @@ void PlayClock_GetMode(void)
 void PlayClock_SetMode(void)
 {
 	u16 days = VarGet(HOENN_VAR_CLOCK_DAYS);
+	bool8 requestedMode = Var8004 != 0;
 
-	if (Var8004)
+	if (((days & CLOCK_MODE_BIT) != 0) == requestedMode)
+		return;
+
+	if (requestedMode)
 		days |= CLOCK_MODE_BIT;
 	else
 		days &= ~CLOCK_MODE_BIT;
