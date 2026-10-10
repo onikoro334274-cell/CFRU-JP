@@ -46,7 +46,12 @@
     "Production training-pouch arrangement with allocation failure matches normal output for 1000 deterministic cases, including empty capacity, holes, invalid IDs, all six mock pages and preserved quantities/order; original HEAD exposes unfiltered items when temporary allocation fails",
     "Current GNU and Clang full C audits: 151 passed and 52 absent-header failures; hack_training_pouch.c generates an ARM object without warnings",
     "Baseline comparisons now use the fixed original commit, remaining valid after incremental commits; 55 regression tests and seven native C fixture checks passed before commit grouping",
-    "Factory Select_Task_OpenSummaryScreen allocates before fading or cleanup; native extracted-production test verifies allocation failure preserves the existing menu and successful fade/cleanup/copy; original baseline reproduces unsafe transition"
+    "Factory Select_Task_OpenSummaryScreen allocates before fading or cleanup; native extracted-production test verifies allocation failure preserves the existing menu and successful fade/cleanup/copy; original baseline reproduces unsafe transition",
+    "Five difficulty save mappings and 40960 rank/context inputs through level 200 passed native production-function checks; separate wild and trainer profiles, temperament/recovery instincts, advanced accuracy and KO scoring verified",
+    "Production AI selection passed unsigned scores, legal move slots, move IDs, target viability, absent targets, sparse predictions and Struggle cases",
+    "Actual updated option-menu strings converted and assembled with GNU ARM assembler; graphical menu and GBA runtime remain unverified",
+    "55 regression tests and Python compileall passed after AI changes; GNU ARM compiled all available Battle_AI sources; full audit remains 151/203 with 52 absent-header failures",
+    "Dome stats passed 153600 cases and 921600 stat comparisons through level 200"
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",

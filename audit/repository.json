@@ -1382,8 +1382,8 @@
     },
     {
       "path": "audit/gnu_c.json",
-      "bytes": 129218,
-      "sha256": "54c61b0ba309525be0cf6c39387298ff8ecd8f6548cd7ed344ba45d585b1271d",
+      "bytes": 129219,
+      "sha256": "598111a4b92f02855f1f5e17cc9df564b66b1131a3b74ad7245560a2433192a6",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 16283,
-      "sha256": "dcb070a27b145de02dc4857096666d58a70562c44f4e537a2546435cda4a598c",
+      "bytes": 17085,
+      "sha256": "ccea47da8cf09737848129d6f0805cc57283be146da2c18e77c2976d353aea53",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -8614,8 +8614,8 @@
     },
     {
       "path": "include/battle.h",
-      "bytes": 54917,
-      "sha256": "a942cba55bb572203074ef55bf0e795be011ebbe5c404bb166e84658cd9569b2",
+      "bytes": 55091,
+      "sha256": "783c8f1f05a24009975dc9196e530e6e3a05ba4a800e97f57c9c6f9b25cdec78",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -8911,8 +8911,8 @@
     },
     {
       "path": "include/constants/battle_ai.h",
-      "bytes": 1473,
-      "sha256": "767ec5aeb232651dcdde8cddd9b467f0eadcf162f96a81443c443bb4e8188aa9",
+      "bytes": 1593,
+      "sha256": "6c274dbd1006c8ea42818e433150e3cc57937937989b66ce7c7109b13a141103",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -10275,8 +10275,8 @@
     },
     {
       "path": "include/new/ai_master.h",
-      "bytes": 2233,
-      "sha256": "03d1bc23b780e1c3186f96a1064e23b29cd28890556f73eb23d6349d4f15c6a8",
+      "bytes": 2436,
+      "sha256": "9c466cfc32824a8a7bd6716b0a8e6e7837129d2aea407688070f08af8f0488e5",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -10286,8 +10286,8 @@
     },
     {
       "path": "include/new/ai_scripts.h",
-      "bytes": 1810,
-      "sha256": "3f8d4fc855b823e443d4b4c08df23b3360d33ac3bf735568b036663ce0fa7433",
+      "bytes": 2198,
+      "sha256": "66b022eb9f442b9d95f832a815b5c97216ef0f51dafd344a4b0418db2d5c6e48",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12282,6 +12282,28 @@
       "findings": []
     },
     {
+      "path": "scripts/check_ai_difficulty.py",
+      "bytes": 13810,
+      "sha256": "258de59c840bf98a51148e3bee6d2181a57013b9d26b51f71d1a21735bf1f140",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_ai_selection.py",
+      "bytes": 10465,
+      "sha256": "f6273c91c6926aca27e129aee0daaa128073ed36278cb654dd27d58693fdc2b3",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_ai_substitute.py",
       "bytes": 3852,
       "sha256": "2c387fece2b5211558b3a280be1b20608c81b29defbbe36e8b70e175d1860127",
@@ -12307,6 +12329,28 @@
       "path": "scripts/check_dns_colour.py",
       "bytes": 4012,
       "sha256": "11e0913a4ba497bca15c53913fe5247dbf123a768293841f9937051d3feb1a68",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_dome_rounds.py",
+      "bytes": 6472,
+      "sha256": "12a367125cd1b165ef2aa3972d4f48f8e03b5ed755c5e50a66089b98019dc5b3",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_dome_stats.py",
+      "bytes": 4274,
+      "sha256": "6400e43b2ad941411a76c65b5570ec48165084f8b66d319a0a315da249f04f76",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12610,8 +12654,8 @@
     },
     {
       "path": "src/Battle_AI/ai_master.c",
-      "bytes": 99963,
-      "sha256": "cdd089d74ce092f3e823e230b6e6a68880fd569ad67a55486a511f80195d37a3",
+      "bytes": 99174,
+      "sha256": "0c8c3508fa7247603f58761d106d72fba8ec388aae3f91660ae3cd90b844d736",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12621,8 +12665,8 @@
     },
     {
       "path": "src/Battle_AI/ai_negatives.c",
-      "bytes": 88208,
-      "sha256": "21a2e2844278d8fad16ecb973efe541e5032b012fefc21dc23ac4f76cd6394e4",
+      "bytes": 88190,
+      "sha256": "14700372b88421c7096dbfa71429b4006d23f24903803364b95ea172b61aa7fb",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12643,8 +12687,8 @@
     },
     {
       "path": "src/Battle_AI/ai_positives.c",
-      "bytes": 81567,
-      "sha256": "0ddffbae90876608b9f1c27a2b071dedd3ddee67e212e7f015bf684e19a8b279",
+      "bytes": 86841,
+      "sha256": "4dff0a3c3f6082ef1c781e54f27b1a072e0d26dbc1f7f92fc449a62a2655cdf5",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12654,8 +12698,8 @@
     },
     {
       "path": "src/Battle_AI/ai_util.c",
-      "bytes": 111711,
-      "sha256": "daae602fdd8bc1e6b394f43df35e68e909a0d6569c90e4e0d30fd4d3ae961b3d",
+      "bytes": 111687,
+      "sha256": "6aec3676343c12b9e7f9f2464bed54d4a019ae262d5fac920e107ca06d8e80d1",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12996,8 +13040,8 @@
     },
     {
       "path": "src/ai_hack.c",
-      "bytes": 6261,
-      "sha256": "09a5dc508b4f9b094fbe88f0be31f8f7f025e6e0d4079cf0451b077d6924ea7d",
+      "bytes": 6255,
+      "sha256": "dfbcb80715b8f66bdb465177d229bce727703b0d5fe1d1c490f21770e41f8ecf",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13276,8 +13320,8 @@
     },
     {
       "path": "src/bw_option_menu.c",
-      "bytes": 26001,
-      "sha256": "52a933291191c39f7c44d804fab00f7e1c71eed42352bb24026b526d8da0dd15",
+      "bytes": 25636,
+      "sha256": "ab998996499f993e539a3c255bbb4391d5358d15c0701c0d97e11b1588fe74bf",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13393,8 +13437,8 @@
     },
     {
       "path": "src/config.h",
-      "bytes": 33353,
-      "sha256": "3343f9260f7afde66bf87fca02ee416752e4a5a25782373eca0626891a58d2ed",
+      "bytes": 34489,
+      "sha256": "3482c9fa68a13b8807e623b961c1c8bd98aebda40aadb493dd13f04b422fe4cb",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13856,8 +13900,8 @@
     },
     {
       "path": "src/hack_difficulty.c",
-      "bytes": 4818,
-      "sha256": "db7e8e25ff248630bfdfaf21ba490338a35ac6fc021725074ec28913ddbaf58e",
+      "bytes": 9311,
+      "sha256": "2872fe26e65f8135e168b9470c9af643dd0c89d1d795d5b136d55477f01f037c",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13865,11 +13909,22 @@
       ],
       "findings": [
         {
-          "line": 7,
+          "line": 10,
           "kind": "missing_local_include",
           "target": "Tables/hoenn_script_flags.h"
         }
       ]
+    },
+    {
+      "path": "src/hack_difficulty.h",
+      "bytes": 1458,
+      "sha256": "7605916df318351fad8c7117324c607edc19df9fef9a1c816e3caa177f5ed90c",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
     },
     {
       "path": "src/hack_dragon_boulder.c",
@@ -14459,8 +14514,8 @@
     },
     {
       "path": "src/hoenn_dome.c",
-      "bytes": 240234,
-      "sha256": "deebc5b067757b38460a101dc9c45fcbcd5ff7c5c633314605ac36f773f6576b",
+      "bytes": 240271,
+      "sha256": "fb0efed8d13b58216ea8daa13b8d394fb2d33ea2fe81947df87c1e9e32a6a012",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15642,8 +15697,8 @@
     },
     {
       "path": "strings/bw_option_menu.string",
-      "bytes": 2615,
-      "sha256": "9bcb9eb5c5667b9f981f475dcf49d762795fff4534174bbdff63baeb0eb32fdf",
+      "bytes": 2707,
+      "sha256": "c0d9f1f9a7690988622789ac668f5797546f8620f48cdc59dfcfabb5420536c3",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"

@@ -49,8 +49,8 @@
     {
       "path": "src/ai_hack.c",
       "exit_code": 0,
-      "source_sha256": "09a5dc508b4f9b094fbe88f0be31f8f7f025e6e0d4079cf0451b077d6924ea7d",
-      "object_bytes": 3304,
+      "source_sha256": "dfbcb80715b8f66bdb465177d229bce727703b0d5fe1d1c490f21770e41f8ecf",
+      "object_bytes": 3312,
       "diagnostics": ""
     },
     {
@@ -77,15 +77,15 @@
     {
       "path": "src/Battle_AI/ai_master.c",
       "exit_code": 0,
-      "source_sha256": "cdd089d74ce092f3e823e230b6e6a68880fd569ad67a55486a511f80195d37a3",
-      "object_bytes": 31788,
-      "diagnostics": "src/Battle_AI/ai_master.c: In function 'ShouldDoAIShiftSwitch':\nsrc/Battle_AI/ai_master.c:2940:77: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2940 |         gBattlescriptCurrInstr = BattleScript_FaintedMonChooseAnotherRejoin - 5;\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/Battle_AI/ai_master.c:17:\nsrc/Battle_AI/../../include/new/end_turn_battle_scripts.h:79:17: note: at offset -5 into object 'BattleScript_FaintedMonChooseAnotherRejoin' of size [0, 2147483647]\n   79 | extern const u8 BattleScript_FaintedMonChooseAnotherRejoin[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+      "source_sha256": "0c8c3508fa7247603f58761d106d72fba8ec388aae3f91660ae3cd90b844d736",
+      "object_bytes": 32116,
+      "diagnostics": "src/Battle_AI/ai_master.c: In function 'ShouldDoAIShiftSwitch':\nsrc/Battle_AI/ai_master.c:2904:77: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n 2904 |         gBattlescriptCurrInstr = BattleScript_FaintedMonChooseAnotherRejoin - 5;\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nIn file included from src/Battle_AI/ai_master.c:18:\nsrc/Battle_AI/../../include/new/end_turn_battle_scripts.h:79:17: note: at offset -5 into object 'BattleScript_FaintedMonChooseAnotherRejoin' of size [0, 2147483647]\n   79 | extern const u8 BattleScript_FaintedMonChooseAnotherRejoin[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
     },
     {
       "path": "src/Battle_AI/ai_negatives.c",
       "exit_code": 0,
-      "source_sha256": "21a2e2844278d8fad16ecb973efe541e5032b012fefc21dc23ac4f76cd6394e4",
-      "object_bytes": 54212,
+      "source_sha256": "14700372b88421c7096dbfa71429b4006d23f24903803364b95ea172b61aa7fb",
+      "object_bytes": 54816,
       "diagnostics": ""
     },
     {
@@ -98,15 +98,15 @@
     {
       "path": "src/Battle_AI/ai_positives.c",
       "exit_code": 0,
-      "source_sha256": "0ddffbae90876608b9f1c27a2b071dedd3ddee67e212e7f015bf684e19a8b279",
-      "object_bytes": 40896,
+      "source_sha256": "4dff0a3c3f6082ef1c781e54f27b1a072e0d26dbc1f7f92fc449a62a2655cdf5",
+      "object_bytes": 43172,
       "diagnostics": ""
     },
     {
       "path": "src/Battle_AI/ai_util.c",
       "exit_code": 0,
-      "source_sha256": "daae602fdd8bc1e6b394f43df35e68e909a0d6569c90e4e0d30fd4d3ae961b3d",
-      "object_bytes": 50232,
+      "source_sha256": "6aec3676343c12b9e7f9f2464bed54d4a019ae262d5fac920e107ca06d8e80d1",
+      "object_bytes": 50264,
       "diagnostics": ""
     },
     {
@@ -231,7 +231,7 @@
     {
       "path": "src/bw_option_menu.c",
       "exit_code": 1,
-      "source_sha256": "52a933291191c39f7c44d804fab00f7e1c71eed42352bb24026b526d8da0dd15",
+      "source_sha256": "ab998996499f993e539a3c255bbb4391d5358d15c0701c0d97e11b1588fe74bf",
       "object_bytes": 0,
       "diagnostics": "src/bw_option_menu.c:17:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   17 | #include \"Tables/hoenn_script_flags.h\"   /* HOENN_VAR_OVERWORLD_SPEED */\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
@@ -532,9 +532,9 @@
     {
       "path": "src/hack_difficulty.c",
       "exit_code": 1,
-      "source_sha256": "db7e8e25ff248630bfdfaf21ba490338a35ac6fc021725074ec28913ddbaf58e",
+      "source_sha256": "2872fe26e65f8135e168b9470c9af643dd0c89d1d795d5b136d55477f01f037c",
       "object_bytes": 0,
-      "diagnostics": "src/hack_difficulty.c:7:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    7 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "diagnostics": "src/hack_difficulty.c:10:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   10 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
     {
       "path": "src/hack_dragon_boulder.c",
@@ -854,7 +854,7 @@
     {
       "path": "src/hoenn_dome.c",
       "exit_code": 1,
-      "source_sha256": "deebc5b067757b38460a101dc9c45fcbcd5ff7c5c633314605ac36f773f6576b",
+      "source_sha256": "fb0efed8d13b58216ea8daa13b8d394fb2d33ea2fe81947df87c1e9e32a6a012",
       "object_bytes": 0,
       "diagnostics": "src/hoenn_dome.c:33:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   33 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
@@ -875,7 +875,7 @@
     {
       "path": "src/hoenn_factory_screen.c",
       "exit_code": 1,
-      "source_sha256": "04574593edc48446d6a1a389a7e8326614dd103a87e121bc0925a2d3fd367b3f",
+      "source_sha256": "3166e5e42dff89f8449698b169493b3f618a2033fd1ad131c44e108ef21e5de5",
       "object_bytes": 0,
       "diagnostics": "src/hoenn_factory_screen.c:25:10: fatal error: hoenn_factory_gfx.h: No such file or directory\n   25 | #include \"hoenn_factory_gfx.h\"   /* 絵と文字（tools/frontier/build_frontier_factory.py の生成物） */\n      |          ^~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
