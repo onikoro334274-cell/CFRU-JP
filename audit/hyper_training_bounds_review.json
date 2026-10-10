@@ -1,0 +1,8 @@
+{
+  "result": "passed",
+  "bounds_cases": 2097152,
+  "mixed_mask_cases": 172032,
+  "scope": "Production eligibility and training special for all u16 stat values, six valid/two invalid party slots, max/nonmax IV and trained/untrained masks. Invalid indices never access mon data; stat 6 trains all; valid individual stats alter exactly their bit and recalculate only when changed.",
+  "mixed_scope": "All 64 max-IV patterns and 64 existing training masks, seven stat requests and six party slots; only eligible bits added and unrelated slots preserved.",
+  "limitations": "Native stats calculations simulated. NPC inventory flow and linked runtime remain unverified."
+}

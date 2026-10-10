@@ -542,6 +542,8 @@ u8 sp019_CheckAttackPP(void)
 
 bool8 CanHyperTraining(u16 partyId, u16 stat)
 {
+	if (partyId >= PARTY_SIZE || stat > CheckIVs_SpDef)
+		return FALSE;
 	return GetMonData(&gPlayerParty[partyId], MON_DATA_HP_IV + stat, NULL) != 31
 		&& !(gPlayerParty[partyId].hyperTraining & gBitTable[stat]);
 }
