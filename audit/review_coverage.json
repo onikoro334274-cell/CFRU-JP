@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 854,
+    "source_files": 855,
     "files_with_indexed_scopes": 33,
-    "indexed_scopes": 53,
+    "indexed_scopes": 54,
     "scope_states": {
-      "source_changed": 18,
-      "current": 34,
+      "source_changed": 20,
+      "current": 33,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3637,6 +3637,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_pokerus_spread.py",
+      "source_sha256": "63b9d6ff49e493f38eea5c45d1d326e016897d9f8060169ac246e009a05c311e",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_pokerus_target.py",
       "source_sha256": "bf8dd3dfd4e1ffc3851111e36d790995f7f3d1d5a6f2416f6075e91fe34f3991",
       "gnu_c_object": "not_applicable",
@@ -4794,7 +4801,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
+      "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
       "gnu_c_object": "object_compiled",
       "scoped_reviews": [
         {
@@ -4839,7 +4846,7 @@
           "remaining": "Controlled Pokemon accessor/generator mocks; actual battle startup, stale held items, encounters and GBA execution remain unverified."
         },
         {
-          "state": "current",
+          "state": "source_changed",
           "sections": [
             "RandomlyGivePartyPokerus"
           ],
@@ -4849,7 +4856,7 @@
           "remaining": "Controlled cyclic RNG and accessor mocks; strain distribution, arbitrary RNG termination and runtime are not certified."
         },
         {
-          "state": "current",
+          "state": "source_changed",
           "sections": [
             "UpdatePartyPokerusTime"
           ],
@@ -4857,6 +4864,16 @@
           "evidence": [],
           "verification": "check_pokerus_time.py: 16777216 byte/day cases; check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature; ARM wild_encounter.c object compile",
           "remaining": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
+        },
+        {
+          "state": "current",
+          "sections": [
+            "PartySpreadPokerus"
+          ],
+          "recorded_source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
+          "evidence": [],
+          "verification": "check_pokerus_spread.py: 4096 four-state party shapes x three rolls; check_pokerus_target.py rerun; check_pokerus_time.py rerun; Actual ARM object compile",
+          "remaining": "Native accessor mocks and chosen strain; eggs retained as eligible occupied slots, encoded corrupt states and GBA runtime unverified."
         }
       ],
       "whole_file_completion": "not_established"

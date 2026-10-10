@@ -682,6 +682,16 @@
       "verification": "check_swarm_timestamp_backup.py: 14155776 cases across 9 elapsed spans and both swarm configurations; recorded ARM compile",
       "current_report": "audit/pokerus_elapsed_review.json",
       "remaining": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
+    },
+    {
+      "path": "src/build_pokemon.c",
+      "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
+      "sections": [
+        "PartySpreadPokerus"
+      ],
+      "verification": "check_pokerus_spread.py: 4096 four-state party shapes x three rolls; check_pokerus_target.py rerun; check_pokerus_time.py rerun; Actual ARM object compile",
+      "current_report": "audit/pokerus_spread_review.json",
+      "remaining": "Native accessor mocks and chosen strain; eggs retained as eligible occupied slots, encoded corrupt states and GBA runtime unverified."
     }
   ]
 }

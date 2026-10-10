@@ -4636,9 +4636,11 @@ void PartySpreadPokerus(struct Pokemon *party)
 					if (pokerus & 0xF)
 					{
 						// Spread to adjacent party members.
-						if (i != 0 && !(GetMonData(&party[i - 1], MON_DATA_POKERUS, NULL) & 0xF0))
+						if (i != 0 && GetMonData(&party[i - 1], MON_DATA_SPECIES, NULL)
+						&& !(GetMonData(&party[i - 1], MON_DATA_POKERUS, NULL) & 0xF0))
 							SetMonData(&party[i - 1], MON_DATA_POKERUS, &curPokerus);
-						if (i != (PARTY_SIZE - 1) && !(GetMonData(&party[i + 1], MON_DATA_POKERUS, NULL) & 0xF0))
+						if (i != (PARTY_SIZE - 1) && GetMonData(&party[i + 1], MON_DATA_SPECIES, NULL)
+						&& !(GetMonData(&party[i + 1], MON_DATA_POKERUS, NULL) & 0xF0))
 						{
 							SetMonData(&party[i + 1], MON_DATA_POKERUS, &curPokerus);
 							i++;

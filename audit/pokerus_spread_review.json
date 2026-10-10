@@ -1,0 +1,13 @@
+{
+  "result": "pass",
+  "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
+  "baseline": "Actual extracted PartySpreadPokerus disagrees with empty-slot protection oracle, exit 1.",
+  "fix": "Require occupied adjacent slots before checking infection state and writing Pokerus; retain existing right-neighbor skip and RNG roll.",
+  "verification": [
+    "check_pokerus_spread.py: 4096 four-state party shapes x three rolls",
+    "check_pokerus_target.py rerun",
+    "check_pokerus_time.py rerun",
+    "Actual ARM object compile"
+  ],
+  "limitations": "Native accessor mocks and chosen strain; eggs retained as eligible occupied slots, encoded corrupt states and GBA runtime unverified."
+}

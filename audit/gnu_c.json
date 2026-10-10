@@ -182,8 +182,8 @@
     {
       "path": "src/build_pokemon.c",
       "exit_code": 0,
-      "source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
-      "object_bytes": 62180,
+      "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
+      "object_bytes": 62212,
       "diagnostics": ""
     },
     {
