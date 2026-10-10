@@ -1,6 +1,6 @@
 {
   "command": [
-    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\bin\\arm-none-eabi-as.exe",
+    "C:\\Users\\liru55\\AppData\\Local\\Temp/cfru-jp-arm-tools/mingw64/bin/arm-none-eabi-as.exe",
     "-mthumb",
     "-I",
     "assembly"

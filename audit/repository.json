@@ -1321,9 +1321,19 @@
       "findings": []
     },
     {
+      "path": "audit/achievements_header_recovery.json",
+      "bytes": 515,
+      "sha256": "dd45e5ec0911310b4aea82736c476939922cdf3635559d2fdb01e0f75a247722",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/assembly.json",
-      "bytes": 23650,
-      "sha256": "53d579dabd1aca6363ed4d91330f417c4584f8795bcc62e32a14f49bec8be00f",
+      "bytes": 23646,
+      "sha256": "66150e2c79c21ec69894b4ec4a2bb959ee7b12734857915560a44b69d5654f27",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1381,6 +1391,46 @@
       "findings": []
     },
     {
+      "path": "audit/fcomp_arm.json",
+      "bytes": 671,
+      "sha256": "3154915203f9499c968863e497040c800d2128154a573bf53bbca03d77c68776",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/fcomp_header_recovery.json",
+      "bytes": 1271,
+      "sha256": "0ac96c5234ef606165bf37d3319a767727174417930526cca0079ff20d81b47e",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/fcomp_pixel_bounds_review.json",
+      "bytes": 1057,
+      "sha256": "8e834726067535dc332cc395160062bd2a982ea8a4e09454ef7d093e43875952",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/fcomp_tile_map_review.json",
+      "bytes": 986,
+      "sha256": "ea977b6bb36dec73f7d9dd301f4356c3fa5a3df62ccefe5021ee8a346de06157",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/gate_header_recovery.json",
       "bytes": 1089,
       "sha256": "1741b7a3d8798b63806be25ec243018b03936979846dd397d21e597bf41f7c9b",
@@ -1391,9 +1441,19 @@
       "findings": []
     },
     {
+      "path": "audit/gate_state_review.json",
+      "bytes": 639,
+      "sha256": "2b2958ecf250645f484d946a21e22c104e4a26f27fc338d2f52b366a2d227ac9",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/gnu_c.json",
-      "bytes": 128838,
-      "sha256": "8f540a03c3557d9bd3ac0c865e74685d9b179d8be2b624175e457b0c67a297c8",
+      "bytes": 127347,
+      "sha256": "b19c8d5a2145287ce8df10bf0636215482e2d34e8803fd7a1308310b026eac57",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1412,8 +1472,18 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 29111,
-      "sha256": "ac00383b7899ef4a777e1838d449774fac995165fdd35b48b23f716cf85740c0",
+      "bytes": 30448,
+      "sha256": "fadbe15064a42094c1f2d4884caf000ff7e7f91fa391210415d7da6c54fba75d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/python_regressions.json",
+      "bytes": 1320,
+      "sha256": "50c2141d84aacf1aa62d8a33d570cbef77cc1fae5d1a420441a0925fb03c3691",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1444,6 +1514,36 @@
       "path": "audit/rom_input.json",
       "bytes": 544,
       "sha256": "bf77ed75d048aeea3f177096190c613fed729e7b4dc6e5a065a8b6066ec9fa8a",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/second_ability_condition_review.json",
+      "bytes": 995,
+      "sha256": "71a2fbdd0346268508e6ac95b3301bcb61d78de074a04b5b3c7a7b6c1bbea0ce",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/second_ability_header_recovery.json",
+      "bytes": 1452,
+      "sha256": "c7d74dfa9b5e5bbcda3748333ff1a9140adb056008e82590ea2b4d823a0b0d37",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/second_ability_lookup_review.json",
+      "bytes": 571,
+      "sha256": "16191ba398ff86592c7b646200abb25c427f89bcd9a7f11b9fbd92b287af4c3d",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12479,9 +12579,64 @@
       "findings": []
     },
     {
+      "path": "scripts/check_fcomp_arm.py",
+      "bytes": 2003,
+      "sha256": "d36ef069f6353c3bd0291099416294d2f447c915d1b40f625d09a861e7704a64",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_fcomp_header.py",
+      "bytes": 2168,
+      "sha256": "73adb060dd592cd489803883a7a6536ca0509e095365b04b860b93c9c84e74ff",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_fcomp_pixel_bounds.py",
+      "bytes": 3078,
+      "sha256": "f3cf4e11202a7990690eea683b84549c5370f8859c8e4179207075b6f2d75a0e",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_fcomp_tile_map.py",
+      "bytes": 4054,
+      "sha256": "3d446b6d0e4290a5101d8fa604224c818d92bcda94989eca28e616027ab9a527",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_full_tutor.py",
       "bytes": 6241,
       "sha256": "3287b775234b70c7249515e06efac361fed0b430d74f123e42757a76cad2f727",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_gate_orientations.py",
+      "bytes": 3117,
+      "sha256": "3a6e5ed1a2beecde601dd0dffc6ff3d372321bdbebe3450b39b58fab0245d00d",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12515,6 +12670,28 @@
       "path": "scripts/check_roamer_movement.py",
       "bytes": 3335,
       "sha256": "938fcde28d2587ebc89b3b00157a27ebcd440cee2b68127c8555f4cb8ea2b524",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_second_ability_conditions.py",
+      "bytes": 3376,
+      "sha256": "a7c0d561a8de5bba70de4809fafcc88db90527550f4ae2ccdc55cc68d6ffcb0a",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_second_ability_lookup.py",
+      "bytes": 1878,
+      "sha256": "26d774486b8b4a9abe46872974e34ce50a62a72a8a3b5cf8113589a8e3fcfe4c",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12635,6 +12812,17 @@
       "path": "scripts/generate_rotating_gates.py",
       "bytes": 16131,
       "sha256": "a6433556b7d7003874b96a5efb7335489e26e907aef602f65bc53aaff123ba7d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/generate_second_abilities.py",
+      "bytes": 4216,
+      "sha256": "9f599cc4a9b439467d7435824c018869ee0f5abcbb3463812c7b6312e061e1fd",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13273,6 +13461,17 @@
       "findings": []
     },
     {
+      "path": "src/Tables/second_abilities.h",
+      "bytes": 52349,
+      "sha256": "2f18b16fa8fc897b3684eab35a99cbbfbda719ab63636d7055aa01989f5e1b78",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
       "path": "src/Tables/sideways_stairs_table.h",
       "bytes": 4827,
       "sha256": "ef11a4550c759b5dbc5015b2ea7cd9840b77e505f5f4ecae384fb3389f357ebb",
@@ -13380,18 +13579,23 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 52,
-          "kind": "missing_local_include",
-          "target": "achievements_gfx.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/achievements_data.h",
       "bytes": 30284,
       "sha256": "eb21456fba908ebbda78a09d69e09114aaad61909953b340c78c27bf512a90bd",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/achievements_gfx.h",
+      "bytes": 23509,
+      "sha256": "1c9dd88f00ece88168936357b8c361bfb4edcb393d11d2c8e205924f541bd196",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13953,37 +14157,36 @@
     },
     {
       "path": "src/fcomp.c",
-      "bytes": 10523,
-      "sha256": "c0acf1bef3067e3155b8c1f4c8f020afedcd08ed378f2d0bf6e52b3450b53926",
+      "bytes": 10566,
+      "sha256": "334cb2b7f025735af5cec48e579cd1cc3067b44a39e80f6e62c0c7c93f1a398f",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 2,
-          "kind": "missing_local_include",
-          "target": "fcomp.h"
-        }
-      ]
+      "findings": []
+    },
+    {
+      "path": "src/fcomp.h",
+      "bytes": 1142,
+      "sha256": "198945f09d3126b7bb55d6f1eed462199297d29c0920fc4274d06ef82b40afe7",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
     },
     {
       "path": "src/fcomp_dpe.c",
-      "bytes": 4290,
-      "sha256": "a454c51dcd332c02662d7344cab37221eb4100983ce2e72ac518de7f0b792625",
+      "bytes": 4324,
+      "sha256": "67335cb983ebb97d488fb26739e13c688e51078ab4a40480431ec2c517c2e8ce",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 2,
-          "kind": "missing_local_include",
-          "target": "fcomp.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/field_effects.c",
@@ -14890,8 +15093,8 @@
     },
     {
       "path": "src/hoenn_gates.c",
-      "bytes": 16998,
-      "sha256": "20431fba944d6c2c9f858099ea639ef3a322cb715082b83f9961a69e6a190a37",
+      "bytes": 17172,
+      "sha256": "02ac48ff4a6af6b6dfcce20304a13c150bcae91ab74fdb80e645324b5478fcb1",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15539,13 +15742,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 7,
-          "kind": "missing_local_include",
-          "target": "Tables/second_abilities.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/set_effect.c",

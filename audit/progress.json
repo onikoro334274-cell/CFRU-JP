@@ -76,7 +76,13 @@
     "Weather production tick additionally passes all 16 event routes for end-flag cleanup vs protected cave waiting; event creation stays suppressed on all 16 route entries and 9 protected maps; non-champion state is untouched. Native state-machine checks do not execute map scripts or render weather.",
     "Actual HoennStepTick step-detector/weather-call block passes 20480 controlled frames over padded-map positions 7..70: initial/stationary frames do not count movement, X/Y changes do, timer decrements and coordinates persist, weather is called once per block. Full task entry, map transitions, other field callbacks and GBA hook timing remain unverified.",
     "Generated complete hoenn_gates.h from public pokeemerald reference: 8 gates, L4/T1/T2 graphics totaling 4608 bytes and 20 affine animations; hoenn_gates.c compiles using real GNU ARM GCC without diagnostics. Indexed-PNG pixel and palette data independently compared with Pillow; GBA rotation/collision/rendering remain unverified.",
-    "Production HoennGatePlace passes 917504 signed player-coordinate/camera combinations with controlled gate positions, including negative deltas and s16 output narrowing; real hoenn_gates.c ARM compilation passes without diagnostics. This fixture does not render gates or validate collision/rotation behavior."
+    "Production HoennGatePlace passes 917504 signed player-coordinate/camera combinations with controlled gate positions, including negative deltas and s16 output narrowing; real hoenn_gates.c ARM compilation passes without diagnostics. This fixture does not render gates or validate collision/rotation behavior.",
+    "Current Python regression discovery passes all 55 tests with GNU ARM compiler/assembler available; no skips (python_regressions.json)",
+    "All 114 build-input assembly files assemble successfully; object generation does not prove hook addresses or linker resolution",
+    "Recovered achievements graphics header is byte-identical to local original source snapshot",
+    "Recovered second-ability header covers 950 sorted current-branch species; 65536 species lookup IDs, all u8 unlock levels and controlled gift-provenance conditions pass",
+    "Recovered FComp table layout and stream field reads pass exhaustive field fixtures; actual ARM core is 1532/1696 bytes without BL/BLX",
+    "FComp pixel output bounds and DPE tile-map reference fixes pass controlled production fixtures and reproduce failures in prior revisions"
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -135,25 +141,29 @@
     "Added abnormal-weather map header recovery generator and actual route/cave definitions",
     "Weather timer compares before incrementing to prevent u16 wrap at 65535; invalid event location IDs reset location/end/steps before map lookups",
     "Standalone rotating-gate generator with explicit reference/output paths and indexed PNG decoder restores missing header",
-    "Gate placement replaces negative signed left shifts with multiplication by 16; arithmetic remains within signed int range for s16 coordinates"
+    "Gate placement replaces negative signed left shifts with multiplication by 16; arithmetic remains within signed int range for s16 coordinates",
+    "Invalid rotating-gate state bytes use default map orientation, bounding affine/arm indices",
+    "Recovered actual achievements graphics, second-ability table and FComp declarations with recorded provenance",
+    "FComp rejects pixel sections larger than output capacity before writing",
+    "DPE expands only fully validated tile maps: references must be within decoded unique tiles and at/before destination tile"
   ],
   "limitations": [
-    "77 quoted C include references are absent from this checkout; see repository.json for locations",
+    "36 quoted C include references are absent from this checkout; see repository.json for locations",
     "C sprite cleanup has been inspected but has not been run in the game",
     "Integer macro execution tests run on Windows x64 with 32-bit unsigned int, not on the GBA",
     "Semantic review of all C, headers, assembly, strings, tables and binary files is incomplete",
     "The adjacent PokemonStart-src is also a source-only snapshot; its AGENTS.md confirms omitted ROMs, generated assets, devkitARM and build orchestration tools",
     "Other adjacent project ROM candidates were found but are not verified as the required original/full PokemonStart build inputs",
     "Definition imports intentionally retain legacy first-token macro extraction; this helper is not a full C preprocessor",
-    "Full linking and game runtime are not verified; GNU C object compilation is verified for the 151 files with available headers",
+    "Full linking and game runtime are not verified; GNU C object compilation is verified for the 174 of 203 C files with available headers; remaining 29 sources fail due to missing generated inputs or definitions",
     "Factory summary production function was executed in a Windows native fixture; the complete factory file remains blocked by omitted generated headers and GBA runtime is unverified"
   ],
   "next": [
-    "Generate complete hoenn_gates.h from available public reference config/graphics/affine data using explicit-path adapter; input existence verified in gate_header_recovery.json",
+    "Recover remaining generated headers with original rules, remapped map metadata and actual input assets; gym puzzles require map layout/remap correspondence, not raw Emerald metatile IDs",
+    "Continue FComp truncated-stream, Huffman-table and DpeFTryDecode/VRAM allocation failure review; controlled pixel/map fixtures do not prove full compressor round trips",
     "Resolve HACK_FLAG_WONDER_SKIP using authoritative allocation data: adjacent generator snapshot lacks this newer branch flag; do not choose an arbitrary ID",
     "Dome card root preallocation is checked; still review task creation and InitWindows failure handling and tree root/tilemap allocation failures, plus real GBA screen-return behavior",
-    "Continue Dome info-card root allocation, task creation and scroll-arrow failure handling; card image sprite property writes are now guarded but other creation paths remain",
-    "Review Dome info-card sprite creation failure sentinels across creation, movement callbacks and cleanup: DisplayTrainerInfoOnCard/DisplayMatchInfoOnCard immediately index gSprites with unchecked creation results",
+    "Continue Dome and Factory task creation, window initialization, root/tilemap allocation failures and stage-specific cleanup; Dome card preallocation and scroll-arrow guards are already verified",
     "Audit Hoenn factory select/swap and Dome info/tree failure exits: four InitWindows wrapper callers ignore failure; root and later screen/buffer allocations need stage-specific cleanup without advancing battle scripts with invalid party selections",
     "Continue C semantic review, including unchecked window initialization callers and allocation cleanup; event map-bank/map counts and sign-event union kinds need authoritative metadata validation",
     "Continue insertion-table address, register, wrapper parameter and event index validation against the supplied BPRJ ROM",
@@ -162,10 +172,10 @@
     "Review insertion bounds and source/table behavior beyond preflight condition checks",
     "Continue semantic review of custom save, clock, ability, battle and DexNav code",
     "Verify assembly hook addresses and layouts against a verified BPRJ input",
-    "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
+    "Resolve the 36 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:58:37.564782+00:00",
+  "updated_utc": "2026-10-10T19:14:24.813810+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }
