@@ -255,7 +255,9 @@ static u8 HoennGateOrientation(u8 gateId)
 {
 	u8 v = HoennGateState()[gateId];
 
-	return v ? (u8) (v - 1) : sHoennGateSpots[gateId].orient;
+	/* Only 1..4 encode saved orientations; other values use the map default.
+	 * Keep affine animation and arm-layout indices within their four directions. */
+	return v >= 1 && v <= 4 ? (u8) (v - 1) : sHoennGateSpots[gateId].orient;
 }
 
 /* 素 `RotatingGate_HasArm`。腕は**世界の方角**で数え、向きで引き戻す */

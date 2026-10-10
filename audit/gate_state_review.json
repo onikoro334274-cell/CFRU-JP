@@ -1,0 +1,10 @@
+{
+  "scope": "HoennGateOrientation and HoennGateHasArm with actual recovered gate spots and arm layout",
+  "fix": "Saved bytes outside 1..4 use map default; zero behavior and legal saved orientations remain intact.",
+  "checks": {
+    "check_gate_orientations.py": "2048 state cases, 16384 arm lookups passed",
+    "check_gate_orientations.py --baseline e5fa4f0": "Failed with fixture return 2, reproducing invalid orientation",
+    "check_gate_positions.py": "917504 signed coordinate/camera cases passed"
+  },
+  "limits": "Does not establish sprite allocation recovery, animation rendering, map transitions, or GBA runtime."
+}

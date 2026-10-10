@@ -896,8 +896,8 @@
     {
       "path": "src/hoenn_gates.c",
       "exit_code": 0,
-      "source_sha256": "20431fba944d6c2c9f858099ea639ef3a322cb715082b83f9961a69e6a190a37",
-      "object_bytes": 10792,
+      "source_sha256": "02ac48ff4a6af6b6dfcce20304a13c150bcae91ab74fdb80e645324b5478fcb1",
+      "object_bytes": 10768,
       "diagnostics": ""
     },
     {
