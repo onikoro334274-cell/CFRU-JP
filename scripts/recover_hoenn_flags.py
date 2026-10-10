@@ -37,12 +37,14 @@ def main():
             definitions[name] = value
     for names, lower, upper in [('RESERVED_FLAGS', 'HOENN_FLAG_END', 'VISIT_FLAG_FIRST'),
                                  ('RESERVED_VARS', 'HOENN_VAR_END', 'VAR_RESERVED_LAST')]:
+        reserved_ids = set()
         for name, value in constants[names].items():
             allowed = constants[lower] <= value < constants[upper]
             if names == 'RESERVED_VARS':
                 allowed |= constants['VAR_RESERVED_HIGH_FIRST'] <= value < constants['VAR_RESERVED_HIGH_END']
-            if not allowed or value in allocations['flags' if names == 'RESERVED_FLAGS' else 'vars'].values():
+            if not allowed or value in reserved_ids or value in allocations['flags' if names == 'RESERVED_FLAGS' else 'vars'].values():
                 raise ValueError(('Reserved ID overlaps or is out of range', name, value))
+            reserved_ids.add(value)
             definitions[name] = value
     definitions['HOENN_FLAG_CAN_GO_HOENN'] = int(constants['FERRY_SEVII_FLAG'], 0)
     pairs = sorted((base, name) for name, (base, _) in trainers['LEAGUE_REMATCH'].items())
