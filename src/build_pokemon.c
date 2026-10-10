@@ -4550,6 +4550,18 @@ void RandomlyGivePartyPokerus(struct Pokemon *party)
 	if (rnd == 0x4000 || rnd == 0x8000 || rnd == 0xC000)
 	{
 		struct Pokemon *mon;
+		bool8 hasTarget = FALSE;
+		for (u8 i = 0; i < PARTY_SIZE; ++i)
+		{
+			if (GetMonData(&party[i], MON_DATA_SPECIES, NULL)
+			&& !GetMonData(&party[i], MON_DATA_IS_EGG, NULL))
+			{
+				hasTarget = TRUE;
+				break;
+			}
+		}
+		if (!hasTarget)
+			return;
 
 		do
 		{

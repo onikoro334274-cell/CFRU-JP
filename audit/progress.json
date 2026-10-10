@@ -188,7 +188,7 @@
     "Resolve the currently inventoried missing include references and obtain remaining generated assets/tools for GNU linking/runtime validation; use repository.json for current scope and counts."
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T22:51:08.641202+00:00",
+  "updated_utc": "2026-10-10T22:52:19.585519+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete.",
   "current_compilation": {
@@ -309,5 +309,6 @@
   "current_wild_held_item_review": "audit/wild_held_item_review.json",
   "current_shiny_pid_review": "audit/shiny_pid_shift_review.json",
   "current_perfect_iv_review": "audit/perfect_iv_bounds_review.json",
-  "current_wild_item_dispatch_review": "audit/wild_item_dispatch_review.json"
+  "current_wild_item_dispatch_review": "audit/wild_item_dispatch_review.json",
+  "current_pokerus_review": "audit/pokerus_target_review.json"
 }

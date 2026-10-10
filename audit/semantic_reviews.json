@@ -652,6 +652,16 @@
       "verification": "check_wild_item_dispatch.py: 256 combinations of five battle bits, DexNav state and two item outcomes. Exact reads/generator calls/writes and all six party slots checked.",
       "current_report": "audit/wild_item_dispatch_review.json",
       "remaining": "Controlled Pokemon accessor/generator mocks; actual battle startup, stale held items, encounters and GBA execution remain unverified."
+    },
+    {
+      "path": "src/build_pokemon.c",
+      "source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
+      "sections": [
+        "RandomlyGivePartyPokerus"
+      ],
+      "verification": "check_pokerus_target.py baseline reproduction and current cases; ARM compile",
+      "current_report": "audit/pokerus_target_review.json",
+      "remaining": "Controlled cyclic RNG and accessor mocks; strain distribution, arbitrary RNG termination and runtime are not certified."
     }
   ]
 }
