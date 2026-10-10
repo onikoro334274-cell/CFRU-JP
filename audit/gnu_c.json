@@ -770,8 +770,8 @@
     {
       "path": "src/hack_story_partner.c",
       "exit_code": 0,
-      "source_sha256": "edc84544852fa5d2395805cd43f43fab82fb7fe69b62f9168174275131fdd32c",
-      "object_bytes": 1656,
+      "source_sha256": "e70ed5ef785db6ca5a64b95333e0d6968bdd880240056eb59c46031d4b877973",
+      "object_bytes": 1648,
       "diagnostics": ""
     },
     {

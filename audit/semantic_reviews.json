@@ -533,13 +533,16 @@
       "path": "src/hack_story_partner.c",
       "sections": [
         "HoennNative_StoryPartnerCheck",
-        "HoennNative_StoryMakePartner"
+        "HoennNative_StoryMakePartner",
+        "HackPartner_IsMon",
+        "HackPartner_BaseBonus"
       ],
       "verification_records": [
-        "story_partner_registration_review.json"
+        "story_partner_registration_review.json",
+        "story_partner_identity_review.json"
       ],
-      "source_sha256": "edc84544852fa5d2395805cd43f43fab82fb7fe69b62f9168174275131fdd32c",
-      "remaining": "Script sequencing, save persistence, identity matching, stat bonus arithmetic and linked GBA behavior remain unverified."
+      "source_sha256": "e70ed5ef785db6ca5a64b95333e0d6968bdd880240056eb59c46031d4b877973",
+      "remaining": "Native script sequencing, save persistence, full stat bonus arithmetic, identity-sharing clones and GBA behavior remain unverified."
     }
   ]
 }

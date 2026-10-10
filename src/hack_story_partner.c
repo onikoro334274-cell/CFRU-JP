@@ -28,8 +28,8 @@ bool8 HackPartner_IsMon(const struct Pokemon* mon)
 
 	if (!FlagGet(FLAG_STORY_PARTNER))
 		return FALSE;
-	pid = VarGet(VAR_PARTNER_PID_LO) | (VarGet(VAR_PARTNER_PID_HI) << 16);
-	otId = VarGet(VAR_PARTNER_OTID_LO) | (VarGet(VAR_PARTNER_OTID_HI) << 16);
+	pid = VarGet(VAR_PARTNER_PID_LO) | ((u32)VarGet(VAR_PARTNER_PID_HI) << 16);
+	otId = VarGet(VAR_PARTNER_OTID_LO) | ((u32)VarGet(VAR_PARTNER_OTID_HI) << 16);
 	return mon->personality == pid && mon->otid == otId;
 }
 

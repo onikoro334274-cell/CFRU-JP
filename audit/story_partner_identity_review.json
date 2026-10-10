@@ -1,0 +1,13 @@
+{
+  "scope": "HackPartner_IsMon and HackPartner_BaseBonus in src/hack_story_partner.c",
+  "finding": "u16 variable values promoted to signed int before shifting by 16, causing undefined behavior for upper halves 0x8000..0xFFFF.",
+  "change": "Cast both identity upper halves to u32 before shifting. Preserve all saved PID/OTID bits and the existing bonus policy.",
+  "verification": [
+    "check_story_partner_identity.py: 327680 identity combinations with all upper halves and five representative lower halves",
+    "Every single-bit PID and OTID mismatch rejected; disabled registration returns no bonus without reading identity variables",
+    "Clang trapping shift sanitizer passes after the fix and traps baseline af25c04 with status 3221225501",
+    "Registration fixture still passes all 393216 cases",
+    "GNU ARM compilation of src/hack_story_partner.c passes without diagnostics"
+  ],
+  "limitations": "Controlled variable/flag APIs. Full stat calculation, native save persistence, clones sharing PID/OTID and linked GBA behavior remain outside this scope."
+}
