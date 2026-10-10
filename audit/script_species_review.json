@@ -1,0 +1,9 @@
+{
+  "result": "passed",
+  "species_cases": 1572864,
+  "invalid_party_cases": 262120,
+  "species_limit": 1491,
+  "baseline": "4b08534 passes out-of-table species into setter/stat recalculation.",
+  "scope": "Actual species-change special for all u16 species IDs, six party indices and party/PC modes with/without PC support. Out-of-table IDs rejected; correct target only written, party-only stats recalculated, all invalid u16 party indices rejected.",
+  "limitations": "Preserves in-table IDs including existing sentinel/form entries; semantic species/form compatibility and native data/stat calculations remain unverified."
+}

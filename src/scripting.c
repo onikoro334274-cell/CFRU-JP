@@ -506,11 +506,14 @@ void sp015_ModifyHeldItem(void)
 void sp016_ChangePokemonSpecies(void)
 {
 	u16 partyId = Var8004;
-	if (partyId >= PARTY_SIZE)
+	if (partyId >= PARTY_SIZE || Var8005 >= NUM_SPECIES)
 		return;
 
 	SetMonDataFromVar8003(MON_DATA_SPECIES);
-	CalculateMonStats(&gPlayerParty[partyId]);
+	#ifdef SELECT_FROM_PC
+	if (Var8003 != 1)
+	#endif
+		CalculateMonStats(&gPlayerParty[partyId]);
 }
 
 // Change Pokemon Attacks
