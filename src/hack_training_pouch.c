@@ -127,8 +127,28 @@ u16 HackTrainingPouch_Arrange(struct ItemSlot* slots, u16 capacity)
 
 	if (tmp == NULL)
 	{
-		for (i = 0; i < capacity && slots[i].itemId != ITEM_NONE; ++i);
-		return i;
+		// 空き枠を詰め、選択ページの道具を順番を保って前へ移す。
+		for (i = 0; i < capacity; ++i)
+			if (slots[i].itemId != ITEM_NONE)
+				slots[n++] = slots[i];
+		for (i = n; i < capacity; ++i)
+		{
+			slots[i].itemId = ITEM_NONE;
+			slots[i].quantity = 0;
+		}
+		shown = 0;
+		for (i = 0; i < n; ++i)
+		{
+			if (HackBagPage_Of(slots[i].itemId) == page)
+			{
+				struct ItemSlot selected = slots[i];
+				u32 j;
+				for (j = i; j > shown; --j)
+					slots[j] = slots[j - 1];
+				slots[shown++] = selected;
+			}
+		}
+		return shown;
 	}
 
 	for (i = 0; i < capacity; ++i) //見せる道具
