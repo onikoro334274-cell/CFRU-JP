@@ -1,0 +1,18 @@
+{
+  "source": "src/second_ability.c",
+  "source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+  "table_sha256": "2f18b16fa8fc897b3684eab35a99cbbfbda719ab63636d7055aa01989f5e1b78",
+  "result": "pass",
+  "sections": [
+    "SecondAbility_OfBank",
+    "SecondAbility_OfSpecies",
+    "SecondAbility_IsUnlocked",
+    "IsMomPikachu"
+  ],
+  "verification": [
+    "check_second_ability_bank.py: 331776 controlled combinations",
+    "check_second_ability_lookup.py: 65536 identifiers",
+    "check_second_ability_conditions.py: 100663296 provenance combinations, 256 levels, 768 NULL cases"
+  ],
+  "limitations": "Bank fixture mocks ability sources/suppression and assumes four valid battler IDs; actual ability activation scripts, terrain, AI integration and GBA execution remain unverified. Unlock fixture config is 50, matching current generated table."
+}

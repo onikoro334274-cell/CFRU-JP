@@ -692,6 +692,19 @@
       "verification": "check_pokerus_spread.py: 4096 four-state party shapes x three rolls; check_pokerus_target.py rerun; check_pokerus_time.py rerun; Actual ARM object compile",
       "current_report": "audit/pokerus_spread_review.json",
       "remaining": "Native accessor mocks and chosen strain; eggs retained as eligible occupied slots, encoded corrupt states and GBA runtime unverified."
+    },
+    {
+      "path": "src/second_ability.c",
+      "source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+      "sections": [
+        "SecondAbility_OfBank",
+        "SecondAbility_OfSpecies",
+        "SecondAbility_IsUnlocked",
+        "IsMomPikachu"
+      ],
+      "verification": "check_second_ability_bank.py: 331776 controlled combinations; check_second_ability_lookup.py: 65536 identifiers; check_second_ability_conditions.py: 100663296 provenance combinations, 256 levels, 768 NULL cases",
+      "current_report": "audit/second_ability_current_review.json",
+      "remaining": "Bank fixture mocks ability sources/suppression and assumes four valid battler IDs; actual ability activation scripts, terrain, AI integration and GBA execution remain unverified. Unlock fixture config is 50, matching current generated table."
     }
   ]
 }

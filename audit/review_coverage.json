@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 855,
-    "files_with_indexed_scopes": 33,
-    "indexed_scopes": 54,
+    "source_files": 856,
+    "files_with_indexed_scopes": 34,
+    "indexed_scopes": 55,
     "scope_states": {
       "source_changed": 14,
-      "current": 39,
+      "current": 40,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3819,6 +3819,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_second_ability_bank.py",
+      "source_sha256": "321371b3186c67cd9bfddab0f1b6caa3c45da7b84f306eaf54db4276bc81d8ec",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_second_ability_conditions.py",
       "source_sha256": "a7c0d561a8de5bba70de4809fafcc88db90527550f4ae2ccdc55cc68d6ffcb0a",
       "gnu_c_object": "not_applicable",
@@ -6671,7 +6678,21 @@
       "path": "src/second_ability.c",
       "source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
       "gnu_c_object": "object_compiled",
-      "scoped_reviews": [],
+      "scoped_reviews": [
+        {
+          "state": "current",
+          "sections": [
+            "SecondAbility_OfBank",
+            "SecondAbility_OfSpecies",
+            "SecondAbility_IsUnlocked",
+            "IsMomPikachu"
+          ],
+          "recorded_source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+          "evidence": [],
+          "verification": "check_second_ability_bank.py: 331776 controlled combinations; check_second_ability_lookup.py: 65536 identifiers; check_second_ability_conditions.py: 100663296 provenance combinations, 256 levels, 768 NULL cases",
+          "remaining": "Bank fixture mocks ability sources/suppression and assumes four valid battler IDs; actual ability activation scripts, terrain, AI integration and GBA execution remain unverified. Unlock fixture config is 50, matching current generated table."
+        }
+      ],
       "whole_file_completion": "not_established"
     },
     {
