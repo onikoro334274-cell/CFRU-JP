@@ -31,7 +31,7 @@ MegaShop_ListTemplateHook:
 
 @ BuyMenuBuildListMenuTemplate（0809ABA4）の名前を書く所・0809ABE8 via r0（すべての売り場・2026-10-01）
 @   素: movs r5,#0 → 名前 1 つ 9 バイトで書くループ → やめる → 0809AC32（ldr r5,=gMultiuseListMenuTemplate / str r1,[r5]）
-@   9 文字の名前が次の名前に上書きされるので、C（Shop_BuildListStrings）が 16 バイトで取り直して書く。戻りは r1 = 一覧の表。
+@   RemoveShopModifierCheats が名前ごとに 16 バイトを確保し、C（Shop_BuildListStrings）が書く。戻りは r1 = 一覧の表。
 @   ここへ来るのは 0809ABCC の bne と CFRU の RemoveShopModifierCheats（どちらも入口）。ループの中への分岐は使わなくなる
 .align 2
 .global Shop_BuildListStringsHook

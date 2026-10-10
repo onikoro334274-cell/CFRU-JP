@@ -1446,8 +1446,7 @@ RemoveShopModifierCheats:
 	ldr r6, =sShopMenuItemStrings
 	ldrh r1, [r4, #0x10]
 	add r1, #0x1
-	lsl r0, r1, #0x3
-	add r0, r0, r1
+	lsl r0, r1, #0x4 @16 bytes per name, matching Shop_BuildListStrings
 	ldr r1, =malloc
 	bl bxr1
 	str r0, [r6] @sShopMenuItemStrings

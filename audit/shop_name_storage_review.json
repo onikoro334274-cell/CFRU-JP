@@ -1,0 +1,8 @@
+{
+  "scope": "Shop_BuildListStrings and RemoveShopModifierCheats allocation path",
+  "finding": "The C hook freed the successfully allocated buffer then wrote through an unchecked replacement allocation.",
+  "fix": "Allocate the final 16-byte stride in the original ARM allocation path, retain its failure branch, and write into that owned allocation without reallocating.",
+  "verification": "python scripts/check_shop_name_storage.py; ARM C and assembly audits",
+  "coverage": "Counts 0 through 256, nine-character mocked names plus terminator, untouched slot padding and allocation guards, list IDs and cancel entry. Fixture has no allocator symbols, preventing reintroduction of an unchecked allocation in the extracted function.",
+  "limitations": "Native function execution with mocked ROM name writer. Assembly is assembled and failure branches inspected; actual ROM hooks, allocator failure execution and GBA runtime remain unverified."
+}

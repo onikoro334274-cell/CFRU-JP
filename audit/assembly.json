@@ -250,7 +250,7 @@
     {
       "path": "assembly/fcomp/lz_dispatch.s",
       "exit_code": 0,
-      "sha256": "b7e894137f59846177b00e80f106f5b4c3ef5f365d388da5c3453443adac6b0f",
+      "sha256": "148a71173f9141e6a071252a2f3d79d3b1169d29d0c9468928fec80c0e43ad68",
       "diagnostics": ""
     },
     {
@@ -472,7 +472,7 @@
     {
       "path": "assembly/hooks/general_hooks.s",
       "exit_code": 0,
-      "sha256": "0315f864ce42aaa00ef4ed638683a4b1c489952dfd8ee415bb0191f37638663e",
+      "sha256": "9d13e63dd714e21898c36d00c18d13ded2814327aca376dd22117f2b8ad3cd46",
       "diagnostics": ""
     },
     {
@@ -622,7 +622,7 @@
     {
       "path": "assembly/kanto/mega_shop_hooks.s",
       "exit_code": 0,
-      "sha256": "1f6755ae1f1ba27b1bb89eb2c399da7334edd7b852a84c017738e5f55fc4e764",
+      "sha256": "4206cd3dc568c8f4c7aadea1f06d61e1c60d1f6362b8083532321e837858f0e5",
       "diagnostics": ""
     },
     {

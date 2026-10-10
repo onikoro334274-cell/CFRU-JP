@@ -306,12 +306,11 @@ struct ListMenuItem *Shop_BuildListStrings(void)
 {
 	struct ListMenuItem *list = sShopMenuListMenu;
 	u32 count = gShopData.itemCount;
-	u8 *strs;
+	u8 *strs = sShopMenuItemStrings;
 	u32 i;
 
-	Free(sShopMenuItemStrings);
-	strs = Malloc((count + 1) * SHOP_NAME_STRIDE);
-	sShopMenuItemStrings = strs;   /* 素の BuyMenuFreeMemory がこれを Free する */
+	/* RemoveShopModifierCheats allocates the final stride and handles failure
+	 * before entering this function. BuyMenuFreeMemory owns that allocation. */
 
 	for (i = 0; i < count; ++i)
 		PokeMartWriteNameAndIdAt(&list[i], gShopData.itemList[i], strs + i * SHOP_NAME_STRIDE);
