@@ -1,0 +1,10 @@
+{
+  "source_sha256": "b319ae7791162497cb1f131365d10df608825a0687047701a3ba04b2d8d2ae30",
+  "result": "passed",
+  "key_positions": 4096,
+  "retry_patterns": 64,
+  "partial_read_cases": 12291,
+  "whole_read_cases": 3,
+  "scope": "Actual scrambling functions with controlled flash APIs; key parity, legacy/scrambled/erased reads, retry termination, error propagation and caller buffer restoration.",
+  "limitations": "Does not verify physical flash, power-loss recovery, banking, callers supplying out-of-range reads, linked ROM hooks, or GBA execution."
+}
