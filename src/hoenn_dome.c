@@ -4213,6 +4213,12 @@ static u8 Task_GetInfoCardInput(u8 taskId)
 // allocatedArray below needs to be large enough to hold stat totals for each mon, or totals of each type of move points
 #define ALLOC_ARRAY_SIZE max(NUM_STATS * FRONTIER_PARTY_SIZE, NUM_MOVE_POINT_TYPES)
 
+// Normalize both trainer-picture and mon-icon failure values for scroll/cleanup.
+static u8 DomeInfoCardSpriteId(u16 spriteId)
+{
+    return spriteId < MAX_SPRITES ? spriteId : SPRITE_NONE;
+}
+
 static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
 {
     struct TextPrinterTemplate textPrinter;
@@ -4239,48 +4245,53 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
 
     // Create trainer pic sprite
     if (trainerId == TRAINER_PLAYER)
-        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2->playerGender, TRUE), TRUE, x + 48, y + 64, palSlot + 12, TAG_NONE);
+        sInfoCard->spriteIds[arrId] = DomeInfoCardSpriteId(CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2->playerGender, TRUE), TRUE, x + 48, y + 64, palSlot + 12, TAG_NONE));
     else if (trainerId == TRAINER_FRONTIER_BRAIN)
-        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(GetDomeBrainTrainerPicId(), TRUE, x + 48, y + 64, palSlot + 12, TAG_NONE);
+        sInfoCard->spriteIds[arrId] = DomeInfoCardSpriteId(CreateTrainerPicSprite(GetDomeBrainTrainerPicId(), TRUE, x + 48, y + 64, palSlot + 12, TAG_NONE));
     else
-        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(DomeTrainerPic(trainerId), TRUE, x + 48, y + 64, palSlot + 12, TAG_NONE);
+        sInfoCard->spriteIds[arrId] = DomeInfoCardSpriteId(CreateTrainerPicSprite(DomeTrainerPic(trainerId), TRUE, x + 48, y + 64, palSlot + 12, TAG_NONE));
 
     if (flags & MOVE_CARD)
-        gSprites[sInfoCard->spriteIds[arrId]].invisible = TRUE;
+        if (sInfoCard->spriteIds[arrId] < MAX_SPRITES)
+            gSprites[sInfoCard->spriteIds[arrId]].invisible = TRUE;
 
     // Create party mon icons
     for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
         if (trainerId == TRAINER_PLAYER)
         {
-            sInfoCard->spriteIds[2 + i + arrId] = CreateMonIcon(DOME_MONS[trainerTourneyId][i],
+            sInfoCard->spriteIds[2 + i + arrId] = DomeInfoCardSpriteId(CreateMonIcon(DOME_MONS[trainerTourneyId][i],
                                                                   SpriteCB_MonIconDomeInfo,
                                                                   x | sInfoTrainerMonX[i],
                                                                   y + sInfoTrainerMonY[i],
-                                                                  0, 0, TRUE);
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
+                                                                  0, 0, TRUE));
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
         }
         else if (trainerId == TRAINER_FRONTIER_BRAIN)
         {
-            sInfoCard->spriteIds[2 + i + arrId] = CreateMonIcon(DOME_MONS[trainerTourneyId][i],
+            sInfoCard->spriteIds[2 + i + arrId] = DomeInfoCardSpriteId(CreateMonIcon(DOME_MONS[trainerTourneyId][i],
                                                                   SpriteCB_MonIconDomeInfo,
                                                                   x | sInfoTrainerMonX[i],
                                                                   y + sInfoTrainerMonY[i],
-                                                                  0, 0, TRUE);
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
+                                                                  0, 0, TRUE));
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
         }
         else
         {
-            sInfoCard->spriteIds[2 + i + arrId] = CreateMonIcon(HoennFactory_MonSpecies(DOME_MONS[trainerTourneyId][i]),
+            sInfoCard->spriteIds[2 + i + arrId] = DomeInfoCardSpriteId(CreateMonIcon(HoennFactory_MonSpecies(DOME_MONS[trainerTourneyId][i]),
                                                                   SpriteCB_MonIconDomeInfo,
                                                                   x | sInfoTrainerMonX[i],
                                                                   y + sInfoTrainerMonY[i],
-                                                                  0, 0, TRUE);
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
+                                                                  0, 0, TRUE));
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
         }
 
         if (flags & MOVE_CARD)
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].invisible = TRUE;
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].invisible = TRUE;
     }
 
     // Initialize the text printer
@@ -4712,67 +4723,77 @@ static void DisplayMatchInfoOnCard(u8 flags, u8 matchNo)
 
     // Draw left trainer sprite.
     if (trainerIds[0] == TRAINER_PLAYER)
-        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2->playerGender, TRUE), TRUE, x + 48, y + 88, palSlot + 12, TAG_NONE);
+        sInfoCard->spriteIds[arrId] = DomeInfoCardSpriteId(CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2->playerGender, TRUE), TRUE, x + 48, y + 88, palSlot + 12, TAG_NONE));
     else if (trainerIds[0] == TRAINER_FRONTIER_BRAIN)
-        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(GetDomeBrainTrainerPicId(), TRUE, x + 48, y + 88, palSlot + 12, TAG_NONE);
+        sInfoCard->spriteIds[arrId] = DomeInfoCardSpriteId(CreateTrainerPicSprite(GetDomeBrainTrainerPicId(), TRUE, x + 48, y + 88, palSlot + 12, TAG_NONE));
     else
-        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(DomeTrainerPic(trainerIds[0]), TRUE, x + 48, y + 88, palSlot + 12, TAG_NONE);
+        sInfoCard->spriteIds[arrId] = DomeInfoCardSpriteId(CreateTrainerPicSprite(DomeTrainerPic(trainerIds[0]), TRUE, x + 48, y + 88, palSlot + 12, TAG_NONE));
 
     if (flags & MOVE_CARD)
-        gSprites[sInfoCard->spriteIds[arrId]].invisible = TRUE;
+        if (sInfoCard->spriteIds[arrId] < MAX_SPRITES)
+            gSprites[sInfoCard->spriteIds[arrId]].invisible = TRUE;
     if (lost[0])
-        gSprites[sInfoCard->spriteIds[arrId]].oam.paletteNum = 3;
+        if (sInfoCard->spriteIds[arrId] < MAX_SPRITES)
+            gSprites[sInfoCard->spriteIds[arrId]].oam.paletteNum = 3;
 
     // Draw right trainer sprite.
     if (trainerIds[1] == TRAINER_PLAYER)
-        sInfoCard->spriteIds[1 + arrId] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2->playerGender, TRUE), TRUE, x + 192, y + 88, palSlot + 13, TAG_NONE);
+        sInfoCard->spriteIds[1 + arrId] = DomeInfoCardSpriteId(CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2->playerGender, TRUE), TRUE, x + 192, y + 88, palSlot + 13, TAG_NONE));
     else if (trainerIds[1] == TRAINER_FRONTIER_BRAIN)
-        sInfoCard->spriteIds[1 + arrId] = CreateTrainerPicSprite(GetDomeBrainTrainerPicId(), TRUE, x + 192, y + 88, palSlot + 13, TAG_NONE);
+        sInfoCard->spriteIds[1 + arrId] = DomeInfoCardSpriteId(CreateTrainerPicSprite(GetDomeBrainTrainerPicId(), TRUE, x + 192, y + 88, palSlot + 13, TAG_NONE));
     else
-        sInfoCard->spriteIds[1 + arrId] = CreateTrainerPicSprite(DomeTrainerPic(trainerIds[1]), TRUE, x + 192, y + 88, palSlot + 13, TAG_NONE);
+        sInfoCard->spriteIds[1 + arrId] = DomeInfoCardSpriteId(CreateTrainerPicSprite(DomeTrainerPic(trainerIds[1]), TRUE, x + 192, y + 88, palSlot + 13, TAG_NONE));
 
     if (flags & MOVE_CARD)
-        gSprites[sInfoCard->spriteIds[1 + arrId]].invisible = TRUE;
+        if (sInfoCard->spriteIds[1 + arrId] < MAX_SPRITES)
+            gSprites[sInfoCard->spriteIds[1 + arrId]].invisible = TRUE;
     if (lost[1])
-        gSprites[sInfoCard->spriteIds[1 + arrId]].oam.paletteNum = 3;
+        if (sInfoCard->spriteIds[1 + arrId] < MAX_SPRITES)
+            gSprites[sInfoCard->spriteIds[1 + arrId]].oam.paletteNum = 3;
 
     // Draw left trainer's Pokémon icons.
     for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
         if (trainerIds[0] == TRAINER_PLAYER)
         {
-            sInfoCard->spriteIds[2 + i + arrId] = CreateMonIcon(DOME_MONS[tournamentIds[0]][i],
+            sInfoCard->spriteIds[2 + i + arrId] = DomeInfoCardSpriteId(CreateMonIcon(DOME_MONS[tournamentIds[0]][i],
                                                                   SpriteCB_MonIconDomeInfo,
                                                                   x | sLeftTrainerMonX[i],
                                                                   y + sLeftTrainerMonY[i],
-                                                                  0, 0, TRUE);
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
+                                                                  0, 0, TRUE));
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
         }
         else if (trainerIds[0] == TRAINER_FRONTIER_BRAIN)
         {
-            sInfoCard->spriteIds[2 + i + arrId] = CreateMonIcon(DOME_MONS[tournamentIds[0]][i],
+            sInfoCard->spriteIds[2 + i + arrId] = DomeInfoCardSpriteId(CreateMonIcon(DOME_MONS[tournamentIds[0]][i],
                                                                   SpriteCB_MonIconDomeInfo,
                                                                   x | sLeftTrainerMonX[i],
                                                                   y + sLeftTrainerMonY[i],
-                                                                  0, 0, TRUE);
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
+                                                                  0, 0, TRUE));
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
         }
         else
         {
-            sInfoCard->spriteIds[2 + i + arrId] = CreateMonIcon(HoennFactory_MonSpecies(DOME_MONS[tournamentIds[0]][i]),
+            sInfoCard->spriteIds[2 + i + arrId] = DomeInfoCardSpriteId(CreateMonIcon(HoennFactory_MonSpecies(DOME_MONS[tournamentIds[0]][i]),
                                                                   SpriteCB_MonIconDomeInfo,
                                                                   x | sLeftTrainerMonX[i],
                                                                   y + sLeftTrainerMonY[i],
-                                                                  0, 0, TRUE);
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
+                                                                  0, 0, TRUE));
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.priority = 0;
         }
 
         if (flags & MOVE_CARD)
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].invisible = TRUE;
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].invisible = TRUE;
         if (lost[0])
         {
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.paletteNum = 3;
-            gSprites[sInfoCard->spriteIds[2 + i + arrId]].sMonIconStill = TRUE;
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].oam.paletteNum = 3;
+            if (sInfoCard->spriteIds[2 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[2 + i + arrId]].sMonIconStill = TRUE;
         }
     }
 
@@ -4781,38 +4802,44 @@ static void DisplayMatchInfoOnCard(u8 flags, u8 matchNo)
     {
         if (trainerIds[1] == TRAINER_PLAYER)
         {
-            sInfoCard->spriteIds[5 + i + arrId] = CreateMonIcon(DOME_MONS[tournamentIds[1]][i],
+            sInfoCard->spriteIds[5 + i + arrId] = DomeInfoCardSpriteId(CreateMonIcon(DOME_MONS[tournamentIds[1]][i],
                                                                   SpriteCB_MonIconDomeInfo,
                                                                   x | sRightTrainerMonX[i],
                                                                   y + sRightTrainerMonY[i],
-                                                                  0, 0, TRUE);
-            gSprites[sInfoCard->spriteIds[5 + i + arrId]].oam.priority = 0;
+                                                                  0, 0, TRUE));
+            if (sInfoCard->spriteIds[5 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[5 + i + arrId]].oam.priority = 0;
         }
         else if (trainerIds[1] == TRAINER_FRONTIER_BRAIN)
         {
-            sInfoCard->spriteIds[5 + i + arrId] = CreateMonIcon(DOME_MONS[tournamentIds[1]][i],
+            sInfoCard->spriteIds[5 + i + arrId] = DomeInfoCardSpriteId(CreateMonIcon(DOME_MONS[tournamentIds[1]][i],
                                                                   SpriteCB_MonIconDomeInfo,
                                                                   x | sRightTrainerMonX[i],
                                                                   y + sRightTrainerMonY[i],
-                                                                  0, 0, TRUE);
-            gSprites[sInfoCard->spriteIds[5 + i + arrId]].oam.priority = 0;
+                                                                  0, 0, TRUE));
+            if (sInfoCard->spriteIds[5 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[5 + i + arrId]].oam.priority = 0;
         }
         else
         {
-            sInfoCard->spriteIds[5 + i + arrId] = CreateMonIcon(HoennFactory_MonSpecies(DOME_MONS[tournamentIds[1]][i]),
+            sInfoCard->spriteIds[5 + i + arrId] = DomeInfoCardSpriteId(CreateMonIcon(HoennFactory_MonSpecies(DOME_MONS[tournamentIds[1]][i]),
                                                                   SpriteCB_MonIconDomeInfo,
                                                                   x | sRightTrainerMonX[i],
                                                                   y + sRightTrainerMonY[i],
-                                                                  0, 0, TRUE);
-            gSprites[sInfoCard->spriteIds[5 + i + arrId]].oam.priority = 0;
+                                                                  0, 0, TRUE));
+            if (sInfoCard->spriteIds[5 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[5 + i + arrId]].oam.priority = 0;
         }
 
         if (flags & MOVE_CARD)
-            gSprites[sInfoCard->spriteIds[5 + i + arrId]].invisible = TRUE;
+            if (sInfoCard->spriteIds[5 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[5 + i + arrId]].invisible = TRUE;
         if (lost[1])
         {
-            gSprites[sInfoCard->spriteIds[5 + i + arrId]].oam.paletteNum = 3;
-            gSprites[sInfoCard->spriteIds[5 + i + arrId]].sMonIconStill = TRUE;
+            if (sInfoCard->spriteIds[5 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[5 + i + arrId]].oam.paletteNum = 3;
+            if (sInfoCard->spriteIds[5 + i + arrId] < MAX_SPRITES)
+                gSprites[sInfoCard->spriteIds[5 + i + arrId]].sMonIconStill = TRUE;
         }
     }
 
