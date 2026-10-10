@@ -1,0 +1,8 @@
+{
+  "scope": "MegaShop_ItemIdGetPrice and MegaShop_Price",
+  "verification": "python scripts/check_mega_shop_prices.py",
+  "cases": 3932160,
+  "coverage": "Every u16 item ID across five stock-pointer contexts, three main callbacks, zero/nonzero table prices and mega/nonmega effects. Checks invalid-ID fallback, preservation of nonzero prices, 60000 mega sell-table fallback, two 10000 exceptions, 32-bit dedicated buy prices, and Silph master-ball pricing only during its buy callbacks.",
+  "findings": "No routing or range defect found in this scope.",
+  "limitations": "Generated production shop tables are used; item-data prices/effects are controlled fixtures. DangerLeafPrice is mocked to base price and independently checked by mega_shop_escalation_review.json. Actual purchase/sale money changes, ROM hooks and GBA runtime remain unverified."
+}
