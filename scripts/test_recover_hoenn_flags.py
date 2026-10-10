@@ -10,7 +10,8 @@ import recover_hoenn_flags
 
 
 class ReservedAllocationTests(unittest.TestCase):
-    def run_recovery(self, flags, variables, reject):
+    def run_recovery(self, flags, variables, reject, *, mapped=None, trainer_ids=None,
+                     constant_overrides=None, expected_lines=()):
         constants = {
             'C_FLAGS': {}, 'C_VARS': {}, 'RESERVED_FLAGS': flags,
             'RESERVED_VARS': variables, 'HOENN_FLAG_END': 100,
@@ -18,14 +19,23 @@ class ReservedAllocationTests(unittest.TestCase):
             'VAR_RESERVED_LAST': 400, 'VAR_RESERVED_HIGH_FIRST': 500,
             'VAR_RESERVED_HIGH_END': 600, 'FERRY_SEVII_FLAG': '0x5C',
         }
+        allocations = {'flags': {'existing': 150}, 'vars': {'existing': 350}, 'trainers': {}}
+        trainers = {'LEAGUE_REMATCH': {}}
+        if mapped is not None:
+            namespace, value = mapped
+            constants['C_FLAGS' if namespace == 'flags' else 'C_VARS'] = {'MAPPED': 'mapped'}
+            allocations[namespace]['mapped'] = value
+        if trainer_ids is not None:
+            trainers['LEAGUE_REMATCH'] = {'REMATCH': ('BASE', 'unused')}
+            allocations['trainers'] = {'BASE': trainer_ids[0], 'REMATCH': trainer_ids[1]}
+        constants.update(constant_overrides or {})
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            (root / 'hoenn_scripts.json').write_text(json.dumps({
-                'flags': {'existing': 150}, 'vars': {'existing': 350}, 'trainers': {}}), encoding='utf-8')
+            (root / 'hoenn_scripts.json').write_text(json.dumps(allocations), encoding='utf-8')
             output = root / 'output.h'
             output.write_text('keep prior output', encoding='utf-8')
             with mock.patch('sys.argv', ['recover', '--source-tools', str(root), '--output', str(output)]), \
-                 mock.patch.object(recover_hoenn_flags, 'literals', side_effect=[constants, {'LEAGUE_REMATCH': {}}]), \
+                 mock.patch.object(recover_hoenn_flags, 'literals', side_effect=[constants, trainers]), \
                  contextlib.redirect_stdout(io.StringIO()):
                 if reject:
                     with self.assertRaises(ValueError):
@@ -33,7 +43,10 @@ class ReservedAllocationTests(unittest.TestCase):
                     self.assertEqual(output.read_text(encoding='utf-8'), 'keep prior output')
                 else:
                     recover_hoenn_flags.main()
-                    self.assertIn('#pragma once', output.read_text(encoding='utf-8'))
+                    text = output.read_text(encoding='utf-8')
+                    self.assertIn('#pragma once', text)
+                    for line in expected_lines:
+                        self.assertIn(line, text)
 
     def test_duplicate_reserved_flags_rejected(self):
         self.run_recovery({'FIRST': 100, 'SECOND': 100}, {}, True)
@@ -60,6 +73,40 @@ class ReservedAllocationTests(unittest.TestCase):
 
     def test_ferry_name_collision_rejected(self):
         self.run_recovery({'HOENN_FLAG_CAN_GO_HOENN': 100}, {}, True)
+
+    def test_invalid_mapped_halfwords_rejected(self):
+        for namespace in ('flags', 'vars'):
+            for value in (True, False, 100.0, '100', None, -1, 65536):
+                with self.subTest(namespace=namespace, value=value):
+                    self.run_recovery({}, {}, True, mapped=(namespace, value))
+
+    def test_mapped_halfword_boundaries_preserved(self):
+        for namespace in ('flags', 'vars'):
+            for value in (0, 65535):
+                with self.subTest(namespace=namespace, value=value):
+                    self.run_recovery({}, {}, False, mapped=(namespace, value),
+                                      expected_lines=(f'#define MAPPED 0x{value:04X}',))
+
+    def test_invalid_rematch_halfwords_rejected(self):
+        for position in (0, 1):
+            for value in (True, False, 100.0, '100', None, -1, 65536):
+                pair = [12, 34]
+                pair[position] = value
+                with self.subTest(position=position, value=value):
+                    self.run_recovery({}, {}, True, trainer_ids=pair)
+
+    def test_rematch_halfword_boundaries_preserved(self):
+        self.run_recovery({}, {}, False, trainer_ids=(0, 65535),
+                          expected_lines=('#define HOENN_LEAGUE_REMATCH_COUNT 1',
+                                          '#define HOENN_LEAGUE_REMATCH_TABLE {{0, 65535}}'))
+
+    def test_mapped_reserved_name_collision_rejected(self):
+        self.run_recovery({'MAPPED': 100}, {}, True, mapped=('flags', 1))
+
+    def test_invalid_ferry_halfword_rejected(self):
+        for value in ('-1', '0x10000'):
+            with self.subTest(value=value):
+                self.run_recovery({}, {}, True, constant_overrides={'FERRY_SEVII_FLAG': value})
 
 
 class HeaderWriteTests(unittest.TestCase):

@@ -2,8 +2,9 @@
   "scope": "scripts/recover_hoenn_flags.py",
   "findings": "Reserved IDs were not checked against each other, duplicate definition names silently overwrote earlier values, and Python bool values could be accepted as numeric IDs.",
   "fixes": "Validate all emitted scalar IDs as exact integer halfwords, reject duplicate definition names and duplicate reserved IDs within each namespace, and validate rematch trainer halfwords before writing output.",
-  "verification": "GNU ARM tools on PATH; python -m unittest discover -s scripts -p test_*.py: 66 passed. Original source recovery into a temporary header: 147 definitions and 5 rematch pairs passed.",
+  "verification": "GNU ARM tools on PATH; python -m unittest discover -s scripts -p test_*.py: 72 passed. Original source recovery into a temporary header: 147 definitions and 5 rematch pairs passed.",
   "coverage": "Reserved duplicate flags/vars, allocated overlap, legal lower/high variable ranges, upper range exclusion, invalid types/values, cross-namespace name collision and ferry definition collision. Rejected inputs preserve prior output.",
   "output_write": "Same-directory temporary file closed before os.replace. Complete UTF-8/LF replacement, encoding failure and mocked locked-destination replacement failure tested; prior output preserved and temporary files removed on failure.",
-  "limitations": "Direct mapped-ID and rematch-ID invalid cases need additional fixtures. Real disk-full and power-loss durability, source metadata/linked runtime remain unverified. Temporary recovered header includes newer unrelated variables and is not copied over the branch header."
+  "mapped_and_rematch_checks": "Both flag/variable mappings and both rematch pair positions reject bool, float, string, None, negative and overflow values. IDs 0 and 65535 are emitted exactly. Mapped/reserved name collision and invalid ferry halfwords rejected before replacing prior output.",
+  "limitations": "Missing allocation entries, malformed AST source and filesystem disk-full/power-loss durability need additional evidence. Source metadata/linked runtime remain unverified. Temporary recovered header includes newer unrelated variables and is not copied over the branch header."
 }
