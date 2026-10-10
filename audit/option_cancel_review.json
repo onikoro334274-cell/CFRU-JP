@@ -1,0 +1,8 @@
+{
+  "scope": "Task_Cancel in src/bw_option_menu.c",
+  "finding": "ProcessInputFor previews sound changes through SetPokemonCryStereo, but cancel left that live setting changed despite preserving the prior saved optionsSound.",
+  "fix": "Restore SetPokemonCryStereo from the saved optionsSound after the cancel countdown and before fading out.",
+  "verification": "python scripts/check_option_cancel.py",
+  "coverage": "Both saved and preview sound values, all 21 countdown/exit invocations, restore-before-fade ordering, unchanged saved value and unrelated task, single description, final task callback.",
+  "limitations": "Controlled task layout and mocked cry/fade APIs. Full option menu navigation, actual audio output and linked GBA runtime remain unverified."
+}

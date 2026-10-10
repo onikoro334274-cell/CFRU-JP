@@ -666,6 +666,7 @@ static void Task_Cancel(u8 taskId)
         data[TD_TIMER]--;
         return;
     }
+    SetPokemonCryStereo(gSaveBlock2->optionsSound);
     BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_FadeOut;
 }
