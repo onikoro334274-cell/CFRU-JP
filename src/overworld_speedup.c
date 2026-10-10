@@ -57,11 +57,13 @@ u8 OverworldSpeedup_ExtraIterations(void)
 {
     u16 speed = VarGet(HOENN_VAR_OVERWORLD_SPEED);
 
+    if (speed == 0 || speed > OVERWORLD_SPEED_MAX)
+        return 0;
     if (ScriptContext2_IsEnabled() || IsDexNavHudActive())
         return 0;
-    if (speed != 0 && PlayerOnIce())
+    if (PlayerOnIce())
         return 0;
-    return (speed > OVERWORLD_SPEED_MAX) ? 0 : speed;
+    return speed;
 }
 
 void HackMomoIce_RefreshParty(void);

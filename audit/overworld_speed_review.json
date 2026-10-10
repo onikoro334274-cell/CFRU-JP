@@ -1,0 +1,8 @@
+{
+  "scope": "OverworldSpeedup_ExtraIterations",
+  "optimization": "Return before script, DexNav and ice queries for default speed zero or invalid saved values. Valid nonzero speeds retain script/DexNav/ice suppression.",
+  "verification": "python scripts/check_overworld_speed.py; GNU ARM C audit",
+  "cases": 524288,
+  "coverage": "Every u16 saved speed across all script/DexNav/ice boolean combinations. Compares return value with independent gate formula and verifies no state queries for zero/invalid speed and short-circuit query counts for valid speeds.",
+  "limitations": "Mocked state queries and controlled maximum speed constant; no hardware cycle measurements. PlayerOnIce coordinate validity, actual movement/animation/step callbacks and linked GBA runtime remain unverified."
+}
