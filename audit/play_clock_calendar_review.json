@@ -1,0 +1,18 @@
+{
+  "scope": [
+    "PlayClock_GameSeconds",
+    "IsLeapYear",
+    "PlayClock_Fill"
+  ],
+  "oracle": "Python datetime Gregorian dates and weekdays from 2000-01-01 across entire reachable tested day range",
+  "checks": {
+    "scripts/check_play_clock_calendar.py": "294912 combinations of all 15-bit day offsets with 3 hour values (0,999,65535) and 3 minute-offset values (0,1439,65535); 65536 raw minute/second combinations at maximum hour/day/minute offsets; 360448 total"
+  },
+  "findings": "Production calendar, weekday and time match expected values, including leap year 2000 and non-leap century 2100; no defect found in tested conversion.",
+  "limitations": [
+    "Native production-function fixture with controlled saved fields and VarGet",
+    "Does not execute PlayClock_SetTimeOfDay, mode switching, daily event reset or RTC hardware",
+    "Raw invalid field extremes exercise arithmetic robustness, not validity of corrupted save data",
+    "No whole-file semantic completion or GBA runtime claim"
+  ]
+}
