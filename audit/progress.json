@@ -58,7 +58,8 @@
     "Dome weak-stat selection executed over 262144 zero-stat masks and negative-nature count combinations: selected indices reference zero-percentage stats, counts are capped at two, pair indices are ordered, and text IDs remain within 21..35 or 36..41",
     "Production trainer and match card sprite setup passes 65536 sprite-ID normalizations and 480 scenarios with player/brain/NPC, alternate slots, moving cards, defeated sprites and failure values 64/255/65535; invalid gSprites entries remain untouched. Style and stat-label checks pass.",
     "Production CreateInfoCardScrollArrow passes 2048 byte-ID/animation/direction/visibility cases; failed creation performs neither animation nor sprite writes; card image sprite verification still passes",
-    "Production DomeRoot/FreeDomeRootIfEmpty/PrepareDomeInfoCard fixture passes root and card allocation failures, successful reuse, empty-root cleanup and retained tree tilemap ownership; arrow and card-sprite checks remain passing. All three card task entry sites were reviewed for preallocation."
+    "Production DomeRoot/FreeDomeRootIfEmpty/PrepareDomeInfoCard fixture passes root and card allocation failures, successful reuse, empty-root cleanup and retained tree tilemap ownership; arrow and card-sprite checks remain passing. All three card task entry sites were reviewed for preallocation.",
+    "Generated sideways_stairs_table.h from supplied BPRJ revision 0 ROM using 3 table reference checks, player movement dispatch check and all 170 pointer-chain range/Thumb checks; src/sideways_stairs.c now compiles with GNU ARM GCC -Wall -Wextra -O2 without diagnostics. Full GNU audit counts have not yet been refreshed."
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -104,7 +105,8 @@
     "Dome info-card compares percentages at stored stat indices rather than comparing indices with percentages, selecting actual strongest stats",
     "Dome info-card sprite creation normalizes all invalid return values to SPRITE_NONE and guards all 21 direct sprite property writes; existing scroll and cleanup checks then skip failed creations",
     "Four Dome info-card arrows share a guarded initializer, preventing invalid sprite-array access when decorative arrow creation fails",
-    "Dome info cards allocate their root/card before fading or freeing the tree screen; field entry handles failure via its normal field-return callback. Removed later allocation that overwrote preallocated ownership and fixed trainer path writing pos before card allocation."
+    "Dome info cards allocate their root/card before fading or freeing the tree screen; field entry handles failure via its normal field-return callback. Removed later allocation that overwrote preallocated ownership and fixed trainer path writing pos before card allocation.",
+    "Added standalone ROM-path-driven movement header generator adapted from adjacent PokemonStart-src generator; recovered actual movement pointer table, with no placeholder values"
   ],
   "limitations": [
     "77 quoted C include references are absent from this checkout; see repository.json for locations",
@@ -132,7 +134,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:35:34.768522+00:00",
+  "updated_utc": "2026-10-10T18:38:14.517554+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }

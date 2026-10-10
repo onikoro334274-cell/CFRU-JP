@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 20626,
-      "sha256": "1af68efd07232209235a5b670a58f4e5a911aed242c214e2dd0a066a39abeda5",
+      "bytes": 21138,
+      "sha256": "4aee7667ee64e8922c1890632461b8df909e08cea788bfdab653d9e78684c173",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12502,6 +12502,17 @@
       "findings": []
     },
     {
+      "path": "scripts/generate_sideways_stairs.py",
+      "bytes": 3601,
+      "sha256": "5f80be8d91e3837805061db197c31f999e201cef1025e98b1f65b6177672e140",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/insert.py",
       "bytes": 27940,
       "sha256": "f603a2dd747c68fec46a51e27c222df3516e3df71f1b62b4b8c7bb641e2f70c9",
@@ -12981,6 +12992,17 @@
       "path": "src/Tables/raid_partners.h",
       "bytes": 35972,
       "sha256": "edfcc4d8a60947df43e9a234934061f664fa4fef4b0c9dff51c8ba530f40167d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/Tables/sideways_stairs_table.h",
+      "bytes": 4827,
+      "sha256": "ef11a4550c759b5dbc5015b2ea7cd9840b77e505f5f4ecae384fb3389f357ebb",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15461,13 +15483,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 7,
-          "kind": "missing_local_include",
-          "target": "Tables/sideways_stairs_table.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/siirtc.c",
