@@ -55,7 +55,7 @@
 #define CB2_InitMainMenu ((MainCallback) (0x0800BCE0 | 1))
 #define gSaveFileStatusVanilla (*(vu16*) 0x030053F0)
 #define HEAP_START ((void*) 0x02000000)
-#define HEAP_SIZE 0x1B000                           //08078A1E mov r1,#0xD8 / lsl r1,#9（patches/0288 HQ ミキサーで 0x1C000 → 0x1B000・後ろ 4KB は gSoundInfo）
+#define SLOT_HEAP_SIZE 0x1B000                      //08078A1E mov r1,#0xD8 / lsl r1,#9（patches/0288 HQ ミキサーで 0x1C000 → 0x1B000・後ろ 4KB は gSoundInfo）
 #define SAVE_NORMAL 0
 #define SAVE_STATUS_EMPTY 0
 #define SAVE_STATUS_OK 1
@@ -271,7 +271,7 @@ static void LoadChosenAndGoToMainMenu(u8 slot)
 	if (gSaveFileStatusVanilla == SAVE_STATUS_EMPTY || gSaveFileStatusVanilla == SAVE_STATUS_INVALID)
 		Sav2_ClearSetDefault();
 	SetPokemonCryStereoVanilla(gSaveBlock2->optionsSound);
-	MallocInitVanilla(HEAP_START, HEAP_SIZE);
+	MallocInitVanilla(HEAP_START, SLOT_HEAP_SIZE);
 	SetMainCallback2(CB2_InitMainMenu);
 }
 
@@ -316,10 +316,36 @@ static void Task_HackSaveSlot(u8 taskId)
 	}
 }
 
+static bool8 CreateSlotScreen(u8 wasSlot2, bool8 unavailable)
+{
+	struct SlotScreen* s = AllocZeroed(sizeof(struct SlotScreen));
+	u8 taskId;
+
+	if (s == NULL)
+		return FALSE;
+
+	taskId = CreateTask(Task_HackSaveSlot, 0);
+	gTasks[taskId].data[0] = (u32) s;
+	gTasks[taskId].data[1] = (u32) s >> 16;
+	s->unavailable = unavailable;
+	if (!unavailable)
+	{
+		ReadSlotInfo(&s->info[1], 1);
+		ReadSlotInfo(&s->info[0], 0);
+		s->cursor = wasSlot2;
+	}
+	return TRUE;
+}
+
+static void SkipSlotScreen(u8 slot)
+{
+	FreeAllWindowBuffers();
+	ResetTasks();
+	LoadChosenAndGoToMainMenu(slot);
+}
+
 void CB2_HackSaveSlotSelect(void)
 {
-	struct SlotScreen* s;
-	u8 taskId;
 	u8 wasSlot2;
 	bool8 unavailable;
 
@@ -337,7 +363,11 @@ void CB2_HackSaveSlotSelect(void)
 		CpuFill32(0, (void*) VRAM, VRAM_SIZE);
 		ResetBgsAndClearDma3BusyFlags(0);
 		InitBgsFromTemplates(0, sBgTemplates, ARRAY_COUNT(sBgTemplates));
-		HoennFrontier_InitWindowsZeroed(sWindowTemplates);
+		if (!HoennFrontier_InitWindowsZeroed(sWindowTemplates))
+		{
+			SkipSlotScreen(unavailable ? 0 : wasSlot2);
+			return;
+		}
 		ChangeBgX(0, 0, 0);
 		ChangeBgY(0, 0, 0);
 		SetGpuReg(REG_OFFSET_BLDCNT, 0);      //タイトルが白くするのに使った明るさの合成を戻す
@@ -355,16 +385,10 @@ void CB2_HackSaveSlotSelect(void)
 		ResetSpriteData();
 		ResetTasks();
 		FreeAllSpritePalettes();
-		s = AllocZeroed(sizeof(struct SlotScreen));
-		taskId = CreateTask(Task_HackSaveSlot, 0);
-		gTasks[taskId].data[0] = (u32) s;
-		gTasks[taskId].data[1] = (u32) s >> 16;
-		s->unavailable = unavailable;
-		if (!unavailable)
+		if (!CreateSlotScreen(wasSlot2, unavailable))
 		{
-			ReadSlotInfo(&s->info[1], 1);
-			ReadSlotInfo(&s->info[0], 0);      //1 を最後に（タイトルのあとの中身＝ぼうけんのしょ 1）
-			s->cursor = wasSlot2;
+			SkipSlotScreen(unavailable ? 0 : wasSlot2);
+			return;
 		}
 		gMain.state++;
 		break;

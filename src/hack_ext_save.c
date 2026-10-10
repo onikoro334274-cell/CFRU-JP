@@ -37,7 +37,7 @@ bool8 HackExtSave_Available(void)
 
 bool8 HackExtSave_ReadSector(u16 n, void* dst)
 {
-	if (n >= EXT_SECTOR_COUNT || !HackExtSave_Available())
+	if (n >= EXT_SECTOR_COUNT || dst == NULL || !HackExtSave_Available())
 		return FALSE;
 	HackSaveCrypt_ReadFlash(EXT_FIRST_SECTOR + n, 0, dst, EXT_SECTOR_SIZE);   //★ 2026-10-09 かき混ぜを戻して読む（src/hack_save_crypt.c）
 	return TRUE;
@@ -46,7 +46,8 @@ bool8 HackExtSave_ReadSector(u16 n, void* dst)
 //区画 n の off から size バイト（ボックスの 40〜50 箱・src/hack_box_shelf.c）
 bool8 HackExtSave_Read(u16 n, u32 off, void* dst, u32 size)
 {
-	if (n >= EXT_SECTOR_COUNT || !HackExtSave_Available())
+	if (n >= EXT_SECTOR_COUNT || dst == NULL || off > EXT_SECTOR_SIZE
+	 || size > EXT_SECTOR_SIZE - off || !HackExtSave_Available())
 		return FALSE;
 	HackSaveCrypt_ReadFlash(EXT_FIRST_SECTOR + n, off, dst, size);
 	return TRUE;
@@ -59,7 +60,7 @@ bool8 HackExtSave_WriteSector(u16 n, const void* src)
 	u32 status;
 	u32 i;
 
-	if (n >= EXT_SECTOR_COUNT || !HackExtSave_Available() || old == NULL || *(const u32*) old != 0x20000)
+	if (n >= EXT_SECTOR_COUNT || src == NULL || !HackExtSave_Available() || old == NULL || *(const u32*) old != 0x20000)
 		return FALSE;   //1MB（128KB）のフラッシュのときだけ
 	copy = Malloc(FLASHTYPE_COPY_SIZE);
 	if (copy == NULL)

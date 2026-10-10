@@ -302,6 +302,8 @@ bool16 HoennFrontier_InitWindowsZeroed(const struct WindowTemplate *templates)
 	for (i = 0; i < 4; ++i)
 		before[i] = BG_TILEMAP_OF(i);
 	ret = InitWindows(templates);
+	if (!ret)
+		return ret;
 	for (i = 0; templates[i].bg != 0xFF; ++i)
 		FillWindowPixelBuffer(i, PIXEL_FILL(0));
 	for (i = 0; i < 4; ++i)
