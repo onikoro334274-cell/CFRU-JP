@@ -34,16 +34,13 @@ bool8 HackFullTutor_IsActive(void)
 //重なりと覚えている技を除いた全部の数（→ out にも入れる）
 static u16 FullTutorAllMoves(struct Pokemon* mon, u16* out)
 {
-	u16* all = Malloc(FULL_TUTOR_BUFFER * sizeof(u16));
 	u16 n, i, j, k, count = 0;
 
-	if (all == NULL)
-		return 0;
-	Memset(all, 0, FULL_TUTOR_BUFFER * sizeof(u16));
-	n = BuildLearnableMoveset(mon, all);
+	Memset(out, 0, FULL_TUTOR_BUFFER * sizeof(u16));
+	n = BuildLearnableMoveset(mon, out);
 	for (i = 0; i < n && i < FULL_TUTOR_BUFFER; ++i)
 	{
-		u16 move = all[i];
+		u16 move = out[i];
 
 		if (move == MOVE_NONE)
 			continue;
@@ -55,9 +52,9 @@ static u16 FullTutorAllMoves(struct Pokemon* mon, u16* out)
 			;
 		if (k < count)
 			continue;               //重なり
+		// count <= i なので、まだ読んでいない技を上書きせず同じバッファに詰める。
 		out[count++] = move;
 	}
-	Free(all);
 	return count;
 }
 
@@ -65,7 +62,8 @@ static u16 FullTutorAllMoves(struct Pokemon* mon, u16* out)
 u8 HackFullTutor_GetMoves(struct Pokemon* mon, u16* moves)
 {
 	u16* all = Malloc(FULL_TUTOR_BUFFER * sizeof(u16));
-	u16 total, start, i;
+	u16 total;
+	u32 start, i;
 	u8 n = 0;
 
 	if (all == NULL)
