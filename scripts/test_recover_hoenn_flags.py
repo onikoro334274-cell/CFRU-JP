@@ -62,5 +62,34 @@ class ReservedAllocationTests(unittest.TestCase):
         self.run_recovery({'HOENN_FLAG_CAN_GO_HOENN': 100}, {}, True)
 
 
+class HeaderWriteTests(unittest.TestCase):
+    def test_success_replaces_complete_utf8_header(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'header.h'
+            output.write_bytes(b'old')
+            recover_hoenn_flags.write_header(output, '// 日本語\n#define FLAG 100\n')
+            self.assertEqual(output.read_bytes(), '// 日本語\n#define FLAG 100\n'.encode('utf-8'))
+            self.assertEqual(list(Path(directory).iterdir()), [output])
+
+    def test_replace_failure_preserves_prior_header(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'header.h'
+            output.write_bytes(b'old')
+            with mock.patch.object(recover_hoenn_flags.os, 'replace', side_effect=PermissionError('locked')):
+                with self.assertRaises(PermissionError):
+                    recover_hoenn_flags.write_header(output, 'new\n')
+            self.assertEqual(output.read_bytes(), b'old')
+            self.assertEqual(list(Path(directory).iterdir()), [output])
+
+    def test_encoding_failure_preserves_prior_header(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'header.h'
+            output.write_bytes(b'old')
+            with self.assertRaises(UnicodeEncodeError):
+                recover_hoenn_flags.write_header(output, 'bad\ud800')
+            self.assertEqual(output.read_bytes(), b'old')
+            self.assertEqual(list(Path(directory).iterdir()), [output])
+
+
 if __name__ == '__main__':
     unittest.main()

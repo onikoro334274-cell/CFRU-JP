@@ -2,7 +2,8 @@
   "scope": "scripts/recover_hoenn_flags.py",
   "findings": "Reserved IDs were not checked against each other, duplicate definition names silently overwrote earlier values, and Python bool values could be accepted as numeric IDs.",
   "fixes": "Validate all emitted scalar IDs as exact integer halfwords, reject duplicate definition names and duplicate reserved IDs within each namespace, and validate rematch trainer halfwords before writing output.",
-  "verification": "GNU ARM tools on PATH; python -m unittest discover -s scripts -p test_*.py: 63 passed. Original source recovery into a temporary header: 147 definitions and 5 rematch pairs passed.",
+  "verification": "GNU ARM tools on PATH; python -m unittest discover -s scripts -p test_*.py: 66 passed. Original source recovery into a temporary header: 147 definitions and 5 rematch pairs passed.",
   "coverage": "Reserved duplicate flags/vars, allocated overlap, legal lower/high variable ranges, upper range exclusion, invalid types/values, cross-namespace name collision and ferry definition collision. Rejected inputs preserve prior output.",
-  "limitations": "Direct mapped-ID and rematch-ID invalid cases need additional fixtures. Output filesystem-write failure atomicity and all source metadata/linked runtime remain unverified. Temporary recovered header includes newer unrelated variables and is not copied over the branch header."
+  "output_write": "Same-directory temporary file closed before os.replace. Complete UTF-8/LF replacement, encoding failure and mocked locked-destination replacement failure tested; prior output preserved and temporary files removed on failure.",
+  "limitations": "Direct mapped-ID and rematch-ID invalid cases need additional fixtures. Real disk-full and power-loss durability, source metadata/linked runtime remain unverified. Temporary recovered header includes newer unrelated variables and is not copied over the branch header."
 }

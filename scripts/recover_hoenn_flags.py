@@ -2,7 +2,22 @@
 import argparse
 import ast
 import json
+import os
+import tempfile
 from pathlib import Path
+
+
+def write_header(destination, text):
+    destination = Path(destination)
+    descriptor, temporary = tempfile.mkstemp(prefix=destination.name + '.', suffix='.tmp',
+                                            dir=destination.parent)
+    temporary = Path(temporary)
+    try:
+        with os.fdopen(descriptor, 'w', encoding='utf-8', newline='\n') as output:
+            output.write(text)
+        os.replace(temporary, destination)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def literals(path):
@@ -65,7 +80,7 @@ def main():
     lines += ['#define %s 0x%04X' % pair for pair in sorted(definitions.items())]
     lines += ['#define HOENN_LEAGUE_REMATCH_COUNT %d' % len(pairs),
               '#define HOENN_LEAGUE_REMATCH_TABLE {%s}' % ', '.join('{%d, %d}' % pair for pair in pairs), '']
-    Path(args.output).write_text('\n'.join(lines), encoding='utf-8')
+    write_header(args.output, '\n'.join(lines))
     print('%d definitions and %d rematch pairs recovered from existing allocations.' % (len(definitions), len(pairs)))
 
 
