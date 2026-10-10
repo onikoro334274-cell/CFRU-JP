@@ -46,6 +46,27 @@ int main(void) {
         if(vars[ABN_LOC] || vars[ABN_END] || vars[ABN_STEPS]) return 4;
     }
     save.location.mapGroup=0;save.location.mapNum=0;
+    for(int loc=1;loc<=16;loc++) for(int place=0;place<3;place++) {
+        save.location.mapGroup=place==0?0:place==1?sHoennAbnRoutes[loc-1][0]:sHoennAbnCaveMaps[0][0];
+        save.location.mapNum=place==0?0:place==1?sHoennAbnRoutes[loc-1][1]:sHoennAbnCaveMaps[0][1];
+        vars[ABN_LOC]=loc;vars[ABN_END]=1;vars[ABN_STEPS]=999;
+        HoennAbnormalWeatherTick(1);
+        if(vars[ABN_LOC]!=(place==0?0:loc) || vars[ABN_END]!=(place==0?0:1)
+           || vars[ABN_STEPS]!=999) return 7;
+    }
+    for(int map=0;map<25;map++) {
+        const u8 *pair=map<16?sHoennAbnRoutes[map]:sHoennAbnCaveMaps[map-16];
+        save.location.mapGroup=pair[0];save.location.mapNum=pair[1];
+        vars[ABN_LOC]=0;vars[ABN_END]=0;vars[ABN_STEPS]=0;
+        HoennAbnormalWeatherTick(1);
+        if(vars[ABN_LOC] || vars[ABN_END] || vars[ABN_STEPS]) return 8;
+    }
+    flags[HOENN_FLAG_IS_CHAMPION]=0;
+    vars[ABN_LOC]=65535;vars[ABN_END]=1;vars[ABN_STEPS]=65535;
+    HoennAbnormalWeatherTick(1);
+    if(vars[ABN_LOC]!=65535 || vars[ABN_END]!=1 || vars[ABN_STEPS]!=65535) return 9;
+    flags[HOENN_FLAG_IS_CHAMPION]=1;
+    save.location.mapGroup=0;save.location.mapNum=0;
     for(int defeated=0;defeated<4;defeated++) for(int r=0;r<16;r++) {
         flags[HOENN_FLAG_DEFEATED_KYOGRE]=defeated&1;
         flags[HOENN_FLAG_DEFEATED_GROUDON]=(defeated>>1)&1;
@@ -67,7 +88,7 @@ int main(void) {
         subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
-    print('Weather timers pass 393216 movement/location/step combinations, all invalid event IDs and legendary availability routing.')
+    print('Weather timers pass 393216 step cases, invalid event recovery, all route/cave creation exclusions, end-event waits and champion gating.')
 
 
 if __name__ == '__main__':
