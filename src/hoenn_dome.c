@@ -2257,15 +2257,14 @@ static void InitDomeTrainers(void)
     int monTypesBits, monTypesCount;
     int trainerId;
     int monId;
-    u16 *rankingScores;
-    int *statValues;
+    // Small scratch arrays stay local, so tournament setup cannot fail to allocate them.
+    u16 rankingScores[DOME_TOURNAMENT_TRAINERS_COUNT] = {0};
+    int statValues[NUM_STATS] = {0};
     u8 ivs = 0;
 
     species[0] = 0;
     species[1] = 0;
     species[2] = 0;
-    rankingScores = AllocZeroed(sizeof(u16) * DOME_TOURNAMENT_TRAINERS_COUNT);
-    statValues = AllocZeroed(sizeof(int) * NUM_STATS);
 
     DOME->domeLvlMode = FRONTIER_LVL_MODE + 1;
     DOME->domeBattleMode = VarGet(HOENN_VAR_TOWER_MODE) + 1;
@@ -2448,8 +2447,6 @@ static void InitDomeTrainers(void)
             DOME_MONS[j][i] = DomeBrainMonSpecies(i);
     }
 
-    Free(rankingScores);
-    Free(statValues);
 }
 
 #define CALC_STAT(base, statIndex)                                                          \
@@ -5756,8 +5753,9 @@ static void InitRandomTourneyTreeResults(void)
     int zero1;
     int zero2;
     u8 lvlMode;
-    u16 *statSums;
-    int *statValues;
+    // No heap ownership is needed for these synchronous ranking calculations.
+    u16 statSums[DOME_TOURNAMENT_TRAINERS_COUNT] = {0};
+    int statValues[NUM_STATS] = {0};
     u8 ivs = 0;
 
     species[0] = 0;
@@ -5766,8 +5764,6 @@ static void InitRandomTourneyTreeResults(void)
     if ((DOME->domeLvlMode != -DOME->domeBattleMode) && VarGet(HOENN_VAR_TOWER_STATUS) != 1 /* ST_ENTERED＝エメラルドの CHALLENGE_STATUS_SAVING */)
         return;
 
-    statSums = AllocZeroed(sizeof(u16) * DOME_TOURNAMENT_TRAINERS_COUNT);
-    statValues = AllocZeroed(sizeof(int) * NUM_STATS);
     lvlMode = FRONTIER_LVL_MODE;
     FRONTIER_LVL_MODE = FRONTIER_LVL_50;
     zero1 = 0;
@@ -5870,8 +5866,6 @@ static void InitRandomTourneyTreeResults(void)
         }
     }
 
-    Free(statSums);
-    Free(statValues);
 
     for (i = 0; i < DOME_ROUNDS_COUNT; i++)
         DecideRoundWinners(i);
