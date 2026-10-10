@@ -276,5 +276,11 @@
       "command": "python -m unittest discover -s scripts -p 'test_*.py'"
     },
     "limitations": "Object compilation and individually recorded scoped fixtures only. Complete semantic review, missing assets/generated headers, full linking/insertion and GBA runtime remain incomplete. Existing reports do not constitute whole-file verification."
+  },
+  "missing_header_policy": {
+    "status": "skipped_by_user",
+    "date": "2026-10-11",
+    "scope": "Files requiring unavailable generated headers or assets",
+    "note": "User requested skipping header-missing files. Completed factory data recovery is retained. Full build and runtime remain unverified; prior full audit counts predate factory recovery."
   }
 }
