@@ -49,7 +49,7 @@ static void Wr32(u8* p, u32 v) { p[0] = v; p[1] = v >> 8; p[2] = v >> 16; p[3] =
  *   11〜14 マーク bit4〜7                       15〜19 言葉 bit3〜7
  *   20〜21 出会った情報 bit13〜14（blank）        22〜25 +0x13 の bit4〜7（0x08 は Moémon の通信の印）
  *   26〜28 テラスタイプ bit5〜7（< 32）           29〜31 ボール bit5〜7（< 32）
- * tools/save_editor/savelib.py・web/*.js と同じ（verify_mon_id.py が見る） */
+ * tools/save_editor/savelib.py・web 内の JS と同じ（verify_mon_id.py が見る） */
 u32 HackMonId_UnpackComp(const void* comp)
 {
 	const u8* c = comp;

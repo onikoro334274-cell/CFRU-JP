@@ -84,7 +84,7 @@ static bool8 LooksLikeClubGible(const struct Pokemon* mon)
 			return FALSE;
 	}
 	otId = gSaveBlock2->playerTrainerId[0] | (gSaveBlock2->playerTrainerId[1] << 8)
-	     | (gSaveBlock2->playerTrainerId[2] << 16) | (gSaveBlock2->playerTrainerId[3] << 24);
+	     | (gSaveBlock2->playerTrainerId[2] << 16) | ((u32) gSaveBlock2->playerTrainerId[3] << 24);
 	return GetMonData(m, MON_DATA_OT_ID, NULL) == otId;
 }
 
@@ -106,7 +106,7 @@ bool8 HackMark_IsPlayersMarkedMon(const struct Pokemon* mon)
 	 && GetMonData(m, MON_DATA_MET_LOCATION, NULL) == GetCurrentRegionMapSectionId())
 		return FALSE;   //施設が渡したレンタル
 	otId = gSaveBlock2->playerTrainerId[0] | (gSaveBlock2->playerTrainerId[1] << 8)
-	     | (gSaveBlock2->playerTrainerId[2] << 16) | (gSaveBlock2->playerTrainerId[3] << 24);
+	     | (gSaveBlock2->playerTrainerId[2] << 16) | ((u32) gSaveBlock2->playerTrainerId[3] << 24);
 	return GetMonData(m, MON_DATA_OT_ID, NULL) == otId;
 }
 

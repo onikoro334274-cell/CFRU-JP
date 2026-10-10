@@ -56,7 +56,7 @@ static bool8 IsMomPikachu(u16 species, struct Pokemon* mon)
 	if (GetMonData(mon, MON_DATA_MET_LOCATION, NULL) != MAPSEC_PALLET_TOWN || GetMonData(mon, MON_DATA_MET_LEVEL, NULL) == 0)
 		return FALSE;
 	otId = gSaveBlock2->playerTrainerId[0] | (gSaveBlock2->playerTrainerId[1] << 8)
-	     | (gSaveBlock2->playerTrainerId[2] << 16) | (gSaveBlock2->playerTrainerId[3] << 24);
+	     | (gSaveBlock2->playerTrainerId[2] << 16) | ((u32) gSaveBlock2->playerTrainerId[3] << 24);
 	return GetMonData(mon, MON_DATA_OT_ID, NULL) == otId;
 }
 

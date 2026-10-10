@@ -29,7 +29,7 @@ void HandleDataTransfer(void)
 	u32 dstArg = gBattleBufferA[gActiveBattler][1]
 			  | (gBattleBufferA[gActiveBattler][2] << 8)
 			  | (gBattleBufferA[gActiveBattler][3] << 16)
-			  | (gBattleBufferA[gActiveBattler][4] << 24);
+			  | ((u32) gBattleBufferA[gActiveBattler][4] << 24);
 
 	u16 sizeArg = gBattleBufferA[gActiveBattler][5] | (gBattleBufferA[gActiveBattler][6] << 8);
 

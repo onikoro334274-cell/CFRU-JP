@@ -47,6 +47,6 @@
 // 10 - 28 are not used
 #define AI_SCRIPT_ROAMING (1 << 29)
 #define AI_SCRIPT_SAFARI (1 << 30)
-#define AI_SCRIPT_FIRST_BATTLE (1 << 31)
+#define AI_SCRIPT_FIRST_BATTLE (1u << 31)
 
 #endif // GUARD_CONSTANTS_BATTLE_AI_H

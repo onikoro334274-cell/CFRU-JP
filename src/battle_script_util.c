@@ -3058,7 +3058,7 @@ void TeatimeTargets(void)
     if (count == 0)
         gBattlescriptCurrInstr = BattleScript_TeatimeFailed - 5;
 
-	gBattleStringLoader = gText_TeaTimeAteBerry;
+    gBattleStringLoader = gText_TeaTimeAteBerry;
 }
 
 void ClearHailStartFlag(void)
