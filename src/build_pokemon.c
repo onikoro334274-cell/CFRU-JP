@@ -2362,7 +2362,7 @@ void GiveMonNatureAndAbility(struct Pokemon* mon, u8 nature, u8 abilityNum, bool
 		if (forceShiny)
 		{
 			u8 shinyRange = Random() % SHINY_ODDS;
-			personality = (((shinyRange ^ (sid ^ tid)) ^ LOHALF(personality)) << 16) | LOHALF(personality);
+			personality = ((u32)((shinyRange ^ (sid ^ tid)) ^ LOHALF(personality)) << 16) | LOHALF(personality);
 		}
 	} while (GetNatureFromPersonality(personality) != nature
 	|| (keepGender && GetGenderFromSpeciesAndPersonality(species, personality) != gender)
@@ -4062,7 +4062,7 @@ void ForceMonShiny(struct Pokemon* mon)
 		personality = Random32();
 
 		u8 shinyRange = Random() % SHINY_ODDS;
-		personality = (((shinyRange ^ (sid ^ tid)) ^ LOHALF(personality)) << 16) | LOHALF(personality);
+		personality = ((u32)((shinyRange ^ (sid ^ tid)) ^ LOHALF(personality)) << 16) | LOHALF(personality);
 
 	} while (GetNatureFromPersonality(personality) != nature || GetGenderFromSpeciesAndPersonality(species, personality) != gender
 	|| (species == SPECIES_UNOWN && GetUnownLetterFromPersonality(personality) != letter)

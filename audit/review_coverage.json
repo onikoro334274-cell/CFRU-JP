@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 849,
+    "source_files": 850,
     "files_with_indexed_scopes": 33,
-    "indexed_scopes": 47,
+    "indexed_scopes": 48,
     "scope_states": {
       "source_changed": 13,
-      "current": 33,
+      "current": 34,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3805,6 +3805,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_shiny_pid_shift.py",
+      "source_sha256": "7085676e7f6f375eff209f8d8d16956568ec65a341e92620bc60c8b3f34409a5",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_shop_name_storage.py",
       "source_sha256": "5f56aca4b6108e7cbc4445604d16eebd00c4f954fcc9395766a9061923ac68a2",
       "gnu_c_object": "not_applicable",
@@ -4759,7 +4766,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
+      "source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
       "gnu_c_object": "object_compiled",
       "scoped_reviews": [
         {
@@ -4767,10 +4774,21 @@
           "sections": [
             "GenerateWildMonHeldItem"
           ],
-          "recorded_source_sha256": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
+          "recorded_source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
           "evidence": [],
           "verification": "check_wild_held_item.py",
           "remaining": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified."
+        },
+        {
+          "state": "current",
+          "sections": [
+            "GiveMonNatureAndAbility shiny PID shift",
+            "ForceMonShiny shiny PID shift"
+          ],
+          "recorded_source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
+          "evidence": [],
+          "verification": "check_shiny_pid_shift.py baseline trap and current unsigned oracle; ARM object compile",
+          "remaining": "Expression scope only; personality reroll termination, nature/gender preservation, full functions, linked ROM and runtime are not certified."
         }
       ],
       "whole_file_completion": "not_established"

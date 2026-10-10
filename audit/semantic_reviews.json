@@ -604,7 +604,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
+      "source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
       "sections": [
         "GenerateWildMonHeldItem"
       ],
@@ -621,6 +621,17 @@
       "verification": "check_wild_mega_stone_lookup.py",
       "current_report": "audit/wild_held_item_review.json",
       "remaining": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified."
+    },
+    {
+      "path": "src/build_pokemon.c",
+      "source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
+      "sections": [
+        "GiveMonNatureAndAbility shiny PID shift",
+        "ForceMonShiny shiny PID shift"
+      ],
+      "verification": "check_shiny_pid_shift.py baseline trap and current unsigned oracle; ARM object compile",
+      "current_report": "audit/shiny_pid_shift_review.json",
+      "remaining": "Expression scope only; personality reroll termination, nature/gender preservation, full functions, linked ROM and runtime are not certified."
     }
   ]
 }

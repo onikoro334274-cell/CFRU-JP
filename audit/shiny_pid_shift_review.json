@@ -1,0 +1,13 @@
+{
+  "result": "pass",
+  "source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
+  "scope": "Two shiny PID assignment expressions in GiveMonNatureAndAbility and ForceMonShiny",
+  "baseline": "Before unsigned cast, actual extracted expressions terminate with illegal-instruction shift sanitizer trap (0xC000001D).",
+  "fix": "Cast high-half XOR value to u32 before shifting 16 bits. Preserves intended PID bits.",
+  "verification": [
+    "5242880 expression cases against multiplication-based unsigned oracle with shift sanitizer",
+    "Actual ARM build_pokemon.c object compilation",
+    "check_wild_held_item.py rerun after source change"
+  ],
+  "limitations": "Expression scope only; personality reroll termination, nature/gender preservation, full functions, linked ROM and runtime are not certified."
+}

@@ -12,7 +12,7 @@
   "verified": "Mega-stone priority, identical nonzero base items, egg suppression of lead ability, normal/enhanced 45/95 and 20/80 thresholds, all bonus values including saturation, one RNG call on every branch. Lookup table sortedness and all u16 identifiers.",
   "limitations": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified.",
   "sources": {
-    "src/build_pokemon.c": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
+    "src/build_pokemon.c": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
     "src/wild_mega_stone.c": "9d4637e8b76c1cad6b0ab00ceab4790bf1275298e2dbbaac256650a36f14f7ac",
     "src/Tables/wild_mega_stones.h": "792b67a0e2b033906a2ea23da5e6acce1342e87588c7d2cd2ae2f42161454f7e"
   }
