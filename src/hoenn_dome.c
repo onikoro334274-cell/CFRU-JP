@@ -2950,6 +2950,19 @@ static void ShowDomeOpponentInfo(void)
     SetMainCallback2(CB2_TourneyTree);
 }
 
+// Missing decorative arrows must not index the sprite array with a failure value.
+static void CreateInfoCardScrollArrow(const struct SpriteTemplate *template, s16 x, s16 y, u8 anim, u8 taskId, u8 direction, bool8 invisible)
+{
+    u8 spriteId = CreateSprite(template, x, y, 0);
+    if (spriteId >= MAX_SPRITES)
+        return;
+
+    StartSpriteAnim(&gSprites[spriteId], anim);
+    gSprites[spriteId].data[0] = taskId;
+    gSprites[spriteId].data[1] = direction;
+    gSprites[spriteId].invisible = invisible;
+}
+
 // For showing the opponent info card or the match info card
 static void Task_ShowTourneyInfoCard(u8 taskId)
 {
@@ -3039,29 +3052,10 @@ static void Task_ShowTourneyInfoCard(u8 taskId)
         SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_BG_ALL_ON | DISPCNT_OBJ_1D_MAP);
         if (mode != INFOCARD_NEXT_OPPONENT)
         {
-            // Scroll up arrow
-            id = CreateSprite(&sVerticalScrollArrowSpriteTemplate, 120, 4, 0);
-            StartSpriteAnim(&gSprites[id], 0);
-            gSprites[id].data[0] = i;
-
-            // Scroll down arrow
-            id = CreateSprite(&sVerticalScrollArrowSpriteTemplate, 120, 156, 0);
-            StartSpriteAnim(&gSprites[id], 1);
-            gSprites[id].data[0] = i;
-
-            // Scroll left arrow
-            id = CreateSprite(&sHorizontalScrollArrowSpriteTemplate, 6, 80, 0);
-            StartSpriteAnim(&gSprites[id], 0);
-            gSprites[id].data[0] = i;
-            gSprites[id].data[1] = 0;
-            if (mode == INFOCARD_TRAINER)
-                gSprites[id].invisible = TRUE;
-
-            // Scroll right arrow
-            id = CreateSprite(&sHorizontalScrollArrowSpriteTemplate, 234, 80, 0);
-            StartSpriteAnim(&gSprites[id], 1);
-            gSprites[id].data[0] = i;
-            gSprites[id].data[1] = 1;
+            CreateInfoCardScrollArrow(&sVerticalScrollArrowSpriteTemplate, 120, 4, 0, i, 0, FALSE);
+            CreateInfoCardScrollArrow(&sVerticalScrollArrowSpriteTemplate, 120, 156, 1, i, 0, FALSE);
+            CreateInfoCardScrollArrow(&sHorizontalScrollArrowSpriteTemplate, 6, 80, 0, i, 0, mode == INFOCARD_TRAINER);
+            CreateInfoCardScrollArrow(&sHorizontalScrollArrowSpriteTemplate, 234, 80, 1, i, 1, FALSE);
         }
         DestroyTask(taskId);
         break;
