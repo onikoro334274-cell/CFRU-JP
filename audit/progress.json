@@ -54,7 +54,8 @@
     "Dome stats passed 153600 cases and 921600 stat comparisons through level 200",
     "Both extracted Dome party duplicate predicates passed current-party species/item/ID checks; fixed baseline reproduces stale previous-trainer candidate exclusion. Dome stats and round checks also pass.",
     "Production info-card EV/nature calculation passes 19200 player/brain/NPC mask/nature cases including all-zero EVs; Dome party, stats and round checks pass after this change",
-    "Dome strongest-stat labels pass 103020 exhaustive three-stat distributions plus 100000 six-stat distributions; baseline reproduces wrong labels for 35/30/35 percentages; selected pair indices stay ascending and text offsets match production constants"
+    "Dome strongest-stat labels pass 103020 exhaustive three-stat distributions plus 100000 six-stat distributions; baseline reproduces wrong labels for 35/30/35 percentages; selected pair indices stay ascending and text offsets match production constants",
+    "Dome weak-stat selection executed over 262144 zero-stat masks and negative-nature count combinations: selected indices reference zero-percentage stats, counts are capped at two, pair indices are ordered, and text IDs remain within 21..35 or 36..41"
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -111,6 +112,7 @@
     "Factory summary production function was executed in a Windows native fixture; the complete factory file remains blocked by omitted generated headers and GBA runtime is unverified"
   ],
   "next": [
+    "Review Dome info-card sprite creation failure sentinels across creation, movement callbacks and cleanup: DisplayTrainerInfoOnCard/DisplayMatchInfoOnCard immediately index gSprites with unchecked creation results",
     "Audit Hoenn factory select/swap and Dome info/tree failure exits: four InitWindows wrapper callers ignore failure; root and later screen/buffer allocations need stage-specific cleanup without advancing battle scripts with invalid party selections",
     "Continue C semantic review, including unchecked window initialization callers and allocation cleanup; event map-bank/map counts and sign-event union kinds need authoritative metadata validation",
     "Continue insertion-table address, register, wrapper parameter and event index validation against the supplied BPRJ ROM",
@@ -122,7 +124,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:30:27.247327+00:00",
+  "updated_utc": "2026-10-10T18:31:22.697871+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }

@@ -208,6 +208,14 @@
       ],
       "verification": "check_dome_stat_labels.py production block native execution and independent stable-sort reference, 203020 distributions, original baseline failure reproduction; check_dome_style.py remains passing",
       "remaining": "Weak-stat selection, sprite creation failure paths, full ARM file compilation and graphical GBA runtime remain unverified"
+    },
+    {
+      "path": "src/hoenn_dome.c",
+      "sections": [
+        "DisplayTrainerInfoOnCard weak-stat selection index and text bounds"
+      ],
+      "verification": "check_dome_stat_labels.py executes unchanged production loop for 262144 zero-mask/nature-count combinations; checks selected stat eligibility, counts, ordered pairs and resulting text bounds",
+      "remaining": "Preference between eligible weak stats is not independently specified; tests establish index and range safety, not an intended ranking. Sprite failure handling and full generated-header ARM/runtime verification remain pending."
     }
   ]
 }
