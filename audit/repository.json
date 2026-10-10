@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 24574,
-      "sha256": "d37e8bbc3bae65dc910912ad0f71c564087a69c486ea250b45e457b8efc29865",
+      "bytes": 25075,
+      "sha256": "89d46a5e5b992614889622bdb01502ebd42b0f0aef2a1b06cb03fdbb05ed4e4a",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12611,6 +12611,17 @@
       "findings": []
     },
     {
+      "path": "scripts/recover_region_flags.py",
+      "bytes": 2602,
+      "sha256": "bdf9a9922dca0f264ee9848974bc5546d5c800f215f532e2246233228902f268",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/rom_bounds.py",
       "bytes": 287,
       "sha256": "43768f6dacd338d8d2c3788cfd8ae9271bdb7071a4510520b07ce7628fa12701",
@@ -13026,6 +13037,17 @@
       "findings": []
     },
     {
+      "path": "src/Tables/johto_flags.h",
+      "bytes": 370,
+      "sha256": "4377be8bd250fd978513750ffb1d92167d2be66c99a7a8242c902cd02b726813",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
       "path": "src/Tables/level_up_learnsets.c",
       "bytes": 696335,
       "sha256": "c619fcc8e907f1efd018f69768ba917f67ea079b5151c8790d8283c9c1385432",
@@ -13112,6 +13134,17 @@
       "path": "src/Tables/sideways_stairs_table.h",
       "bytes": 4827,
       "sha256": "ef11a4550c759b5dbc5015b2ea7cd9840b77e505f5f4ecae384fb3389f357ebb",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/Tables/sinnoh_flags.h",
+      "bytes": 554,
+      "sha256": "f7f40ed262b1dfc096556a950b4f86e51d14636a372e837c313a84186ab7a640",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13266,18 +13299,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 7,
-          "kind": "missing_local_include",
-          "target": "Tables/johto_flags.h"
-        },
-        {
-          "line": 8,
-          "kind": "missing_local_include",
-          "target": "Tables/sinnoh_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/battle_anims.c",
@@ -13436,16 +13458,6 @@
           "line": 20,
           "kind": "missing_local_include",
           "target": "Tables/bw_frontier_pass_bg.h"
-        },
-        {
-          "line": 22,
-          "kind": "missing_local_include",
-          "target": "Tables/johto_flags.h"
-        },
-        {
-          "line": 23,
-          "kind": "missing_local_include",
-          "target": "Tables/sinnoh_flags.h"
         }
       ]
     },
@@ -14800,13 +14812,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 7,
-          "kind": "missing_local_include",
-          "target": "Tables/sinnoh_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hoenn_music.c",
@@ -15480,11 +15486,6 @@
           "line": 6,
           "kind": "missing_local_include",
           "target": "Tables/sinnoh_eterna_clock.h"
-        },
-        {
-          "line": 7,
-          "kind": "missing_local_include",
-          "target": "Tables/sinnoh_flags.h"
         }
       ]
     },
