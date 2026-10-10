@@ -1382,8 +1382,8 @@
     },
     {
       "path": "audit/gnu_c.json",
-      "bytes": 129226,
-      "sha256": "63c379ce26c4dff0a53ef99dd40c7beed5be43338af11b6365fad03bc025193d",
+      "bytes": 128838,
+      "sha256": "8f540a03c3557d9bd3ac0c865e74685d9b179d8be2b624175e457b0c67a297c8",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 25339,
-      "sha256": "a0feeb6921febd491ebbae0c757e507442054fd4c25e058c23ea62152cce0cf0",
+      "bytes": 25936,
+      "sha256": "b511d1c8b0a5332b6f4e739c52c5b064ee59c2d3dde77708df3c640d7b19f199",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12545,6 +12545,17 @@
       "findings": []
     },
     {
+      "path": "scripts/generate_hoenn_roamers.py",
+      "bytes": 5683,
+      "sha256": "14d1f9cfbb87177f54690ec1bd2630a28fd2f5c9c2645945417289df4c50fc1d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/generate_npc_text_colors.py",
       "bytes": 6584,
       "sha256": "ad2635c50b3136165d87486a1a32f8f831f961aec1c38d968740087659de9978",
@@ -13018,6 +13029,17 @@
       "path": "src/Tables/hack_vanilla_tutor_compat.h",
       "bytes": 3530,
       "sha256": "077d063828a4c592d351b7a6a756da2be5269d42033d1653c0b9edaf2304461d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/Tables/hoenn_roamer_locations.h",
+      "bytes": 2341,
+      "sha256": "7b90e5ac41e9df641c1f8a03018abeebb304bbbd522a3d1b17e261f0dff89473",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15381,13 +15403,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 19,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_roamer_locations.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/rtc.c",

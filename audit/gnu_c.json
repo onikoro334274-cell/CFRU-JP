@@ -62,10 +62,10 @@
     },
     {
       "path": "src/badge_count.c",
-      "exit_code": 1,
-      "source_sha256": "c530fc25a7193f0e792cc951d7a2efd0916e3adaaf350fa7ae90acad91542d4e",
-      "object_bytes": 0,
-      "diagnostics": "src/badge_count.c:7:10: fatal error: Tables/johto_flags.h: No such file or directory\n    7 | #include \"Tables/johto_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "exit_code": 0,
+      "source_sha256": "19d1202b9d40abc21b2eb10eb5a3f1c90c8e4bf6a332638b6c2874236ddd5359",
+      "object_bytes": 1400,
+      "diagnostics": ""
     },
     {
       "path": "src/Battle_AI/ai_advanced.c",
@@ -916,10 +916,10 @@
     },
     {
       "path": "src/hoenn_league.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "7e36a8622916dbe963e647f617aa106605f49b512aec226029e00885b8a31987",
-      "object_bytes": 0,
-      "diagnostics": "src/hoenn_league.c:7:10: fatal error: Tables/sinnoh_flags.h: No such file or directory\n    7 | #include \"Tables/sinnoh_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 1812,
+      "diagnostics": ""
     },
     {
       "path": "src/hoenn_music.c",
@@ -1029,8 +1029,8 @@
     {
       "path": "src/item.c",
       "exit_code": 0,
-      "source_sha256": "4e26046f8f6931bfab4a685a9e941e6e8bce8f50ced041d6c7800c7e4da54c92",
-      "object_bytes": 24468,
+      "source_sha256": "c181b4bd64dd8f76922c73fa647b6952f6c76be8ddec4edc97e7501311266de3",
+      "object_bytes": 24508,
       "diagnostics": ""
     },
     {
