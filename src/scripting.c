@@ -306,7 +306,7 @@ void sp00F_EVAdderSubtracter(void) {
 	u16 stat = Var8005;
 	s32 amount = Var8006;
 
-	if (partyId >= PARTY_SIZE)
+	if (partyId >= PARTY_SIZE || stat > CheckEVs_SpDef)
 		return;
 
 	s16 curr = sp007_PokemonEVContestStatsChecker();	//Current val
@@ -332,20 +332,29 @@ void sp00F_EVAdderSubtracter(void) {
 	switch(stat)
 	{
 		case CheckEVs_HP:
-			return SetMonDataFromVar8003(MON_DATA_HP_EV);
+			SetMonDataFromVar8003(MON_DATA_HP_EV);
+			break;
 		case CheckEVs_Atk:
-			return SetMonDataFromVar8003(MON_DATA_ATK_EV);
+			SetMonDataFromVar8003(MON_DATA_ATK_EV);
+			break;
 		case CheckEVs_Def:
-			return SetMonDataFromVar8003(MON_DATA_DEF_EV);
+			SetMonDataFromVar8003(MON_DATA_DEF_EV);
+			break;
 		case CheckEVs_Spd:
-			return SetMonDataFromVar8003(MON_DATA_SPEED_EV);
+			SetMonDataFromVar8003(MON_DATA_SPEED_EV);
+			break;
 		case CheckEVs_SpAtk:
-			return SetMonDataFromVar8003(MON_DATA_SPATK_EV);
+			SetMonDataFromVar8003(MON_DATA_SPATK_EV);
+			break;
 		case CheckEVs_SpDef:
-			return SetMonDataFromVar8003(MON_DATA_SPDEF_EV);
+			SetMonDataFromVar8003(MON_DATA_SPDEF_EV);
+			break;
 	}
 
-	CalculateMonStats(&gPlayerParty[partyId]);
+	#ifdef SELECT_FROM_PC
+	if (Var8003 != 1)
+	#endif
+		CalculateMonStats(&gPlayerParty[partyId]);
 }
 
 void sp010_IVSetter(void)

@@ -1,0 +1,9 @@
+{
+  "result": "passed",
+  "arithmetic_cases": 6291456,
+  "invalid_input_cases": 1048504,
+  "ev_cap": 252,
+  "baseline": "2272921 fails expected party stat recalculation.",
+  "scope": "Production EV special with/without PC selection, all encoded u16 deltas, six stats, four valid EV boundaries; checks clamping, exactly one data write, party-only stat recalculation and unrelated party/box values. Every u16 invalid stat plus invalid party inputs rejected without native calls.",
+  "limitations": "Controlled data and stats services. Native HP adjustment, NPC scripts, save interruptions and linked GBA runtime unverified."
+}
