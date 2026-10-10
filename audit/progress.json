@@ -51,7 +51,8 @@
     "Production AI selection passed unsigned scores, legal move slots, move IDs, target viability, absent targets, sparse predictions and Struggle cases",
     "Actual updated option-menu strings converted and assembled with GNU ARM assembler; graphical menu and GBA runtime remain unverified",
     "55 regression tests and Python compileall passed after AI changes; GNU ARM compiled all available Battle_AI sources; full audit remains 151/203 with 52 absent-header failures",
-    "Dome stats passed 153600 cases and 921600 stat comparisons through level 200"
+    "Dome stats passed 153600 cases and 921600 stat comparisons through level 200",
+    "Both extracted Dome party duplicate predicates passed current-party species/item/ID checks; fixed baseline reproduces stale previous-trainer candidate exclusion. Dome stats and round checks also pass."
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -90,7 +91,9 @@
     "Event script insertion validates map identifiers, header/table pointers, NPC/coordinate/BG counts and full table ranges; reads map tables only for active rows, and rejects garbage headers instead of silently skipping requested patches",
     "Full tutor filters moves in its caller-owned buffer, removing the redundant second allocation; page start/index use u32 to prevent 16-bit wraparound from selecting an unrelated page",
     "Training pouch allocation failure compacts valid items and performs a stable in-place page partition, preserving the same visible count, hidden items, quantities and order as the normal temporary-buffer path",
-    "Factory summary party allocation occurs before destructive screen cleanup; allocation failure returns to the still-active menu without fading or destroying resources"
+    "Factory summary party allocation occurs before destructive screen cleanup; allocation failure returns to the still-active menu without fading or destroying resources",
+    "Dome tournament ranking uses two local scratch arrays totaling 56 bytes instead of unchecked heap allocations; arrays are synchronous and not retained by callees",
+    "Dome party selection compares each candidate species with each already selected mon, removing stale previous-trainer species filtering"
   ],
   "limitations": [
     "77 quoted C include references are absent from this checkout; see repository.json for locations",
@@ -115,7 +118,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T17:46:57.524047+00:00",
+  "updated_utc": "2026-10-10T18:27:45.862167+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
-  "commit_policy": "User requested small commits and push only when all work and required verification are complete. Ten code/test commits created; no push performed. Overall review, linking and runtime remain incomplete."
+  "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }

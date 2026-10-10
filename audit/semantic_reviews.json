@@ -180,6 +180,16 @@
       ],
       "verification": "check_factory_summary.py and --baseline: failure preserves menu before fading/cleanup; success waits for fade and copies all six mons",
       "remaining": "Root/select/swap allocations and InitWindows callers remain unchecked; complete-file compilation blocked by generated headers; GBA runtime unverified"
+    },
+    {
+      "path": "src/hoenn_dome.c",
+      "source_sha256": "015580948f54064e804cc288ceb01192716fbbd974c59990c51a37061146d286",
+      "sections": [
+        "InitDomeTrainers scratch ownership and duplicate predicate",
+        "InitRandomTourneyTreeResults scratch ownership and duplicate predicate"
+      ],
+      "verification": "Manual lifetime review: arrays do not escape synchronous calculation/SwapDomeTrainers; check_dome_party.py executes both predicates and reproduces baseline failure; check_dome_stats.py and check_dome_rounds.py pass",
+      "remaining": "Complete file ARM compilation still requires omitted generated headers; screen allocation exits and other tournament logic plus GBA stack/runtime remain unverified"
     }
   ]
 }
