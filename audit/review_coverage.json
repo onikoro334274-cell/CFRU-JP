@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 850,
+    "source_files": 851,
     "files_with_indexed_scopes": 33,
-    "indexed_scopes": 48,
+    "indexed_scopes": 49,
     "scope_states": {
-      "source_changed": 13,
-      "current": 34,
+      "source_changed": 15,
+      "current": 33,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3609,6 +3609,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_perfect_iv_bounds.py",
+      "source_sha256": "51ac85067c240c3a2eaf191e8f51fb80f6fd965c44670bc22c935143b59f018a",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_play_clock_adjustment.py",
       "source_sha256": "660878a71306977c64325ee9d1df5b01bec0043030b8b321c79c286493c12800",
       "gnu_c_object": "not_applicable",
@@ -4766,11 +4773,11 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
+      "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
       "gnu_c_object": "object_compiled",
       "scoped_reviews": [
         {
-          "state": "current",
+          "state": "source_changed",
           "sections": [
             "GenerateWildMonHeldItem"
           ],
@@ -4780,7 +4787,7 @@
           "remaining": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified."
         },
         {
-          "state": "current",
+          "state": "source_changed",
           "sections": [
             "GiveMonNatureAndAbility shiny PID shift",
             "ForceMonShiny shiny PID shift"
@@ -4789,6 +4796,16 @@
           "evidence": [],
           "verification": "check_shiny_pid_shift.py baseline trap and current unsigned oracle; ARM object compile",
           "remaining": "Expression scope only; personality reroll termination, nature/gender preservation, full functions, linked ROM and runtime are not certified."
+        },
+        {
+          "state": "current",
+          "sections": [
+            "GiveMonXPerfectIVs"
+          ],
+          "recorded_source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+          "evidence": [],
+          "verification": "check_perfect_iv_bounds.py baseline reproduction/current 16384 cases and ARM object compile",
+          "remaining": "Cyclic fixture RNG does not prove arbitrary RNG sequence termination. Callers, actual Pokemon storage integration and GBA runtime remain unverified."
         }
       ],
       "whole_file_completion": "not_established"

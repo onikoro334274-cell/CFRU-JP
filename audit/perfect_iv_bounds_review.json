@@ -1,0 +1,10 @@
+{
+  "source": "src/build_pokemon.c",
+  "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+  "result": "pass",
+  "section": "GiveMonXPerfectIVs",
+  "baseline": "Target 7 with initially nonperfect stats exceeds 64 controlled cyclic RNG calls; no seventh unique stat exists.",
+  "fix": "Saturate target at NUM_STATS before existing algorithm.",
+  "verification": "check_perfect_iv_bounds.py: all 64 initial perfect masks x all 256 targets, controlled cyclic RNG, exact write count, untouched nonperfect stats and canary. Actual ARM object compilation passed.",
+  "limitations": "Cyclic fixture RNG does not prove arbitrary RNG sequence termination. Callers, actual Pokemon storage integration and GBA runtime remain unverified."
+}

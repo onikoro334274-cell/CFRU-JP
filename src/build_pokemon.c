@@ -2375,6 +2375,8 @@ void GiveMonNatureAndAbility(struct Pokemon* mon, u8 nature, u8 abilityNum, bool
 
 void GiveMonXPerfectIVs(struct Pokemon* mon, u8 totalPerfectStats)
 {
+	totalPerfectStats = MathMin(totalPerfectStats, NUM_STATS);
+
 	//Pick potential ivs to set to 31
 	u8 i, numPerfectStats;
 	u8 perfect = 31;

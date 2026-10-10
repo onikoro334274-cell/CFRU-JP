@@ -632,6 +632,16 @@
       "verification": "check_shiny_pid_shift.py baseline trap and current unsigned oracle; ARM object compile",
       "current_report": "audit/shiny_pid_shift_review.json",
       "remaining": "Expression scope only; personality reroll termination, nature/gender preservation, full functions, linked ROM and runtime are not certified."
+    },
+    {
+      "path": "src/build_pokemon.c",
+      "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+      "sections": [
+        "GiveMonXPerfectIVs"
+      ],
+      "verification": "check_perfect_iv_bounds.py baseline reproduction/current 16384 cases and ARM object compile",
+      "current_report": "audit/perfect_iv_bounds_review.json",
+      "remaining": "Cyclic fixture RNG does not prove arbitrary RNG sequence termination. Callers, actual Pokemon storage integration and GBA runtime remain unverified."
     }
   ]
 }
