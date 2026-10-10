@@ -667,7 +667,7 @@ bool8 sp131_ChangeTeraType(void)
 void sp01A_CopyPartyData(void)
 {
 #ifdef SELECT_FROM_PC
-	u8 slot = Var8005;
+	u16 slot = Var8005;
 	gSpecialVar_LastResult = 1;
 	if (slot >= 6)
 		return;
@@ -686,8 +686,8 @@ void sp01A_CopyPartyData(void)
 
 		case 2:
 			// enemy ram to box
-			SendMonToBoxPos(&gEnemyParty[5], Var8000, Var8001);
-			break;
+			gSpecialVar_LastResult = SendMonToBoxPos(&gEnemyParty[5], Var8000, Var8001);
+			return;
 
 		case 3:
 			// box to free ram
