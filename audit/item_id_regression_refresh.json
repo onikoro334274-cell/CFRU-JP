@@ -1,0 +1,22 @@
+{
+  "result": "passed",
+  "scoped_checks": {
+    "check_friend_ot.py": "ec5fa33367b5072b23b741e2a37f4e9a506676d2eb2da7ddf201528182d7cc85",
+    "check_mon_id_packing.py": "b2da6228cc17623890fee024d5f1277bc40cdf8c783b52f000fa16ac70ee10d3",
+    "check_mon_id_generation.py": "8ebf93f339f8a3c34551271ba9a3f7f35a4dfbb8419ea257891b50e194f149fc",
+    "check_save_crypt.py": "09858c8f9317cf7ae3b3fa6dab8e3297af9f37f1cd01687b11d42c180b263f0a",
+    "check_moemon_old_list.py": "7062f6760d3ffc7c51d694420a4df8b883c6340221867f6e9c5b2972bc8a29b4",
+    "check_moemon_fossil_random.py": "2eab680b2fd4b524b0bc48bc0c05cdc74f0d73ab58d6d9286f876dec5455cb86",
+    "check_moemon_fossil_script.py": "97086020cd50ab2be99df3d480076081f12377e0f811943ba82839cdb79508f7",
+    "check_ball_change.py": "2eeb2dd151f9550d6f2ced79253444f5b33321ed8f05ed251dbc201c6327e32b",
+    "check_gender_search.py": "63cb76368e809b253f68613698b614930b29c547762dae27e6ca1a640122404e",
+    "check_gender_item.py": "b0d92f09f869d581770ba3cbb4b2ff6f87df91cea35d96a3ef2bdc4001dd6f75",
+    "check_ev_reset.py": "49a79ba0b451e608a12662e61e6a52df0cb3470e89664dd89c3d7878ec0b72a1",
+    "check_level_down.py": "1a40f4c5f27c68fa5b26c85caaba0288c8c17582627f19dd7a70f1fd96ea218f",
+    "check_exp_candy_add.py": "9fc93b73d4bdea9d95e9932f4bc1b66e9f106a63f03aecb82ca7edf8dc5c1459",
+    "check_exp_candy_failure.py": "030164ef2fdf943412a7135fc710fa131d1c2ddb9843a9e8d1ed02776d426641",
+    "check_exp_candy_chain.py": "39adebc09be064fa2a8cafe7fcdf075837627a506004da3328749a5663034cc6"
+  },
+  "python_regression_count": 72,
+  "limits": "Controlled function scenarios and Python regressions only; full semantic review, full linking and GBA runtime remain incomplete."
+}

@@ -1101,7 +1101,7 @@
     {
       "path": "assembly/kanto/kanto_moemon_fossil.s",
       "bytes": 1632,
-      "sha256": "4e2f31da805433e90a459c1a7465361522e264619563152e7cb6ffff3055d7b7",
+      "sha256": "116b2f876fc515ce788b9414164b3dd810e2ecb5ace0ae0bb67ee0a63251293b",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1332,8 +1332,8 @@
     },
     {
       "path": "audit/assembly.json",
-      "bytes": 23646,
-      "sha256": "7ef0ab2a20a7330fc37b58361f6885ebb7baf861a9d9fc68c038639c8c9e3d98",
+      "bytes": 23647,
+      "sha256": "42f95c0bf853efad4db3ba56addbb7df6dfdeda0ea607a52cbd0050d8a57ff9f",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1344,6 +1344,16 @@
       "path": "audit/assets.json",
       "bytes": 899,
       "sha256": "c423daf0d83785741c77464694b5a91d2cf82c4b073e4db8ed771e3668cbca36",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/ball_change_review.json",
+      "bytes": 391,
+      "sha256": "877c485273c300846e9449e8d52ce313e029421bd03a8babb090912876a37434",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1451,9 +1461,49 @@
       "findings": []
     },
     {
+      "path": "audit/ev_reset_review.json",
+      "bytes": 351,
+      "sha256": "70ae73945bc2d6b4566267a540097633d6e15a96501f19fb4caa85d7bc032fe3",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/event_sources.json",
       "bytes": 610,
       "sha256": "c856cebfef32632b02ef4c0de04c83988578335a3ad8736daab2a8c0217edd9d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/exp_candy_add_review.json",
+      "bytes": 323,
+      "sha256": "fcd7df5170582530fd69397f6e8c70dfd1d9a57a882dafaf938763048fa11f33",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/exp_candy_chain_review.json",
+      "bytes": 293,
+      "sha256": "876b6480eb6b8af48b133c86606bdf2fc02fab221c01bf316f2234dd7d63235a",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/exp_candy_failure_review.json",
+      "bytes": 345,
+      "sha256": "36312b7132e6b1d5e5d0fab79ff620200a9e1df0ab2c05673c31041923afc4dc",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1591,9 +1641,29 @@
       "findings": []
     },
     {
+      "path": "audit/gender_item_review.json",
+      "bytes": 359,
+      "sha256": "3440cbcf6626ba46f6e68a8f19060e6a916168600a2829b66c52c395efd167c2",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/gender_search_review.json",
+      "bytes": 413,
+      "sha256": "4a22c64b488b853a43ff008e9ffafa032ae0800a97ee759d2ddc1c98fc262aed",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/gnu_c.json",
       "bytes": 125820,
-      "sha256": "9b30e5fd29de00e6d859ff1fdb610f6706cf0e3ff2bec6438b4072bd3919d52c",
+      "sha256": "fe2c64d4367d80b8f2ecb6492fb14c8e874e266fe905ec80f5d7ba2ebc28d21c",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1604,6 +1674,26 @@
       "path": "audit/hoenn_flag_recovery_validation.json",
       "bytes": 1740,
       "sha256": "220797e2bb819aae2c3a4db2657e66571d7b934125ee0cf2ed014d5fbee53568",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/item_id_regression_refresh.json",
+      "bytes": 1727,
+      "sha256": "fc58b190df4e903bb15f9de0ab6dda91641a1df28013d535c90f1851a822715e",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/level_down_review.json",
+      "bytes": 344,
+      "sha256": "91a431d4faea53cb7a162a813d24cfdf04bb2e0491ac208d2864851b599b8e8b",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1651,6 +1741,46 @@
       "findings": []
     },
     {
+      "path": "audit/moemon_fossil_random_review.json",
+      "bytes": 262,
+      "sha256": "3449bafd453a15328aa4f21d0e8623fb7ac00f3ba8413d6b1c85e02890b49629",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/moemon_fossil_script_review.json",
+      "bytes": 436,
+      "sha256": "e1369810ce9380a4036b7ec270bbd3ba9237299cdd5eba0bb8390935093312f2",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/moemon_old_list_review.json",
+      "bytes": 559,
+      "sha256": "573fab7e628da8d7263d0501ff8222def28b66aa67eb6b4eab5453ab42b9660d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/mon_id_generation_review.json",
+      "bytes": 527,
+      "sha256": "53dd4861510e61ab6afad300bbd87b715a4dd5275854e1173da6dcd2afd56d8c",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/mon_id_layout_review.json",
       "bytes": 602,
       "sha256": "a4deb7bc3dedc55debc301b96ec69bd0f8c1229d40f8902f31a37b6b35adcc8d",
@@ -1663,7 +1793,7 @@
     {
       "path": "audit/mon_id_packing_review.json",
       "bytes": 478,
-      "sha256": "4a1b44f3b6b57d974bdd707c0b50fea9f2d5b1c56b4dde82293f169c7b64ea39",
+      "sha256": "4b599982846573cf27c45934e09bddf49a5f69ee38b56489e213d7521fdccf26",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1812,8 +1942,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 33793,
-      "sha256": "365c4745d9a3bac6d127deb72e351e0890e4f127d72888becd51a55fccc3dc1b",
+      "bytes": 34304,
+      "sha256": "3d9bba4cc5b5a2844f6750f936561c8ec12ffcbf18e04c490fcb6bc1f7be349a",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -2054,6 +2184,16 @@
       "path": "audit/wonder_trade_species_review.json",
       "bytes": 988,
       "sha256": "60274493811c1afe466c56709ca8a84e0d3973a00679cea2b5911690488dea15",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/xse_item_result_review.json",
+      "bytes": 2342,
+      "sha256": "9a6f8cf33587c98ef5c48ad4e2e8581d20963d3be6699968c293faf364245947",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12938,6 +13078,17 @@
       "findings": []
     },
     {
+      "path": "scripts/check_ball_change.py",
+      "bytes": 3302,
+      "sha256": "2eeb2dd151f9550d6f2ced79253444f5b33321ed8f05ed251dbc201c6327e32b",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_battle_speed.py",
       "bytes": 5194,
       "sha256": "1fd75cfa95125687bbf623e9a426dfeef7fb86c10c1bd84b4c01265b63b092ae",
@@ -13084,6 +13235,50 @@
       "path": "scripts/check_eterna_clock.py",
       "bytes": 3141,
       "sha256": "dd3057cb82a98334580f574d95da25826f7932a6f4f2e370e21ce1e9828cc11f",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_ev_reset.py",
+      "bytes": 4039,
+      "sha256": "49a79ba0b451e608a12662e61e6a52df0cb3470e89664dd89c3d7878ec0b72a1",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_exp_candy_add.py",
+      "bytes": 2302,
+      "sha256": "9fc93b73d4bdea9d95e9932f4bc1b66e9f106a63f03aecb82ca7edf8dc5c1459",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_exp_candy_chain.py",
+      "bytes": 2137,
+      "sha256": "39adebc09be064fa2a8cafe7fcdf075837627a506004da3328749a5663034cc6",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_exp_candy_failure.py",
+      "bytes": 4427,
+      "sha256": "030164ef2fdf943412a7135fc710fa131d1c2ddb9843a9e8d1ed02776d426641",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13257,9 +13452,42 @@
       "findings": []
     },
     {
+      "path": "scripts/check_gender_item.py",
+      "bytes": 4060,
+      "sha256": "b0d92f09f869d581770ba3cbb4b2ff6f87df91cea35d96a3ef2bdc4001dd6f75",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_gender_search.py",
+      "bytes": 3382,
+      "sha256": "63cb76368e809b253f68613698b614930b29c547762dae27e6ca1a640122404e",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_integer_macros.py",
       "bytes": 2316,
       "sha256": "ce5d643f0af0311aa2129091753da521231f562b9cdda3eeab40d0df2f52673b",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_level_down.py",
+      "bytes": 4336,
+      "sha256": "1a40f4c5f27c68fa5b26c85caaba0288c8c17582627f19dd7a70f1fd96ea218f",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13304,6 +13532,50 @@
       "path": "scripts/check_mega_shop_stock.py",
       "bytes": 2324,
       "sha256": "33b914bc66caba39083eddc503677a216205d0e6e0d3b705417c24f639d3059e",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_moemon_fossil_random.py",
+      "bytes": 2373,
+      "sha256": "2eab680b2fd4b524b0bc48bc0c05cdc74f0d73ab58d6d9286f876dec5455cb86",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_moemon_fossil_script.py",
+      "bytes": 2594,
+      "sha256": "97086020cd50ab2be99df3d480076081f12377e0f811943ba82839cdb79508f7",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_moemon_old_list.py",
+      "bytes": 3707,
+      "sha256": "7062f6760d3ffc7c51d694420a4df8b883c6340221867f6e9c5b2972bc8a29b4",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_mon_id_generation.py",
+      "bytes": 3082,
+      "sha256": "8ebf93f339f8a3c34551271ba9a3f7f35a4dfbb8419ea257891b50e194f149fc",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15110,8 +15382,8 @@
     },
     {
       "path": "src/exp_candy.c",
-      "bytes": 8773,
-      "sha256": "58a55fced21c161c0e422265e23be7590b264451b4d4a04508afa5116dbd1515",
+      "bytes": 9220,
+      "sha256": "e3824bb7cb93e0b89405b1993245060544df9017b0b78a8fd4b93dc1529afb4d",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15264,8 +15536,8 @@
     },
     {
       "path": "src/hack_ball_change.c",
-      "bytes": 1513,
-      "sha256": "bc074186ab0aa2cd04edda1b99bb8d718b87cdd150069dc4635664dc44d36593",
+      "bytes": 1568,
+      "sha256": "ecbea98a8de09a8fdafb801de63b836631d26526e7715a520cdacc03b569f70a",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15429,8 +15701,8 @@
     },
     {
       "path": "src/hack_ev_reset.c",
-      "bytes": 2744,
-      "sha256": "8fb632a2d434d09e92c587a521bb45a62bcf1e8de7bb32b04ba26c628da8e5ad",
+      "bytes": 2745,
+      "sha256": "3756a9bb30da32caa209ced7dfa9baf757f8160aec3a09a3dc52d8348a2c92bc",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15484,8 +15756,8 @@
     },
     {
       "path": "src/hack_gender_tool.c",
-      "bytes": 4769,
-      "sha256": "be39e8fd01eba7447a3223ba409e75d8e0fdfc3123fcec7933bfaa1781cde376",
+      "bytes": 4863,
+      "sha256": "bf3d89940394077571fb7e551faecb715fd7f6ef86d79dd524f45b4090cf10b2",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15589,8 +15861,8 @@
     },
     {
       "path": "src/hack_level_down.c",
-      "bytes": 2865,
-      "sha256": "5f67dbaa3f780d4a280bb4a91a1dd59fb880f9090830538f2da20e275ab6924d",
+      "bytes": 2868,
+      "sha256": "a7c723848e1ca6ec0d109f41263c4270e9a19a109a27151c48164dcb9a0bcb1e",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15622,8 +15894,8 @@
     },
     {
       "path": "src/hack_moemon_fossil.c",
-      "bytes": 2365,
-      "sha256": "e7d54cd77564d4bf18f04aba0a4e3eabcc526b66e3d6cc57fa191c67bfa16ea3",
+      "bytes": 2576,
+      "sha256": "45b783ec6e11579f58023dc74931d3d98198a802fc09ea964f7b93a3b83e3e49",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15633,8 +15905,8 @@
     },
     {
       "path": "src/hack_moemon_switch.c",
-      "bytes": 9076,
-      "sha256": "70f3bcba4f134c944ed07ee917864884199c88684e215fac2d3e5e11fb7e749f",
+      "bytes": 9301,
+      "sha256": "d4aa2754a0cdfdd5dbcda4403f719ae0ac42ee025d32a8c028e21e5557787d73",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15666,8 +15938,8 @@
     },
     {
       "path": "src/hack_mon_id.c",
-      "bytes": 11368,
-      "sha256": "2271fdb2287590a6d8ca260e2ca35fa15229ee39d703a65b5e2e77a274fbfc4f",
+      "bytes": 11480,
+      "sha256": "7306dd7462a29b2579dcd4c1ffb060bf75427cf895125358de0f261891839255",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",

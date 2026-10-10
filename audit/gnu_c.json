@@ -385,8 +385,8 @@
     {
       "path": "src/exp_candy.c",
       "exit_code": 0,
-      "source_sha256": "58a55fced21c161c0e422265e23be7590b264451b4d4a04508afa5116dbd1515",
-      "object_bytes": 3476,
+      "source_sha256": "e3824bb7cb93e0b89405b1993245060544df9017b0b78a8fd4b93dc1529afb4d",
+      "object_bytes": 3492,
       "diagnostics": ""
     },
     {
@@ -469,7 +469,7 @@
     {
       "path": "src/hack_ball_change.c",
       "exit_code": 0,
-      "source_sha256": "bc074186ab0aa2cd04edda1b99bb8d718b87cdd150069dc4635664dc44d36593",
+      "source_sha256": "ecbea98a8de09a8fdafb801de63b836631d26526e7715a520cdacc03b569f70a",
       "object_bytes": 1200,
       "diagnostics": ""
     },
@@ -546,8 +546,8 @@
     {
       "path": "src/hack_ev_reset.c",
       "exit_code": 0,
-      "source_sha256": "8fb632a2d434d09e92c587a521bb45a62bcf1e8de7bb32b04ba26c628da8e5ad",
-      "object_bytes": 2116,
+      "source_sha256": "3756a9bb30da32caa209ced7dfa9baf757f8160aec3a09a3dc52d8348a2c92bc",
+      "object_bytes": 2120,
       "diagnostics": ""
     },
     {
@@ -574,8 +574,8 @@
     {
       "path": "src/hack_gender_tool.c",
       "exit_code": 0,
-      "source_sha256": "be39e8fd01eba7447a3223ba409e75d8e0fdfc3123fcec7933bfaa1781cde376",
-      "object_bytes": 2424,
+      "source_sha256": "bf3d89940394077571fb7e551faecb715fd7f6ef86d79dd524f45b4090cf10b2",
+      "object_bytes": 2416,
       "diagnostics": ""
     },
     {
@@ -637,8 +637,8 @@
     {
       "path": "src/hack_level_down.c",
       "exit_code": 0,
-      "source_sha256": "5f67dbaa3f780d4a280bb4a91a1dd59fb880f9090830538f2da20e275ab6924d",
-      "object_bytes": 2268,
+      "source_sha256": "a7c723848e1ca6ec0d109f41263c4270e9a19a109a27151c48164dcb9a0bcb1e",
+      "object_bytes": 2300,
       "diagnostics": ""
     },
     {
@@ -658,14 +658,14 @@
     {
       "path": "src/hack_moemon_fossil.c",
       "exit_code": 0,
-      "source_sha256": "e7d54cd77564d4bf18f04aba0a4e3eabcc526b66e3d6cc57fa191c67bfa16ea3",
-      "object_bytes": 1500,
+      "source_sha256": "45b783ec6e11579f58023dc74931d3d98198a802fc09ea964f7b93a3b83e3e49",
+      "object_bytes": 1544,
       "diagnostics": ""
     },
     {
       "path": "src/hack_moemon_switch.c",
       "exit_code": 0,
-      "source_sha256": "70f3bcba4f134c944ed07ee917864884199c88684e215fac2d3e5e11fb7e749f",
+      "source_sha256": "d4aa2754a0cdfdd5dbcda4403f719ae0ac42ee025d32a8c028e21e5557787d73",
       "object_bytes": 2848,
       "diagnostics": ""
     },
@@ -686,7 +686,7 @@
     {
       "path": "src/hack_mon_id.c",
       "exit_code": 0,
-      "source_sha256": "2271fdb2287590a6d8ca260e2ca35fa15229ee39d703a65b5e2e77a274fbfc4f",
+      "source_sha256": "7306dd7462a29b2579dcd4c1ffb060bf75427cf895125358de0f261891839255",
       "object_bytes": 3952,
       "diagnostics": ""
     },

@@ -1,6 +1,6 @@
 {
   "command": [
-    "C:\\Users\\liru55\\AppData\\Local\\Temp/cfru-jp-arm-tools/mingw64/bin/arm-none-eabi-as.exe",
+    "C:\\Users\\liru55\\AppData\\Local\\Temp/cfru-jp-arm-tools/mingw64/bin/arm-none-eabi-gcc.exe",
     "-mthumb",
     "-I",
     "assembly"
@@ -592,7 +592,7 @@
     {
       "path": "assembly/kanto/kanto_moemon_fossil.s",
       "exit_code": 0,
-      "sha256": "4e2f31da805433e90a459c1a7465361522e264619563152e7cb6ffff3055d7b7",
+      "sha256": "116b2f876fc515ce788b9414164b3dd810e2ecb5ace0ae0bb67ee0a63251293b",
       "diagnostics": ""
     },
     {
