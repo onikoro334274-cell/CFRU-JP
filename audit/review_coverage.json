@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 847,
-    "files_with_indexed_scopes": 29,
-    "indexed_scopes": 43,
+    "source_files": 848,
+    "files_with_indexed_scopes": 30,
+    "indexed_scopes": 44,
     "scope_states": {
       "source_changed": 13,
-      "current": 29,
+      "current": 30,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3910,6 +3910,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_util_ranges.py",
+      "source_sha256": "17bb5a6f64abab69de5ef0e8ad59968254d6472c0fd91797f4482bd40e77ce33",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_wild_date.py",
       "source_sha256": "85ebf2c7f5983a4aa3560e8e40732baeabde3371ef5535dd99b1873715e04e4a",
       "gnu_c_object": "not_applicable",
@@ -6682,7 +6689,20 @@
       "path": "src/util.c",
       "source_sha256": "a5a6ce84ce345fa252c6470d52277781094c25025fdaaf5ea9ced75ccf592827",
       "gnu_c_object": "object_compiled",
-      "scoped_reviews": [],
+      "scoped_reviews": [
+        {
+          "state": "current",
+          "sections": [
+            "MathMin",
+            "MathMax",
+            "RandRange"
+          ],
+          "recorded_source_sha256": "a5a6ce84ce345fa252c6470d52277781094c25025fdaaf5ea9ced75ccf592827",
+          "evidence": [],
+          "verification": "python scripts/check_util_ranges.py",
+          "remaining": "Selected range and caller checks only; reversed inputs, all runtime callers, PRNG distribution and entire util.c are not certified. No production code changes."
+        }
+      ],
       "whole_file_completion": "not_established"
     },
     {

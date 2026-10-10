@@ -12,6 +12,7 @@
 //Exported Functions
 u32 MathMax(u32 num1, u32 num2);
 u32 MathMin(u32 num1, u32 num2);
+// Requires min <= max. Returns [min, max); equal bounds return min without RNG.
 u16 RandRange(u16 min, u16 max);
 bool8 CheckTableForMove(move_t move, const u16 table[]);
 bool8 CheckTableForMoveEffect(move_t move, const u8 table[]);

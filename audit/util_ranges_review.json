@@ -1,0 +1,23 @@
+{
+  "source": "src/util.c",
+  "source_sha256": "a5a6ce84ce345fa252c6470d52277781094c25025fdaaf5ea9ced75ccf592827",
+  "sections": [
+    "MathMin",
+    "MathMax",
+    "RandRange"
+  ],
+  "verification": "python scripts/check_util_ranges.py",
+  "result": "pass",
+  "cases": {
+    "unsigned_min_max": 49,
+    "singleton_ranges": 65536,
+    "rng_values_across_17_ranges": 1114112
+  },
+  "contract": "RandRange requires min <= max; singleton consumes no RNG; other ranges exclude max. Production behavior retained.",
+  "caller_inspection": [
+    "Stat selection uses exclusive array/stat bounds or adds one to inclusive endpoints.",
+    "Mining prize type selection adds one to last prize ID; grid placement uses dimension bounds.",
+    "Raid level selection uses exclusive upper bounds consistently in DetermineRaidLevel and GetRandomRaidLevel."
+  ],
+  "limitations": "Selected range and caller checks only; reversed inputs, all runtime callers, PRNG distribution and entire util.c are not certified. No production code changes."
+}

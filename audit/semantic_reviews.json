@@ -575,6 +575,18 @@
       ],
       "verification": "Current check_slot_screen.py and check_slot_screen_task.py passed on 2026-10-11; indexed compilation identity matches",
       "remaining": "Actual task allocation semantics, flash probe/bank hardware, pointer packing, window rendering and native menu transitions remain unverified."
+    },
+    {
+      "path": "src/util.c",
+      "source_sha256": "a5a6ce84ce345fa252c6470d52277781094c25025fdaaf5ea9ced75ccf592827",
+      "sections": [
+        "MathMin",
+        "MathMax",
+        "RandRange"
+      ],
+      "verification": "python scripts/check_util_ranges.py",
+      "current_report": "audit/util_ranges_review.json",
+      "remaining": "Selected range and caller checks only; reversed inputs, all runtime callers, PRNG distribution and entire util.c are not certified. No production code changes."
     }
   ]
 }
