@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 25075,
-      "sha256": "89d46a5e5b992614889622bdb01502ebd42b0f0aef2a1b06cb03fdbb05ed4e4a",
+      "bytes": 25339,
+      "sha256": "a0feeb6921febd491ebbae0c757e507442054fd4c25e058c23ea62152cce0cf0",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1442,8 +1442,8 @@
     },
     {
       "path": "audit/semantic_reviews.json",
-      "bytes": 12937,
-      "sha256": "e36fcc6905bd0fbcbfb53c8d6c250f26f2457c12a030a59cdace8d05b376b405",
+      "bytes": 13472,
+      "sha256": "60dac45bbccb22567a7d4858179f131e70f29f7356f79efea790f53bd8043cde",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12315,6 +12315,17 @@
       "findings": []
     },
     {
+      "path": "scripts/check_badge_count.py",
+      "bytes": 3490,
+      "sha256": "4a6dd5030d1f4aeb0c4b93545b68f3b8e2e85bbdf06ad0111759b02234cd3ce2",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_bag_cursor.py",
       "bytes": 3053,
       "sha256": "ae98946af4e59219f3ca8d6861e10f85e8056abcb23f57e1d399de072d68be6b",
@@ -13292,8 +13303,8 @@
     },
     {
       "path": "src/badge_count.c",
-      "bytes": 2622,
-      "sha256": "c530fc25a7193f0e792cc951d7a2efd0916e3adaaf350fa7ae90acad91542d4e",
+      "bytes": 2571,
+      "sha256": "19d1202b9d40abc21b2eb10eb5a3f1c90c8e4bf6a332638b6c2874236ddd5359",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",

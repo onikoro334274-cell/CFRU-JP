@@ -67,7 +67,8 @@
     "CanMonLearnTutorMove production byte-row path executed for all 65536 species IDs and 152 tutor slots with a controlled four-species table; valid reads match independent bit extraction and NONE/out-of-range species return false; full src/item.c compiles with GNU ARM GCC without diagnostics. Special tutor cases and actual DPE table content remain outside this fixture.",
     "GNU audit refreshed after header recovery: 165 of 203 C files compile, 38 failures remain. Updated item.c additionally compiles without diagnostics. Native production TM/HM and tutor reads pass all 65536 species IDs and 256 TM IDs/152 tutor slots for 64- and 128-bit TM layouts with controlled tables.",
     "Draco Meteor rejection production function passes all 65536 species IDs, min/max friendship, primary/secondary Dragon type, eggs and unrelated tutor routing in controlled fixture; combined tutor/TM bounds checks pass; actual item.c ARM compilation has no diagnostics and 55 regression tests pass.",
-    "Recovered johto_flags.h (8 badge definitions) and sinnoh_flags.h (8 badges, HOF flag and four league-PC destination values) from adjacent preserved allocation/map/nurse metadata without executing source generators; numeric bounds and cross-region flag uniqueness checked. badge_count.c now compiles with real GNU ARM GCC without diagnostics; final map assets and field return remain unverified."
+    "Recovered johto_flags.h (8 badge definitions) and sinnoh_flags.h (8 badges, HOF flag and four league-PC destination values) from adjacent preserved allocation/map/nurse metadata without executing source generators; numeric bounds and cross-region flag uniqueness checked. badge_count.c now compiles with real GNU ARM GCC without diagnostics; final map assets and field return remain unverified.",
+    "Production GetAllBadgeCount and SaveStatBadgesToString pass 6561 four-region count combinations plus 1024 individual region flag patterns; all 32 badge IDs are distinct, reads are exactly 32 per call, formatting 0..32 and surrounding buffer canaries pass."
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -150,7 +151,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:47:43.410741+00:00",
+  "updated_utc": "2026-10-10T18:48:46.129049+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }

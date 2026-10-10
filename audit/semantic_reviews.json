@@ -227,6 +227,16 @@
       ],
       "verification": "check_dome_card_sprites.py executes production setup blocks with controlled sprite creation results; 65536 normalizations and 480 scenarios; scroll/cleanup SPRITE_NONE guards reviewed",
       "remaining": "Creation stubs do not establish real ROM allocation/resource cleanup semantics; root/task/arrow failure paths, generated-header compilation and GBA runtime remain unverified"
+    },
+    {
+      "path": "src/badge_count.c",
+      "source_sha256": "19d1202b9d40abc21b2eb10eb5a3f1c90c8e4bf6a332638b6c2874236ddd5359",
+      "sections": [
+        "GetAllBadgeCount",
+        "SaveStatBadgesToString"
+      ],
+      "verification": "check_badge_count.py executes both production functions and actual restored flag definitions; 7585 controlled input combinations and buffer canaries pass",
+      "remaining": "Actual flag setting by event scripts, ROM hooks and GBA save-screen rendering remain unverified"
     }
   ]
 }
