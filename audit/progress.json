@@ -188,7 +188,7 @@
     "Resolve the currently inventoried missing include references and obtain remaining generated assets/tools for GNU linking/runtime validation; use repository.json for current scope and counts."
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T22:46:08.471698+00:00",
+  "updated_utc": "2026-10-10T22:47:17.069432+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete.",
   "current_compilation": {
@@ -304,5 +304,6 @@
   },
   "review_coverage_evidence": "audit/review_coverage.json",
   "current_dns_review": "audit/dns_current_review.json",
-  "current_util_ranges_review": "audit/util_ranges_review.json"
+  "current_util_ranges_review": "audit/util_ranges_review.json",
+  "current_wild_shuffle_review": "audit/wild_shuffle_current_review.json"
 }

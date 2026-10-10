@@ -1,0 +1,18 @@
+{
+  "result": "pass",
+  "source_sha256": "d4647a97275de8a45ac862712d669f3fc7c8a1063c23d05a1d2451c0756fc1b3",
+  "table_sha256": "b952ab5da315d27fedd9dc989850bb87a3b4c3b65997151f1e6ed44357df20c7",
+  "checks": [
+    "check_wild_variant.py",
+    "check_wild_shuffle_lookup.py",
+    "check_wild_shuffle_contents.py --rom <original BPRJ ROM>",
+    "check_wild_profile.py"
+  ],
+  "evidence": [
+    "audit/wild_variant_review.json",
+    "audit/wild_shuffle_lookup_review.json",
+    "audit/wild_shuffle_contents_review.json",
+    "audit/wild_profile_review.json"
+  ],
+  "limitations": "Valid clock fields, controlled native lookup symbol identities and original-ROM table reads only; linked symbol aliases, runtime profile timing and GBA encounters remain unverified."
+}

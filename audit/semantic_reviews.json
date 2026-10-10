@@ -587,6 +587,20 @@
       "verification": "python scripts/check_util_ranges.py",
       "current_report": "audit/util_ranges_review.json",
       "remaining": "Selected range and caller checks only; reversed inputs, all runtime callers, PRNG distribution and entire util.c are not certified. No production code changes."
+    },
+    {
+      "path": "src/wild_shuffle.c",
+      "source_sha256": "d4647a97275de8a45ac862712d669f3fc7c8a1063c23d05a1d2451c0756fc1b3",
+      "sections": [
+        "PreviousWildDate",
+        "KantoVariant",
+        "FindShuffled",
+        "HackWild_Shuffle",
+        "HackWild_ShuffleInner"
+      ],
+      "verification": "check_wild_variant.py; check_wild_shuffle_lookup.py; check_wild_shuffle_contents.py --rom <original BPRJ ROM>; check_wild_profile.py",
+      "current_report": "audit/wild_shuffle_current_review.json",
+      "remaining": "Valid clock fields, controlled native lookup symbol identities and original-ROM table reads only; linked symbol aliases, runtime profile timing and GBA encounters remain unverified."
     }
   ]
 }

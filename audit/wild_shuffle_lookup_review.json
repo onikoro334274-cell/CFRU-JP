@@ -2,7 +2,8 @@
   "result": "passed",
   "pair_entries": 6008,
   "map_index_entries": 240,
-  "lookup_cases": 72098,
+  "lookup_cases": 73299,
+  "additional_cases": "Known-map foreign-table fallback, known-map absent tables and NULL input",
   "scope": "Actual lookup functions and generated pair/index metadata; contiguous sorted index coverage, all variants, original-habitat bypass, indexed/full-search equality and unknown-map fallback.",
   "limitations": "Symbol identities represented by opaque tokens; linked aliases, generated encounter contents, date/time variant choice and GBA runtime unverified."
 }

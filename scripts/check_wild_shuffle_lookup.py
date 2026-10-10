@@ -81,6 +81,20 @@ int main(void){
  }
  const struct WildPokemonInfo* absent=(const struct WildPokemonInfo*)999999;
  if(HackWild_Shuffle(absent)!=absent)return 4;
+if(HackWild_Shuffle(0)!=0)return 5;
+/* A valid current map may receive another map's table: test fallback there too. */
+for(u32 map=0;map<INDEX_COUNT;map++){
+save.location.mapGroup=gHackWildShuffleIndex[map].map>>8;
+save.location.mapNum=gHackWildShuffleIndex[map].map&255;
+u32 end=(u32)gHackWildShuffleIndex[map].start+gHackWildShuffleIndex[map].count;
+u32 other=end<PAIR_COUNT?end:0;
+for(variant=0;variant<4;variant++){
+const struct WildPokemonInfo* info=gHackWildShufflePairs[other].orig,*expected=info;
+FindShuffled(info,variant,TRUE,TRUE,0,PAIR_COUNT,&expected);
+if(HackWild_Shuffle(info)!=expected)return 6;
+}
+if(HackWild_Shuffle(absent)!=absent)return 7;
+}
  return 0;}
 '''.replace('PRODUCTION', production).replace('PAIRS', ',\n'.join(rows))
     fixture = fixture.replace('INDEX_COUNT', str(len(index))).replace('PAIR_COUNT', str(len(pairs)))
@@ -92,7 +106,8 @@ int main(void){
         subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib', str(obj), '/out:' + str(exe)], check=True)
         subprocess.run([str(exe)], check=True)
     report = {'result': 'passed', 'pair_entries': len(pairs), 'map_index_entries': len(index),
-              'lookup_cases': len(pairs) * 12 + 2,
+              'lookup_cases': len(pairs) * 12 + len(index) * 5 + 3,
+              'additional_cases': 'Known-map foreign-table fallback, known-map absent tables and NULL input',
               'scope': 'Actual lookup functions and generated pair/index metadata; contiguous sorted index coverage, all variants, original-habitat bypass, indexed/full-search equality and unknown-map fallback.',
               'limitations': 'Symbol identities represented by opaque tokens; linked aliases, generated encounter contents, date/time variant choice and GBA runtime unverified.'}
     (ROOT / 'audit/wild_shuffle_lookup_review.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')

@@ -3,11 +3,11 @@
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
     "source_files": 848,
-    "files_with_indexed_scopes": 30,
-    "indexed_scopes": 44,
+    "files_with_indexed_scopes": 31,
+    "indexed_scopes": 45,
     "scope_states": {
       "source_changed": 13,
-      "current": 30,
+      "current": 31,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -2504,7 +2504,7 @@
     },
     {
       "path": "include/new/util.h",
-      "source_sha256": "087e15271d5a661e12eccfe41e12a5a3e0ed97af8d0095db68d438670c49d6e9",
+      "source_sha256": "f1948d9d5cffac90e0a9439e56bd38b97517bd0c51a507381290721cb2120bf7",
       "gnu_c_object": "not_applicable",
       "scoped_reviews": [],
       "whole_file_completion": "not_established"
@@ -3946,7 +3946,7 @@
     },
     {
       "path": "scripts/check_wild_shuffle_lookup.py",
-      "source_sha256": "eb31d897abc80382b6777ae48181d3552b6232bc1b95fd7072bdb8b5707731e5",
+      "source_sha256": "fc23ae2e8867b734c6649d51b6479c12e5f8e7b3bb3f904fb75220ac5e9553d2",
       "gnu_c_object": "not_applicable",
       "scoped_reviews": [],
       "whole_file_completion": "not_established"
@@ -6739,7 +6739,22 @@
       "path": "src/wild_shuffle.c",
       "source_sha256": "d4647a97275de8a45ac862712d669f3fc7c8a1063c23d05a1d2451c0756fc1b3",
       "gnu_c_object": "object_compiled",
-      "scoped_reviews": [],
+      "scoped_reviews": [
+        {
+          "state": "current",
+          "sections": [
+            "PreviousWildDate",
+            "KantoVariant",
+            "FindShuffled",
+            "HackWild_Shuffle",
+            "HackWild_ShuffleInner"
+          ],
+          "recorded_source_sha256": "d4647a97275de8a45ac862712d669f3fc7c8a1063c23d05a1d2451c0756fc1b3",
+          "evidence": [],
+          "verification": "check_wild_variant.py; check_wild_shuffle_lookup.py; check_wild_shuffle_contents.py --rom <original BPRJ ROM>; check_wild_profile.py",
+          "remaining": "Valid clock fields, controlled native lookup symbol identities and original-ROM table reads only; linked symbol aliases, runtime profile timing and GBA encounters remain unverified."
+        }
+      ],
       "whole_file_completion": "not_established"
     },
     {
