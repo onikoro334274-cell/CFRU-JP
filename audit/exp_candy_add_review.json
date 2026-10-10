@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "cases": 1001728,
+  "scope": "Production saturating add against independent 64-bit sum/min oracle; boundary grid and deterministic randomized inputs.",
+  "limitations": "Arithmetic only; actual growth tables, item consumption, level-up/learn-move chain and GBA runtime remain unverified."
+}

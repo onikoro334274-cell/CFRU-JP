@@ -119,6 +119,13 @@ void HackExpCandy_TryEvolution(u8 taskId)
 		gTasks[taskId].func = Task_ClosePartyMenuAfterText;
 }
 
+static u32 AddCandyExperience(u32 exp, u32 amount, u32 maxExp)
+{
+	if (exp >= maxExp || amount >= maxExp - exp)
+		return maxExp;
+	return exp + amount;
+}
+
 static void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
 {
 	struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
@@ -142,9 +149,7 @@ static void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
 		return;
 	}
 
-	newExp = exp + amount;
-	if (newExp > maxExp)
-		newExp = maxExp;
+	newExp = AddCandyExperience(exp, amount, maxExp);
 	newLevel = level;
 	while (newLevel < MAX_LEVEL && gExperienceTables[growth][newLevel + 1] <= newExp)
 		++newLevel;
