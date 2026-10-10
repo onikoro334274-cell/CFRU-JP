@@ -632,7 +632,7 @@ u8 AIScript_Positives(const u8 bankAtk, const u8 bankDef, const u16 originalMove
 			break;
 
 		case EFFECT_SUBSTITUTE:
-			IncreaseSubstituteViability(&viability, class, bankAtk, bankDef);
+			IncreaseSubstituteViability(&viability, class, bankAtk, bankDef, move);
 			break;
 
 		case EFFECT_MIMIC:
