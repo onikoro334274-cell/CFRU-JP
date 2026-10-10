@@ -385,8 +385,8 @@
     {
       "path": "src/exp_candy.c",
       "exit_code": 0,
-      "source_sha256": "e3824bb7cb93e0b89405b1993245060544df9017b0b78a8fd4b93dc1529afb4d",
-      "object_bytes": 3492,
+      "source_sha256": "e941884e70db910494ef312899a39fd54cae0c8100eff8a5f736598282631603",
+      "object_bytes": 4032,
       "diagnostics": ""
     },
     {
@@ -518,8 +518,8 @@
     {
       "path": "src/hack_danger_sugar.c",
       "exit_code": 0,
-      "source_sha256": "1f4e2f46f36556e85fea02b14463d1a387dd3319d58b27be1cea06e6b2e631f4",
-      "object_bytes": 1860,
+      "source_sha256": "b56a3013c35cfd6fcde81e6e46a91ad1cff4d172350b3f533b1ed1341cfeb68b",
+      "object_bytes": 1864,
       "diagnostics": ""
     },
     {
@@ -1134,15 +1134,15 @@
     {
       "path": "src/overworld_speedup.c",
       "exit_code": 0,
-      "source_sha256": "4dce5afb3f3da3cedd916646e328bba5507bb2f7b5dae831f957e76319378acb",
+      "source_sha256": "fcae9b85c44ff2763669b39197ef013fab3527c5fc7fe27effb4980ad23a744e",
       "object_bytes": 1952,
       "diagnostics": ""
     },
     {
       "path": "src/party_menu.c",
       "exit_code": 0,
-      "source_sha256": "5be8360894046d60594104331f397250e9878c3090a133b22b9455cbc13d10f0",
-      "object_bytes": 36860,
+      "source_sha256": "9a6fa719372ba64c3d916a079f25ec7b18705166d6681419411456571c613ed1",
+      "object_bytes": 36972,
       "diagnostics": ""
     },
     {
@@ -1155,8 +1155,8 @@
     {
       "path": "src/pokemon_storage_system.c",
       "exit_code": 0,
-      "source_sha256": "730e6d881d8ad1fb55711b616e0fdc2c717d06d5cd5a67348831965c91d3f1f0",
-      "object_bytes": 7920,
+      "source_sha256": "f9f5d923a54af025378396683325269214a0f65dd01dfca6f0361af0ae3ff3ac",
+      "object_bytes": 7996,
       "diagnostics": ""
     },
     {
@@ -1218,8 +1218,8 @@
     {
       "path": "src/scripting.c",
       "exit_code": 0,
-      "source_sha256": "3dccaa7f630e7085a482fac99dcf30334f0079f23d0fa6cd57993ef95ff18f7e",
-      "object_bytes": 32504,
+      "source_sha256": "d1da35b6996dd03c63a3782b6d69d13d6e6610b2948bfb7d09d122e4e5ab60df",
+      "object_bytes": 32764,
       "diagnostics": ""
     },
     {
@@ -1435,8 +1435,8 @@
     {
       "path": "src/wild_shuffle.c",
       "exit_code": 0,
-      "source_sha256": "2e29b39595a2eb8ddbfd2ea3310553f21f8289aae885850688478d9e4ca86ec6",
-      "object_bytes": 1684,
+      "source_sha256": "d4647a97275de8a45ac862712d669f3fc7c8a1063c23d05a1d2451c0756fc1b3",
+      "object_bytes": 1964,
       "diagnostics": ""
     }
   ]

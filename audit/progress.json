@@ -188,7 +188,7 @@
     "Resolve the currently inventoried missing include references and obtain remaining generated assets/tools for GNU linking/runtime validation; use repository.json for current scope and counts."
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T20:54:23.552367+00:00",
+  "updated_utc": "2026-10-10T21:42:16.243456+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete.",
   "current_compilation": {
@@ -236,7 +236,45 @@
     "individual_id_packing": "mon_id_packing_review.json",
     "individual_id_arm_layout": "mon_id_layout_review.json",
     "save_scrambling": "save_crypt_review.json",
-    "item_id_regression_batch": "item_id_regression_refresh.json"
+    "item_id_regression_batch": "item_id_regression_refresh.json",
+    "wild_shuffle_contents": "wild_shuffle_contents_review.json",
+    "wild_variant": "wild_variant_review.json",
+    "exp_candy_native_flow": "exp_candy_native_flow_review.json",
+    "exp_candy_step": "exp_candy_step_review.json",
+    "exp_candy_native_cap": "exp_candy_native_cap_review.json",
+    "exp_candy_flow": "exp_candy_flow_review.json",
+    "rare_candy_entry": "rare_candy_entry_review.json",
+    "danger_sugar": "danger_sugar_review.json",
+    "party_ability_items": "party_ability_items_review.json",
+    "mint_consumption": "mint_consumption_review.json",
+    "hyper_training_bounds": "hyper_training_bounds_review.json",
+    "script_move_bounds": "script_move_bounds_review.json",
+    "script_ev_updates": "script_ev_updates_review.json",
+    "script_iv_updates": "script_iv_updates_review.json",
+    "script_ribbons": "script_ribbons_review.json",
+    "script_friendship": "script_friendship_review.json",
+    "script_species": "script_species_review.json",
+    "pc_send_bounds": "pc_send_bounds_review.json",
+    "party_copy_dispatch": "party_copy_dispatch_review.json",
+    "pc_script_transfers": "pc_script_transfers_review.json",
+    "temp_team_ranges": "temp_team_ranges_review.json",
+    "pc_box_direction": "pc_box_direction_review.json",
+    "pc_mon_search": "pc_mon_search_review.json"
   },
-  "current_scoped_reviews_limitation": "These reports verify named functions and controlled scenarios only. They do not certify entire files, all callers, save migration, linking, or GBA runtime."
+  "current_scoped_reviews_limitation": "These reports verify named functions and controlled scenarios only. They do not certify entire files, all callers, save migration, linking, or GBA runtime.",
+  "latest_verification": {
+    "c_objects": {
+      "total": 203,
+      "passed": 178,
+      "missing_generated_header_failures": 25,
+      "evidence": "gnu_c.json"
+    },
+    "python_unittest": {
+      "total": 72,
+      "passed": 69,
+      "skipped": 3,
+      "command": "python -m unittest discover -s scripts -p 'test_*.py'"
+    },
+    "limitations": "Object compilation and individually recorded scoped fixtures only. Complete semantic review, missing assets/generated headers, full linking/insertion and GBA runtime remain incomplete. Existing reports do not constitute whole-file verification."
+  }
 }
