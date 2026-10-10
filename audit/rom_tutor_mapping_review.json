@@ -1,0 +1,27 @@
+{
+  "result": "passed",
+  "rom_sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "original_table_address": "0x84192f0",
+  "vanilla_moves": {
+    "MOVE_MEGAPUNCH": 5,
+    "MOVE_SWORDSDANCE": 14,
+    "MOVE_MEGAKICK": 25,
+    "MOVE_BODYSLAM": 34,
+    "MOVE_DOUBLEEDGE": 38,
+    "MOVE_COUNTER": 68,
+    "MOVE_SEISMICTOSS": 69,
+    "MOVE_MIMIC": 102,
+    "MOVE_METRONOME": 118,
+    "MOVE_SOFTBOILED": 135,
+    "MOVE_DREAMEATER": 138,
+    "MOVE_THUNDERWAVE": 86,
+    "MOVE_EXPLOSION": 153,
+    "MOVE_ROCKSLIDE": 157,
+    "MOVE_SUBSTITUTE": 164,
+    "MOVE_FRENZYPLANT": 338,
+    "MOVE_BLASTBURN": 307,
+    "MOVE_HYDROCANNON": 308
+  },
+  "scope": "BPRJ rev0 original entry instructions, 15 table moves and 3 exceptional moves match current C table; unique hook registrations use r1 for one argument and r3 for three arguments.",
+  "limitations": "Checks source registrations and original ROM only; does not prove inserted wrapper bytes, compiled target addresses, compatibility tables or GBA execution."
+}
