@@ -103,7 +103,7 @@ bool8 HackAI_ShouldSwitchStatsDropped(void)
 	u8 phys = 0, spec = 0, stage, i;
 	u8 foe1 = FOE(bank), foe2 = IS_DOUBLE_BATTLE ? PARTNER(FOE(bank)) : FOE(bank);
 
-	if (gNewBS->ai.switchingCooldown[bank] || AI_THINKING_STRUCT->aiFlags <= AI_SCRIPT_CHECK_BAD_MOVE)
+	if (gNewBS->ai.switchingCooldown[bank] || !AIFlagsHaveStrategy(AI_THINKING_STRUCT->aiFlags))
 		return FALSE;
 	if (gBattleMons[bank].hp * 2 < gBattleMons[bank].maxHP)
 		return FALSE;

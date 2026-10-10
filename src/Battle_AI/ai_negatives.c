@@ -30,7 +30,7 @@ ai_negatives.c
 	All possible subtractions to an AIs move viability.
 */
 
-#define GOOD_AI (AI_THINKING_STRUCT->aiFlags > AI_SCRIPT_CHECK_BAD_MOVE)
+#define GOOD_AI (AIFlagsHaveStrategy(AI_THINKING_STRUCT->aiFlags))
 
 #define TARGETING_PARTNER (bankDef == bankAtkPartner)
 #define PARTNER_MOVE_EFFECT_IS_SAME (IS_DOUBLE_BATTLE \
@@ -158,7 +158,7 @@ u8 AIScript_Negatives(const u8 bankAtk, const u8 bankDef, const u16 originalMove
 			killRate = AI_TRY_TO_KILL_RATE / 5;
 		#endif
 
-		if (AI_THINKING_STRUCT->aiFlags == AI_SCRIPT_CHECK_BAD_MOVE //Only basic AI
+		if (!AIFlagsHaveStrategy(AI_THINKING_STRUCT->aiFlags) //Only basic AI
 		&& gRandomTurnNumber % 100 < killRate
 		&& DamagingMoveInMoveset(bankAtk)
 		&& !TARGETING_PARTNER)
@@ -1553,7 +1553,7 @@ MOVESCR_CHECK_0:
 					DECREASE_VIABILITY(10);
 			}
 
-			if (AI_THINKING_STRUCT->aiFlags == AI_SCRIPT_CHECK_BAD_MOVE //Only basic AI
+			if (!AIFlagsHaveStrategy(AI_THINKING_STRUCT->aiFlags) //Only basic AI
 			&& IS_DOUBLE_BATTLE) //Make the regular AI know how to use Protect minimally in Doubles
 			{
 				u8 shouldProtect = ShouldProtect(bankAtk, bankDef, move);

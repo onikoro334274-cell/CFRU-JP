@@ -54,12 +54,16 @@ struct AIScript
 	u8 foe2;
 	u16 partnerMove;
 	bool8 partnerHandling;
+	u8 intelligenceRank;
 };
 
 //Exported Functions
 u8 AIScript_Negatives(const u8 bankAtk, const u8 bankDef, const u16 move, const u8 originalViability, struct AIScript*);
 u8 AIScript_SemiSmart(const u8 bankAtk, const u8 bankDef, const u16 move, const u8 originalViability, struct AIScript*);
 u8 AIScript_Positives(const u8 bankAtk, const u8 bankDef, const u16 move, const u8 originalViability, struct AIScript*);
+u8 AIScript_Advanced(const u8 bankAtk, const u8 bankDef, const u16 move, const u8 originalViability, struct AIScript*);
+u8 AIScript_Expert(const u8 bankAtk, const u8 bankDef, const u16 move, const u8 originalViability, struct AIScript*);
+u8 AIScript_WildInstinct(const u8 bankAtk, const u8 bankDef, const u16 move, const u8 originalViability, struct AIScript*);
 u8 AIScript_Partner(const u8 bankAtk, const u8 bankAtkPartner, const u16 originalMove, const u8 originalViability, struct AIScript*);
 u8 AIScript_Roaming(const u8 bankAtk, const u8 bankDef, const u16 move, const u8 originalViability, struct AIScript*);
 u8 AIScript_Safari(const u8 bankAtk, const u8 bankDef, const u16 move, const u8 originalViability, struct AIScript*);

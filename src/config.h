@@ -156,6 +156,31 @@ enum //These vars need to be one after the other (hence the enum)
 #define CREATE_ROAMER_WITH_X_PERFECT_IVS 3 //Change this to the number of set 31 IVs you'd like roaming pokemon to have.
 #define EGG_HATCH_LEVEL 1 //The level eggs hatch at
 #define AI_TRY_TO_KILL_RATE 50 //In battles against a trainer with AI flags of 1, the AI will try to use a move to knock out the opponents XX percent of the time
+// One AI rank per 10 levels, up to Lv200; difficulty offsets/floors/caps
+// follow saved values: normal, easy, medium, hard, Momo Ice.
+#define AI_RANK_LEVEL_STEP 10
+#define AI_RANK_LEVEL_CAP 200
+#define AI_RANK_DIFFICULTY_OFFSETS {0, -4, -2, 3, 0}
+#define AI_RANK_DIFFICULTY_FLOORS {0, 0, 0, 8, 24}
+#define AI_RANK_DIFFICULTY_CAPS {20, 16, 18, 23, 24}
+#define AI_RANK_WILD_LEVEL_STEP AI_RANK_LEVEL_STEP
+#define AI_RANK_WILD_DIFFICULTY_OFFSETS AI_RANK_DIFFICULTY_OFFSETS
+#define AI_RANK_WILD_DIFFICULTY_FLOORS AI_RANK_DIFFICULTY_FLOORS
+#define AI_RANK_WILD_DIFFICULTY_CAPS AI_RANK_DIFFICULTY_CAPS
+#define AI_RANK_WILD_THREAT_LEVEL_GAP 20
+#define AI_WILD_INSTINCT_VARIATION_STEP 6
+#define AI_WILD_INSTINCT_RECOVERY_HP_PERCENT 50
+#define AI_RANK_LOW_HP_PERCENT 33
+#define AI_RANK_ADAPT_TURN 4
+#define AI_RANK_FOE_STAT_BOOST 2
+#define AI_RANK_IMPORTANT_TRAINER_POINTS 2
+#define AI_RANK_LOW_HP_POINTS 1
+#define AI_RANK_STATUS_POINTS 1
+#define AI_RANK_LONG_BATTLE_POINTS 1
+#define AI_RANK_BOOSTED_FOE_POINTS 2
+#define AI_RANK_POINTS_PER_STEP 2
+#define AI_RANK_MAX_CONTEXT_BOOST 1
+#define AI_RANK_DAMAGE_SCORE_STEP 4
 #define BIKE_ENCOUNTER_PERCENT 60 //Biking through grass or in caves only has this percentage of the encounter rate (vanilla FR is 80)
 
 /*===== Metatile Behaviours =====*/

@@ -470,7 +470,7 @@ struct AI_ThinkingStruct
     u8 aiState;
     u8 movesetIndex;
     u16 moveConsidered;
-    s8 score[4];
+    u8 score[4]; // AI scripts return scores in the full 0..255 range.
     u32 funcResult;
     u32 aiFlags;
     u8 aiAction;
@@ -487,8 +487,11 @@ extern u8 gAbsentBattlerFlags;
 #define AI_SCRIPT_CHECK_BAD_MOVE (1 << 0)
 #define AI_SCRIPT_SEMI_SMART (1 << 1)
 #define AI_SCRIPT_CHECK_GOOD_MOVE (1 << 2)
+#define AI_SCRIPT_ADVANCED (1u << 10)
+#define AI_SCRIPT_EXPERT (1u << 11)
+#define AI_SCRIPT_WILD_INSTINCT (1u << 12)
 
-// 10 - 28 are not used
+// 13 - 28 are not used
 #define AI_SCRIPT_ROAMING (1 << 29)
 #define AI_SCRIPT_SAFARI (1 << 30)
 #define AI_SCRIPT_FIRST_BATTLE (1u << 31)

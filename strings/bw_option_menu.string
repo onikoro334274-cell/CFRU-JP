@@ -91,6 +91,12 @@ Moemon
 #org @gText_BwOpt_Medium
 ほどほど
 
+#org @gText_BwOpt_Hard
+むずかしい
+
+#org @gText_BwOpt_MomoIce
+ももアイス
+
 #org @gText_BwOpt_DescTextSpeed
 メッセージの はやさを\n3だんかいから えらびます
 
@@ -107,7 +113,7 @@ Moemon
 フィールドの うごきの はやさを\n1ばいから 4ばいまで えらびます
 
 #org @gText_BwOpt_DescDifficulty
-トレーナーの つよさを えらびます\nバトルしせつは かわりません
+ポケモンの つよさを えらびます\nももアイスは さいこうの AIランク
 
 #org @gText_BwOpt_DescBattleSpeed
 せんとうの はやさを\n1ばいから 4ばいまで えらびます

@@ -1,5 +1,6 @@
 #include "../defines.h"
 #include "../defines_battle.h"
+#include "../hack_difficulty.h"
 #include "../../include/random.h"
 #include "../../include/constants/items.h"
 
@@ -24,6 +25,101 @@ ai_positives.c
 
 extern const struct NaturalGiftStruct gNaturalGiftTable[];
 extern const struct FlingStruct gFlingTable[];
+
+// Wild instinct uses visible health, hit probability and persistent temperament.
+// Its small, repeatable hunch varies per individual/turn/move and fades with rank.
+u8 AIScript_WildInstinct(const u8 bankAtk, const u8 bankDef, const u16 originalMove, const u8 originalViability, struct AIScript* data)
+{
+    if (originalViability < 100 || (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+    || SIDE(bankAtk) == SIDE(bankDef) || !BATTLER_ALIVE(bankAtk)
+    || !BATTLER_ALIVE(bankDef) || originalMove == MOVE_NONE)
+        return originalViability;
+
+    u16 move = TryReplaceMoveWithZMove(bankAtk, bankDef, originalMove);
+    u8 rank = MathMin(data->intelligenceRank, AI_RANK_MAX);
+    u8 nature = GetNatureFromPersonality(gBattleMons[bankAtk].personality);
+    bool8 aggressive = nature / 5 != nature % 5 && (nature / 5 == 0 || nature / 5 == 3);
+    bool8 cautious = nature / 5 != nature % 5 && (nature / 5 == 1 || nature / 5 == 4);
+    s16 viability = originalViability;
+
+    if (CalcMoveSplit(bankAtk, move, bankDef) != SPLIT_STATUS)
+    {
+        u32 damage = MathMin(GetFinalAIMoveDamage(move, bankAtk, bankDef, 1, NULL), gBattleMons[bankDef].hp);
+        u16 accuracy = MoveWillHit(move, bankAtk, bankDef) ? 100 : MathMin(AccuracyCalc(move, bankAtk, bankDef), 100);
+        viability += damage * accuracy * (2 + rank / 6) / ((u32)gBattleMons[bankDef].hp * 100);
+        if (damage != 0 && aggressive)
+            viability++;
+        if (damage == gBattleMons[bankDef].hp && accuracy >= 90)
+            viability += 2 + rank / 12;
+    }
+    else if ((gBattleMoves[move].effect == EFFECT_RESTORE_HP || gBattleMoves[move].effect == EFFECT_MORNING_SUN)
+    && (u32)gBattleMons[bankAtk].hp * 100 <= (u32)gBattleMons[bankAtk].maxHP * AI_WILD_INSTINCT_RECOVERY_HP_PERCENT
+    && GetAmountToRecoverBy(bankAtk, bankDef, move) != 0)
+        viability += 4 + rank / 6 + (cautious ? 2 : 0);
+
+    u8 variation = (AI_RANK_MAX - rank) / AI_WILD_INSTINCT_VARIATION_STEP;
+    if (variation != 0)
+    {
+        u32 hunch = gBattleMons[bankAtk].personality ^ ((u32)move * 0x45D9F3Bu)
+                  ^ ((u32)gBattleResults.battleTurnCounter * 0x9E3779B9u);
+        hunch ^= hunch >> 16;
+        viability += (s16)(hunch % (2 * variation + 1)) - variation;
+    }
+    return MathMin(MathMax(viability, 0), 255);
+}
+
+// Hard mode weighs useful damage by hit probability after the standard strategy.
+// Invalid/penalized moves and support aimed at partners retain their old score.
+u8 AIScript_Advanced(const u8 bankAtk, const u8 bankDef, const u16 originalMove, const u8 originalViability, struct AIScript* data)
+{
+    if (originalViability < 100 || SIDE(bankAtk) == SIDE(bankDef)
+    || !BATTLER_ALIVE(bankAtk) || !BATTLER_ALIVE(bankDef) || originalMove == MOVE_NONE)
+        return originalViability;
+
+    u16 move = TryReplaceMoveWithZMove(bankAtk, bankDef, originalMove);
+    if (CalcMoveSplit(bankAtk, move, bankDef) == SPLIT_STATUS)
+        return originalViability;
+
+    u32 damage = MathMin(GetFinalAIMoveDamage(move, bankAtk, bankDef, 1, NULL), gBattleMons[bankDef].hp);
+    u16 accuracy = MoveWillHit(move, bankAtk, bankDef) ? 100 : MathMin(AccuracyCalc(move, bankAtk, bankDef), 100);
+    u8 rank = MathMin(data->intelligenceRank, AI_RANK_MAX);
+    u16 bonus = (damage * accuracy * (2 + rank / AI_RANK_DAMAGE_SCORE_STEP)) / ((u32)gBattleMons[bankDef].hp * 100);
+    if (damage == gBattleMons[bankDef].hp && accuracy >= 90)
+    {
+        bonus += 2 + rank / 8;
+        if (MoveWouldHitFirst(move, bankAtk, bankDef))
+            bonus++;
+    }
+    return MathMin((u16)originalViability + bonus, 255);
+}
+
+// Momo Ice adds survival/priority analysis on top of the hard-mode assessment.
+u8 AIScript_Expert(const u8 bankAtk, const u8 bankDef, const u16 originalMove, const u8 originalViability, struct AIScript* data)
+{
+    if (originalViability < 100 || SIDE(bankAtk) == SIDE(bankDef)
+    || !BATTLER_ALIVE(bankAtk) || !BATTLER_ALIVE(bankDef) || originalMove == MOVE_NONE)
+        return originalViability;
+
+    u16 move = TryReplaceMoveWithZMove(bankAtk, bankDef, originalMove);
+    if (CalcMoveSplit(bankAtk, move, bankDef) == SPLIT_STATUS)
+        return originalViability;
+
+    u8 rank = MathMin(data->intelligenceRank, AI_RANK_MAX);
+    u16 predictedMove = IsValidMovePrediction(bankDef, bankAtk);
+    if (predictedMove != MOVE_NONE
+    && CalcMoveSplit(bankDef, predictedMove, bankAtk) != SPLIT_STATUS
+    && !MoveWouldHitBeforeOtherMove(move, bankAtk, predictedMove, bankDef)
+    && GetFinalAIMoveDamage(predictedMove, bankDef, bankAtk, 1, NULL) >= gBattleMons[bankAtk].hp
+    && (MoveWillHit(predictedMove, bankDef, bankAtk) || AccuracyCalc(predictedMove, bankDef, bankAtk) >= 90))
+        return originalViability - (10 + rank / 2); // Prefer an action before a likely fatal hit.
+
+    u16 accuracy = MoveWillHit(move, bankAtk, bankDef) ? 100 : MathMin(AccuracyCalc(move, bankAtk, bankDef), 100);
+    if (accuracy == 100 && MoveWouldHitFirst(move, bankAtk, bankDef)
+    && GetFinalAIMoveDamage(move, bankAtk, bankDef, 1, NULL) >= gBattleMons[bankDef].hp)
+        return MathMin((u16)originalViability + 2 + rank / 6, 255);
+
+    return originalViability;
+}
 
 #define TARGETING_PARTNER (bankDef == data->bankAtkPartner)
 

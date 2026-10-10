@@ -1,9 +1,12 @@
 #include "defines.h"
 #include "defines_battle.h"
+#include "hack_difficulty.h"
 #include "../include/event_data.h"
 #include "../include/pokemon.h"
 #include "../include/new/item.h"
 #include "../include/new/util.h"
+#include "../include/new/frontier.h"
+#include "../include/constants/trainer_classes.h"
 #include "Tables/hoenn_script_flags.h"
 
 /*
@@ -22,8 +25,6 @@
  *   努力値は ふつう のまま（AI は 2026-10-05 から かしこい段を外す）。持ち物は メガストーン と ゲンシカイキの玉 だけ残して外す。レベルを 2 下げる（C と同じ下げ方）
  */
 
-#define DIFFICULTY_EASY 1
-#define DIFFICULTY_MEDIUM 2   //ほどほど（2026-10-04）
 #define EASY_LEVEL_DOWN 3
 #define MEDIUM_LEVEL_DOWN 2
 
@@ -57,16 +58,114 @@ static void LowerTrainerMonLevel(struct Pokemon* mon, u32 down)
 	}
 }
 
-//A. src/Battle_AI/ai_master.c の GetAIFlags（ふつうのトレーナーの枝の最後）
+// Level boundaries and condition weights live in config.h for balancing.
+u8 HackAI_GetRank(const struct AIRankContext* context)
+{
+    static const s8 offsets[DIFFICULTY_COUNT] = AI_RANK_DIFFICULTY_OFFSETS;
+    static const u8 floors[DIFFICULTY_COUNT] = AI_RANK_DIFFICULTY_FLOORS;
+    static const u8 caps[DIFFICULTY_COUNT] = AI_RANK_DIFFICULTY_CAPS;
+    static const s8 wildOffsets[DIFFICULTY_COUNT] = AI_RANK_WILD_DIFFICULTY_OFFSETS;
+    static const u8 wildFloors[DIFFICULTY_COUNT] = AI_RANK_WILD_DIFFICULTY_FLOORS;
+    static const u8 wildCaps[DIFFICULTY_COUNT] = AI_RANK_WILD_DIFFICULTY_CAPS;
+    u16 difficulty = context->difficulty < DIFFICULTY_COUNT ? context->difficulty : DIFFICULTY_NORMAL;
+    s16 rank = MathMin(context->level, AI_RANK_LEVEL_CAP) / (context->wild ? AI_RANK_WILD_LEVEL_STEP : AI_RANK_LEVEL_STEP)
+             + (context->wild ? wildOffsets[difficulty] : offsets[difficulty]);
+
+    u16 points = (context->importantTrainer ? AI_RANK_IMPORTANT_TRAINER_POINTS : 0)
+               + (context->lowHp ? AI_RANK_LOW_HP_POINTS : 0)
+               + (context->statused ? AI_RANK_STATUS_POINTS : 0)
+               + (context->prolongedBattle ? AI_RANK_LONG_BATTLE_POINTS : 0)
+               + (context->boostedFoe ? AI_RANK_BOOSTED_FOE_POINTS : 0);
+    rank += MathMin(points / AI_RANK_POINTS_PER_STEP, AI_RANK_MAX_CONTEXT_BOOST);
+    u8 floor = context->wild ? wildFloors[difficulty] : floors[difficulty];
+    u8 cap = context->wild ? wildCaps[difficulty] : caps[difficulty];
+    return MathMin(MathMax(rank, floor), cap);
+}
+
+static u32 RankAIFlags(u8 rank)
+{
+    u32 flags = AI_SCRIPT_CHECK_BAD_MOVE;
+    if (rank >= AI_RANK_SEMI_SMART) flags |= AI_SCRIPT_SEMI_SMART;
+    if (rank >= AI_RANK_STANDARD) flags |= AI_SCRIPT_CHECK_GOOD_MOVE;
+    if (rank >= AI_RANK_ADVANCED) flags |= AI_SCRIPT_ADVANCED;
+    if (rank >= AI_RANK_EXPERT) flags |= AI_SCRIPT_EXPERT;
+    return flags;
+}
+
+static u8 CommonBattlerRank(u8 bank, bool8 wild)
+{
+    struct AIRankContext context = {0};
+    context.difficulty = VarGet(HOENN_VAR_DIFFICULTY);
+    context.wild = wild;
+    struct BattlePokemon* mon = &gBattleMons[bank];
+    context.level = mon->level;
+    context.lowHp = mon->hp != 0 && (u32)mon->hp * 100 <= (u32)mon->maxHP * AI_RANK_LOW_HP_PERCENT;
+    context.statused = (mon->status1 & STATUS1_ANY) != 0;
+    context.prolongedBattle = gBattleResults.battleTurnCounter >= AI_RANK_ADAPT_TURN;
+    if (!wild && OrdinaryTrainerBattle() && !IsFrontierTrainerId(gTrainerBattleOpponent_A))
+        switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
+        {
+        case CLASS_LEADER: case CLASS_ELITE_FOUR: case CLASS_CHAMPION:
+        case CLASS_LEADER_RS: case CLASS_ELITE_FOUR_RS: case CLASS_CHAMPION_RS:
+        case CLASS_AQUA_LEADER: case CLASS_MAGMA_LEADER:
+            context.importantTrainer = TRUE;
+            break;
+        }
+    for (u8 foe = 0; foe < gBattlersCount; ++foe)
+        if (SIDE(foe) != SIDE(bank) && gBattleMons[foe].hp != 0
+        && ((wild && gBattleMons[foe].level >= (u16)mon->level + AI_RANK_WILD_THREAT_LEVEL_GAP)
+         || gBattleMons[foe].statStages[STAT_ATK] >= 6 + AI_RANK_FOE_STAT_BOOST
+         || gBattleMons[foe].statStages[STAT_SPATK] >= 6 + AI_RANK_FOE_STAT_BOOST
+         || gBattleMons[foe].statStages[STAT_SPEED] >= 6 + AI_RANK_FOE_STAT_BOOST))
+            context.boostedFoe = TRUE;
+    return HackAI_GetRank(&context);
+}
+
+u8 HackAI_GetTrainerRank(u8 bank)
+{
+    return CommonBattlerRank(bank, FALSE);
+}
+
+u8 HackAI_GetWildRank(u8 bank)
+{
+    return CommonBattlerRank(bank, TRUE);
+}
+
+u8 HackAI_GetBattlerRank(u8 bank)
+{
+    return (gBattleTypeFlags & BATTLE_TYPE_TRAINER) ? HackAI_GetTrainerRank(bank) : HackAI_GetWildRank(bank);
+}
+
+// Easy/medium/normal scale ordinary trainers. Hard/Momo also upgrade facilities.
+u32 HackAI_TrainerFlags(u32 flags, u8 bank)
+{
+    u16 difficulty = VarGet(HOENN_VAR_DIFFICULTY);
+    if (difficulty != DIFFICULTY_HARD && difficulty != DIFFICULTY_MOMO_ICE
+    && (!OrdinaryTrainerBattle() || IsFrontierTrainerId(gTrainerBattleOpponent_A)))
+        return flags;
+    u32 rankMask = RankAIFlags(AI_RANK_EXPERT);
+    return (flags & ~rankMask) | RankAIFlags(HackAI_GetTrainerRank(bank));
+}
+
+// Wild temperament/survival has its own script, never the trainer's prediction layer.
+u32 HackAI_WildFlags(u32 flags, u8 bank)
+{
+    if (flags == 0)
+        return flags;
+    u32 rankMask = RankAIFlags(AI_RANK_EXPERT) | AI_SCRIPT_WILD_INSTINCT;
+    u32 rankFlags = RankAIFlags(HackAI_GetWildRank(bank)) & ~(AI_SCRIPT_ADVANCED | AI_SCRIPT_EXPERT);
+    return (flags & ~rankMask) | rankFlags | AI_SCRIPT_WILD_INSTINCT;
+}
+
 u32 HackDifficulty_AIFlags(u32 flags)
 {
-	if (EasyTrainerBattle())
-		return AI_SCRIPT_CHECK_BAD_MOVE;
-	//★ 2026-10-05 ユーザー「AIすこし下げられる？」: ほどほどは かしこい段（CHECK_GOOD_MOVE）を外して「そこそこ」（SEMI_SMART）に。
-	//  もともと CHECK_GOOD_MOVE の無いトレーナーはそのまま（SEMI_SMART は かしこい段が無いときだけ効く・ai_positives.c）
-	if (MediumTrainerBattle() && (flags & AI_SCRIPT_CHECK_GOOD_MOVE))
-		return (flags & ~AI_SCRIPT_CHECK_GOOD_MOVE) | AI_SCRIPT_SEMI_SMART;
-	return flags;
+    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI | BATTLE_TYPE_ROAMER | BATTLE_TYPE_OAK_TUTORIAL))
+        return flags;
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+        return HackAI_TrainerFlags(flags, gActiveBattler);
+    if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) && SIDE(gActiveBattler) == B_SIDE_PLAYER)
+        return flags;
+    return HackAI_WildFlags(flags, gActiveBattler);
 }
 
 //B・C. src/build_pokemon.c の CreateNPCTrainerParty（相手側のポケモン・能力を計算する直前）

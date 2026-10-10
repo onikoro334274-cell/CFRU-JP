@@ -1,7 +1,13 @@
 #pragma once
 
 #include "../global.h"
+#include "../battle.h"
 #include "ai_scripts.h"
+
+static inline bool8 AIFlagsHaveStrategy(u32 flags)
+{
+    return (flags & (AI_SCRIPT_SEMI_SMART | AI_SCRIPT_CHECK_GOOD_MOVE | AI_SCRIPT_ADVANCED | AI_SCRIPT_EXPERT)) != 0;
+}
 
 /**
  * \file ai_master.h

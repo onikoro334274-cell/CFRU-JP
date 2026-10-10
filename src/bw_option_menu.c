@@ -16,6 +16,7 @@
 #include "../include/event_data.h"
 #include "Tables/hoenn_script_flags.h"   /* HOENN_VAR_OVERWORLD_SPEED */
 #include "hack_battle_speed.h"
+#include "hack_difficulty.h"
 
 /*
     BW 風オプション画面（せってい）— #19 の追加分
@@ -90,6 +91,8 @@ extern const u8 gText_BwOpt_HabitatOrig[];
 extern const u8 gText_BwOpt_WonderTrade[];
 extern const u8 gText_BwOpt_Medium[];
 extern const u8 gText_BwOpt_Easy[];
+extern const u8 gText_BwOpt_Hard[];
+extern const u8 gText_BwOpt_MomoIce[];
 extern const u8 gText_BwOpt_Slow[];
 extern const u8 gText_BwOpt_Mid[];
 extern const u8 gText_BwOpt_Fast[];
@@ -327,11 +330,7 @@ static void DrawChoices2(const u8 *a, const u8 *b, u8 x1, u8 x2, u8 y, u8 sel)
     DrawChoice(b, x2, y, sel == 1);
 }
 
-/* なんいど（2026-10-03・元のわくの行）: ふつう／やさしい */
-/* ★ 2026-10-04 3 つ（やさしい・ほどほど・ふつう）にした。3 つは横に並ばないので いどうそくど と同じく今の値だけ出す（左右で切り替え）。
-   選択の番号 0 やさしい / 1 ほどほど / 2 ふつう ⇔ 変数 HOENN_VAR_DIFFICULTY 1 / 2 / 0（前のセーブの 0 ふつう・1 やさしい はそのまま） */
-static const u8 sDifficultyVarToSel[3] = {2, 0, 1};
-static const u8 sDifficultySelToVar[3] = {1, 2, 0};
+/* やさしい・ほどほど・ふつう・むずかしい・ももアイス。保存値の対応は hack_difficulty.h。 */
 
 /* 横に並ばない選択肢は今の値だけを出す（左右で切り替え） */
 static void DrawValueChoice(const u8 *text, u8 y)
@@ -342,9 +341,12 @@ static void DrawValueChoice(const u8 *text, u8 y)
 
 static void DrawDifficultyChoice(u8 selection, u8 y)
 {
-    static const u8 *const sNames[3] = { gText_BwOpt_Easy, gText_BwOpt_Medium, gText_BwOpt_Mid };
+    static const u8 *const sNames[DIFFICULTY_COUNT] =
+    {
+        gText_BwOpt_Easy, gText_BwOpt_Medium, gText_BwOpt_Mid, gText_BwOpt_Hard, gText_BwOpt_MomoIce,
+    };
 
-    DrawValueChoice(sNames[selection < 3 ? selection : 2], y);
+    DrawValueChoice(sNames[selection < DIFFICULTY_COUNT ? selection : 2], y);
 }
 
 static void DrawSpeedChoice(u8 selection, u8 y)
@@ -439,7 +441,7 @@ static u8 ProcessInputFor(u8 item, u8 selection, s16 *arrow)
         selection = CycleInput(selection, BWOPT_SPEED_COUNT, arrow);
         break;
     case MENUITEM_DIFFICULTY:
-        selection = CycleInput(selection, 3, arrow);
+        selection = CycleInput(selection, DIFFICULTY_COUNT, arrow);
         break;
 #ifndef HACK_NO_MOEMON
     case MENUITEM_MOEMON:
@@ -543,7 +545,7 @@ void CB2_BwOptionMenu(void)
         data[TD_FIELDSPEED] = VarGet(HOENN_VAR_OVERWORLD_SPEED);
         if (data[TD_FIELDSPEED] >= BWOPT_SPEED_COUNT)
             data[TD_FIELDSPEED] = 0;
-        data[TD_DIFFICULTY] = sDifficultyVarToSel[VarGet(HOENN_VAR_DIFFICULTY) < 3 ? VarGet(HOENN_VAR_DIFFICULTY) : 0];
+        data[TD_DIFFICULTY] = HackDifficulty_SelectionFromValue(VarGet(HOENN_VAR_DIFFICULTY));
         data[TD_BATTLESPEED] = HackBattleSpeed_Get();
 #ifndef HACK_NO_MOEMON
         data[TD_MOEMON] = FlagGet(HACK_FLAG_MOEMON_ON) ? 0 : 1;          /* 0 だす / 1 ださない */
@@ -648,7 +650,7 @@ static void Task_Save(u8 taskId)
         FlagSet(HACK_FLAG_WONDER_SKIP);
     else
         FlagClear(HACK_FLAG_WONDER_SKIP);
-    VarSet(HOENN_VAR_DIFFICULTY, sDifficultySelToVar[data[TD_DIFFICULTY] < 3 ? data[TD_DIFFICULTY] : 2]);   /* ★ わくはもう変えない（セーブの値のまま・枠の見本もその値） */
+    VarSet(HOENN_VAR_DIFFICULTY, HackDifficulty_ValueFromSelection(data[TD_DIFFICULTY]));
     BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_FadeOut;
 }

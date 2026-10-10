@@ -2611,7 +2611,7 @@ static bool8 CalcOnlyBadMovesLeftInMoveset(u8 bankAtk, u8 bankDef)
 	u8 numDamageMoves = 0;
 	bool8 hasSuperEffectiveMove = FALSE;
 
-	if (AI_THINKING_STRUCT->aiFlags == AI_SCRIPT_CHECK_BAD_MOVE) //Only basic AI
+	if (!AIFlagsHaveStrategy(AI_THINKING_STRUCT->aiFlags)) //Only basic AI
 		return FALSE; //The dumb AI doesn't get to switch like this
 
 	u8 moveLimitations = CheckMoveLimitations(bankAtk, 0, 0xFF);
@@ -3416,7 +3416,7 @@ void CalcShouldAIDynamax(u8 bankAtk, u8 bankDef)
 
 		if (gNewBS->ai.dynamaxMonId[SIDE(bankAtk)] == gBattlerPartyIndexes[bankAtk])
 		{
-			if (AI_THINKING_STRUCT->aiFlags > AI_SCRIPT_CHECK_BAD_MOVE || SIDE(bankAtk) == B_SIDE_PLAYER) //Smart AI or partners only
+			if (AIFlagsHaveStrategy(AI_THINKING_STRUCT->aiFlags) || SIDE(bankAtk) == B_SIDE_PLAYER) //Smart AI or partners only
 			{
 				u16 predictedMove = IsValidMovePrediction(bankAtk, bankDef);
 				if (predictedMove != MOVE_NONE
@@ -3507,9 +3507,9 @@ void CalcShouldAITerastal(u8 bankAtk, u8 bankDef)
 		}
 
 		if (gNewBS->ai.terastalMonId[SIDE(bankAtk)] == gBattlerPartyIndexes[bankAtk]
-		|| (AI_THINKING_STRUCT->aiFlags > AI_SCRIPT_CHECK_BAD_MOVE && HackAI_TeraBlocksKO(bankAtk, bankDef, IsValidMovePrediction(bankDef, bankAtk)))) //[hack] patches/0121 守りのテラスタル
+		|| (AIFlagsHaveStrategy(AI_THINKING_STRUCT->aiFlags) && HackAI_TeraBlocksKO(bankAtk, bankDef, IsValidMovePrediction(bankDef, bankAtk)))) //[hack] patches/0121 守りのテラスタル
 		{
-			if (AI_THINKING_STRUCT->aiFlags > AI_SCRIPT_CHECK_BAD_MOVE || SIDE(bankAtk) == B_SIDE_PLAYER) //Smart AI or partners only
+			if (AIFlagsHaveStrategy(AI_THINKING_STRUCT->aiFlags) || SIDE(bankAtk) == B_SIDE_PLAYER) //Smart AI or partners only
 			{
 				u16 predictedMove = IsValidMovePrediction(bankAtk, bankDef);
 				if (predictedMove != MOVE_NONE
