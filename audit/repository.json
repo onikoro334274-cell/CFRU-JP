@@ -1382,8 +1382,8 @@
     },
     {
       "path": "audit/gnu_c.json",
-      "bytes": 129219,
-      "sha256": "598111a4b92f02855f1f5e17cc9df564b66b1131a3b74ad7245560a2433192a6",
+      "bytes": 129468,
+      "sha256": "d44fa8259f43d3aac39366c4e7f1f1c68b2a99edbc4fabbacc45266dcc5841b9",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 21662,
-      "sha256": "3395360bdbf6a53039f7ba8c947329f1afd16355537fe6ab0df080be1a7cf8c8",
+      "bytes": 22682,
+      "sha256": "c10e11cde083a9e1281ca8e3b2a0956b530f6f393ee35e338a502d34b17f20d7",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12534,6 +12534,17 @@
       "findings": []
     },
     {
+      "path": "scripts/generate_vanilla_tutor.py",
+      "bytes": 4382,
+      "sha256": "6b81c338286f190def6465d3061007d4bf5470cdd749fa7d046158ac971798c8",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/insert.py",
       "bytes": 27940,
       "sha256": "f603a2dd747c68fec46a51e27c222df3516e3df71f1b62b4b8c7bb641e2f70c9",
@@ -12941,6 +12952,17 @@
       "path": "src/Tables/frontier_trainer_names.h",
       "bytes": 13033,
       "sha256": "b84e15faa0ea9d76cccc9b33399d2e125bba478d787ad101d1dff5881f1437e6",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/Tables/hack_vanilla_tutor_compat.h",
+      "bytes": 3531,
+      "sha256": "b076ff675caa005b96792b5cc8bb8d26882900d38f18d8edd8c149d1550bf886",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -14496,11 +14518,6 @@
         "quoted_include_exists"
       ],
       "findings": [
-        {
-          "line": 25,
-          "kind": "missing_local_include",
-          "target": "Tables/hack_vanilla_tutor_compat.h"
-        },
         {
           "line": 26,
           "kind": "missing_local_include",

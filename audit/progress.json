@@ -61,7 +61,8 @@
     "Production DomeRoot/FreeDomeRootIfEmpty/PrepareDomeInfoCard fixture passes root and card allocation failures, successful reuse, empty-root cleanup and retained tree tilemap ownership; arrow and card-sprite checks remain passing. All three card task entry sites were reviewed for preallocation.",
     "Generated sideways_stairs_table.h from supplied BPRJ revision 0 ROM using 3 table reference checks, player movement dispatch check and all 170 pointer-chain range/Thumb checks; src/sideways_stairs.c now compiles with GNU ARM GCC -Wall -Wextra -O2 without diagnostics. Full GNU audit counts have not yet been refreshed.",
     "NPC text-color header regenerated with preserved adjacent hoenn_ow.json table/gfx metadata; 150 slots, validated table 7, unique in-range IDs and complete known-name classification; regeneration --check passes and hack_npc_text_color.c compiles using real GNU ARM GCC without diagnostics. Matching final graphics assets and GBA text rendering remain unverified.",
-    "Recovered Hoenn C header from preserved 482 flag/42 variable/438 trainer allocation mappings plus generator reserved constants: 141 definitions and 5 rematch pairs. GNU audit now 164/203 compiled, 39 failures; hack_difficulty.c compiles without diagnostics. Two files expose HACK_FLAG_WONDER_SKIP missing from preserved generator snapshot, so recovered header is not yet complete for this branch."
+    "Recovered Hoenn C header from preserved 482 flag/42 variable/438 trainer allocation mappings plus generator reserved constants: 141 definitions and 5 rematch pairs. GNU audit now 164/203 compiled, 39 failures; hack_difficulty.c compiles without diagnostics. Two files expose HACK_FLAG_WONDER_SKIP missing from preserved generator snapshot, so recovered header is not yet complete for this branch.",
+    "Vanilla tutor compatibility recovered from supplied BPRJ: checked 15 expected move IDs and learnset pointer 0x0841930E, mapped all 386 original species to current national dex constants; complete hack_vanilla_tutor.c compilation still awaits Emerald tutor compatibility header."
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -109,7 +110,8 @@
     "Four Dome info-card arrows share a guarded initializer, preventing invalid sprite-array access when decorative arrow creation fails",
     "Dome info cards allocate their root/card before fading or freeing the tree screen; field entry handles failure via its normal field-return callback. Removed later allocation that overwrote preallocated ownership and fixed trainer path writing pos before card allocation.",
     "Added standalone ROM-path-driven movement header generator adapted from adjacent PokemonStart-src generator; recovered actual movement pointer table, with no placeholder values",
-    "Added standalone NPC text-color generator and preserved graphics-ID input metadata; generated actual npc_text_colors.h without placeholder values"
+    "Added standalone NPC text-color generator and preserved graphics-ID input metadata; generated actual npc_text_colors.h without placeholder values",
+    "Added explicit-ROM-path vanilla tutor compatibility generator using tracked species/national dex constants; restored actual 387-entry learnset bitmask header"
   ],
   "limitations": [
     "77 quoted C include references are absent from this checkout; see repository.json for locations",
@@ -138,7 +140,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:40:51.554694+00:00",
+  "updated_utc": "2026-10-10T18:42:03.907728+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }
