@@ -524,6 +524,8 @@ static void Task_UpdateDailyValues(u8 taskId)
 			#endif
 
 			u32 daysSince = GetDaysSinceTimeInValue(backupVar);
+			if (daysSince > 0xFFFF)
+				daysSince = 0xFFFF;
 			UpdatePartyPokerusTime(daysSince);
 			ClearDailyEventFlags();
 			SetGameStat(GAME_STAT_CAUGHT_TODAY, 0);

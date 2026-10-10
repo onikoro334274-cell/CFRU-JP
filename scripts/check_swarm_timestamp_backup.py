@@ -51,8 +51,9 @@ static void VarSet(u16 id,u16 value){
 #endif
     }else errors++;
 }
-static u32 GetDaysSinceTimeInValue(u32 value){days++;if(value!=expectedBackup||updates!=1) errors++;return 17;}
-static void UpdatePartyPokerusTime(u32 value){pokerus++;if(value!=17) errors++;}
+static u32 elapsed=65536;
+static u32 GetDaysSinceTimeInValue(u32 value){days++;if(value!=expectedBackup||updates!=1) errors++;return elapsed;}
+static void UpdatePartyPokerusTime(u16 value){pokerus++;if(value!=(elapsed>65535?65535:elapsed)) errors++;}
 static void ClearDailyEventFlags(void){clears++;}
 static void SetGameStat(u8 id,u32 value){statistics++;if((id!=GAME_STAT_CAUGHT_TODAY&&id!=GAME_STAT_EXP_EARNED_TODAY)||value) errors++;}
 static void DestroyTask(u8 id){destroys++;if(id!=3) errors++;}

@@ -1,0 +1,14 @@
+{
+  "result": "pass",
+  "sources": {
+    "src/wild_encounter.c": "d40891cf94440ebdf389e7fb15169eae3f90f94feadc89f966bf269c0edb7ddb",
+    "src/build_pokemon.c": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941"
+  },
+  "verification": [
+    "check_pokerus_time.py: 16777216 byte/day cases",
+    "check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature",
+    "ARM wild_encounter.c object compile"
+  ],
+  "fix": "Saturate u32 daily elapsed count at 65535 before u16 Pokerus consumer to prevent wrap to zero.",
+  "limitations": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
+}

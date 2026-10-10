@@ -662,6 +662,26 @@
       "verification": "check_pokerus_target.py baseline reproduction and current cases; ARM compile",
       "current_report": "audit/pokerus_target_review.json",
       "remaining": "Controlled cyclic RNG and accessor mocks; strain distribution, arbitrary RNG termination and runtime are not certified."
+    },
+    {
+      "path": "src/build_pokemon.c",
+      "source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
+      "sections": [
+        "UpdatePartyPokerusTime"
+      ],
+      "verification": "check_pokerus_time.py: 16777216 byte/day cases; check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature; ARM wild_encounter.c object compile",
+      "current_report": "audit/pokerus_elapsed_review.json",
+      "remaining": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
+    },
+    {
+      "path": "src/wild_encounter.c",
+      "source_sha256": "d40891cf94440ebdf389e7fb15169eae3f90f94feadc89f966bf269c0edb7ddb",
+      "sections": [
+        "Task_UpdateDailyValues elapsed-day conversion"
+      ],
+      "verification": "check_pokerus_time.py: 16777216 byte/day cases; check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature; ARM wild_encounter.c object compile",
+      "current_report": "audit/pokerus_elapsed_review.json",
+      "remaining": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
     }
   ]
 }

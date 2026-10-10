@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 853,
+    "source_files": 854,
     "files_with_indexed_scopes": 33,
-    "indexed_scopes": 51,
+    "indexed_scopes": 53,
     "scope_states": {
-      "source_changed": 17,
-      "current": 33,
+      "source_changed": 18,
+      "current": 34,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3644,6 +3644,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_pokerus_time.py",
+      "source_sha256": "c1ae61cc65250b90f53397d0e7907eea58996e5a8809a2f4868b96492e958e70",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_premier_ball_bonus.py",
       "source_sha256": "4dec3c1cdc84f8751c686dbf6a6d026ec13eb29fb85a4dacfb681bd4ab04e7db",
       "gnu_c_object": "not_applicable",
@@ -3883,7 +3890,7 @@
     },
     {
       "path": "scripts/check_swarm_timestamp_backup.py",
-      "source_sha256": "526a42b2d101c3eb192940e86f28d175f0699c08c949b6c9f63131fb24b3d309",
+      "source_sha256": "2a402729a09d3b2b66be4c099d176be2ec17d27e25841e9045804b28f92e1e6c",
       "gnu_c_object": "not_applicable",
       "scoped_reviews": [],
       "whole_file_completion": "not_established"
@@ -4840,6 +4847,16 @@
           "evidence": [],
           "verification": "check_pokerus_target.py baseline reproduction and current cases; ARM compile",
           "remaining": "Controlled cyclic RNG and accessor mocks; strain distribution, arbitrary RNG termination and runtime are not certified."
+        },
+        {
+          "state": "current",
+          "sections": [
+            "UpdatePartyPokerusTime"
+          ],
+          "recorded_source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
+          "evidence": [],
+          "verification": "check_pokerus_time.py: 16777216 byte/day cases; check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature; ARM wild_encounter.c object compile",
+          "remaining": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
         }
       ],
       "whole_file_completion": "not_established"
@@ -6794,11 +6811,11 @@
     },
     {
       "path": "src/wild_encounter.c",
-      "source_sha256": "2758da7aae0c2fe3bca69ffbfe1bcdefc205fe1f6965bf1f926fb61c51766b22",
+      "source_sha256": "d40891cf94440ebdf389e7fb15169eae3f90f94feadc89f966bf269c0edb7ddb",
       "gnu_c_object": "object_compiled",
       "scoped_reviews": [
         {
-          "state": "current",
+          "state": "source_changed",
           "sections": [
             "Task_UpdateDailyValues"
           ],
@@ -6811,6 +6828,16 @@
           ],
           "verification": null,
           "remaining": "Full encounter algorithms, daily task timing, native event flags/statistics, Pokerus arithmetic and GBA integration remain unverified."
+        },
+        {
+          "state": "current",
+          "sections": [
+            "Task_UpdateDailyValues elapsed-day conversion"
+          ],
+          "recorded_source_sha256": "d40891cf94440ebdf389e7fb15169eae3f90f94feadc89f966bf269c0edb7ddb",
+          "evidence": [],
+          "verification": "check_pokerus_time.py: 16777216 byte/day cases; check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature; ARM wild_encounter.c object compile",
+          "remaining": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."
         }
       ],
       "whole_file_completion": "not_established"
