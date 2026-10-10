@@ -1,0 +1,11 @@
+{
+  "result": "passed",
+  "delivery_results": [
+    0,
+    1,
+    2
+  ],
+  "baseline_party_routing_failure_reproduced": true,
+  "rom_evidence": "Original BPRJ removeitem handler 0x08069F1C calls RemoveBagItem at 0x08069F4A and stores its return through the 0x02037004 literal at 0x08069F5C.",
+  "limitations": "Limited script interpreter; does not emulate complete script VM, inventory races, full revival or GBA runtime."
+}

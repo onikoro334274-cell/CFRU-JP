@@ -27,8 +27,8 @@ KantoMoemonFossil_EventScript_Scientist:
 	callasm HackMoemonFossil_Revive
 	compare LASTRESULT 2
 	if equal _goto KantoMoemonFossil_Full
-	removeitem ITEM_MOEMON_FOSSIL 1
 	copyvar 0x8001 LASTRESULT
+	removeitem ITEM_MOEMON_FOSSIL 1
 	msgbox gText_MoeFossil_Wait MSG_KEEPOPEN
 	fanfare 0x101
 	msgbox gText_MoeFossil_Revived MSG_KEEPOPEN
