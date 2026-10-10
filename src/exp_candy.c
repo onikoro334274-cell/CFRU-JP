@@ -78,6 +78,16 @@ static void ExpCandyNextLevel(u8 taskId)
 	ItemUseCB_RareCandyStep(taskId, NULL);
 }
 
+static bool8 ExpCandyChainValid(u16 chain, u8 slot)
+{
+	u32 target = chain & 0xFF;
+	u32 savedSlot = (chain >> 8) & 7;
+	u32 candy = (chain >> 11) & 7;
+	return (chain & 0xC000) == 0 && target > 0 && target <= MAX_LEVEL
+		&& savedSlot < PARTY_SIZE && savedSlot == slot
+		&& candy < ARRAY_COUNT(sExpCandyAmount);
+}
+
 /* 素の PartyMenuTryEvolution（08127048）の置き換え（functionrewrites） */
 void HackExpCandy_TryEvolution(u8 taskId)
 {
@@ -85,7 +95,7 @@ void HackExpCandy_TryEvolution(u8 taskId)
 	u16 chain = VarGet(VAR_EXP_CANDY_TARGET);
 	u16 targetSpecies;
 
-	if (chain != 0 && ((chain >> 8) & 7) != gPartyMenu.slotId)
+	if (chain != 0 && !ExpCandyChainValid(chain, gPartyMenu.slotId))
 	{
 		ExpCandyChainClear();                    /* 別のポケモン（残っていた続き）: 使わない */
 		chain = 0;

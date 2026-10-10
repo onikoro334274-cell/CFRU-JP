@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "cases": 524288,
+  "scope": "Actual packed-state validator; exhaustive halfword states and slots 0..7 against independent valid-state encoding.",
+  "limitations": "Validator only; full level-up/learn-move/evolution sequence and GBA runtime are not verified."
+}
