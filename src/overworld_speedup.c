@@ -4,6 +4,7 @@
 #include "../include/palette.h"
 #include "../include/script.h"
 #include "../include/sprite.h"
+#include "../include/task.h"
 #include "../include/fieldmap.h"
 #include "../include/event_object_movement.h"
 #include "../include/field_player_avatar.h"
@@ -133,16 +134,14 @@ struct ProfFieldInput { u8 b[4]; };   /* 素の struct FieldInput（4 バイト�
 #define ProfCB1_Overworld 0x08055DF5
 #define ProfCB2_Overworld 0x08055E75
 
-struct ProfTask { void (*func)(u8); u8 isActive, prev, next, priority; s16 data[16]; };   /* 素の struct Task（0x28 バイト） */
-#define ProfTasks ((struct ProfTask*) 0x030050D0)
 static void ProfRunTasks(void)
 {
-    u32 id = ((u8 (*)(void)) 0x08076D41)();    /* FindFirstActiveTask */
-    if (id == 16)
+    u32 id = FindFirstActiveTask();
+    if (id == NUM_TASKS)
         return;
     do
     {
-        struct ProfTask* t = &ProfTasks[id];
+        struct Task* t = &gTasks[id];
         void (*func)(u8) = t->func;
         u32 st = ProfNow();
         func(id);
