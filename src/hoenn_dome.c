@@ -2253,7 +2253,6 @@ static void InitDomeTrainers(void)
 {
     int i, j, k;
     int monLevel;
-    int species[FRONTIER_PARTY_SIZE];
     int monTypesBits, monTypesCount;
     int trainerId;
     int monId;
@@ -2262,9 +2261,6 @@ static void InitDomeTrainers(void)
     int statValues[NUM_STATS] = {0};
     u8 ivs = 0;
 
-    species[0] = 0;
-    species[1] = 0;
-    species[2] = 0;
 
     DOME->domeLvlMode = FRONTIER_LVL_MODE + 1;
     DOME->domeBattleMode = VarGet(HOENN_VAR_TOWER_MODE) + 1;
@@ -2321,15 +2317,13 @@ static void InitDomeTrainers(void)
                     // Make sure the mon is valid.
                     int alreadySelectedMonId = DOME_MONS[i][k];
                     if (alreadySelectedMonId == monId
-                        || species[0] == HoennFactory_MonSpecies(monId)
-                        || species[1] == HoennFactory_MonSpecies(monId)
+                        || HoennFactory_MonSpecies(alreadySelectedMonId) == HoennFactory_MonSpecies(monId)
                         || HoennFactory_MonItem(alreadySelectedMonId) == HoennFactory_MonItem(monId))
                         break;
                 }
             } while (k != j);
 
             DOME_MONS[i][j] = monId;
-            species[j] = HoennFactory_MonSpecies(monId);
         }
 
         DOME_TRAINERS[i].isEliminated = FALSE;
@@ -5746,7 +5740,6 @@ static void InitRandomTourneyTreeResults(void)
 {
     int i, j, k;
     int monLevel;
-    int species[FRONTIER_PARTY_SIZE];
     int monTypesBits;
     int trainerId;
     int monId;
@@ -5758,9 +5751,6 @@ static void InitRandomTourneyTreeResults(void)
     int statValues[NUM_STATS] = {0};
     u8 ivs = 0;
 
-    species[0] = 0;
-    species[1] = 0;
-    species[2] = 0;
     if ((DOME->domeLvlMode != -DOME->domeBattleMode) && VarGet(HOENN_VAR_TOWER_STATUS) != 1 /* ST_ENTERED＝エメラルドの CHALLENGE_STATUS_SAVING */)
         return;
 
@@ -5801,15 +5791,13 @@ static void InitRandomTourneyTreeResults(void)
                     // Make sure the mon is valid.
                     int alreadySelectedMonId = DOME_MONS[i][k];
                     if (alreadySelectedMonId == monId
-                        || species[0] == HoennFactory_MonSpecies(monId)
-                        || species[1] == HoennFactory_MonSpecies(monId)
+                        || HoennFactory_MonSpecies(alreadySelectedMonId) == HoennFactory_MonSpecies(monId)
                         || HoennFactory_MonItem(alreadySelectedMonId) == HoennFactory_MonItem(monId))
                         break;
                 }
             } while (k != j);
 
             DOME_MONS[i][j] = monId;
-            species[j] = HoennFactory_MonSpecies(monId);
         }
         DOME_TRAINERS[i].isEliminated = FALSE;
         DOME_TRAINERS[i].eliminatedAt = 0;
