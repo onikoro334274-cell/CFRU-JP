@@ -382,7 +382,7 @@ u8 ReformatItemDescription(u16 itemId, u8* dest, u8 maxWidth)
 u32 CanMonLearnTMHM(struct Pokemon* mon, u8 tm)
 {
 	u16 species = GetMonData(mon, MON_DATA_SPECIES2, 0);
-	if (species == SPECIES_EGG)
+	if (species == SPECIES_NONE || species == SPECIES_EGG || species >= NUM_SPECIES)
 	{
 		return 0;
 	}
@@ -390,23 +390,23 @@ u32 CanMonLearnTMHM(struct Pokemon* mon, u8 tm)
 	u32 mask;
 	if (tm < 32)
 	{
-		mask = 1 << tm;
+		mask = 1u << tm;
 		return (gTMHMLearnsets[species][0] & mask) != 0 ? TRUE : FALSE;
 	}
 	else if (tm >= 32 && tm < 64)
 	{
-		mask = 1 << (tm - 32);
+		mask = 1u << (tm - 32);
 		return (gTMHMLearnsets[species][1] & mask) != 0 ? TRUE : FALSE;
 	}
 	#ifdef EXPANDED_TMSHMS
 	else if (tm >= 64 && tm < 96)
 	{
-		mask = 1 << (tm - 64);
+		mask = 1u << (tm - 64);
 		return (gTMHMLearnsets[species][2] & mask) != 0 ? TRUE : FALSE;
 	}
 	else if (tm >= 96 && tm < 128)
 	{
-		mask = 1 << (tm - 96);
+		mask = 1u << (tm - 96);
 		return (gTMHMLearnsets[species][3] & mask) != 0 ? TRUE : FALSE;
 	}
 	#endif
