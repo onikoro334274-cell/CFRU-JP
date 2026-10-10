@@ -1532,6 +1532,13 @@ static void Select_Task_OpenSummaryScreen(u8 taskId)
     switch (gTasks[taskId].tState)
     {
     case STATE_SUMMARY_FADE:
+        sFactorySelectMons = AllocZeroed(sizeof(struct Pokemon) * SELECTABLE_MONS_COUNT);
+        if (sFactorySelectMons == NULL)
+        {
+            gTasks[taskId].tState = STATE_MENU_HANDLE_INPUT;
+            gTasks[taskId].func = Select_Task_HandleMenu;
+            break;
+        }
         gPlttBufferUnfaded[BG_PLTT_ID(PALNUM_FADE_TEXT) + 4] = gPlttBufferFaded[BG_PLTT_ID(PALNUM_FADE_TEXT) + 4];
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
         gTasks[taskId].tState = STATE_SUMMARY_CLEAN;
@@ -1555,7 +1562,6 @@ static void Select_Task_OpenSummaryScreen(u8 taskId)
         DestroyTask(taskId);
         sFactorySelectScreen->fromSummaryScreen = TRUE;
         currMonId = sFactorySelectScreen->cursorPos;
-        sFactorySelectMons = AllocZeroed(sizeof(struct Pokemon) * SELECTABLE_MONS_COUNT);
         for (i = 0; i < SELECTABLE_MONS_COUNT; i++)
             Memcpy(&sFactorySelectMons[i], &sFactorySelectScreen->mons[i].monData, sizeof(struct Pokemon));
         BwShowPokemonSummaryScreen(sFactorySelectMons, currMonId, SELECTABLE_MONS_COUNT - 1, CB2_InitSelectScreen, PSS_MODE_UNK1);
