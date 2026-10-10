@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Converts the images in scripts/gfx_src into src/achievements_gfx.h
 (background tiles/tilemap/palette, menu frame tiles/tilemap/palette, tier ball icons).
-Requires Pillow. Run with: python3 -I scripts/achievements_gfx.py
-(scripts/string.py shadows the stdlib otherwise). The generated header is committed, so this only
+Requires Pillow. Run with: python3 scripts/achievements_gfx.py
+The generated header is committed, so this only
 needs to be re-run when the images are changed. Images come from SoulGold (graphics/pokegear/tiles.*,
 graphics/achievements/menu.*, graphics/balls/*.png).
 Do NOT put these images in ./graphics: the build would try to compile them with grit."""

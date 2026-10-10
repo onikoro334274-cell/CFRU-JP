@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-import os
-import shutil
+import subprocess
 import sys
+from pathlib import Path
+from rom_bounds import MAX_ROM_SIZE, validate_payload
 
 ############
 # Options go here.
@@ -23,45 +24,42 @@ SEARCH_FREE_SPACE = True  # Set to True if you want the script to search for fre
 
 
 def MakeOffset0x100Aligned(offset: int) -> int:
-    while offset % 16 != 0:
-        offset += 1
-
-    return offset
+    return (offset + 15) & ~15
 
 
-def FindOffsetToPut(rom, neededBytes: int, startOffset: int) -> int:
-    offset = startOffset
-    rom.seek(0, 2)
-    maxPosition = rom.tell()
+def FindOffsetToPut(rom, neededBytes: int, startOffset: int, endOffset=None) -> int:
+    if neededBytes <= 0 or startOffset < 0:
+        raise ValueError("Free-space size must be positive and offset nonnegative.")
+    offset = MakeOffset0x100Aligned(startOffset)
+    rom.seek(offset)
     numFoundBytes = 0
-
-    while numFoundBytes < neededBytes:
-        if offset + numFoundBytes >= maxPosition:
-            print("End of file reached. Not enough free space.")
-            return 0
-
-        numFoundBytes += 1
-        rom.seek(offset + numFoundBytes)
-        if rom.read(1) != b'\xFF':
-            offset = MakeOffset0x100Aligned(offset + numFoundBytes)
-            numFoundBytes = 0
-
-    return offset
+    position = offset
+    while True:
+        readSize = 65536 if endOffset is None else min(65536, max(0, endOffset - position))
+        chunk = rom.read(readSize)
+        if not chunk:
+            raise ValueError("End of file reached. Not enough free space.")
+        for value in chunk:
+            if position >= offset:
+                if value == 0xFF:
+                    numFoundBytes += 1
+                    if numFoundBytes == neededBytes:
+                        return offset
+                else:
+                    offset = MakeOffset0x100Aligned(position + 1)
+                    numFoundBytes = 0
+            position += 1
 
 
 def ChangeFileLine(filePath: str, lineToChange: int, replacement: str):
     with open(filePath, 'r') as file:
-        copy = file.read()
-        file.seek(0x0)
-        lineNum = 1
-        for line in file:
-            if lineNum == lineToChange:
-                copy = copy.replace(line, replacement)
-                break
-            lineNum += 1
+        lines = file.readlines()
+    if not 1 <= lineToChange <= len(lines):
+        raise ValueError("Line to change is outside the file.")
+    lines[lineToChange - 1] = replacement
 
     with open(filePath, 'w') as file:
-        file.write(copy)
+        file.writelines(lines)
 
 
 def EditLinker(offset: int):
@@ -74,20 +72,11 @@ def EditInsert(offset: int):
 
 
 def BuildCode():
-    if shutil.which('python3') is not None:
-        result = os.system("python3 scripts/build.py")
-    else:
-        result = os.system("python scripts/build.py")
-
-    if result != 0:  # Build wasn't sucessful
-        sys.exit(1)
+    subprocess.run([sys.executable, "scripts/build.py"], check=True)
 
 
 def InsertCode():
-    if shutil.which('python3') is not None:
-        os.system("python3 scripts/insert.py")
-    else:
-        os.system("python scripts/insert.py")
+    subprocess.run([sys.executable, "scripts/insert.py"], check=True)
 
 
 def ClearFromTo(rom, from_: int, to_: int):
@@ -102,22 +91,31 @@ def ClearFromTo(rom, from_: int, to_: int):
 
 def main():
     try:
-        with open(ROM_NAME, 'rb+') as rom:
+        with open(ROM_NAME, 'rb') as rom:
             offset = OFFSET_TO_PUT
+            validate_payload(offset, 1)
             if SEARCH_FREE_SPACE is True:
-                offset = FindOffsetToPut(rom, 0x50000, MakeOffset0x100Aligned(offset))
+                offset = MakeOffset0x100Aligned(offset)
 
-            EditLinker(offset)
-            EditInsert(offset)
-            BuildCode()
+            while True:
+                EditLinker(offset)
+                EditInsert(offset)
+                BuildCode()
+                size = Path('build/output.bin').stat().st_size
+                validate_payload(offset, size)
+                if not SEARCH_FREE_SPACE:
+                    break
+                verifiedOffset = FindOffsetToPut(rom, size, offset, MAX_ROM_SIZE)
+                if verifiedOffset == offset:
+                    break
+                offset = verifiedOffset
             InsertCode()
-            rom.close()
 
-    except FileNotFoundError:
-        print('Error: Could not find source rom: "' + ROM_NAME + '".\n'
-              + 'Please make sure a rom with this name exists in the root.')
+    except FileNotFoundError as error:
+        print('Error: Required build input or output is missing: ' + str(error.filename))
+        sys.exit(1)
 
 
 if __name__ == '__main__':
     main()
-    
+

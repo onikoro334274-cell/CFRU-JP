@@ -2,7 +2,7 @@
 # -*- coding: cp437 -*-
 
 import sys
-from insert import TryProcessFileInclusion, TryProcessConditionalCompilation
+from preprocess import TryProcessFileInclusion, TryProcessConditionalCompilation, validate_conditionals
 
 CharMap = "charmap.tbl"
 
@@ -79,6 +79,8 @@ SpecialBuffers = {
 
 
 def StringFileConverter(fileName: str):
+    charMap = PokeByteTableMaker()
+    dependencies = {fileName, CharMap, __file__, TryProcessFileInclusion.__code__.co_filename}
     stringToWrite = ".thumb\n.text\n.align 2\n\n"
     with open(fileName, 'r', encoding="utf_8") as file:
         maxLength = 0
@@ -91,9 +93,10 @@ def StringFileConverter(fileName: str):
         for line in file:
             lineNum += 1
             line = line.rstrip("\n\r")  # Remove only newline characters
-            if TryProcessFileInclusion(line, definesDict):
-                continue
             if TryProcessConditionalCompilation(line, definesDict, conditionals):
+                continue
+            if TryProcessFileInclusion(line, definesDict):
+                dependencies.add(line.split('"')[1].strip())
                 continue
             if line.strip() == "" or line[:2] == "//":  # Ignore blank lines and comment lines
                 continue
@@ -109,13 +112,16 @@ def StringFileConverter(fileName: str):
                         maxLength = int(line.split("=")[1])
                     except:
                         print('Error reading max length on line ' + str(lineNum) + ' in file: "' + fileName + '"')
-                        sys.exit(0)
+                        sys.exit(1)
                 elif "FILL_FF" in line and "=" in line:
                     try:
-                        fillFF = bool(line.split("=")[1])
+                        value = line.split("=")[1].strip().lower()
+                        if value not in ('true', 'false', '1', '0'):
+                            raise ValueError('FILL_FF must be True or False')
+                        fillFF = value in ('true', '1')
                     except:
                         print('Error reading FF fill on line ' + str(lineNum) + ' in file: "' + fileName + '"')
-                        sys.exit(0)
+                        sys.exit(1)
                 else:
                     print('Warning! Error on line ' + str(lineNum) + ' in file: "' + fileName + '"')
                     
@@ -125,16 +131,19 @@ def StringFileConverter(fileName: str):
                     title = line[6:]
                     stringToWrite += ".global " + title + "\n" + title + ":\n"
                 else:
-                    stringToWrite += ProcessString(line, lineNum, maxLength, fillFF)
+                    stringToWrite += ProcessString(line, lineNum, maxLength, fillFF, charMap)
                     stringToWrite += "0xFF\n\n"  # Only print line in everything went alright
 
+    validate_conditionals(conditionals)
     output = open(fileName.split(".string")[0] + '.s', 'w')  # Only open file once we know everything went okay.
     output.write(stringToWrite)
     output.close()
+    return dependencies
 
 
-def ProcessString(string: str, lineNum: int, maxLength=0, fillWithFF=False) -> str:
-    charMap = PokeByteTableMaker()
+def ProcessString(string: str, lineNum: int, maxLength=0, fillWithFF=False, charMap=None) -> str:
+    if charMap is None:
+        charMap = PokeByteTableMaker()
     stringToWrite = ".byte "
     buffer = False
     escapeChar = False
@@ -181,7 +190,7 @@ def ProcessString(string: str, lineNum: int, maxLength=0, fillWithFF=False) -> s
 
             except KeyError:
                 print('Error parsing string: "' + string + '" (Line ' + str(lineNum) + ')')
-                sys.exit(0)
+                sys.exit(1)
 
         else:
             try:
@@ -194,12 +203,14 @@ def ProcessString(string: str, lineNum: int, maxLength=0, fillWithFF=False) -> s
                 elif char == '\\':
                     escapeChar = True
                 elif char == '"':
-                    stringToWrite += hex(charMap["\\" + char])
+                    stringToWrite += hex(charMap["\\" + char]) + ", "
                     strLen += 1
                 else:
                     print('Error parsing string on line ' + str(lineNum) + ' at character "' + char + '".')
                     sys.exit(1)
     
+    if buffer or escapeChar:
+        raise ValueError('Unterminated string buffer or escape on line ' + str(lineNum))
     if strLen < maxLength and fillWithFF:
         while strLen < maxLength:
             stringToWrite += "0xFF, "
@@ -222,4 +233,5 @@ def PokeByteTableMaker():
                     except:
                         pass
         dictionary[' '] = 0
+    dictionary['\u3000'] = 0
     return dictionary
