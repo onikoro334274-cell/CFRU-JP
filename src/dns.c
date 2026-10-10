@@ -29,7 +29,7 @@ typedef bool8 IgnoredPalT[16];
 static void FadeDayNightPalettes(void);
 static void BlendFadedPalettes(u32 selectedPalettes, u8 coeff, u32 color);
 static void BlendFadedPalette(u16 palOffset, u16 numEntries, u8 coeff, u32 blendColor);
-static u16 FadeColourForDNS(struct PlttData* blend, u8 coeff, s8 r, s8 g, s8 b);
+static u16 FadeColourForDNS(u16 colour, u16 blend, u8 coeff);
 static void FadeOverworldBackground(u32 selectedPalettes, u8 coeff, u32 color, bool8 palFadeActive);
 #endif
 static bool8 IsDate1BeforeDate2(u32 y1, u32 m1, u32 d1, u32 y2, u32 m2, u32 d2);
@@ -179,12 +179,7 @@ static void BlendFadedPalette(u16 palOffset, u16 numEntries, u8 coeff, u32 blend
 		//Fixes an issue with pre-battle mugshots
 		if (dontFadeWhite && gPlttBufferFaded[index] == RGB_WHITE) continue;
 
-		struct PlttData *data1 = (struct PlttData*) &gPlttBufferFaded[index];
-		s8 r = data1->r;
-		s8 g = data1->g;
-		s8 b = data1->b;
-		struct PlttData* data2 = (struct PlttData*) &blendColor;
-		((u16*) PLTT)[index] = FadeColourForDNS(data2, coeff, r, g, b);
+		((u16*) PLTT)[index] = FadeColourForDNS(gPlttBufferFaded[index], blendColor, coeff);
 	}
 }
 
@@ -200,13 +195,7 @@ static void BlendFadedUnfadedPalette(u16 palOffset, u16 numEntries, u8 coeff, u3
 
 		if (gIgnoredDNSPalIndices[ignoreOffset][i]) continue; //Don't fade this index.
 
-		struct PlttData* data1 = (struct PlttData*) &gPlttBufferUnfaded[index];
-		struct PlttData* data2 = (struct PlttData*) &blendColor;
-		s8 r = data1->r;
-		s8 g = data1->g;
-		s8 b = data1->b;
-
-		u16 newColour = FadeColourForDNS(data2, coeff, r, g, b);
+		u16 newColour = FadeColourForDNS(gPlttBufferUnfaded[index], blendColor, coeff);
 		gPlttBufferUnfaded[index] = newColour;
 
 		if (!palFadeActive)
@@ -214,19 +203,16 @@ static void BlendFadedUnfadedPalette(u16 palOffset, u16 numEntries, u8 coeff, u3
 	}
 }
 
-static u16 FadeColourForDNS(struct PlttData* blend, u8 coeff, s8 r, s8 g, s8 b)
+static u16 FadeColourForDNS(u16 colour, u16 blend, u8 coeff)
 {
-	return ((r + (((blend->r - r) * coeff) >> 4)) << 0)
-		 | ((g + (((blend->g - g) * coeff) >> 4)) << 5)
-		 | ((b + (((blend->b - b) * coeff) >> 4)) << 10);
+	// Read packed RGB555 directly; accessing u16/u32 storage as bitfields aliases it.
+	s8 r = colour & 31;
+	s8 g = (colour >> 5) & 31;
+	s8 b = (colour >> 10) & 31;
 
-/*
-	u8 coeffMax = 128;
-
-	return (((r * (coeffMax - coeff) + (((r * blend->r) >> 5) * coeff)) >> 8) << 0)
-		 | (((g * (coeffMax - coeff) + (((g * blend->g) >> 5) * coeff)) >> 8) << 5)
-		 | (((b * (coeffMax - coeff) + (((b * blend->b) >> 5) * coeff)) >> 8) << 10);
-*/
+	return ((r + ((((blend & 31) - r) * coeff) >> 4)) << 0)
+		 | ((g + (((((blend >> 5) & 31) - g) * coeff) >> 4)) << 5)
+		 | ((b + (((((blend >> 10) & 31) - b) * coeff) >> 4)) << 10);
 }
 
 //This function gets called once when the game transitions to a new fade colour
@@ -347,12 +333,7 @@ void DNSBattleBGPalFade(void)
 			for (i = 0; i < 16; ++i)
 			{
 				u16 index = i + palOffset;
-				struct PlttData* data1 = (struct PlttData*) &gPlttBufferUnfaded[index];
-				s8 r = data1->r;
-				s8 g = data1->g;
-				s8 b = data1->b;
-				struct PlttData *data2 = (struct PlttData *)&blendColor;
-				u16 color = FadeColourForDNS(data2, coeff, r, g, b);
+				u16 color = FadeColourForDNS(gPlttBufferUnfaded[index], blendColor, coeff);
 
 				gPlttBufferUnfaded[index] = color;
 				gPlttBufferFaded[index] = color;
