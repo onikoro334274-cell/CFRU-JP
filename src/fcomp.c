@@ -91,6 +91,8 @@ __attribute__((noinline, used)) FC_ARM u32 FCompInflateArm(const struct FCompSet
 		if (set->pixT1 == NULL || set->pixT2 == NULL)
 			return FALSE;
 		pixEnd = FCOMP_NUM_UNIQ(data) * 32;
+		if (pixEnd > outSize)
+			return FALSE;
 	}
 	else if (FCOMP_VERSION(data) != 0)
 		return FALSE;

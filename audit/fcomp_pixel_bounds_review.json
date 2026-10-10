@@ -1,0 +1,16 @@
+{
+  "scope": "FCompInflateArm version-1 (v2 format) pixel section output bounds",
+  "defect": "Context-coded pixels wrote without checking outSize; header unique count could exceed destination capacity.",
+  "fix": "Reject pixEnd > outSize before consuming symbols or writing pixels.",
+  "verification": {
+    "scripts/check_fcomp_pixel_bounds.py": "679 unique-count/output-size combinations pass output canaries; valid zero-pixel controlled streams decode",
+    "scripts/check_fcomp_pixel_bounds.py --baseline fc432f7": "Fixture return 3 reproduces output overwrite",
+    "scripts/check_fcomp_arm.py": "1532-byte ARM core within 1696-byte copy capacity; no BL/BLX instructions",
+    "audit/gnu_c.json": "174/203 actual ARM C source compilations pass"
+  },
+  "limitations": [
+    "Controlled native fixture uses valid one-bit zero-pixel context codes, not full compressor corpus",
+    "No GBA runtime or linked IWRAM placement confirmation",
+    "General truncation, malformed Huffman tables and DPE map expansion still require review"
+  ]
+}
