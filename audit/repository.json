@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 27633,
-      "sha256": "3d782fdc9e63b59bbdfd5cc1db83026783b46c8d8be27c5f6801ae63b50cf896",
+      "bytes": 27995,
+      "sha256": "192a3ae4eadff21fa7b6c2059295d2dec763d293f90c992e1fb337ea2a9258d3",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12505,6 +12505,17 @@
       "path": "scripts/check_slot_screen.py",
       "bytes": 5807,
       "sha256": "592a5c4ef770ec75447386477b00035def6aaf9306a50ed98bf62ade25cf13fd",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_step_weather_dispatch.py",
+      "bytes": 2499,
+      "sha256": "20e6a9f0df8462097f04506a73aba99f2fa5214a2d88a541dd335a6f6f5802cc",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
