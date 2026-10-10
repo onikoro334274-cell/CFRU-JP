@@ -503,7 +503,7 @@ void sp017_ChangePokemonAttacks(void)
 	u16 moveSlot = Var8005;
 	u16 move = Var8006;
 
-	if (partyId >= PARTY_SIZE || move > LAST_MOVE_INDEX || moveSlot > MAX_MON_MOVES)
+	if (partyId >= PARTY_SIZE || move > LAST_MOVE_INDEX || moveSlot >= MAX_MON_MOVES)
 		return;
 
 	//Check empty move slots first, if not deleting

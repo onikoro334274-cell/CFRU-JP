@@ -1,0 +1,8 @@
+{
+  "result": "passed",
+  "cases": 5242880,
+  "last_move_index": 1000,
+  "baseline": "d908b41 permits invalid move slot 4 and fails bounded service checks.",
+  "scope": "Production script API for every u16 slot, six valid/two invalid party indices, delete/first/last/invalid move IDs and empty/full movesets. Invalid inputs cannot dispatch native services; valid insertion/replacement/deletion preserves unrelated slots and PP-bonus routing.",
+  "limitations": "Controlled native services; native deletion compaction, PP implementation and linked GBA runtime unverified."
+}
