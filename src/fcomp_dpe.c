@@ -49,15 +49,17 @@ static bool8 DpeFExpand(const u8 *data, u8 *out, u32 numTiles, u32 numUniq)
 		return FALSE;
 
 	for (i = 0; i < numTiles; ++i)
+	{
 		map[i] = out[numUniq * 32 + i];
+		if (map[i] >= numUniq || map[i] > i)
+			return FALSE;
+	}
 
 	//後ろから広げる（タイル i が使う番号 j は i 以下。j < i の j はまだ潰していない）
 	for (i = numTiles; i-- != 0;)
 	{
 		u32 j = map[i];
 
-		if (j > i)
-			return FALSE;
 		if (j != i)
 		{
 			u32 k;

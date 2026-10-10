@@ -1,0 +1,15 @@
+{
+  "scope": "DpeFExpand tile-map validation and backward expansion",
+  "defect": "Only j <= i was checked, allowing references j >= numUniq into unexpanded or map bytes; late invalid references could also leave partial expansion.",
+  "fix": "Validate all map bytes against numUniq and their destination index before expansion.",
+  "checks": {
+    "scripts/check_fcomp_tile_map.py": "15872 valid aligned/unaligned count combinations, 4096 map-byte cases, 2 explicit out-of-range cases; byte output and canaries checked",
+    "scripts/check_fcomp_tile_map.py --baseline 8fe4501": "Return 7: old production code accepted index 2 with only 2 unique tiles",
+    "audit/gnu_c.json": "174/203 C sources ARM-compiled"
+  },
+  "limitations": [
+    "Inflater is controlled fixture; actual compressed dictionary and streams are not exercised",
+    "Counts respect DpeFTryDecode size constraints",
+    "No VRAM writes, allocation failures, ROM linking or GBA runtime coverage"
+  ]
+}
