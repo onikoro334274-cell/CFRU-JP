@@ -1,0 +1,12 @@
+{
+  "scope": "Recovered wild_mega_stones.h and WildMegaStoneFor",
+  "checks": {
+    "scripts/generate_wild_mega_stones.py --check": "Original rules re-create the same 36 sorted rows with explicit original BPRJ ROM/current wild C/existing DPE evolution input",
+    "scripts/check_wild_mega_stone_lookup.py": "All 65536 species IDs match direct table lookup; rows unique, ordered and inside NUM_SPECIES",
+    "audit/gnu_c.json": "wild_mega_stone.c ARM compilation succeeds"
+  },
+  "limitations": [
+    "Held-item probability/priority caller behavior and actual DPE linked evolution table not verified",
+    "Source snapshot evolution and original-ROM wild encounters are provenance inputs; game runtime not established"
+  ]
+}

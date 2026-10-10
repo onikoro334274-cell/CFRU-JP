@@ -1427,10 +1427,10 @@
     },
     {
       "path": "src/wild_mega_stone.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "9d4637e8b76c1cad6b0ab00ceab4790bf1275298e2dbbaac256650a36f14f7ac",
-      "object_bytes": 0,
-      "diagnostics": "src/wild_mega_stone.c:3:10: fatal error: Tables/wild_mega_stones.h: No such file or directory\n    3 | #include \"Tables/wild_mega_stones.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 1108,
+      "diagnostics": ""
     },
     {
       "path": "src/wild_shuffle.c",
