@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "random_inputs": 65536,
+  "species_count": 15,
+  "accepted_preimages_per_species": 4369,
+  "limitations": "Equal accepted input counts assume uniform game Random output; does not verify complete revival flow or GBA execution."
+}

@@ -28,10 +28,19 @@ static const u16 sMoemonFossilSpecies[] =
 
 #define MOEMON_FOSSIL_LEVEL 5
 
+static u32 RandomFossilIndex(void)
+{
+	u32 value;
+	const u32 count = ARRAY_COUNT(sMoemonFossilSpecies);
+	const u32 limit = 0x10000u - 0x10000u % count;
+	do { value = Random(); } while (value >= limit);
+	return value % count;
+}
+
 void HackMoemonFossil_Revive(void)
 {
 	struct Pokemon mon;
-	u16 species = sMoemonFossilSpecies[Random() % ARRAY_COUNT(sMoemonFossilSpecies)];
+	u16 species = sMoemonFossilSpecies[RandomFossilIndex()];
 	u8 result;
 
 	CreateMon(&mon, species, MOEMON_FOSSIL_LEVEL, 32, FALSE, 0, OT_ID_PLAYER_ID, 0);
