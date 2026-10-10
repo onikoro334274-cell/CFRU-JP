@@ -1,0 +1,62 @@
+{
+  "scope": "Scoped manual review of direct additem/removeitem sites in sources including xse_commands.s; inspect following LASTRESULT uses and branch intent. Battle command sets excluded.",
+  "sites": [
+    {
+      "path": "assembly/kanto/kanto_hyper_training.s",
+      "line": 100,
+      "command": "removeitem ITEM_GOLD_BOTTLE_CAP 1"
+    },
+    {
+      "path": "assembly/kanto/kanto_hyper_training.s",
+      "line": 134,
+      "command": "removeitem ITEM_BOTTLE_CAP 1"
+    },
+    {
+      "path": "assembly/kanto/kanto_moemon_fossil.s",
+      "line": 31,
+      "command": "removeitem ITEM_MOEMON_FOSSIL 1"
+    },
+    {
+      "path": "assembly/overworld_scripts/system_scripts.s",
+      "line": 170,
+      "command": "removeitem ITEM_REPEL 1"
+    },
+    {
+      "path": "assembly/overworld_scripts/system_scripts.s",
+      "line": 175,
+      "command": "removeitem ITEM_SUPER_REPEL 1"
+    },
+    {
+      "path": "assembly/overworld_scripts/system_scripts.s",
+      "line": 180,
+      "command": "removeitem ITEM_MAX_REPEL 1"
+    },
+    {
+      "path": "assembly/overworld_scripts/system_scripts.s",
+      "line": 278,
+      "command": "additem 0x8004 0x8005"
+    },
+    {
+      "path": "assembly/overworld_scripts/system_scripts.s",
+      "line": 310,
+      "command": "additem 0x8000 0x8001"
+    },
+    {
+      "path": "assembly/overworld_scripts/system_scripts.s",
+      "line": 1108,
+      "command": "removeitem ITEM_GOLD_BOTTLE_CAP 1"
+    },
+    {
+      "path": "assembly/overworld_scripts/system_scripts.s",
+      "line": 1134,
+      "command": "removeitem ITEM_BOTTLE_CAP 1"
+    }
+  ],
+  "source_sha256": {
+    "assembly/kanto/kanto_hyper_training.s": "1c4cd0e2afc92479ab8096d4689c50a77fd5d3ff73a749ec4d98e1f544106836",
+    "assembly/kanto/kanto_moemon_fossil.s": "116b2f876fc515ce788b9414164b3dd810e2ecb5ace0ae0bb67ee0a63251293b",
+    "assembly/overworld_scripts/system_scripts.s": "bb181c4922bf3e107a5daf523c3313e698f66f5152c94c23b64a4c5fa8071e72"
+  },
+  "finding": "Fossil delivery result overwrite repaired in fbe636a; no additional same-pattern defect found in these direct sites.",
+  "limitations": "Not a full control-flow or interprocedural analysis. Other result-writing commands, macro-expanded sites, original ROM callees and GBA runtime remain unverified."
+}
