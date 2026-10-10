@@ -52,7 +52,8 @@
     "Actual updated option-menu strings converted and assembled with GNU ARM assembler; graphical menu and GBA runtime remain unverified",
     "55 regression tests and Python compileall passed after AI changes; GNU ARM compiled all available Battle_AI sources; full audit remains 151/203 with 52 absent-header failures",
     "Dome stats passed 153600 cases and 921600 stat comparisons through level 200",
-    "Both extracted Dome party duplicate predicates passed current-party species/item/ID checks; fixed baseline reproduces stale previous-trainer candidate exclusion. Dome stats and round checks also pass."
+    "Both extracted Dome party duplicate predicates passed current-party species/item/ID checks; fixed baseline reproduces stale previous-trainer candidate exclusion. Dome stats and round checks also pass.",
+    "Production info-card EV/nature calculation passes 19200 player/brain/NPC mask/nature cases including all-zero EVs; Dome party, stats and round checks pass after this change"
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -93,7 +94,8 @@
     "Training pouch allocation failure compacts valid items and performs a stable in-place page partition, preserving the same visible count, hidden items, quantities and order as the normal temporary-buffer path",
     "Factory summary party allocation occurs before destructive screen cleanup; allocation failure returns to the still-active menu without fading or destroying resources",
     "Dome tournament ranking uses two local scratch arrays totaling 56 bytes instead of unchecked heap allocations; arrays are synchronous and not retained by callees",
-    "Dome party selection compares each candidate species with each already selected mon, removing stale previous-trainer species filtering"
+    "Dome party selection compares each candidate species with each already selected mon, removing stale previous-trainer species filtering",
+    "Dome info-card calculation handles zero total EVs and empty NPC spread masks without dividing by zero; its 36-byte synchronous scratch array no longer uses unchecked heap allocation"
   ],
   "limitations": [
     "77 quoted C include references are absent from this checkout; see repository.json for locations",
@@ -107,6 +109,7 @@
     "Factory summary production function was executed in a Windows native fixture; the complete factory file remains blocked by omitted generated headers and GBA runtime is unverified"
   ],
   "next": [
+    "Inspect info-card good-stat selection: slots 6/7 store indices but comparisons appear to treat them as percentages; validate text-pair ordering before fixing",
     "Audit Hoenn factory select/swap and Dome info/tree failure exits: four InitWindows wrapper callers ignore failure; root and later screen/buffer allocations need stage-specific cleanup without advancing battle scripts with invalid party selections",
     "Continue C semantic review, including unchecked window initialization callers and allocation cleanup; event map-bank/map counts and sign-event union kinds need authoritative metadata validation",
     "Continue insertion-table address, register, wrapper parameter and event index validation against the supplied BPRJ ROM",
@@ -118,7 +121,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:27:45.862167+00:00",
+  "updated_utc": "2026-10-10T18:29:03.798953+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }

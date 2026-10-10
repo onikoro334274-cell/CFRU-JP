@@ -190,6 +190,15 @@
       ],
       "verification": "Manual lifetime review: arrays do not escape synchronous calculation/SwapDomeTrainers; check_dome_party.py executes both predicates and reproduces baseline failure; check_dome_stats.py and check_dome_rounds.py pass",
       "remaining": "Complete file ARM compilation still requires omitted generated headers; screen allocation exits and other tournament logic plus GBA stack/runtime remain unverified"
+    },
+    {
+      "path": "src/hoenn_dome.c",
+      "source_sha256": "ed3d388b32e4ee9337339d25b7e9f358246f8a57ae32959ce01b1070d614a548",
+      "sections": [
+        "DisplayTrainerInfoOnCard scratch lifetime and EV/nature percentage computation"
+      ],
+      "verification": "check_dome_style.py executes production calculation for 19200 inputs with integer formula reference; array lifetime reviewed as local synchronous use",
+      "remaining": "Full generated-header compilation and GBA runtime unavailable; good/bad stat selection, text bounds and sprite creation failure handling still need review"
     }
   ]
 }
