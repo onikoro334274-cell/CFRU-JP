@@ -188,7 +188,7 @@
     "Resolve the currently inventoried missing include references and obtain remaining generated assets/tools for GNU linking/runtime validation; use repository.json for current scope and counts."
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T22:30:09.750493+00:00",
+  "updated_utc": "2026-10-10T22:32:24.385928+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete.",
   "current_compilation": {
@@ -275,7 +275,8 @@
     "scsd_file_read_bounds": "audit/scsd_file_read_bounds_review.json",
     "scsd_mount_geometry": "audit/scsd_mount_geometry_review.json",
     "scsd_cluster_address": "audit/scsd_cluster_address_review.json",
-    "scsd_exfat_names": "audit/scsd_exfat_name_review.json"
+    "scsd_exfat_names": "audit/scsd_exfat_name_review.json",
+    "scsd_exfat_entries": "audit/scsd_exfat_entry_review.json"
   },
   "current_scoped_reviews_limitation": "These reports verify named functions and controlled scenarios only. They do not certify entire files, all callers, save migration, linking, or GBA runtime.",
   "latest_verification": {

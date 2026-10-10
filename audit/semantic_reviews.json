@@ -557,7 +557,7 @@
     },
     {
       "path": "src/hack_scsd.c",
-      "source_sha256": "dc50bb08fcb9cf621399ef263ad7ca8fc61d07ebae25ebc68d0e360a3f1c3844",
+      "source_sha256": "e37a9170ed1183640e10c6932b5de3d5ecee87d22d65eddcb9d4fc3761573444",
       "sections": [
         "Rd16",
         "Rd32",
@@ -568,14 +568,16 @@
         "NextClus",
         "FileLba",
         "HackScsd_FindFile directory address checks",
-        "HackScsd_FindFile exFAT name matching"
+        "HackScsd_FindFile exFAT name matching",
+        "HackScsd_FindFile regular-file eligibility and stream order"
       ],
       "verification_records": [
         "scsd_fat_directory_review.json",
         "scsd_file_read_bounds_review.json",
         "scsd_mount_geometry_review.json",
         "scsd_cluster_address_review.json",
-        "scsd_exfat_name_review.json"
+        "scsd_exfat_name_review.json",
+        "scsd_exfat_entry_review.json"
       ],
       "remaining": "Device/volume capacity, cluster rules/cycles, exFAT entry integrity/attributes/64-bit lengths/Unicode, SD transport and hardware remain unverified."
     }

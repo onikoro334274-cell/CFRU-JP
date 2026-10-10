@@ -241,7 +241,7 @@ static bool8 HackScsd_FindFile(struct ScsdFs *fs)
 	const char *name = fs->longName;
 	u32 clus, s, guard;
 	u32 pend = 0, nameLen = 0, namePos = 0, pendClus = 0, pendSize = 0, pendNoChain = 0;
-	bool8 match = FALSE;
+	bool8 match = FALSE, regularFile = FALSE, streamPending = FALSE;
 	if (fs->type != 16 && fs->type != 32 && name == NULL)
 		return FALSE;
 
@@ -286,18 +286,21 @@ static bool8 HackScsd_FindFile(struct ScsdFs *fs)
 				{
 					pend = d[1];
 					match = FALSE;
+					regularFile = (Rd16(d + 4) & 0x10) == 0;
+					streamPending = TRUE;
 				}
-				else if (d[0] == 0xC0 && pend)
+				else if (d[0] == 0xC0 && pend && streamPending)
 				{
 					nameLen = d[3];
 					namePos = 0;
-					match = TRUE;
+					match = regularFile && nameLen != 0;
+					streamPending = FALSE;
 					pendNoChain = (d[1] >> 1) & 1;
 					pendClus = Rd32(d + 0x14);
 					pendSize = Rd32(d + 0x18);
 					pend--;
 				}
-				else if (d[0] == 0xC1 && pend)
+				else if (d[0] == 0xC1 && pend && !streamPending)
 				{
 					u32 i;
 					for (i = 0; i < 15 && namePos < nameLen; i++, namePos++)

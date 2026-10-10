@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--baseline')
+    parser.add_argument('--directory-only', action='store_true')
     args = parser.parse_args()
     source = (ROOT / 'src/hack_scsd.c').read_text(encoding='utf-8')
     if args.baseline:
@@ -64,11 +65,39 @@ int main(void){
         if(expected&&(fs.fileClus!=7||fs.fileSize!=123||!fs.fileNoChain)) return 2;
         if(!expected&&(fs.fileClus!=99||fs.fileSize!=999||fs.fileNoChain)) return 3;
     }
-    struct ScsdFs fs;fs.type=0xef;fs.longName=NULL;errors=reads=0;
+    requested[0]='a';requested[1]=0;requestedLength=1;
+    for(unsigned attribute=0;attribute<65536;attribute++) for(unsigned fault=0;fault<6;fault++){
+        for(unsigned s=0;s<2;s++) for(unsigned i=0;i<512;i++) sectors[s][i]=0;
+        entry(0)[0]=0x85;entry(0)[1]=2;entry(0)[4]=attribute;entry(0)[5]=attribute>>8;
+        entry(1)[0]=0xc0;entry(1)[1]=2;entry(1)[3]=1;entry(1)[20]=7;entry(1)[24]=123;
+        entry(2)[0]=0xc1;entry(2)[2]='A';
+        if(fault==1){for(unsigned i=0;i<32;i++){u8 value=entry(1)[i];entry(1)[i]=entry(2)[i];entry(2)[i]=value;}}
+        if(fault==2){entry(0)[1]=3;for(unsigned i=0;i<32;i++) entry(3)[i]=entry(2)[i];for(unsigned i=0;i<32;i++) entry(2)[i]=entry(1)[i];}
+        if(fault==3) entry(0)[0]=0x81;
+        if(fault==4) entry(0)[1]=1;
+        if(fault==5) entry(1)[3]=0;
+        struct ScsdFs current;current.type=0xef;current.longName=requested;current.rootClus=2;current.spcShift=1;
+        current.fileClus=99;current.fileSize=999;current.fileNoChain=FALSE;errors=reads=0;
+        int expected=fault==0&&!(attribute&0x10);
+        if(HackScsd_FindFile(&current)!=expected||errors) return 4;
+        if(!expected&&(current.fileClus!=99||current.fileSize!=999||current.fileNoChain)) return 5;
+    }
+    for(unsigned s=0;s<2;s++) for(unsigned i=0;i<512;i++) sectors[s][i]=0;
+    for(unsigned group=0;group<2;group++){
+        unsigned base=group*3;entry(base)[0]=0x85;entry(base)[1]=2;entry(base)[4]=group?0:0x10;
+        entry(base+1)[0]=0xc0;entry(base+1)[3]=1;entry(base+1)[20]=group?8:7;entry(base+1)[24]=group?124:123;
+        entry(base+2)[0]=0xc1;entry(base+2)[2]='A';
+    }
+    struct ScsdFs fs;fs.type=0xef;fs.longName=requested;fs.rootClus=2;fs.spcShift=1;errors=reads=0;
+    if(!HackScsd_FindFile(&fs)||errors||fs.fileClus!=8||fs.fileSize!=124||fs.fileNoChain) return 6;
+    fs.longName=NULL;errors=reads=0;
     if(HackScsd_FindFile(&fs)||errors||reads) return 4;
     return 0;
 }
 '''.replace('READERS', '\n'.join(readers)).replace('PRODUCTION', production)
+    if args.directory_only:
+        fixture = fixture.replace('for(unsigned attribute=0;attribute<65536;attribute++) for(unsigned fault=0;fault<6;fault++)',
+                                  'for(unsigned attribute=0x10;attribute<0x11;attribute++) for(unsigned fault=0;fault<1;fault++)')
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory)
         c, obj, exe = (path / ('exfat_names' + suffix) for suffix in ('.c', '.obj', '.exe'))
@@ -78,7 +107,8 @@ int main(void){
         subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
-    print('exFAT names: 196608 name-length/mismatch cases, cross-sector names, exact string boundaries and NULL rejection pass.')
+    print('exFAT directory attribute rejected; existing name cases pass.' if args.directory_only else
+          'exFAT names: 196608 string cases and 393216 attribute/entry-order cases, cross-sector boundaries and NULL rejection pass.')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,13 @@
+{
+  "scope": "Regular-file filtering and stream/name order in HackScsd_FindFile, src/hack_scsd.c",
+  "finding": "exFAT lookup ignored the directory attribute and accepted repeated stream-extension entries. A matching directory or malformed entry group could be selected as an image/file.",
+  "change": "Carry regular-file eligibility from the primary entry. Accept one stream extension before filename entries, and reject empty names. Retain prior NUL-safe matching and ASCII case folding.",
+  "verification": [
+    "check_scsd_exfat_names.py: all 65536 attribute words with valid, swapped, duplicated, inactive, short-count and empty-name entry groups (393216 cases)",
+    "Existing 196608 string-length/mismatch and cross-sector cases still pass",
+    "A matching directory followed by a matching regular file selects the latter and its own metadata",
+    "Baseline eec2017 fails the full fixture and isolated --directory-only scenario",
+    "Existing FAT directory fixture passes; GNU ARM compilation passes without diagnostics"
+  ],
+  "limitations": "Controlled directory sectors. Reserved attribute bits, entry-set checksums, optional secondary types, 64-bit file sizes, device capacity and real hardware remain unverified. This is selected entry validation, not full exFAT conformance."
+}
