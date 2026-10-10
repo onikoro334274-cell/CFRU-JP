@@ -140,7 +140,8 @@ static void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
 	u8 newLevel;
 
 	PlaySE(SE_SELECT);
-	if (amount == 0 || level >= MAX_LEVEL || GetMonData(mon, MON_DATA_IS_EGG, NULL))
+	if (amount == 0 || level >= MAX_LEVEL || GetMonData(mon, MON_DATA_IS_EGG, NULL)
+	|| !RemoveBagItem(item, 1))
 	{
 		gPartyMenuUseExitCallback = FALSE;
 		DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
@@ -160,7 +161,6 @@ static void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
 		SetMonData(mon, MON_DATA_EXP, &newExp);
 		CalculateMonStats(mon);
 		UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
-		RemoveBagItem(item, 1);
 		gPartyMenuUseExitCallback = TRUE;
 		GetMonNickname(mon, gStringVar1);
 		ConvertIntToDecimalStringN(gStringVar2, amount, STR_CONV_MODE_LEFT_ALIGN, 5);
@@ -175,6 +175,5 @@ static void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
 	VarSet(VAR_EXP_CANDY_TARGET, newLevel | (gPartyMenu.slotId << 8) | ((item - ITEM_EXP_CANDY_XS) << 11));
 	VarSet(VAR_EXP_CANDY_EXP_LO, newExp & 0xFFFF);
 	VarSet(VAR_EXP_CANDY_EXP_HI, newExp >> 16);
-	RemoveBagItem(item, 1);
 	ExpCandyNextLevel(taskId);
 }

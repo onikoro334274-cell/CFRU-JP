@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "cases": 3584,
+  "scope": "Production candy callback with controlled APIs: invalid items, levels, eggs and failed consumption leave Pokemon/chain state untouched.",
+  "limitations": "Fixture level cap is 200; does not verify active build cap, successful application, actual tables, level chain or GBA runtime."
+}
