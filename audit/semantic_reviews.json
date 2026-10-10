@@ -216,6 +216,17 @@
       ],
       "verification": "check_dome_stat_labels.py executes unchanged production loop for 262144 zero-mask/nature-count combinations; checks selected stat eligibility, counts, ordered pairs and resulting text bounds",
       "remaining": "Preference between eligible weak stats is not independently specified; tests establish index and range safety, not an intended ranking. Sprite failure handling and full generated-header ARM/runtime verification remain pending."
+    },
+    {
+      "path": "src/hoenn_dome.c",
+      "source_sha256": "a683184f8377e441843ac87d63d84a6fc9ba72ae5ba434c9006bb61e3b5cb36a",
+      "sections": [
+        "DomeInfoCardSpriteId",
+        "DisplayTrainerInfoOnCard image sprite setup",
+        "DisplayMatchInfoOnCard image sprite setup"
+      ],
+      "verification": "check_dome_card_sprites.py executes production setup blocks with controlled sprite creation results; 65536 normalizations and 480 scenarios; scroll/cleanup SPRITE_NONE guards reviewed",
+      "remaining": "Creation stubs do not establish real ROM allocation/resource cleanup semantics; root/task/arrow failure paths, generated-header compilation and GBA runtime remain unverified"
     }
   ]
 }
