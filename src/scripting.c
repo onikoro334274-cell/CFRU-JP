@@ -671,6 +671,9 @@ void sp01A_CopyPartyData(void)
 	gSpecialVar_LastResult = 1;
 	if (slot >= 6)
 		return;
+	if ((Var8002 == 2 || Var8002 == 3)
+	&& (Var8000 >= TOTAL_BOXES_COUNT || Var8001 >= IN_BOX_COUNT))
+		return;
 
 	switch (Var8002)
 	{
@@ -691,8 +694,7 @@ void sp01A_CopyPartyData(void)
 
 		case 3:
 			// box to free ram
-			Memcpy(&gEnemyParty[5], GetBoxedMonAddr(), sizeof(struct CompressedPokemon));
-			CalculateMonStats((struct Pokemon*) &gEnemyParty[5]);
+			BoxMonAtToMon(Var8000, Var8001, &gEnemyParty[5]);
 			break;
 
 		default:
@@ -720,15 +722,14 @@ void sp01B_SwapPartyAndBoxData(void)
 #ifdef SELECT_FROM_PC
 	u16 slot = Var8005;
 	gSpecialVar_LastResult = 1;
-	if (slot >= 6)
+	if (slot >= 6 || Var8000 >= TOTAL_BOXES_COUNT || Var8001 >= IN_BOX_COUNT)
 		return;
 
 	switch (Var8002)
 	{
 		case 0:
 			// withdraw from box to party
-			Memcpy(&gPlayerParty[slot], GetBoxedMonAddr(), sizeof(struct CompressedPokemon));
-			CalculateMonStats((struct Pokemon*) &gPlayerParty[slot]);
+			BoxMonAtToMon(Var8000, Var8001, &gPlayerParty[slot]);
 			ZeroBoxMonAt(Var8000, Var8001);	//clear box pokemon data
 			gSpecialVar_LastResult = 0;
 			break;

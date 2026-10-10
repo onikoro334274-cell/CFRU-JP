@@ -2,6 +2,6 @@
   "result": "passed",
   "dispatch_cases": 1310720,
   "baseline": "8a307d3 loses PC-send failure and truncates u16 slot before validation.",
-  "scope": "Actual copy-special dispatch with/without PC support, all u16 slots, four modes/invalid mode and send success/failure. Invalid slot cannot call copy/storage/stats services; PC-send result preserved. Tests existing copy directions and lengths only.",
+  "scope": "Actual copy-special dispatch with/without PC support, all u16 slots, four modes/invalid mode and send success/failure. Invalid slot cannot call copy/storage/stats services; PC-send result preserved; box-to-party path invokes BoxMonAtToMon rather than partial byte copy.",
   "limitations": "No actual Pokemon payload copied. Compressed-to-party conversion ABI, storage coordinates, native stats and linked runtime remain unverified; valid mode-3 data conversion is not proven by this test."
 }

@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "cases": 6400,
+  "baseline": "6d646b6 uses legacy partial copy instead of full conversion and truncates out-of-byte coordinates.",
+  "scope": "Both actual script specials across party/coordinate boundaries including 256/65535, all modes and send failure/success. Invalid inputs call no native transfer; withdrawals dispatch full conversion before clearing source; controlled converter fills all 100 destination bytes, other slots preserved.",
+  "limitations": "Converter/compression and memory-copy services simulated. Actual compressed codec and native party stats not proven by these dispatch tests."
+}
