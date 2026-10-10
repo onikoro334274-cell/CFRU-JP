@@ -299,20 +299,25 @@
     },
     {
       "path": "src/rtc.c",
-      "source_sha256": "089a5ec62285882656f57ac2591283d5197383e144e3ba09b72a2ef3c1ea8b7b",
+      "source_sha256": "fd251e7caff4ea087eed3a472dc95946e5af786ec230e7397d4e26a987490cf8",
       "sections": [
         "ConvertBcdToBinary",
         "RtcCheckInfo",
         "RtcInit",
         "RtcCalcLocalTime",
-        "PlayTimeCounter_Update"
+        "PlayTimeCounter_Update",
+        "RtcGetStatus",
+        "RtcGetDateTime",
+        "RtcGetRawInfo",
+        "RtcGetInfo"
       ],
       "verification_records": [
         "rtc_validation_review.json",
         "rtc_initialization_review.json",
-        "rtc_frame_counter_review.json"
+        "rtc_frame_counter_review.json",
+        "rtc_read_failure_review.json"
       ],
-      "remaining": "Raw RTC transfer error propagation, actual GPIO/probe execution, native frame/caller ordering and GBA play-time behavior remain unverified; recorded fixtures use controlled transfers and counters."
+      "remaining": "Actual GPIO transfers, hardware failure recovery, native IME and frame/caller ordering, and GBA play-time behavior remain unverified; recorded fixtures use controlled transfers and interrupts."
     },
     {
       "path": "src/play_clock.c",

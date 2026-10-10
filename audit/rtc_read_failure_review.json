@@ -1,0 +1,13 @@
+{
+  "scope": "RtcGetStatus, RtcGetDateTime and RtcGetRawInfo in src/rtc.c, plus their RtcInit/RtcGetInfo integration",
+  "finding": "Status and date transfer results were ignored. Partial or stale data could be published without setting the RTC error flag.",
+  "change": "After restoring interrupts, failed transfers set RTC_INIT_ERROR and replace the output with the existing dummy date. The combined raw read also applies fallback when initialization/transfer failure is set, preventing mixed status/date output. Existing warnings and other errors are preserved; RtcInit can clear a prior error and retry normally.",
+  "verification": [
+    "check_rtc_read_failures.py: all 65536 initial error masks with all status/date success/failure combinations (262144 cases)",
+    "Fixture verifies full fallback data, partial-write handling, preserved error bits, interrupt ordering/restoration, successful retry and RtcGetInfo fallback",
+    "The same fixture against baseline 23a65e3 fails with exit status 1",
+    "Existing initialization, frame/play-time counter, date validation and SII probe checks pass",
+    "GNU ARM compilation of src/rtc.c passes without diagnostics"
+  ],
+  "limitations": "Low-level transfers and interrupt operations are controlled native mocks. Actual GPIO signaling, hardware read failures, native IME behavior and GBA clock integration remain unverified. Public pointer arguments still require valid output storage."
+}

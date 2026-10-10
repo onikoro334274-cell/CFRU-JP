@@ -89,22 +89,37 @@ void RtcGetInfo(struct SiiRtcInfo *rtc)
 
 void RtcGetDateTime(struct SiiRtcInfo *rtc)
 {
+	bool8 success;
 	RtcDisableInterrupts();
-	SiiRtcGetDateTime(rtc);
+	success = SiiRtcGetDateTime(rtc);
 	RtcRestoreInterrupts();
+	if (!success)
+	{
+		sRTCErrorStatus |= RTC_INIT_ERROR;
+		*rtc = sRtcDummy;
+	}
 }
 
 void RtcGetStatus(struct SiiRtcInfo *rtc)
 {
+	bool8 success;
 	RtcDisableInterrupts();
-	SiiRtcGetStatus(rtc);
+	success = SiiRtcGetStatus(rtc);
 	RtcRestoreInterrupts();
+	if (!success)
+	{
+		sRTCErrorStatus |= RTC_INIT_ERROR;
+		*rtc = sRtcDummy;
+	}
 }
 
 void RtcGetRawInfo(struct SiiRtcInfo *rtc)
 {
 	RtcGetStatus(rtc);
 	RtcGetDateTime(rtc);
+	/* Do not publish a mixture of a failed status read and a valid date. */
+	if (sRTCErrorStatus & RTC_INIT_ERROR)
+		*rtc = sRtcDummy;
 }
 
 u16 RtcCheckInfo(struct SiiRtcInfo *rtc)

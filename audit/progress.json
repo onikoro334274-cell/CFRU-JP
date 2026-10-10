@@ -171,7 +171,7 @@
     "Current compilation/inventory counts are recorded in current_compilation/current_inventory; earlier verified entries are historical. Full linking and GBA runtime remain unverified."
   ],
   "next": [
-    "Review raw RTC transfer error propagation and native GPIO/frame/caller integration; mode reset and timestamp pair bounds now have scoped fixture evidence.",
+    "Review SII GPIO transfer routines and native GPIO/interrupt/frame/caller integration; RTC error propagation now has scoped fixture evidence.",
     "Recover remaining generated headers with original rules, remapped map metadata and actual input assets; gym puzzles require map layout/remap correspondence, not raw Emerald metatile IDs",
     "Continue full compressor/decoder round trips and arbitrary Huffman-table validation; declared-word truncation and controlled DPE allocator paths are tested, but actual linked data, partial WRAM failures and GBA VRAM remain unverified",
     "Resolve HACK_FLAG_WONDER_SKIP using authoritative allocation data: adjacent generator snapshot lacks this newer branch flag; do not choose an arbitrary ID",
@@ -188,7 +188,7 @@
     "Resolve the currently inventoried missing include references and obtain remaining generated assets/tools for GNU linking/runtime validation; use repository.json for current scope and counts."
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T21:58:46.655618+00:00",
+  "updated_utc": "2026-10-10T22:00:44.448158+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete.",
   "current_compilation": {
@@ -262,7 +262,8 @@
     "player_birthday": "audit/birthday_review.json",
     "play_clock_mode": "audit/play_clock_mode_review.json",
     "daily_event_bounds": "audit/daily_event_bounds_review.json",
-    "siirtc_probe": "audit/siirtc_probe_review.json"
+    "siirtc_probe": "audit/siirtc_probe_review.json",
+    "rtc_read_failures": "audit/rtc_read_failure_review.json"
   },
   "current_scoped_reviews_limitation": "These reports verify named functions and controlled scenarios only. They do not certify entire files, all callers, save migration, linking, or GBA runtime.",
   "latest_verification": {
