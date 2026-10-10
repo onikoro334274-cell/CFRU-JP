@@ -1,0 +1,8 @@
+{
+  "source": "src/second_ability.c",
+  "source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+  "result": "pass",
+  "verification": "check_second_ability_terrain.py: 1280 cases covering four banks, four target terrains, five prior terrains, circus/lock bits, extender and finite/infinite builds.",
+  "verified": "Blocked/same-terrain no-op including string/animation/seed state; finite 5/8 and infinite 0 durations; callback scheduled after state setup; surrounding seed words preserved.",
+  "limitations": "Mock callback and globals. Native 64-bit string pointer reduced to low 32 bits models assignment only, not GBA address ABI, actual script or rendering. Whole file remains unverified."
+}

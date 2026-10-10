@@ -715,6 +715,16 @@
       "verification": "check_second_ability_switch.py: 4096 state/dispatch cases plus immediate retry of each; all four banks, dead/empty/already-seen gates, no ability, six dedicated routes and default route, effect outcomes and primary done-bit states.",
       "current_report": "audit/second_ability_switch_review.json",
       "remaining": "Mock effect functions; terrain creation itself, scripts, bank lifecycle reset and GBA runtime remain unverified. Fixture status bit value is controlled, not ROM ABI evidence."
+    },
+    {
+      "path": "src/second_ability.c",
+      "source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+      "sections": [
+        "TryStartTerrain"
+      ],
+      "verification": "check_second_ability_terrain.py: 1280 cases covering four banks, four target terrains, five prior terrains, circus/lock bits, extender and finite/infinite builds.",
+      "current_report": "audit/second_ability_terrain_review.json",
+      "remaining": "Mock callback and globals. Native 64-bit string pointer reduced to low 32 bits models assignment only, not GBA address ABI, actual script or rendering. Whole file remains unverified."
     }
   ]
 }

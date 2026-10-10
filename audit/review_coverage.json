@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 857,
+    "source_files": 858,
     "files_with_indexed_scopes": 34,
-    "indexed_scopes": 56,
+    "indexed_scopes": 57,
     "scope_states": {
       "source_changed": 14,
-      "current": 41,
+      "current": 42,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3847,6 +3847,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_second_ability_terrain.py",
+      "source_sha256": "ad86af880a1de59cb371007873d00d7d821873fe71968ad5646bdd56ad28219c",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_shiny_pid_shift.py",
       "source_sha256": "7085676e7f6f375eff209f8d8d16956568ec65a341e92620bc60c8b3f34409a5",
       "gnu_c_object": "not_applicable",
@@ -6708,6 +6715,16 @@
           "evidence": [],
           "verification": "check_second_ability_switch.py: 4096 state/dispatch cases plus immediate retry of each; all four banks, dead/empty/already-seen gates, no ability, six dedicated routes and default route, effect outcomes and primary done-bit states.",
           "remaining": "Mock effect functions; terrain creation itself, scripts, bank lifecycle reset and GBA runtime remain unverified. Fixture status bit value is controlled, not ROM ABI evidence."
+        },
+        {
+          "state": "current",
+          "sections": [
+            "TryStartTerrain"
+          ],
+          "recorded_source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
+          "evidence": [],
+          "verification": "check_second_ability_terrain.py: 1280 cases covering four banks, four target terrains, five prior terrains, circus/lock bits, extender and finite/infinite builds.",
+          "remaining": "Mock callback and globals. Native 64-bit string pointer reduced to low 32 bits models assignment only, not GBA address ABI, actual script or rendering. Whole file remains unverified."
         }
       ],
       "whole_file_completion": "not_established"
