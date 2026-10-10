@@ -479,17 +479,15 @@ void SetBoxWallpaper(u8 boxId, u8 wallpaperId)
 
 s8 sub_8091130(u8 boxId)
 {
-	u8 i;
 	u8 currentBox = StorageGetCurrentBox();
+	u16 distance;
 
-	for (i = 0; currentBox != boxId; i++)
-	{
-		currentBox++;
-		if (currentBox >= TOTAL_BOXES_COUNT)
-			currentBox = 0;
-	}
+	if (boxId >= TOTAL_BOXES_COUNT || currentBox >= TOTAL_BOXES_COUNT)
+		return 1;
+	distance = boxId >= currentBox ? boxId - currentBox
+		: boxId + TOTAL_BOXES_COUNT - currentBox;
 
-	return (i < TOTAL_BOXES_COUNT / 2) ? 1 : -1;
+	return (distance < TOTAL_BOXES_COUNT / 2) ? 1 : -1;
 }
 
 s16 sub_808B884(struct CompressedPokemon *boxMons, u8 currIndex, u8 maxIndex, u8 arg3)

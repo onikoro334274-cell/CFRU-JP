@@ -1,0 +1,8 @@
+{
+  "result": "passed",
+  "byte_pairs": 65536,
+  "valid_baseline_pairs": 2500,
+  "scope": "Actual direction helper for every byte current/target box pair. Valid results match previous production loop and independent modulo-distance oracle; same-box/tie behavior preserved. Invalid indices return +1 without loops.",
+  "optimization": "Removes up to 49 loop iterations at current 50-box configuration; invalid target >=50 previously never matched the cyclic counter.",
+  "limitations": "Direction only; caller validation, animation and actual storage switching on linked GBA unverified."
+}
