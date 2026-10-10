@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "../include/pokemon.h"
 #include "../include/pokemon_storage_system.h"
+#include "../include/new/pokemon_storage_system.h"
 #include "../include/random.h"
 #include "hack_mon_id.h"
 #include "hack_box_shelf.h"
@@ -217,7 +218,7 @@ bool8 HackMonId_IsShinyOtIdPersonality(u32 otId, u32 personality)
 			base = (const u8*) sPokemonBoxPtrs[box];
 		for (i = 0; base != NULL && i < IN_BOX_COUNT; ++i)
 		{
-			const u8* c = base + i * 58;
+			const u8* c = base + i * sizeof(struct CompressedPokemon);
 			if ( Rd32(c) == personality && Rd32(c + 4) == otId && Rd16(c + 0x1C) != SPECIES_NONE)
 			{
 				u32 id = HackMonId_UnpackComp(c);
@@ -251,7 +252,7 @@ u32 HackMonId_MoemonKey(u32 personality)
 			base = (const u8*) sPokemonBoxPtrs[box];
 		for (i = 0; base != NULL && i < IN_BOX_COUNT; ++i)
 		{
-			const u8* c = base + i * 58;
+			const u8* c = base + i * sizeof(struct CompressedPokemon);
 			if (Rd32(c) == personality && Rd16(c + 0x1C) != SPECIES_NONE)
 			{
 				u32 id = HackMonId_UnpackComp(c);
