@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 26337,
-      "sha256": "8d9c8db2b4842033a1f51ae27ea6499c7541356cf8ff904ba30a44105838c1a0",
+      "bytes": 26867,
+      "sha256": "571e577ec8d43d88c55668ca6e6616f1a320e1ba1183476e27a5f9b8a55e817e",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12545,6 +12545,17 @@
       "findings": []
     },
     {
+      "path": "scripts/generate_abnormal_weather_maps.py",
+      "bytes": 1994,
+      "sha256": "19e744a08b8fe161cca6023486354095890d99166ce805b8be378a5e24ab4802",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/generate_emerald_tutor.py",
       "bytes": 4979,
       "sha256": "c19fa2af370ed392e7825135a317496279697e79b8b0bf809ef74f86d9e6bed0",
@@ -13040,6 +13051,17 @@
       "path": "src/Tables/hack_vanilla_tutor_compat.h",
       "bytes": 3530,
       "sha256": "077d063828a4c592d351b7a6a756da2be5269d42033d1653c0b9edaf2304461d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/Tables/hoenn_abnormal_weather.h",
+      "bytes": 1027,
+      "sha256": "c36d1f87cdc30bdca97d9f84f82d0417da01a0d9799078580cc778544bc3bf5d",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -14650,13 +14672,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 5,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_abnormal_weather.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hoenn_arena.c",
@@ -15023,11 +15039,6 @@
           "line": 7,
           "kind": "missing_local_include",
           "target": "Tables/hoenn_fly.h"
-        },
-        {
-          "line": 9,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_abnormal_weather.h"
         },
         {
           "line": 296,
