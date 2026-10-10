@@ -1,0 +1,8 @@
+{
+  "result": "passed",
+  "ability_cases": 96,
+  "gigantamax_cases": 24,
+  "baseline": "6673730 fails consumption/mutation checks.",
+  "scope": "Production confirmation tasks: all party slots, hidden/ordinary ability branches, capsule/patch parameter, both ability bits and Gigantamax states, successful/failed consumption. Checks mutation ordering, untouched fields/other slots, stats calls and failure/success UI dispatch.",
+  "limitations": "Initial eligibility/confirmation menus and linked GBA UI unverified; controlled native services."
+}

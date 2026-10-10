@@ -2682,6 +2682,14 @@ static void Task_ChangeAbility(u8 taskId)
 	u16 item = Var800E;
 	u8 abilityType = ItemId_GetHoldEffectParam(item);
 	struct Pokemon* mon = &gPlayerParty[gPartyMenu.slotId];
+	if (!RemoveBagItem(item, 1))
+	{
+		gPartyMenuUseExitCallback = FALSE;
+		DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+		ScheduleBgCopyTilemapToVram(2);
+		gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+		return;
+	}
 	PlaySE(SE_USE_ITEM);
 	
 	if (mon->hiddenAbility) //[hack] patches/0201 夢特性 → 通常の特性（パッチ・カプセルとも・特性の番は変えない）
@@ -2707,7 +2715,6 @@ static void Task_ChangeAbility(u8 taskId)
 	DisplayPartyMenuMessage(gStringVar4, TRUE);
 	ScheduleBgCopyTilemapToVram(2);
 	gTasks[taskId].func = Task_ClosePartyMenuAfterText;
-	RemoveBagItem(item, 1);
 }
 
 void FieldUseFunc_MaxPowder(u8 taskId)
@@ -2778,6 +2785,14 @@ static void Task_HandleGigantamaxChangeYesNoInput(u8 taskId)
 static void Task_ChangeGigantamax(u8 taskId)
 {
 	struct Pokemon* mon = &gPlayerParty[gPartyMenu.slotId];
+	if (!RemoveBagItem(Var800E, 1))
+	{
+		gPartyMenuUseExitCallback = FALSE;
+		DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+		ScheduleBgCopyTilemapToVram(2);
+		gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+		return;
+	}
 
 	PlaySE(SE_USE_ITEM);	
 	mon->gigantamax ^= TRUE; //Flip bit
@@ -2791,7 +2806,6 @@ static void Task_ChangeGigantamax(u8 taskId)
 	DisplayPartyMenuMessage(gStringVar4, TRUE);
 	ScheduleBgCopyTilemapToVram(2);
 	gTasks[taskId].func = Task_ClosePartyMenuAfterText;
-	RemoveBagItem(Var800E, 1);
 }
 
 static void Task_HoneyField(u8 taskId)
