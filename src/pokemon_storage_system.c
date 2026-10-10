@@ -561,7 +561,7 @@ u8 SendMonToPC(struct Pokemon* mon)
 
 bool8 SendMonToBoxPos(struct Pokemon* mon, u8 boxNo, u8 boxPos)
 {
-	if (boxNo > TOTAL_BOXES_COUNT || boxPos > IN_BOX_COUNT)
+	if (boxNo >= TOTAL_BOXES_COUNT || boxPos >= IN_BOX_COUNT)
 		return TRUE;
 
 	struct CompressedPokemon* checkingMon = MonPtrForWrite(boxNo, boxPos); //[hack] patches/0196

@@ -1,0 +1,9 @@
+{
+  "result": "passed",
+  "cases": 131072,
+  "boxes": 50,
+  "slots_per_box": 30,
+  "baseline": "c151e48 dispatches storage writes at invalid one-past-end coordinates.",
+  "scope": "Actual SendMonToBoxPos for all byte coordinates with same/different current send box; invalid coordinates rejected before locator/compression/metadata mutation, valid sends route correct destination and update metadata/flag.",
+  "limitations": "Storage locator/compression services simulated; virtual shelf layout, actual persistence and linked GBA runtime unverified."
+}
