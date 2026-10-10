@@ -797,10 +797,10 @@
     },
     {
       "path": "src/hack_vanilla_tutor.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "8fd1fbb0b10c262950a5f5c8f0ab624ffdb5cb2b16a5bea9f88a57467c576d66",
-      "object_bytes": 0,
-      "diagnostics": "src/hack_vanilla_tutor.c:25:10: fatal error: Tables/hack_vanilla_tutor_compat.h: No such file or directory\n   25 | #include \"Tables/hack_vanilla_tutor_compat.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 4192,
+      "diagnostics": ""
     },
     {
       "path": "src/hack_wonder_trade.c",
@@ -1029,8 +1029,8 @@
     {
       "path": "src/item.c",
       "exit_code": 0,
-      "source_sha256": "136052d94cc017b71546c2740aa08ac9e3d89cce249c1d64393cc3fa074e704b",
-      "object_bytes": 24452,
+      "source_sha256": "4e26046f8f6931bfab4a685a9e941e6e8bce8f50ced041d6c7800c7e4da54c92",
+      "object_bytes": 24468,
       "diagnostics": ""
     },
     {

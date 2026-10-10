@@ -1382,8 +1382,8 @@
     },
     {
       "path": "audit/gnu_c.json",
-      "bytes": 129468,
-      "sha256": "d44fa8259f43d3aac39366c4e7f1f1c68b2a99edbc4fabbacc45266dcc5841b9",
+      "bytes": 129226,
+      "sha256": "63c379ce26c4dff0a53ef99dd40c7beed5be43338af11b6365fad03bc025193d",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 23704,
-      "sha256": "3ea3b063bb4db8ec8b57c4fd9455527c56934601c6b5c500a8d386e5da7d60a2",
+      "bytes": 24153,
+      "sha256": "4c97ce5751e850a96e495efacd6476f4df030f085e39dd8fa7d060c238f31079",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12492,8 +12492,8 @@
     },
     {
       "path": "scripts/check_tutor_bounds.py",
-      "bytes": 2068,
-      "sha256": "27f7ad55aa71cb9f5e7b897e5371ec3a09b5f235d91f7a0c665b19bce456b829",
+      "bytes": 2970,
+      "sha256": "d314f5c84de868deda290aa8bca8e1289de31f7dc6d0af61eeca882cf13a1c7d",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15054,8 +15054,8 @@
     },
     {
       "path": "src/item.c",
-      "bytes": 65598,
-      "sha256": "4e26046f8f6931bfab4a685a9e941e6e8bce8f50ced041d6c7800c7e4da54c92",
+      "bytes": 65655,
+      "sha256": "6c6c93ecbf3cbb43fde7e8aef05aba99838f45ff2d1e43f8edca6b503ef73d22",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
