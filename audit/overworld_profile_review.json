@@ -4,6 +4,8 @@
   "fix": "Clear all 358 words used by the profile layout, including the final snapshot at indices 330..357.",
   "verification": "python scripts/check_overworld_profile.py; actual GNU ARM compilation with HACK_PROFILE enabled recorded in overworld_profile_arm.json",
   "cases": 112,
+  "timer_sampling_fix": "ProfNow reads vblankCounter2 through a const volatile u32 pointer both before and after the volatile scanline sample, preventing compiler reuse of a nonvolatile interrupt-updated counter read.",
+  "timer_verification": "233 cases: all 227 stable scanlines outside the ambiguous line 160, up to three simulated intervening frame updates, line-160 retry and UINT32_MAX frame arithmetic wrap. Actual HACK_PROFILE ARM object compilation passed; ProfNow was inlined, so no standalone symbol disassembly claim is made.",
   "coverage": "All 28 sections with zero, one, 228 and UINT32_MAX elapsed values. Starts with dirty storage and checks every initialized word, adjacent guard words, additive totals/current-frame sums, maxima, wraparound and preservation of initialized auxiliary counters on later calls.",
   "limitations": "Mocked memory clearing and profile buffer; no hardware timer, VBlank concurrency, full profiling callback or runtime/cycle benchmark verification."
 }

@@ -93,11 +93,12 @@ static u32 ProfNow(void)
 {
     /* VCOUNT とコマの数の間に VBlank が入ると 1 コマ（228 本）飛ぶので、コマの数が前後で同じになるまで読み直す */
     u32 c, v;
+    const vu32* counter = &gMain.vblankCounter2;
     do
     {
-        c = gMain.vblankCounter2;
+        c = *counter;
         v = PROF_VCOUNT;
-    } while (c != gMain.vblankCounter2 || v == 160);   /* 160 は割り込みが来る線（コマの数が増える前か後か分からない） */
+    } while (c != *counter || v == 160);   /* 160 は割り込みが来る線（コマの数が増える前か後か分からない） */
     return c * 228u + (v > 160 ? v - 160 : v + 68);
 }
 static void ProfAdd(u32 k, u32 lines)

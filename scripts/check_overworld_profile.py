@@ -8,10 +8,21 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def main():
-    production = function((ROOT / 'src/overworld_speedup.c').read_text(encoding='utf-8'),
-                          'static void ProfAdd(u32 k, u32 lines)')
+    source = (ROOT / 'src/overworld_speedup.c').read_text(encoding='utf-8')
+    production = '\n'.join(function(source, signature) for signature in (
+        'static u32 ProfNow(void)', 'static void ProfAdd(u32 k, u32 lines)'))
     fixture = r'''
 typedef unsigned int u32;
+typedef volatile u32 vu32;
+static struct {u32 vblankCounter2;} gMain;
+static u32 scanline;static int retries,reads;
+static u32 ReadScan(void) {
+    reads++;
+    if(retries>0) {retries--;gMain.vblankCounter2++;return scanline;}
+    if(retries==-1) {retries=0;return 160;}
+    return scanline;
+}
+#define PROF_VCOUNT ReadScan()
 #define PROF_SECTIONS 28
 #define PROF_WORDS (330 + PROF_SECTIONS)
 static u32 storage[PROF_WORDS+2];
@@ -21,6 +32,19 @@ static void Memset(void* dest,int value,u32 count) {
 }
 PRODUCTION
 int main(void) {
+    for(u32 line=0;line<228;line++) {
+        if(line==160) continue;
+        gMain.vblankCounter2=123;scanline=line;retries=reads=0;
+        if(ProfNow()!=123u*228u+(line>160 ? line-160 : line+68) || reads!=1) return 5;
+    }
+    for(int race=-1;race<=3;race++) {
+        gMain.vblankCounter2=123;scanline=161;retries=race;reads=0;
+        u32 finalFrame=123+(race>0 ? race : 0);
+        int wantedReads=race==-1 ? 2 : race+1;
+        if(ProfNow()!=finalFrame*228u+1 || reads!=wantedReads) return 6;
+    }
+    gMain.vblankCounter2=0xFFFFFFFF;scanline=159;retries=reads=0;
+    if(ProfNow()!=0xFFFFFFFFu*228u+227u) return 7;
     const u32 values[]={0,1,228,0xFFFFFFFF};
     for(u32 k=0;k<28;k++) for(u32 choice=0;choice<4;choice++) {
         for(u32 i=0;i<PROF_WORDS+2;i++) storage[i]=0xDEADBEEF;
@@ -48,7 +72,7 @@ int main(void) {
         subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
-    print('Field profile: 112 dirty-memory/section/value cases passed with complete initialization and storage guards.')
+    print('Field profile: 112 storage cases and 233 scanline/race/wrap cases passed.')
 
 
 if __name__ == '__main__':
