@@ -1382,6 +1382,11 @@ static void CreateBallIcon(u8 taskId, u8 row, u16 id)
 	spriteId = CreateSprite(&template, ICON_X, ICON_Y(row), 0);
 	if (spriteId != MAX_SPRITES)
 		gTasks[taskId].data[TD_ICONS + row] = spriteId;
+	else
+	{
+		FreeSpriteTilesByTag(tag);
+		FreeSpritePaletteByTag(tag);
+	}
 }
 
 static void PrintTitle(u8 cursor)

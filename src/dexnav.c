@@ -1308,7 +1308,6 @@ static u8 GetEncounterLevel(u16 species, u8 environment, bool8 detectorMode)
 					{
 						//Pick index at random and choose min and max from there
 						PICK_RANDOM_LAND_LEVEL:
-						i = RandRange(0, NELEMS(landMonsInfo->wildPokemon));
 						monData = &landMonsInfo->wildPokemon[Random() % MAX_TOTAL_LAND_MONS];
 						min = monData->minLevel;
 						max = monData->maxLevel;
@@ -1339,7 +1338,6 @@ static u8 GetEncounterLevel(u16 species, u8 environment, bool8 detectorMode)
 
 				if (detectorMode)
 				{
-					i = RandRange(0, NELEMS(waterMonsInfo->wildPokemon));
 					monData = &waterMonsInfo->wildPokemon[Random() % NUM_WATER_MONS];
 					min = monData->minLevel;
 					max = monData->maxLevel;
@@ -1365,7 +1363,6 @@ static u8 GetEncounterLevel(u16 species, u8 environment, bool8 detectorMode)
 
 				if (detectorMode)
 				{
-					i = RandRange(0, NELEMS(fishingMonsInfo->wildPokemon));
 					monData = &fishingMonsInfo->wildPokemon[Random() % NUM_FISHING_MONS];
 					min = monData->minLevel;
 					max = monData->maxLevel;
@@ -3129,7 +3126,7 @@ static void ChangeSelectedRow(s8 change)
 				else
 					sDexNavGUIPtr->waterRowsAbove += 1;
 
-					sDexNavGUIPtr->selectedIndex += WATER_ROW_LENGTH; //Move to next row of water
+				sDexNavGUIPtr->selectedIndex += WATER_ROW_LENGTH; //Move to next row of water
 			}
 		}
 	}

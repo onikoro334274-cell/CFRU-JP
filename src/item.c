@@ -1342,6 +1342,9 @@ void Bag_BuildListMenuTemplate(u8 pocket)
 
 void PocketCalculateInitialCursorPosAndItemsAbove(u8 pocketId)
 {
+	if (pocketId >= MAIN_POCKETS_COUNT)
+		return;
+
 	if (gBagMenuState.cursorPos[pocketId] != 0
 	&& gBagMenuState.cursorPos[pocketId] + sBagMenuDisplay->maxShowed[pocketId] > GetNumItemsInPocket(pocketId) + 1)
 	{
