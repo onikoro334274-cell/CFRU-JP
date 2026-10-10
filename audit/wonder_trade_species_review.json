@@ -1,0 +1,8 @@
+{
+  "scope": "GetRandomWonderTradeSpecies",
+  "finding": "Random() % 1027 maps the 65536 possible draws unevenly: 835 dex entries have 64 preimages and 192 have 63.",
+  "fix": "Reject draws at or above 64701 before modulo, retaining the 20-attempt safety bound and existing species validation/fallback.",
+  "verification": "python scripts/check_wonder_trade_species.py",
+  "coverage": "All 65536 initial draws; each of 1027 dex entries has exactly 63 accepted preimages. Rejected suffix retries without dex lookup. NONE, EGG, out-of-range and zero-HP mapping exhaust twenty attempts without unsafe base-stat access; twenty rejected random draws also terminate with the existing Pikachu fallback.",
+  "limitations": "Controlled mapping and base-stat fixtures. Actual DPE dex mapping, PRNG sequence, whole generated-mon fields and game runtime remain unverified. Bounded failure fallback still has a tiny Pikachu bias, and invalid dex mappings affect the reachable species distribution."
+}

@@ -348,7 +348,14 @@ static u16 GetRandomWonderTradeSpecies(void)
 
 	for (tries = 0; tries < 20; ++tries)
 	{
-		u16 species = NationalPokedexNumToSpecies(1 + Random() % NATIONAL_DEX_COUNT);   //★ 2026-10-10 ユーザー「追加のポケモンも含まれるように都度回収して」: 図鑑の数（config.h・カゲノナカニ 1026・リンドリス…）まで＝足せば自動で入る
+		u16 roll = Random();
+		u16 species;
+
+		/* Reject the incomplete final range so every dex number has the same
+		 * number of accepted 16-bit random values. Keep the retry limit. */
+		if (roll >= 0x10000u - (0x10000u % NATIONAL_DEX_COUNT))
+			continue;
+		species = NationalPokedexNumToSpecies(1 + roll % NATIONAL_DEX_COUNT);
 
 		if (species != SPECIES_NONE && species != SPECIES_EGG && species < NUM_SPECIES && gBaseStats[species].baseHP != 0)
 			return species;

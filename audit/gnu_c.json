@@ -805,8 +805,8 @@
     {
       "path": "src/hack_wonder_trade.c",
       "exit_code": 0,
-      "source_sha256": "d1cbe04afcd10916b867af1f56fedb19c5ee135dbd6a3d2a84800d284e9bf603",
-      "object_bytes": 10432,
+      "source_sha256": "b49dcc99c377b864cd5900ff55bbc8e8567655ae27a40a840bc8a6906bca0a52",
+      "object_bytes": 10444,
       "diagnostics": ""
     },
     {
