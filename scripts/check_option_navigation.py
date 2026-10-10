@@ -12,7 +12,7 @@ def main():
     source = (ROOT / 'src/bw_option_menu.c').read_text(encoding='utf-8')
     enums = '\n'.join(re.search(r'enum\s*\{\s*' + name + r'\b.*?\};', source, re.S)[0]
                       for name in ('TD_MENUSELECTION', 'MENUITEM_TEXTSPEED'))
-    production = '\n'.join(function(source, name) for name in ('CycleInput', 'Task_ProcessInput'))
+    production = '\n'.join(function(source, name) for name in ('CycleInput', 'ProcessInputFor', 'Task_ProcessInput'))
     fixture = r'''
 typedef unsigned char u8;typedef short s16;
 #define TRUE 1
@@ -25,10 +25,13 @@ typedef unsigned char u8;typedef short s16;
 #define DPAD_LEFT 32
 #define WIN_TEXT 0
 #define BWOPT_VISIBLE_ROWS 6
+#define BWOPT_SPEED_COUNT 4
+#define DIFFICULTY_COUNT 5
 #define VRAM 0
 #define JOY_NEW(k) (keys&(k))
 ENUMS
 static unsigned keys;static int errors,descriptions,rows,mapIndex;
+static int cryCalls,cryMode;
 static struct {s16 data[16];void (*func)(u8);} gTasks[1];
 static const u8 maps[6]={0,1,2,3,4,5};
 static const u8* sMaps[6]={maps,maps+1,maps+2,maps+3,maps+4,maps+5};
@@ -41,7 +44,7 @@ static void DrawRows(const s16* data) {
 }
 static void LZ77UnCompVram(const u8* source,void* dest) {(void)dest;mapIndex=*source;if(mapIndex>=6) errors++;}
 static void ShowDescription(u8 item) {descriptions++;if(item>=MENUITEM_COUNT) errors++;}
-static u8 ProcessInputFor(u8 item,u8 selection,s16* arrow) {(void)item;(void)arrow;return selection;}
+static void SetPokemonCryStereo(u8 mode) {cryCalls++;cryMode=mode;}
 static void DrawChoicesFor(u8 item,u8 selection,u8 top) {(void)item;(void)selection;(void)top;}
 static void CopyWindowToVram(u8 id,u8 mode) {(void)id;(void)mode;}
 PRODUCTION
@@ -74,6 +77,18 @@ int main(void) {
         if(mask&2) expected=(expected+count-1)%count;
         if(CycleInput(selection,count,&arrow)!=expected || arrow!=(mask!=0)) return 5;
     }
+    for(int item=0;item<MENUITEM_COUNT;item++) {
+        int count=item==MENUITEM_TEXTSPEED ? 3 : item==MENUITEM_DIFFICULTY ? 5 :
+                  (item==MENUITEM_FIELDSPEED || item==MENUITEM_BATTLESPEED) ? 4 : 2;
+        for(int selection=0;selection<count;selection++) for(int mask=0;mask<4;mask++) {
+            keys=mask*16;s16 arrow=0;int expected=selection;cryCalls=0;cryMode=-1;
+            if(mask&1) expected=(expected+1)%count;
+            if(mask&2) expected=(expected+count-1)%count;
+            if(ProcessInputFor(item,selection,&arrow)!=expected || arrow!=(mask!=0)) return 6;
+            int soundChanged=item==MENUITEM_SOUND && expected!=selection;
+            if(cryCalls!=soundChanged || (soundChanged && cryMode!=expected)) return 7;
+        }
+    }
     return 0;
 }
 '''.replace('ENUMS', enums).replace('PRODUCTION', production)
@@ -88,7 +103,7 @@ int main(void) {
             subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                             '/out:' + str(exe), str(obj)], check=True)
             subprocess.run([str(exe)], check=True)
-    print('Option navigation: both menu variants passed visible cursor/top states, button priorities, scroll maps and 2..5-choice cycling.')
+    print('Option navigation: both menu variants passed scrolling, choice dispatch, 2..5-choice cycling and sound preview calls.')
 
 
 if __name__ == '__main__':

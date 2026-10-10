@@ -1,7 +1,7 @@
 {
-  "scope": "Task_ProcessInput, CycleInput and TD/MENUITEM enum layout in src/bw_option_menu.c",
+  "scope": "Task_ProcessInput, CycleInput, ProcessInputFor and TD/MENUITEM enum layout in src/bw_option_menu.c",
   "verification": "python scripts/check_option_navigation.py",
-  "coverage": "Both HACK_NO_MOEMON variants; every valid item/top pair and all A/B/up/down key combinations (1344 navigation cases), plus 112 valid 2..5-choice left/right cases. Checks task-data layout fits 16 slots, menu fields align with contiguous selections, cursor wrap, scroll top update, 0..5 background map index, save/cancel key priority, countdown setup and simultaneous direction behavior.",
+  "coverage": "Both HACK_NO_MOEMON variants; every valid item/top pair and all A/B/up/down key combinations (1344 navigation cases), plus 112 valid 2..5-choice left/right cases and 216 per-item choice-dispatch cases. Checks task-data layout fits 16 slots, menu fields align with contiguous selections, cursor wrap, scroll top update, 0..5 background map index, save/cancel key priority, countdown setup, simultaneous direction behavior and cry preview calls only on changed sound selection.",
   "findings": "No navigation or valid-selection cycling defect found in this scope.",
-  "limitations": "ProcessInputFor mocked as unchanged, drawing and decompression mocked. Actual per-item choice dispatch, invalid selection handling, save writes, graphics and linked game runtime remain unverified."
+  "limitations": "Drawing, decompression and cry APIs mocked. Choice counts are controlled fixture constants matching current menu definitions. Invalid selection handling, save writes, actual audio/graphics and linked game runtime remain unverified."
 }
