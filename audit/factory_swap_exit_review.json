@@ -1,0 +1,17 @@
+{
+  "scope": "Swap_Task_Exit production task and read-only comparison of select/swap summary child-buffer cleanup",
+  "checks": {
+    "scripts/check_factory_swap_exit.py": "96 combinations: animation blocking, four exit states, fade busy, keep/swap choices, three legal opponent cursor positions; root-child cleanup, copy invocation and script result checked"
+  },
+  "findings": [
+    "No swap-exit child buffer leak found; all four graphics buffers are freed before screen/root",
+    "Summary transitions free all four graphics buffers on both select and swap paths",
+    "Swap exit calls party-copy only in swap state and supplies selected enemy cursor; actual party-copy body not executed"
+  ],
+  "limitations": [
+    "Controlled native task fixture; copy/graphics/window/callback services mocked",
+    "Does not validate party data mutation, script resume semantics or GBA UI",
+    "Full Factory source ARM compilation remains blocked by generated graphics header",
+    "Root/window/buffer/task allocation failure handling remains incomplete"
+  ]
+}
