@@ -28,6 +28,7 @@
     "next_task_callback_literal": "0x08126D80 contains 0x08126E0D"
   },
   "native_level_cap_fix": "bytereplacement 08040F24 changes native effect cmp r0,#100 to cmp r0,#200. Ordinary Rare Candy keeps its source entry cap of 100. check_exp_candy_native_cap.py executes native cap/stride instructions for 1200 growth-rate/level cases.",
-  "next_work": "Verify full-bag and existing rare-candy inventories through entry/continuation integration, final experience remainder, move-selection task transitions and evolution.",
-  "limitations": "ARM compilation, controlled 199 level-step fixtures and 1200 native instruction cap/stride cases pass, plus existing arithmetic/failure/packed-state checks. End-to-end patched ROM execution and complete native move/evolution chain not yet verified."
+  "controlled_flow_integration": "check_exp_candy_flow.py passes 143280 entry/step/continuation/final-dispatch cases including bag full, zero/17 rare candies, all slots and five sizes. Baseline 7c2f15a reproduces skipped intermediate callbacks. Final exp remainder, original item, reserved-variable clearing and evolution dispatch checked.",
+  "next_work": "Verify actual native move-selection task transitions, friendship and evolution scene in linked GBA runtime, plus interruption/recovery behavior.",
+  "limitations": "ARM compilation, controlled 199 level-step fixtures, 1200 native instruction cap/stride cases and 143280 controlled integrated-flow cases pass, plus existing arithmetic/failure/packed-state checks. End-to-end patched ROM execution and complete native move/evolution chain not yet verified."
 }

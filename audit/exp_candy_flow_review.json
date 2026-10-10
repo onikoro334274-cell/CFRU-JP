@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "flow_cases": 143280,
+  "baseline": "7c2f15a reproduces missing intermediate callbacks for a full bag (exit 3).",
+  "scope": "Actual entry/level-step/chain validation/continuation/final evolution dispatch with controlled native services; all party slots, five candy sizes, levels 1..199, three experience remainders, full/available bag, zero/17 rare candies, evolution/no evolution. Checks one candy consumed, rare inventory unchanged, every intermediate callback, final experience/level/item restoration and cleared reserved vars.",
+  "limitations": "Native move UI and effect services simulated. Does not establish actual move replacement UI, friendship, save interruptions or linked GBA runtime."
+}
