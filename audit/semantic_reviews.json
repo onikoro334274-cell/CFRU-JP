@@ -604,7 +604,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
+      "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
       "sections": [
         "GenerateWildMonHeldItem"
       ],
@@ -624,7 +624,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
+      "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
       "sections": [
         "GiveMonNatureAndAbility shiny PID shift",
         "ForceMonShiny shiny PID shift"
@@ -642,6 +642,16 @@
       "verification": "check_perfect_iv_bounds.py baseline reproduction/current 16384 cases and ARM object compile",
       "current_report": "audit/perfect_iv_bounds_review.json",
       "remaining": "Cyclic fixture RNG does not prove arbitrary RNG sequence termination. Callers, actual Pokemon storage integration and GBA runtime remain unverified."
+    },
+    {
+      "path": "src/build_pokemon.c",
+      "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+      "sections": [
+        "SetWildMonHeldItem"
+      ],
+      "verification": "check_wild_item_dispatch.py: 256 combinations of five battle bits, DexNav state and two item outcomes. Exact reads/generator calls/writes and all six party slots checked.",
+      "current_report": "audit/wild_item_dispatch_review.json",
+      "remaining": "Controlled Pokemon accessor/generator mocks; actual battle startup, stale held items, encounters and GBA execution remain unverified."
     }
   ]
 }

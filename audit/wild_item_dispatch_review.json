@@ -1,0 +1,11 @@
+{
+  "source": "src/build_pokemon.c",
+  "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+  "result": "pass",
+  "sections": [
+    "SetWildMonHeldItem"
+  ],
+  "verification": "check_wild_item_dispatch.py: 256 combinations of five battle bits, DexNav state and two item outcomes. Exact reads/generator calls/writes and all six party slots checked.",
+  "behavior": "Trainer, scripted-wild-1, tutorial and DexNav bypass; singles target first slot, doubles target first two; ITEM_NONE preserves existing item. Trainer tower bit alone is a synthetic independence check, not a real battle configuration.",
+  "limitations": "Controlled Pokemon accessor/generator mocks; actual battle startup, stale held items, encounters and GBA execution remain unverified."
+}

@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 851,
+    "source_files": 852,
     "files_with_indexed_scopes": 33,
-    "indexed_scopes": 49,
+    "indexed_scopes": 50,
     "scope_states": {
-      "source_changed": 15,
-      "current": 33,
+      "source_changed": 13,
+      "current": 36,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3945,6 +3945,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_wild_item_dispatch.py",
+      "source_sha256": "0a9f49df3cfe309320741e5891971ea059e6b3b1fe9a49caff8a4474ccaea823",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_wild_mega_stone_lookup.py",
       "source_sha256": "5e8ec0567c4efdf22e6d1a7aa93517ea1d940d0c583706edd3538f52c5ac0e07",
       "gnu_c_object": "not_applicable",
@@ -4777,22 +4784,22 @@
       "gnu_c_object": "object_compiled",
       "scoped_reviews": [
         {
-          "state": "source_changed",
+          "state": "current",
           "sections": [
             "GenerateWildMonHeldItem"
           ],
-          "recorded_source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
+          "recorded_source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
           "evidence": [],
           "verification": "check_wild_held_item.py",
           "remaining": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified."
         },
         {
-          "state": "source_changed",
+          "state": "current",
           "sections": [
             "GiveMonNatureAndAbility shiny PID shift",
             "ForceMonShiny shiny PID shift"
           ],
-          "recorded_source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
+          "recorded_source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
           "evidence": [],
           "verification": "check_shiny_pid_shift.py baseline trap and current unsigned oracle; ARM object compile",
           "remaining": "Expression scope only; personality reroll termination, nature/gender preservation, full functions, linked ROM and runtime are not certified."
@@ -4806,6 +4813,16 @@
           "evidence": [],
           "verification": "check_perfect_iv_bounds.py baseline reproduction/current 16384 cases and ARM object compile",
           "remaining": "Cyclic fixture RNG does not prove arbitrary RNG sequence termination. Callers, actual Pokemon storage integration and GBA runtime remain unverified."
+        },
+        {
+          "state": "current",
+          "sections": [
+            "SetWildMonHeldItem"
+          ],
+          "recorded_source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+          "evidence": [],
+          "verification": "check_wild_item_dispatch.py: 256 combinations of five battle bits, DexNav state and two item outcomes. Exact reads/generator calls/writes and all six party slots checked.",
+          "remaining": "Controlled Pokemon accessor/generator mocks; actual battle startup, stale held items, encounters and GBA execution remain unverified."
         }
       ],
       "whole_file_completion": "not_established"

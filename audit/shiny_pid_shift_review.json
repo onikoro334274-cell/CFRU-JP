@@ -1,6 +1,6 @@
 {
   "result": "pass",
-  "source_sha256": "5604de2c4dac6777d7706a4465dc052aa57e9385b6ba3160036632b29543c885",
+  "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
   "scope": "Two shiny PID assignment expressions in GiveMonNatureAndAbility and ForceMonShiny",
   "baseline": "Before unsigned cast, actual extracted expressions terminate with illegal-instruction shift sanitizer trap (0xC000001D).",
   "fix": "Cast high-half XOR value to u32 before shifting 16 bits. Preserves intended PID bits.",
