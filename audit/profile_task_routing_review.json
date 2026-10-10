@@ -2,6 +2,7 @@
   "scope": "ProfRunTasks task structure and first-active-task routing",
   "rom_evidence": "Original BPRJ RunTasks at 0x08076D10 calls 0x08076D40, exits on ID 16, computes task stride as (id*5)<<3 = 40 bytes, loads func at offset 0, executes it, then reads next at offset 6 until 0xFF. Task-array literal at 0x08076D3C is 0x030050D0.",
   "change": "Replace duplicated ProfTask structure and hard-coded task/first-active pointers with include/task.h struct Task, gTasks, FindFirstActiveTask and NUM_TASKS; keep callback execution and post-callback next access order.",
-  "verification": "BPRJ.ld symbol correspondence, include/task.h field layout inspection and actual HACK_PROFILE ARM compilation without diagnostics. Existing profile accumulator/time fixtures pass.",
-  "limitations": "No task-mutation runtime fixture or full linked execution; interrupted profile statistics and malformed task chains remain unverified."
+  "verification": "BPRJ.ld symbol correspondence, include/task.h field layout inspection and actual HACK_PROFILE ARM compilation without diagnostics. check_profile_tasks.py executes 1632 controlled chain/order/mutation/timer-wrap scenarios. Existing profile accumulator/time fixtures pass.",
+  "task_fixture": "Chain lengths 0..16 in sixteen permutations; unchanged links, terminate-next and skip-next mutations during callback; normal/wrapping elapsed counter. Verifies callback execution order, elapsed maximum and callback identity, preservation of a prior larger maximum and unrelated profile words.",
+  "limitations": "Surrogate task layout with mocked first-task/timer APIs, not actual task allocation or full linked execution. Interrupted profile statistics, malformed task chains, DestroyTask internals and GBA timing remain unverified."
 }
