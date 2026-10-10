@@ -1,0 +1,15 @@
+{
+  "scope": "sMegaShopWindows and MegaShop_LoadFrameTilemap",
+  "verification": "python scripts/check_mega_shop_layout.py",
+  "windows": 7,
+  "frame_cells": 2048,
+  "coverage": "All window tile allocations are disjoint, within 1024 tiles, above reserved frame tiles and within the visible 30x20 map. Actual frame function matches its documented mapping for every cell in open and closed shop states; surrounding guards and untouched columns/rows preserved.",
+  "rom_frame": {
+    "rom_address": "0x08D85F08",
+    "lz_header": "10000800",
+    "expanded_bytes": 2048,
+    "source": "User-supplied original BPRJ ROM identified in rom_input.json"
+  },
+  "findings": "No tile-allocation overlap or frame-remapping bounds defect found in this scope.",
+  "limitations": "Mocked decompressor fills unique tile values. Header size checked against original ROM, but actual frame art, VRAM upload, window initialization failure and in-game appearance remain unverified."
+}
