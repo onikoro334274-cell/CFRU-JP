@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 22682,
-      "sha256": "c10e11cde083a9e1281ca8e3b2a0956b530f6f393ee35e338a502d34b17f20d7",
+      "bytes": 23190,
+      "sha256": "5c1425f033cf064476d4e7a4d1dde2558966b224e7d91adafe915f1626d7a6c3",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12512,6 +12512,17 @@
       "findings": []
     },
     {
+      "path": "scripts/generate_emerald_tutor.py",
+      "bytes": 4979,
+      "sha256": "c19fa2af370ed392e7825135a317496279697e79b8b0bf809ef74f86d9e6bed0",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/generate_npc_text_colors.py",
       "bytes": 6584,
       "sha256": "ad2635c50b3136165d87486a1a32f8f831f961aec1c38d968740087659de9978",
@@ -12535,8 +12546,8 @@
     },
     {
       "path": "scripts/generate_vanilla_tutor.py",
-      "bytes": 4382,
-      "sha256": "6b81c338286f190def6465d3061007d4bf5470cdd749fa7d046158ac971798c8",
+      "bytes": 4676,
+      "sha256": "db9c50d267df233dfe8b068185d501b96272e5bd63758b32b5326f13f5d6be98",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12960,9 +12971,20 @@
       "findings": []
     },
     {
+      "path": "src/Tables/hack_emerald_tutor_compat.h",
+      "bytes": 5630,
+      "sha256": "d45088e163b69b46864c5aa0d8cf000814ec4868c958bd1f5c3ff139c85b58d8",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
       "path": "src/Tables/hack_vanilla_tutor_compat.h",
-      "bytes": 3531,
-      "sha256": "b076ff675caa005b96792b5cc8bb8d26882900d38f18d8edd8c149d1550bf886",
+      "bytes": 3530,
+      "sha256": "077d063828a4c592d351b7a6a756da2be5269d42033d1653c0b9edaf2304461d",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -14517,13 +14539,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 26,
-          "kind": "missing_local_include",
-          "target": "Tables/hack_emerald_tutor_compat.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hack_wonder_trade.c",
