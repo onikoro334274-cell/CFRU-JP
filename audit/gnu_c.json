@@ -329,8 +329,8 @@
     {
       "path": "src/dns.c",
       "exit_code": 0,
-      "source_sha256": "28412ca7e9afac966aa322829706ea4acd0f5be4389d05cb5504f3919f1a7461",
-      "object_bytes": 7444,
+      "source_sha256": "044c0b08192109c83e10db9c57f9bae3cf269e7ac311b02305bbf11533f236d0",
+      "object_bytes": 7556,
       "diagnostics": ""
     },
     {

@@ -444,7 +444,7 @@ u32 GetDayDifference(u32 startYear, u8 startMonth, u8 startDay, u32 endYear, u8 
 {
 	const u16 cumDays[] = {0,31,59,90,120,151,181,212,243,273,304,334}; //Cumulative Days by month
 	const u16 leapcumDays[] = {0,31,60,91,121,152,182,213,244,274,305,335}; //Cumulative Days by month for leap year
-	u32 totdays = 0;
+	u64 totdays = 0;
 	if (!IsValidCalendarDate(startYear, startMonth, startDay)
 	|| !IsValidCalendarDate(endYear, endMonth, endDay))
 		return 0;
@@ -465,23 +465,19 @@ u32 GetDayDifference(u32 startYear, u8 startMonth, u8 startDay, u32 endYear, u8 
 	else
 		totdays = totdays + 365 - (cumDays[startMonth - 1] + startDay);
 
-	u32 year = startYear + 1;
-	while (year < endYear)
-	{
-		if (IsLeapYear(year))
-			totdays = totdays + 366;
-		else
-			totdays = totdays + 365;
-
-		year = year + 1;
-	}
+	/* Count complete intervening years without a loop proportional to the span.
+	 * The interval excludes both endpoint years, so year zero is not included. */
+	u32 last = endYear - 1;
+	u32 leapYears = (last / 4 - last / 100 + last / 400)
+	              - (startYear / 4 - startYear / 100 + startYear / 400);
+	totdays += (u64) (endYear - startYear - 1) * 365 + leapYears;
 
     if (IsLeapYear(endYear))
         totdays = totdays + (leapcumDays[endMonth - 1] + endDay);
     else
         totdays = totdays + (cumDays[endMonth - 1] + endDay);
 
-    return totdays;
+    return totdays > 0xFFFFFFFFu ? 0xFFFFFFFFu : (u32) totdays;
 }
 
 u32 GetMonthDifference(u32 startYear, u8 startMonth, u32 endYear, u8 endMonth)

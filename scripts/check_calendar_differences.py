@@ -3,6 +3,7 @@ import argparse
 import datetime
 import subprocess
 import tempfile
+import random
 from pathlib import Path
 from check_factory_party_copy import function
 
@@ -38,8 +39,25 @@ def main():
                         value = 0
                     values.append(value)
         arrays.append('static const u32 %s[3][13][32]={%s};' % (name, ','.join(map(str, values))))
+    spans = []
+    rng = random.Random(9172)
+    pairs = [(0, 1), (0, 400), (1900, 2100), (1, 9999), (0, 0xFFFFFFFF),
+             (0xFFFFFFFE, 0xFFFFFFFF), (0xFFFFFFFF, 0xFFFFFFFF)]
+    pairs += [(rng.randrange(0x100000000), rng.randrange(0x100000000)) for _ in range(5000)]
+    for start, end in pairs:
+        start, end = sorted((start, end))
+        def ordinal(year):
+            return year * 365 + (year + 3) // 4 - (year + 99) // 100 + (year + 399) // 400
+        expected = min(0xFFFFFFFF, ordinal(end) - ordinal(start))
+        spans.append('{%du,%du,%du}' % (start, end, expected))
+    arrays.append('static const u32 spans[][3]={' + ','.join(spans) + '};')
+    # Prior loop-based implementations are tested only on the bounded calendar cases.
+    large_test = '' if args.baseline else '''
+    for(u32 i=0;i<sizeof(spans)/sizeof(spans[0]);i++)
+        if(GetDayDifference(spans[i][0],1,1,spans[i][1],1,1)!=spans[i][2]) return 11;
+'''
     fixture = r'''
-typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typedef u8 bool8;
+typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typedef unsigned long long u64;typedef u8 bool8;
 #define TRUE 1
 #define FALSE 0
 #define MathMax(a,b) ((a)>(b) ? (a) : (b))
@@ -64,9 +82,10 @@ int main(void) {
         if(GetMinuteDifference(2000,1,1,0,0,2000,1,2,hour,minute)!=(hour<24 && minute<60 ? 1440+hour*60+minute : 0)) return 7;
         if(GetHourDifference(2000,1,1,hour,2000,1,2,0)!=(hour<24 ? 24-hour : 0)) return 8;
     }
+    LARGE_TEST
     return 0;
 }
-'''.replace('PRODUCTION', production).replace('ORACLE', '\n'.join(arrays))
+'''.replace('PRODUCTION', production).replace('ORACLE', '\n'.join(arrays)).replace('LARGE_TEST', large_test)
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory)
         c, obj, exe = (path / ('differences' + suffix) for suffix in ('.c', '.obj', '.exe'))
@@ -76,7 +95,7 @@ int main(void) {
         subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
-    print('Calendar differences: 196608 raw date cases and 65536 raw time cases match Gregorian oracles and invalid-input rejection.')
+    print('Calendar differences: 196608 date cases, 65536 time cases and %d large year spans pass.' % (0 if args.baseline else len(spans)))
 
 
 if __name__ == '__main__':

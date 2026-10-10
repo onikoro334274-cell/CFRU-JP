@@ -1,0 +1,16 @@
+{
+  "scope": "GetDayDifference full-year accumulation",
+  "change": "Replace O(year span) loop with arithmetic count of complete years and leap years; accumulate in u64 and saturate the returned u32 day count. Same-year fast path remains.",
+  "baseline": "7e64bcccf5af15d877b5f2a2783b8f6d4fee67ca",
+  "checks": {
+    "scripts/check_calendar_differences.py": "196608 raw date cases and 65536 raw time cases; 5007 deterministic large-year spans with independent Python integer Gregorian ordinal oracle including year zero and UINT32_MAX",
+    "scripts/check_calendar_differences.py --baseline HEAD (before commit)": "Bounded 262144 date/time cases also pass on prior implementation; huge spans intentionally not executed on its year loop",
+    "audit/gnu_c.json": "174/203 actual ARM C sources compile including dns.c"
+  },
+  "limitations": [
+    "Constant operation count follows source arithmetic; real GBA cycle cost not benchmarked",
+    "u64 compiler support and final helper linking remain subject to full ROM link validation",
+    "GetMonthDifference overflow and minute/hour saturation boundaries remain separate audit tasks",
+    "Native fixtures do not establish linked ROM or daily-event behavior"
+  ]
+}
