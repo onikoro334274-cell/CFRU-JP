@@ -1,0 +1,8 @@
+{
+  "source_sha256": "2271fdb2287590a6d8ca260e2ca35fa15229ee39d703a65b5e2e77a274fbfc4f",
+  "result": "passed",
+  "generation_cases": 262144,
+  "representable_art_classes": 60,
+  "scope": "Actual PickSid/MakeId with seeded RNG: nonzero ID, shiny preservation, legacy exclusion and artwork class modulo 60; all 16-bit SIDs independently enumerated for class coverage.",
+  "limitations": "Does not prove all personalities/RNG sequences, actual game RNG parity, forced Moemon conversion, full callers, or GBA execution."
+}
