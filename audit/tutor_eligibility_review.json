@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "cases": 32768,
+  "scope": "Actual wrapper and compatibility tables: all tutor inputs, TM delegation, egg rejection, expanded lookup vs legacy fallback, learnability, known moves and national dex boundaries.",
+  "limitations": "Controlled Pokemon and expanded-tutor APIs; does not independently certify learnsets, species-to-dex conversion, hook insertion or GBA runtime."
+}
