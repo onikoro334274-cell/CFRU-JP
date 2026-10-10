@@ -237,6 +237,20 @@
       ],
       "verification": "check_badge_count.py executes both production functions and actual restored flag definitions; 7585 controlled input combinations and buffer canaries pass",
       "remaining": "Actual flag setting by event scripts, ROM hooks and GBA save-screen rendering remain unverified"
+    },
+    {
+      "path": "src/hoenn_abnormal_weather.c",
+      "source_sha256": "f76ed93496868b2ba6970888890f109b0b499aa698237f8f33c896da2764d0fc",
+      "sections": [
+        "HoennAbnIsHere",
+        "HoennAbnInCave",
+        "HoennAbnOnAnyRoute",
+        "HoennAbnOnEventRoute",
+        "HoennAbnCreate",
+        "HoennAbnormalWeatherTick"
+      ],
+      "verification": "check_abnormal_weather.py production execution with actual generated headers and controlled save/flags/RNG; all u16 step values, invalid locations, 16 route cleanup states, 25 protected creation maps, legendary availability and champion gate; GNU ARM compilation passed",
+      "remaining": "Map script expiration cleanup, actual generated map-bank correspondence, frame/step caller timing and GBA weather graphics remain unverified"
     }
   ]
 }

@@ -72,7 +72,8 @@
     "GNU full audit after regional flags: 167/203 C files compile and 36 fail. Then restored Hoenn roamer routes from pokeemerald commit 731ad5bfd6e6f265508d0efcca0ba42f9dcf5881; 20 unique starting routes, destination closure, seven-cell rows and single trailing sentinel checked; map bank 43 matches preserved build_hoenn_maps.GMAPGROUPS_COUNT. Actual roamer.c ARM compilation passes without diagnostics; real generated map bank/runtime remain unverified.",
     "Production RoamersMove/RoamersMoveToOtherLocationSet with actual default Kanto and restored Hoenn tables pass 80000 mixed-region moves, table membership, region preservation and invalid-location repair using deterministic LCG; every active row has at least two non-terminator candidate slots. Fixture uses controlled four-roamer state and is not GBA execution or proof for every RNG sequence.",
     "Abnormal-weather header generated from preserved ABN_LOCATIONS/ABN_CAVE_MAPS and pokeemerald 731ad5bfd6e6f265508d0efcca0ba42f9dcf5881 map_groups order: 16 route entries and 9 protected cave entries; all map pairs fit byte ranges, names resolve and map-bank offset 43 comes from preserved GMAPGROUPS_COUNT. hoenn_abnormal_weather.c ARM compilation passes without diagnostics; actual built map order/runtime is not yet verified.",
-    "Production abnormal-weather tick passes 393216 moved/place/u16-step inputs including 65535, all event IDs 17..65535, and legendary-availability event creation; actual ARM compilation passes without diagnostics. Controlled save/flag fixture does not verify map script cleanup or GBA weather rendering."
+    "Production abnormal-weather tick passes 393216 moved/place/u16-step inputs including 65535, all event IDs 17..65535, and legendary-availability event creation; actual ARM compilation passes without diagnostics. Controlled save/flag fixture does not verify map script cleanup or GBA weather rendering.",
+    "Weather production tick additionally passes all 16 event routes for end-flag cleanup vs protected cave waiting; event creation stays suppressed on all 16 route entries and 9 protected maps; non-champion state is untouched. Native state-machine checks do not execute map scripts or render weather."
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -158,7 +159,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:53:22.680930+00:00",
+  "updated_utc": "2026-10-10T18:53:59.895738+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }
