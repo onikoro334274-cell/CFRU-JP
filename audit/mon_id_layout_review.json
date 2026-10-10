@@ -1,0 +1,10 @@
+{
+  "result": "passed",
+  "scope": "ARM compilation of actual struct sizes, addressable carrier offsets, ID bytes and item ID capacity.",
+  "header_sha256": {
+    "include/pokemon.h": "6282e68fa8316de7ce2a54948d86ec41daf9b493e2ea39ecc8710c08241281c7",
+    "include/new/pokemon_storage_system.h": "6599f914da4e25be69552a73e4ca687f8f5725c178409dc145427b8903afa65e",
+    "include/constants/items.h": "826e5bcc9775732fa044423d1b9b2a3653165c5a5b95a04dd3328626882eea8e"
+  },
+  "limitations": "Does not verify unaddressable bitfield allocation, full conversion, save migration, or GBA execution."
+}
