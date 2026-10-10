@@ -65,7 +65,8 @@
     "Vanilla tutor compatibility recovered from supplied BPRJ: checked 15 expected move IDs and learnset pointer 0x0841930E, mapped all 386 original species to current national dex constants; complete hack_vanilla_tutor.c compilation still awaits Emerald tutor compatibility header.",
     "Emerald tutor header generated from https://github.com/pret/pokeemerald commit 731ad5bfd6e6f265508d0efcca0ba42f9dcf5881: 30 move IDs and all 386 national dex learnsets. Full hack_vanilla_tutor.c now compiles with real GNU ARM GCC without diagnostics. Vanilla mapping additionally rejects duplicate species/dex and verifies exact 1..386 coverage.",
     "CanMonLearnTutorMove production byte-row path executed for all 65536 species IDs and 152 tutor slots with a controlled four-species table; valid reads match independent bit extraction and NONE/out-of-range species return false; full src/item.c compiles with GNU ARM GCC without diagnostics. Special tutor cases and actual DPE table content remain outside this fixture.",
-    "GNU audit refreshed after header recovery: 165 of 203 C files compile, 38 failures remain. Updated item.c additionally compiles without diagnostics. Native production TM/HM and tutor reads pass all 65536 species IDs and 256 TM IDs/152 tutor slots for 64- and 128-bit TM layouts with controlled tables."
+    "GNU audit refreshed after header recovery: 165 of 203 C files compile, 38 failures remain. Updated item.c additionally compiles without diagnostics. Native production TM/HM and tutor reads pass all 65536 species IDs and 256 TM IDs/152 tutor slots for 64- and 128-bit TM layouts with controlled tables.",
+    "Draco Meteor rejection production function passes all 65536 species IDs, min/max friendship, primary/secondary Dragon type, eggs and unrelated tutor routing in controlled fixture; combined tutor/TM bounds checks pass; actual item.c ARM compilation has no diagnostics and 55 regression tests pass."
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -117,7 +118,8 @@
     "Added explicit-ROM-path vanilla tutor compatibility generator using tracked species/national dex constants; restored actual 387-entry learnset bitmask header",
     "Restored Emerald tutor compatibility with standalone reference-path generator; retained public reference commit provenance and no dummy learnsets",
     "Tutor eligibility rejects NONE and species IDs outside NUM_SPECIES before reading compatibility rows or special-tutor base stats",
-    "TM/HM compatibility rejects NONE, eggs and out-of-range species before indexing and uses unsigned shifts for all four 32-bit masks"
+    "TM/HM compatibility rejects NONE, eggs and out-of-range species before indexing and uses unsigned shifts for all four 32-bit masks",
+    "Draco Meteor rejection reason function rejects NONE and out-of-range species before reading base stat types"
   ],
   "limitations": [
     "77 quoted C include references are absent from this checkout; see repository.json for locations",
@@ -146,7 +148,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:45:26.229643+00:00",
+  "updated_utc": "2026-10-10T18:46:27.437106+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }

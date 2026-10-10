@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 24153,
-      "sha256": "4c97ce5751e850a96e495efacd6476f4df030f085e39dd8fa7d060c238f31079",
+      "bytes": 24574,
+      "sha256": "d37e8bbc3bae65dc910912ad0f71c564087a69c486ea250b45e457b8efc29865",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12492,8 +12492,8 @@
     },
     {
       "path": "scripts/check_tutor_bounds.py",
-      "bytes": 2970,
-      "sha256": "d314f5c84de868deda290aa8bca8e1289de31f7dc6d0af61eeca882cf13a1c7d",
+      "bytes": 3833,
+      "sha256": "bcdf1e52df25b146632c9904d40f3e1dc793eed78a056ad560892eace21f4550",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15054,8 +15054,8 @@
     },
     {
       "path": "src/item.c",
-      "bytes": 65655,
-      "sha256": "6c6c93ecbf3cbb43fde7e8aef05aba99838f45ff2d1e43f8edca6b503ef73d22",
+      "bytes": 65735,
+      "sha256": "c181b4bd64dd8f76922c73fa647b6952f6c76be8ddec4edc97e7501311266de3",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
