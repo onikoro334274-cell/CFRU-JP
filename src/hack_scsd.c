@@ -175,19 +175,28 @@ static bool8 HackScsd_Mount(struct ScsdFs *fs)
 	return FALSE;
 }
 
-static u32 ClusLba(struct ScsdFs *fs, u32 c) { return fs->data + ((c - 2) << fs->spcShift); }
-
 static bool8 EndClus(struct ScsdFs *fs, u32 c)
 {
 	return c < 2 || c >= (fs->type == 16 ? 0xFFF8u : fs->type == 32 ? 0x0FFFFFF8u : 0xFFFFFFF7u);
 }
 
+static u32 ClusLba(struct ScsdFs *fs, u32 c)
+{
+	if (EndClus(fs, c) || fs->spcShift >= 32
+	 || c - 2 > ((0xFFFFFFFFu - fs->data) >> fs->spcShift))
+		return 0;
+	return fs->data + ((c - 2) << fs->spcShift);
+}
+
 static u32 NextClus(struct ScsdFs *fs, u32 c)
 {
 	u32 perSec = fs->type == 16 ? 256 : 128;
-	u32 lba = fs->fat + c / perSec;
+	u32 lba;
+	if (EndClus(fs, c) || c / perSec > 0xFFFFFFFFu - fs->fat)
+		return 0xFFFFFFFF;
+	lba = fs->fat + c / perSec;
 
-	if (fs->fatCached != lba)
+	if (fs->fatCached != lba || fs->fatCached == 0xFFFFFFFFu)
 	{
 		if (!HackScsd_Read(fs, lba, 1, fs->fatBuf))
 			return 0xFFFFFFFF;
@@ -251,10 +260,13 @@ static bool8 HackScsd_FindFile(struct ScsdFs *fs)
 	clus = fs->rootClus;
 	for (guard = 0; guard < 64 && !EndClus(fs, clus); guard++)
 	{
+		u32 clusterLba = ClusLba(fs, clus);
+		if (clusterLba == 0 || (1u << fs->spcShift) - 1 > 0xFFFFFFFFu - clusterLba)
+			return FALSE;
 		for (s = 0; s < (1u << fs->spcShift); s++)
 		{
 			u32 e;
-			if (!HackScsd_Read(fs, ClusLba(fs, clus) + s, 1, fs->buf))
+			if (!HackScsd_Read(fs, clusterLba + s, 1, fs->buf))
 				return FALSE;
 			if (fs->type == 32)
 			{
@@ -310,19 +322,24 @@ static bool8 HackScsd_FindFile(struct ScsdFs *fs)
 //ファイルの n 区画目の LBA（FAT をたどる・0 なら失敗）
 static u32 FileLba(struct ScsdFs *fs, u32 n)
 {
-	u32 per = 1u << fs->spcShift;
+	u32 per, base, offset;
 	u32 c = fs->fileClus;
 	u32 k;
+	if (fs->spcShift >= 32 || EndClus(fs, c))
+		return 0;
+	per = 1u << fs->spcShift;
 
-	if (fs->fileNoChain)
-		return ClusLba(fs, c) + n;
-	for (k = n / per; k != 0; k--)
+	for (k = fs->fileNoChain ? 0 : n / per; k != 0; k--)
 	{
 		c = NextClus(fs, c);
 		if (EndClus(fs, c))
 			return 0;
 	}
-	return ClusLba(fs, c) + (n % per);
+	base = ClusLba(fs, c);
+	offset = fs->fileNoChain ? n : n % per;
+	if (base == 0 || offset > 0xFFFFFFFFu - base)
+		return 0;
+	return base + offset;
 }
 
 //SD のファイルを開く（Alloc した入れ物を返す・使い終わったら Free）。*result: 0 SuperCard でない・1 途中で失敗・2 ファイルが無い・3 あった

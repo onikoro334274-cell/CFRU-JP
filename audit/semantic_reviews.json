@@ -557,20 +557,25 @@
     },
     {
       "path": "src/hack_scsd.c",
-      "source_sha256": "3adc6ca77291e57d25e9c20e74af0c05f9e2f59d7b9891664864d138d7c83d52",
+      "source_sha256": "654ed5aea6ffcf584c2d3569f64f96b2b85c8dd15bec5b536c71e235a80c7e42",
       "sections": [
         "Rd16",
         "Rd32",
         "ScanFat",
         "HackScsd_ReadOpened",
-        "HackScsd_Mount arithmetic and cluster settings"
+        "HackScsd_Mount arithmetic and cluster settings",
+        "ClusLba",
+        "NextClus",
+        "FileLba",
+        "HackScsd_FindFile directory address checks"
       ],
       "verification_records": [
         "scsd_fat_directory_review.json",
         "scsd_file_read_bounds_review.json",
-        "scsd_mount_geometry_review.json"
+        "scsd_mount_geometry_review.json",
+        "scsd_cluster_address_review.json"
       ],
-      "remaining": "Volume/device geometry, region overlap, cluster-chain/root range integrity, boot signatures/checksums, SD transport and real hardware remain unverified."
+      "remaining": "Device/volume capacity, all reserved/bad cluster rules, cycles, exFAT name parsing, directory integration, SD transport and actual hardware remain unverified."
     }
   ]
 }

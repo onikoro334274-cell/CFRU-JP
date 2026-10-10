@@ -1,0 +1,13 @@
+{
+  "scope": "ClusLba, NextClus, FileLba and directory-read address checks in src/hack_scsd.c",
+  "finding": "Cluster/address shifts and additions could wrap. File addressing could add an offset to a failed base. FAT cache initialization 0xFFFFFFFF could incorrectly match an unread FAT address.",
+  "change": "Reject existing end markers, invalid shifts and overflowing cluster/FAT/file address calculations. Preserve the zero failure sentinel before adding file offsets. Directory lookup checks the cluster base/full address span and computes it once per cluster. Re-read when the cache still has its initialization marker.",
+  "verification": [
+    "check_scsd_cluster_address.py: 6881280 cluster/type/data/shift cases with an independent 64-bit address oracle and four file offsets",
+    "FAT16/FAT32/exFAT chain traversal, FAT32 reserved entry-bit masking, cache hits, initialization-marker collision, address overflow and read failure checked",
+    "Baseline e5ec731 fails the same fixture; current source passes under trapping shift sanitizer",
+    "Existing mount, directory and file-read-bound checks pass; GNU ARM compilation passes without diagnostics",
+    "Directory caller inspected to reject a zero base or wrapping full cluster span before SD reads; its full event/name parser is not executed in this fixture"
+  ],
+  "limitations": "Controlled FAT sector reads and selected numeric cluster ranges. Device/volume capacity, all reserved/bad-cluster rules, cycles, exFAT name parsing, complete directory integration and real hardware remain unverified."
+}
