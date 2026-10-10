@@ -73,6 +73,8 @@ static u16 DangerLeafBought(u16 item)
 
 static u32 DangerLeafPrice(u16 item, u32 base)
 {
+	if (item != ITEM_DANGER_LEAF && item != ITEM_DANGER_SUGAR)
+		return base;
 	u32 n = DangerLeafBought(item), p = base;
 	while (n-- != 0 && p < MONEY_MAX)
 		p = p * 3 / 2;

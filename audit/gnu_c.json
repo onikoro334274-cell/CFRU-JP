@@ -1085,8 +1085,8 @@
     {
       "path": "src/mega_shop.c",
       "exit_code": 0,
-      "source_sha256": "7eb401026e73f7a11417ad7467da95b09bd3e6953a51326a83a7bf9452627fa4",
-      "object_bytes": 6796,
+      "source_sha256": "684794a0a7b374ca2acaf477a7ba719b4e136caad914940d85aebb3a56d4eb89",
+      "object_bytes": 6788,
       "diagnostics": ""
     },
     {

@@ -1,0 +1,9 @@
+{
+  "scope": "BoughtShift, DangerLeafBought, DangerLeafPrice and MegaShop_AfterPurchase in src/mega_shop.c",
+  "finding": "ITEM_MILD inherited the leaf purchase counter and escalated despite not being a counted item.",
+  "fix": "Return the base price for items other than ITEM_DANGER_LEAF and ITEM_DANGER_SUGAR.",
+  "verification": "python scripts/check_mega_shop_escalation.py",
+  "cases": 196608,
+  "coverage": "Every u16 saved value and each of the three shop items; independent capped-price oracle, invalid-tag reset, counter saturation, preservation of the other counter, unchanged unrelated item, closed-shop no-op.",
+  "limitations": "Native execution of extracted production functions with mocked save access and shop-open state; purchase hooks, linked ROM and GBA runtime remain unverified."
+}
