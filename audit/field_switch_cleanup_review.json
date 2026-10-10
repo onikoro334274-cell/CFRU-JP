@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "cases": 1024,
+  "scope": "Production field ticks: staggered bag queries/removals at phases 32/48 per 64 frames; normal vs HACK_NO_MOEMON scan/link marking behavior.",
+  "limitations": "Controlled bag and scan APIs; old-list scan, link timing, repeated-frame calls, bag mutations and GBA execution not verified."
+}
