@@ -1,0 +1,8 @@
+{
+  "source_sha256": "2271fdb2287590a6d8ca260e2ca35fa15229ee39d703a65b5e2e77a274fbfc4f",
+  "packing_cases": 200034,
+  "expanded_clear_cases": 4096,
+  "result": "passed",
+  "scope": "Actual production pack/unpack/clear functions; all ID bits, zero, maximum, seeded random IDs, unrelated bits and buffer tail preserved.",
+  "limitations": "Does not verify full struct conversion, encryption, save migration, domain limits for item/experience/type/ball, or GBA runtime."
+}
