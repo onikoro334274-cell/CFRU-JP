@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "cases": 65536,
+  "baseline": "ceab618",
+  "scope": "Actual gender search functions compared across all gender ratios and 256 seeded personalities; identical first chosen PID, ability bit, nature, shiny XOR and opposite gender.",
+  "limitations": "Mock gender/Pokemon APIs; not all personalities, actual species table, item consumption or GBA runtime. No runtime timing claim."
+}

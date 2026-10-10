@@ -45,11 +45,11 @@ static bool8 FlipGender(struct Pokemon* mon)
 	if (ratio == MON_MALE || ratio == MON_FEMALE || ratio == MON_GENDERLESS)
 		return FALSE;
 
-	for (d = 1; d <= 0xFFFF; ++d)
+	/* An odd XOR mask changes the ability bit, so only even masks qualify. */
+	for (d = 2; d <= 0xFFFF; d += 2)
 	{
 		npid = pid ^ (d | (d << 16));
-		if ((npid & 1) != (pid & 1)
-		|| npid % NUM_NATURES != pid % NUM_NATURES
+		if (npid % NUM_NATURES != pid % NUM_NATURES
 		|| GetGenderFromSpeciesAndPersonality(species, npid) == gender)
 			continue;
 
