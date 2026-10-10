@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 25936,
-      "sha256": "b511d1c8b0a5332b6f4e739c52c5b064ee59c2d3dde77708df3c640d7b19f199",
+      "bytes": 26337,
+      "sha256": "8d9c8db2b4842033a1f51ae27ea6499c7541356cf8ff904ba30a44105838c1a0",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12472,6 +12472,17 @@
       "path": "scripts/check_integer_macros.py",
       "bytes": 2316,
       "sha256": "ce5d643f0af0311aa2129091753da521231f562b9cdda3eeab40d0df2f52673b",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_roamer_movement.py",
+      "bytes": 3335,
+      "sha256": "938fcde28d2587ebc89b3b00157a27ebcd440cee2b68127c8555f4cb8ea2b524",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
