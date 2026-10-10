@@ -1,0 +1,18 @@
+{
+  "scope": "DailyEventVar storage alignment and CheckAndSetDailyEvent/UpdateTimeInVars writes",
+  "defect": "Timestamp pointer comes from u16 variable storage, allowing 2-byte alignment, but original struct required 4-byte alignment. Actual ARM CheckAndSetDailyEvent emitted str r5,[r4,#0] for timestamp write.",
+  "fix": "Declare timestamp packed with alignment 2, preserving its four-byte bit layout while preventing unaligned word stores.",
+  "baseline": "e272cd37478ba2b00c6060e5ef04dffc0d382527",
+  "checks": {
+    "scripts/check_daily_event_storage.py": "4285440 packed timestamp writes and 4032 older/equal/future event cases at u16 indices 1 and 2; adjoining variable canaries checked",
+    "scripts/check_daily_event_storage.py --baseline HEAD (before commit)": "Compile-time alignment assertion fails: original alignment is four",
+    "audit/daily_event_arm_disassembly.json": "Actual ARM functions now store halfwords at offsets 0 and 2; GNU ARM initialized-struct bytes match expected fbfd3ca6",
+    "audit/gnu_c.json": "174/203 ARM C compilations pass including scripting.c"
+  },
+  "limitations": [
+    "Native event fixture and ARM object evidence; no linked game execution",
+    "Timestamp input variable-pair bounds, clock-mode event reset and other scripting operations remain unverified",
+    "Bit-layout stress includes raw day values as storage tests, not validity of all calendar dates",
+    "No complete scripting semantic approval"
+  ]
+}

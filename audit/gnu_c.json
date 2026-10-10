@@ -1218,8 +1218,8 @@
     {
       "path": "src/scripting.c",
       "exit_code": 0,
-      "source_sha256": "869075d8df47208483c524b7e81e363889bfa2cf5c486d343b3489ed07e64e32",
-      "object_bytes": 32508,
+      "source_sha256": "3dccaa7f630e7085a482fac99dcf30334f0079f23d0fa6cd57993ef95ff18f7e",
+      "object_bytes": 32504,
       "diagnostics": ""
     },
     {

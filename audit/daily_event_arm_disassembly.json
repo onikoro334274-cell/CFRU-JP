@@ -1,0 +1,29 @@
+{
+  "flags": [
+    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\bin\\arm-none-eabi-gcc.exe",
+    "-mthumb",
+    "-mno-thumb-interwork",
+    "-mcpu=arm7tdmi",
+    "-mtune=arm7tdmi",
+    "-mno-long-calls",
+    "-march=armv4t",
+    "-Wall",
+    "-Wextra",
+    "-O2",
+    "-fira-loop-pressure",
+    "-fipa-pta",
+    "-isystem",
+    "C:\\Users\\liru55\\AppData\\Local\\Temp/cfru-jp-arm-tools/mingw64/arm-none-eabi/include",
+    "-c"
+  ],
+  "functions": {
+    "CheckAndSetDailyEvent": "\nC:\\Users\\liru55\\AppData\\Local\\Temp\\tmp6rns87p_\\scripting.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00002158 <CheckAndSetDailyEvent>:\n    2158:\tb5f8      \tpush\t{r3, r4, r5, r6, r7, lr}\n    215a:\t4b23      \tldr\tr3, [pc, #140]\t@ (21e8 <CheckAndSetDailyEvent+0x90>)\n    215c:\t000d      \tmovs\tr5, r1\n    215e:\tf000 fe06 \tbl\t2d6e <SetScrollingListSize+0x2>\n    2162:\t2364      \tmovs\tr3, #100\t@ 0x64\n    2164:\t78c2      \tldrb\tr2, [r0, #3]\n    2166:\t08d2      \tlsrs\tr2, r2, #3\n    2168:\t4353      \tmuls\tr3, r2\n    216a:\t8842      \tldrh\tr2, [r0, #2]\n    216c:\t491f      \tldr\tr1, [pc, #124]\t@ (21ec <CheckAndSetDailyEvent+0x94>)\n    216e:\t0552      \tlsls\tr2, r2, #21\n    2170:\t0e52      \tlsrs\tr2, r2, #25\n    2172:\t880e      \tldrh\tr6, [r1, #0]\n    2174:\t189b      \tadds\tr3, r3, r2\n    2176:\t0004      \tmovs\tr4, r0\n    2178:\t429e      \tcmp\tr6, r3\n    217a:\td332      \tbcc.n\t21e2 <CheckAndSetDailyEvent+0x8a>\n    217c:\t78a2      \tldrb\tr2, [r4, #2]\n    217e:\t7840      \tldrb\tr0, [r0, #1]\n    2180:\t0712      \tlsls\tr2, r2, #28\n    2182:\t08c0      \tlsrs\tr0, r0, #3\n    2184:\t0f12      \tlsrs\tr2, r2, #28\n    2186:\t429e      \tcmp\tr6, r3\n    2188:\td022      \tbeq.n\t21d0 <CheckAndSetDailyEvent+0x78>\n    218a:\t790b      \tldrb\tr3, [r1, #4]\n    218c:\t469c      \tmov\tip, r3\n    218e:\t2d00      \tcmp\tr5, #0\n    2190:\td101      \tbne.n\t2196 <CheckAndSetDailyEvent+0x3e>\n    2192:\t2001      \tmovs\tr0, #1\n    2194:\tbdf8      \tpop\t{r3, r4, r5, r6, r7, pc}\n    2196:\t221f      \tmovs\tr2, #31\n    2198:\t798b      \tldrb\tr3, [r1, #6]\n    219a:\t401a      \tands\tr2, r3\n    219c:\t233f      \tmovs\tr3, #63\t@ 0x3f\n    219e:\t78cf      \tldrb\tr7, [r1, #3]\n    21a0:\t79c9      \tldrb\tr1, [r1, #7]\n    21a2:\t0192      \tlsls\tr2, r2, #6\n    21a4:\t400b      \tands\tr3, r1\n    21a6:\t4313      \torrs\tr3, r2\n    21a8:\t4662      \tmov\tr2, ip\n    21aa:\t02d2      \tlsls\tr2, r2, #11\n    21ac:\t4313      \torrs\tr3, r2\n    21ae:\t8023      \tstrh\tr3, [r4, #0]\n    21b0:\t2164      \tmovs\tr1, #100\t@ 0x64\n    21b2:\t0030      \tmovs\tr0, r6\n    21b4:\tf7ff fffe \tbl\t0 <__aeabi_uidivmod>\n    21b8:\t250f      \tmovs\tr5, #15\n    21ba:\t0109      \tlsls\tr1, r1, #4\n    21bc:\t403d      \tands\tr5, r7\n    21be:\t430d      \torrs\tr5, r1\n    21c0:\t0030      \tmovs\tr0, r6\n    21c2:\t2164      \tmovs\tr1, #100\t@ 0x64\n    21c4:\tf7ff fffe \tbl\t0 <__aeabi_uidiv>\n    21c8:\t02c0      \tlsls\tr0, r0, #11\n    21ca:\t4305      \torrs\tr5, r0\n    21cc:\t8065      \tstrh\tr5, [r4, #2]\n    21ce:\te7e0      \tb.n\t2192 <CheckAndSetDailyEvent+0x3a>\n    21d0:\t78cb      \tldrb\tr3, [r1, #3]\n    21d2:\t429a      \tcmp\tr2, r3\n    21d4:\td805      \tbhi.n\t21e2 <CheckAndSetDailyEvent+0x8a>\n    21d6:\td1d8      \tbne.n\t218a <CheckAndSetDailyEvent+0x32>\n    21d8:\t790b      \tldrb\tr3, [r1, #4]\n    21da:\t469c      \tmov\tip, r3\n    21dc:\t4298      \tcmp\tr0, r3\n    21de:\td800      \tbhi.n\t21e2 <CheckAndSetDailyEvent+0x8a>\n    21e0:\td1d5      \tbne.n\t218e <CheckAndSetDailyEvent+0x36>\n    21e2:\t2000      \tmovs\tr0, #0\n    21e4:\te7d6      \tb.n\t2194 <CheckAndSetDailyEvent+0x3c>\n    21e6:\t46c0      \tnop\t\t\t@ (mov r8, r8)\n\t...\n",
+    "UpdateTimeInVars": "\nC:\\Users\\liru55\\AppData\\Local\\Temp\\tmp6rns87p_\\scripting.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00002250 <UpdateTimeInVars>:\n    2250:\tb5f8      \tpush\t{r3, r4, r5, r6, r7, lr}\n    2252:\t4b11      \tldr\tr3, [pc, #68]\t@ (2298 <UpdateTimeInVars+0x48>)\n    2254:\tf000 fd8b \tbl\t2d6e <SetScrollingListSize+0x2>\n    2258:\t211f      \tmovs\tr1, #31\n    225a:\t4a10      \tldr\tr2, [pc, #64]\t@ (229c <UpdateTimeInVars+0x4c>)\n    225c:\t7993      \tldrb\tr3, [r2, #6]\n    225e:\t4019      \tands\tr1, r3\n    2260:\t233f      \tmovs\tr3, #63\t@ 0x3f\n    2262:\t0005      \tmovs\tr5, r0\n    2264:\t79d0      \tldrb\tr0, [r2, #7]\n    2266:\t8816      \tldrh\tr6, [r2, #0]\n    2268:\t78d7      \tldrb\tr7, [r2, #3]\n    226a:\t7912      \tldrb\tr2, [r2, #4]\n    226c:\t0189      \tlsls\tr1, r1, #6\n    226e:\t4003      \tands\tr3, r0\n    2270:\t02d2      \tlsls\tr2, r2, #11\n    2272:\t430b      \torrs\tr3, r1\n    2274:\t4313      \torrs\tr3, r2\n    2276:\t802b      \tstrh\tr3, [r5, #0]\n    2278:\t0030      \tmovs\tr0, r6\n    227a:\t2164      \tmovs\tr1, #100\t@ 0x64\n    227c:\tf7ff fffe \tbl\t0 <__aeabi_uidivmod>\n    2280:\t240f      \tmovs\tr4, #15\n    2282:\t0109      \tlsls\tr1, r1, #4\n    2284:\t403c      \tands\tr4, r7\n    2286:\t0030      \tmovs\tr0, r6\n    2288:\t430c      \torrs\tr4, r1\n    228a:\t2164      \tmovs\tr1, #100\t@ 0x64\n    228c:\tf7ff fffe \tbl\t0 <__aeabi_uidiv>\n    2290:\t02c0      \tlsls\tr0, r0, #11\n    2292:\t4304      \torrs\tr4, r0\n    2294:\t806c      \tstrh\tr4, [r5, #2]\n    2296:\tbdf8      \tpop\t{r3, r4, r5, r6, r7, pc}\n\t...\n"
+  },
+  "scope": "Actual ARM object timestamp-store instructions; no linked GBA runtime claim",
+  "bit_layout_probe": {
+    "bytes_hex": "fbfd3ca6",
+    "expected_packed_u32": 2789015035,
+    "method": "GNU ARM compiler emitted initialized timestamp struct; .rodata bytes extracted with objcopy"
+  }
+}
