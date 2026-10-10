@@ -582,6 +582,8 @@ u32 SummaryScreenBoxMonMultiplier(u8 index)
 
 void BackupPartyToTempTeam(u8 firstId, u8 numPokes)
 {
+	if (firstId >= PARTY_SIZE || numPokes > PARTY_SIZE - firstId)
+		return;
 	struct CompressedPokemon* backup = gTempTeamBackup;
 
 	for (int i = 0; i < numPokes; ++i)
@@ -590,6 +592,8 @@ void BackupPartyToTempTeam(u8 firstId, u8 numPokes)
 
 void RestorePartyFromTempTeam(u8 firstId, u8 numPokes)
 {
+	if (firstId >= PARTY_SIZE || numPokes > PARTY_SIZE - firstId)
+		return;
 	struct CompressedPokemon* backup = gTempTeamBackup;
 
 	for (int i = 0; i < numPokes; ++i)

@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "range_cases": 131072,
+  "baseline": "b89c042 permits first/count ranges beyond six-entry party and backup arrays.",
+  "scope": "Production backup/restore for every byte first index/count. Rejects invalid ranges before any service, valid ranges select exactly intended slots. Restore wipes entire party record before expansion and stats; other party slots and backup bytes preserved.",
+  "limitations": "Controlled compression and stats services. Codec fidelity, actual HP/status reconstruction and linked GBA runtime unverified."
+}
