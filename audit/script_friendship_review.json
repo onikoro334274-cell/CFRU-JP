@@ -1,0 +1,8 @@
+{
+  "result": "passed",
+  "arithmetic_cases": 67108864,
+  "invalid_party_cases": 262120,
+  "baseline": "d5d4f4c underflows unsigned friendship result and fails saturation oracle.",
+  "scope": "Production friendship special for every current byte and encoded u16 delta, PC selection enabled/disabled and both selection modes. Checks saturation, target only, preserved other slots/box, returned Var8005 and cleared Var8006. All invalid u16 party indices return without state changes.",
+  "limitations": "Controlled native data services; native Pokemon encryption and linked GBA runtime unverified."
+}

@@ -450,20 +450,22 @@ void sp013_IncreaseDecreaseHappiness(void)
 		return;
 
 	u8 current = GetMonDataFromVar8003(MON_DATA_FRIENDSHIP);	// current happiness
+	s32 updated;
 	if (amount & 0x100)
 	{
 		//Subtraction
 		amount ^= 0x100;
-		Var8005 = current - amount;
+		updated = (s32) current - amount;
 	}
 	else
-		Var8005 = current + amount;
+		updated = (s32) current + amount;
 
 	//Bound friendship
-	if (Var8005 < 0)
-		Var8005 = 0;
-	else if (Var8005 > 255)
-		Var8005 = 255;
+	if (updated < 0)
+		updated = 0;
+	else if (updated > 255)
+		updated = 255;
+	Var8005 = updated;
 
 	Var8006 = 0;
 	SetMonDataFromVar8003(MON_DATA_FRIENDSHIP);
