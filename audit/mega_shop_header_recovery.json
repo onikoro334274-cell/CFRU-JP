@@ -1,0 +1,30 @@
+{
+  "method": "Original stock/price generator main() with redirected output and explicit current CFRU/read-only DPE/original BPRJ inputs.",
+  "mega_stock": 92,
+  "cheap_stones": [
+    "ITEM_CHARIZARDITE_Y",
+    "ITEM_ZA_RAICHUNITE_Y"
+  ],
+  "extras_absent_from_current_branch": [
+    "ITEM_SECOND_ARROW",
+    "ITEM_PINWHEEL",
+    "ITEM_ROOM_INTERIOR",
+    "ITEM_HUSTLE_BAND",
+    "ITEM_HUSTLE_SPECS",
+    "ITEM_STUBBORN_BANDANA",
+    "ITEM_MAISEN"
+  ],
+  "inputs": {
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\PokemonStart-src\\tools\\megas\\build_mega_shop.py": "a0943e83cad2097d52255bc2cab02f6cb5bd34a67aec5138300d0be624ec8b9a",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\PokemonStart-src\\tools\\megas\\build_wild_mega_stones.py": "c1b8ea746938810dadd03ee3b36818de86d912652118ee87861f5dc01d73647a",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\PokemonStart-src\\tools\\wild_editor\\wildlib.py": "858eff9a9bfc5e873e3f36e58b9236b205f46a0c5f5e5980979bb4637eb1a5f0",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\PokemonStart-src\\CFRU-Builder v1.01\\DPE-JP-main\\include\\species.h": "efe2d326d3b625b504ed3ac54ceb79525f3b6e3e84914cb78c77ce5cd3e8bc98",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\PokemonStart-src\\CFRU-Builder v1.01\\DPE-JP-main\\src\\Evolution Table.c": "fe3f7296bb6a61cc3c8fd52bbc1f8bb56da2e3e786e8426770a806bf17e20356",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\CFRU-JP\\include\\constants\\items.h": "826e5bcc9775732fa044423d1b9b2a3653165c5a5b95a04dd3328626882eea8e",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\CFRU-JP\\include\\constants\\species.h": "0966a7f1857a8dc30aa48366df8a6c3ed85d5fa4749d73dd3aa7ed64587c9ec0",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\CFRU-JP\\src\\Tables\\item_tables.c": "ebaa822e546822c0d10c93c5da02b43f6511d72e89a90fe0d692fbf27689d4f9",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\CFRU-JP\\src\\Tables\\wild_encounter_tables.c": "b952ab5da315d27fedd9dc989850bb87a3b4c3b65997151f1e6ed44357df20c7",
+    "C:\\Users\\liru55\\Documents\\PokemonStart\u89e3\u51cd\\Pocket Monsters - FireRed (Japan).gba": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486"
+  },
+  "limitations": "Generated stock/price metadata; shop script, item pricing and purchase behavior require separate validation."
+}

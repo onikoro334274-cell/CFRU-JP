@@ -1084,10 +1084,10 @@
     },
     {
       "path": "src/mega_shop.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "7eb401026e73f7a11417ad7467da95b09bd3e6953a51326a83a7bf9452627fa4",
-      "object_bytes": 0,
-      "diagnostics": "src/mega_shop.c:13:10: fatal error: Tables/mega_shop_items.h: No such file or directory\n   13 | #include \"Tables/mega_shop_items.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 6796,
+      "diagnostics": ""
     },
     {
       "path": "src/mgba.c",
