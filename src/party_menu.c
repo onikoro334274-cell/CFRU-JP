@@ -2983,6 +2983,14 @@ static void Task_ChangeNature(u8 taskId)
 {
     u16 item = Var800E;
     struct Pokemon* mon = &gPlayerParty[gPartyMenu.slotId];
+	if (!RemoveBagItem(item, 1))
+	{
+		gPartyMenuUseExitCallback = FALSE;
+		DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+		ScheduleBgCopyTilemapToVram(2);
+		gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+		return;
+	}
     
     PlaySE(SE_USE_ITEM);
     GetMonNickname(mon, gStringVar1);
@@ -2992,7 +3000,6 @@ static void Task_ChangeNature(u8 taskId)
     DisplayPartyMenuMessage(gStringVar4, TRUE);
     ScheduleBgCopyTilemapToVram(2);
     gTasks[taskId].func = Task_ClosePartyMenuAfterText;
-    RemoveBagItem(Var800E, 1);
 }
 
 void ChooseFaintedMon(u8 taskId, s8 *slotPtr)

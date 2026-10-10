@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "cases": 7800,
+  "baseline": "507c651 fails mutation/consumption ordering.",
+  "scope": "Production mint confirmation across six slots, 26 original mint states, 25 nature parameters and consumption success/failure. Checks stats after consumption, nature mapping, unaffected other slots/fields and UI/task routing.",
+  "limitations": "Initial mint eligibility and native rendered UI unverified; controlled services."
+}
