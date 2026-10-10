@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 18116,
-      "sha256": "426461b212d6e652dadb2d61fb7db646a2fbc16f4f2bbcc23841dfe2abf90ec7",
+      "bytes": 18357,
+      "sha256": "5b13c92e1d708f6a86252a64072436ffb09fddd9066b4cab34f1d1009d6bb8d2",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1442,8 +1442,8 @@
     },
     {
       "path": "audit/semantic_reviews.json",
-      "bytes": 10990,
-      "sha256": "00bcf0ec7064d80e52dcb20183ae0a8f0576fc40393dacda1cd9d1700325db4d",
+      "bytes": 11591,
+      "sha256": "fc5f0c1e3759b81240a0e3dca4658f36c6a7adaccc41f23247c0a9480c743763",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12359,6 +12359,17 @@
       "findings": []
     },
     {
+      "path": "scripts/check_dome_stat_labels.py",
+      "bytes": 3614,
+      "sha256": "c8fe9c83d2a5a655c1a42a6d548189c6bcb92d9af22625e995dd99e430cc733b",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_dome_stats.py",
       "bytes": 4274,
       "sha256": "6400e43b2ad941411a76c65b5570ec48165084f8b66d319a0a315da249f04f76",
@@ -14536,8 +14547,8 @@
     },
     {
       "path": "src/hoenn_dome.c",
-      "bytes": 239781,
-      "sha256": "ed3d388b32e4ee9337339d25b7e9f358246f8a57ae32959ce01b1070d614a548",
+      "bytes": 239939,
+      "sha256": "3e61a4068a296922e0e26528d651dbb4c80e8a6d8f9cbf41b26c3c0fd1157645",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
