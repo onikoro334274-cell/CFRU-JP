@@ -1029,7 +1029,7 @@
     {
       "path": "src/item.c",
       "exit_code": 0,
-      "source_sha256": "c181b4bd64dd8f76922c73fa647b6952f6c76be8ddec4edc97e7501311266de3",
+      "source_sha256": "73192b00096e8e613676f7d4bed2965123364deb726ccb590ff37ab87020abda",
       "object_bytes": 24508,
       "diagnostics": ""
     },

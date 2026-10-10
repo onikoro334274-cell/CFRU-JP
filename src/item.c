@@ -985,7 +985,7 @@ void Task_ReturnToItemListAfterItemPurchase(u8 taskId)
 			#ifdef MULTIPLE_PREMIER_BALLS_AT_ONCE
 			u8 nPremier = tItemCount / 10;
 			#else
-			u8 nPremier = 1;
+			u8 nPremier = (tItemCount >= 10) ? 1 : 0;
 			#endif
 			if (nPremier > 0 && AddBagItem(ITEM_PREMIER_BALL, nPremier))
 			{

@@ -1,0 +1,10 @@
+{
+  "scope": "Task_ReturnToItemListAfterItemPurchase in src/item.c",
+  "finding": "With MULTIPLE_PREMIER_BALLS_AT_ONCE disabled, any ball purchase awarded one Premier Ball, including quantities below ten.",
+  "fix": "The single-bonus branch awards one only when purchased quantity is at least ten.",
+  "verification": "python scripts/check_premier_ball_bonus.py",
+  "cases": 32000,
+  "coverage": "Both compiled configuration branches, quantities 0..999, ball/nonball pocket, no keys/A/B/both keys, and successful/failed bonus bag insertion. Checks award quantity, single/plural message and return-to-list behavior.",
+  "rom_control_flow": "Original BPRJ disassembly at 0x0809B8AA calls AddBagItem; failure branches at 0x0809B8B8 to 0x0809B8E4. ReloadMartList hook at 0x0809B8BA is reached only after success. Original subtract-money callback at 0x0809B8FC uses the latched ShopData.itemPrice at offset 8.",
+  "limitations": "Mocked bag/pocket/message functions; actual pocket contents, linked hooks, money update and GBA runtime remain unverified."
+}
