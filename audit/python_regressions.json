@@ -10,8 +10,8 @@
     "test_*.py"
   ],
   "exit_code": 0,
-  "stdout": "Compiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmp4to5k056\\file.c\nCompiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmp4to5k056\\file.c\nCompiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmp4to5k056\\file.c\nAssembling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmpse0ti2km\\code.s\nAssembling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmpse0ti2km\\code.s\nCompiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmpf5lmr2ky\\path with spaces\\file.c\nCompiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmpf5lmr2ky\\path with spaces\\file.c\nBuilding Strings C:\\Users\\liru55\\AppData\\Local\\Temp\\tmpfrue_t1y\\text.string\nBuilding Strings C:\\Users\\liru55\\AppData\\Local\\Temp\\tmpfrue_t1y\\text.string\nBuilding Strings C:\\Users\\liru55\\AppData\\Local\\Temp\\tmpfrue_t1y\\text.string\n",
-  "stderr": ".......................................................\n----------------------------------------------------------------------\nRan 55 tests in 2.345s\n\nOK\n",
-  "updated_utc": "2026-10-10T19:14:03.167016+00:00",
-  "scope": "Python tool regression discovery with GNU ARM toolchain available; not full C semantics or GBA runtime"
+  "stdout": "Compiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmppxll6c9u\\file.c\nCompiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmppxll6c9u\\file.c\nCompiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmppxll6c9u\\file.c\nAssembling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmpnc1s9zy1\\code.s\nAssembling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmpnc1s9zy1\\code.s\nCompiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmp1ejaxacn\\path with spaces\\file.c\nCompiling C:\\Users\\liru55\\AppData\\Local\\Temp\\tmp1ejaxacn\\path with spaces\\file.c\nBuilding Strings C:\\Users\\liru55\\AppData\\Local\\Temp\\tmp2sixe2dl\\text.string\nBuilding Strings C:\\Users\\liru55\\AppData\\Local\\Temp\\tmp2sixe2dl\\text.string\nBuilding Strings C:\\Users\\liru55\\AppData\\Local\\Temp\\tmp2sixe2dl\\text.string\n",
+  "stderr": ".......................................................\n----------------------------------------------------------------------\nRan 55 tests in 2.618s\n\nOK\n",
+  "updated_utc": "2026-10-10T19:41:01.290614+00:00",
+  "scope": "Python tool regression discovery with GNU ARM tools; no whole C/GBA claim"
 }

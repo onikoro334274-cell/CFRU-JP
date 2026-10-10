@@ -530,8 +530,8 @@
     },
     {
       "path": "assembly/fcomp/lz_dispatch.s",
-      "bytes": 2485,
-      "sha256": "b7e894137f59846177b00e80f106f5b4c3ef5f365d388da5c3453443adac6b0f",
+      "bytes": 2484,
+      "sha256": "148a71173f9141e6a071252a2f3d79d3b1169d29d0c9468928fec80c0e43ad68",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1361,9 +1361,49 @@
       "findings": []
     },
     {
+      "path": "audit/calendar_difference_review.json",
+      "bytes": 1383,
+      "sha256": "67c9e69386c5db0f8e50974d604c0f86d41a2acb74888b85ac3ffa2e14b00334",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/calendar_span_optimization_review.json",
+      "bytes": 1229,
+      "sha256": "923e2b30fa9f07b5cb76cd826ecac64c604c432b49f58a9691e3b87706dec5e4",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/code_patches.json",
       "bytes": 131416,
       "sha256": "979f57b4fbbe95284960358492311058110c8e50bab0c20142e5e949efedbfce",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/daily_event_arm_disassembly.json",
+      "bytes": 5837,
+      "sha256": "65c8c029567ebaea505ef1024ecdb5c29837546656f625a0535a0cbdedb79250",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/daily_event_storage_review.json",
+      "bytes": 1481,
+      "sha256": "758ed76b1ab855c4c27467f9d803e61223c2750b6d9309b89c990f4ffb616774",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1391,9 +1431,59 @@
       "findings": []
     },
     {
+      "path": "audit/factory_party_copy_review.json",
+      "bytes": 1092,
+      "sha256": "6e22f8ba58d6115b10fc754c33b7ed66127a22f2779f699bc1e9226fb0e5d0ca",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/factory_select_cleanup_review.json",
+      "bytes": 994,
+      "sha256": "75fa11f90a6aa6bf6c90f5576217a7b44e33f318abc223f356be5991e11cd497",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/factory_selection_order_review.json",
+      "bytes": 926,
+      "sha256": "bdffa12cf294b8b2108f579273d5f6f412e05bb5c5765f5d885c5d93c4a3ae7e",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/factory_swap_exit_review.json",
+      "bytes": 1070,
+      "sha256": "59401c38792de3995c70c77e701d173b4f3d23f567c6036861877d4fa0c04eb7",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/fcomp_arm.json",
       "bytes": 671,
-      "sha256": "3154915203f9499c968863e497040c800d2128154a573bf53bbca03d77c68776",
+      "sha256": "dd47e579b55c5fc6bb94f65a71feca13f3b339f64acf6758612af26cb03eb9d5",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/fcomp_dispatch_review.json",
+      "bytes": 1192,
+      "sha256": "898b9d684253a9353bf1b39415c65912b6f72ca809947fed22c9acf814587c9f",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1414,6 +1504,16 @@
       "path": "audit/fcomp_pixel_bounds_review.json",
       "bytes": 1057,
       "sha256": "8e834726067535dc332cc395160062bd2a982ea8a4e09454ef7d093e43875952",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/fcomp_stream_length_review.json",
+      "bytes": 1291,
+      "sha256": "125b507f6cf2de0f86cf47e3cee99af3e9302fbce45994d83afe6e82922c2517",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1453,7 +1553,37 @@
     {
       "path": "audit/gnu_c.json",
       "bytes": 127347,
-      "sha256": "b19c8d5a2145287ce8df10bf0636215482e2d34e8803fd7a1308310b026eac57",
+      "sha256": "c9dc1a70109a66b0ca625267a73e39ab7d5762bfa5096ffb28d27dd95c4803fb",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/month_difference_review.json",
+      "bytes": 1176,
+      "sha256": "97a5243c7a7b7dc9eec0cb53e5e76bb231e9e2b8e6e1c5b3081ee1e89bf6cca7",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/play_clock_adjustment_review.json",
+      "bytes": 1149,
+      "sha256": "834b71e80ab4aa80308b3153de5b0e3078ddb7a72385ff59b99c06df626fa078",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/play_clock_calendar_review.json",
+      "bytes": 1032,
+      "sha256": "1947a3868449cf7caa769176bdb3f481c5f1d15a48ca317422119270e76fec44",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1472,8 +1602,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 30448,
-      "sha256": "fadbe15064a42094c1f2d4884caf000ff7e7f91fa391210415d7da6c54fba75d",
+      "bytes": 31899,
+      "sha256": "4ac95344730dfab451967057d2cd394a7680168f5812096fc5a898d91c2871cd",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1482,8 +1612,8 @@
     },
     {
       "path": "audit/python_regressions.json",
-      "bytes": 1320,
-      "sha256": "50c2141d84aacf1aa62d8a33d570cbef77cc1fae5d1a420441a0925fb03c3691",
+      "bytes": 1291,
+      "sha256": "af672590709d23d70997af4190e2e8a1581e669f7e0fee61440fb87dfab5cfbf",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1514,6 +1644,16 @@
       "path": "audit/rom_input.json",
       "bytes": 544,
       "sha256": "bf77ed75d048aeea3f177096190c613fed729e7b4dc6e5a065a8b6066ec9fa8a",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/rtc_validation_review.json",
+      "bytes": 1179,
+      "sha256": "72d286db984f7b4159fc0af7a039b13cdb368fb84f85f44709a6c6d5a3447954",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1552,8 +1692,8 @@
     },
     {
       "path": "audit/semantic_reviews.json",
-      "bytes": 14297,
-      "sha256": "c01bb5b687cb2c9318e518e55b021613289b45942b01e55172d08202f8b4deda",
+      "bytes": 18570,
+      "sha256": "2290d98fd68b3ca363fe43248b6718bc45e6212132c563633e22400175737083",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1564,6 +1704,16 @@
       "path": "audit/strings.json",
       "bytes": 20417,
       "sha256": "45a687aa34e4cea28794359aadbdf208d0e6faccecd96f2cb3ffcd6ffa5de267",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/time_difference_saturation_review.json",
+      "bytes": 1313,
+      "sha256": "f06af8990aaf61d34ddef596360cbafadaccfdd1a52984825f22b1ac3ea13dd4",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12458,6 +12608,28 @@
       "findings": []
     },
     {
+      "path": "scripts/check_calendar_differences.py",
+      "bytes": 8253,
+      "sha256": "a5e34b33ec8665a99e204136df5a7d206f2fe7d42b5b83f32041ae00999df565",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_daily_event_storage.py",
+      "bytes": 3778,
+      "sha256": "33a2d444cd09fa5bb88757d04164aabb684a5810b05403520552e7c5ab5b29e4",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_dns_colour.py",
       "bytes": 4012,
       "sha256": "11e0913a4ba497bca15c53913fe5247dbf123a768293841f9937051d3feb1a68",
@@ -12568,6 +12740,39 @@
       "findings": []
     },
     {
+      "path": "scripts/check_factory_party_copy.py",
+      "bytes": 4369,
+      "sha256": "c990af65ffa5bae918e712f0c7103c3089f6401615d2d1606337c92d55354f6e",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_factory_select_cleanup.py",
+      "bytes": 4015,
+      "sha256": "0842daedfaaeb2a0dbaaaa0b0bcc6e9115c693fe714851150d6107bc5cc224d3",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_factory_selection_order.py",
+      "bytes": 3391,
+      "sha256": "49b21c74b51b56cb6eabc32ed7676c1ae26113e6a877cd8a7e8c77286ecc9771",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_factory_summary.py",
       "bytes": 5733,
       "sha256": "ae26664f1aa110dc6c033ea0385dbcc11f62aa356792bddfed03c5ad1e4eead7",
@@ -12579,9 +12784,31 @@
       "findings": []
     },
     {
+      "path": "scripts/check_factory_swap_exit.py",
+      "bytes": 4100,
+      "sha256": "c25b119d8ce35d9fb0dd48f55e7b1a4ec275934234f42925750fcf35dbb53cf2",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_fcomp_arm.py",
       "bytes": 2003,
       "sha256": "d36ef069f6353c3bd0291099416294d2f447c915d1b40f625d09a861e7704a64",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_fcomp_dispatch.py",
+      "bytes": 3892,
+      "sha256": "0a79907aca329ce94118df3a65a0bbe9684a081eb35595a337bf5b056dc7b5fd",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12602,8 +12829,8 @@
     },
     {
       "path": "scripts/check_fcomp_pixel_bounds.py",
-      "bytes": 3078,
-      "sha256": "f3cf4e11202a7990690eea683b84549c5370f8859c8e4179207075b6f2d75a0e",
+      "bytes": 3617,
+      "sha256": "5253f4a8f539390cfd8fda8fa8f1608a804bdbd5ad4bba6bc9dcf3f773d66468",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12667,9 +12894,42 @@
       "findings": []
     },
     {
+      "path": "scripts/check_play_clock_adjustment.py",
+      "bytes": 3904,
+      "sha256": "660878a71306977c64325ee9d1df5b01bec0043030b8b321c79c286493c12800",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_play_clock_calendar.py",
+      "bytes": 3632,
+      "sha256": "f7d432275d3284b1646e7d9a6b0de5a701ba73ad9a6e88dade22643b6bd16c93",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_roamer_movement.py",
       "bytes": 3335,
       "sha256": "938fcde28d2587ebc89b3b00157a27ebcd440cee2b68127c8555f4cb8ea2b524",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_rtc_validation.py",
+      "bytes": 4352,
+      "sha256": "046fedff3f01fddd0dfb3d040138f11638409cd31356ede72fa11fed33b247f6",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -14058,8 +14318,8 @@
     },
     {
       "path": "src/dns.c",
-      "bytes": 16588,
-      "sha256": "234715d751e275eb71e163fd2aec7b373b2f5a24597f81e895fe1ef2902a07f6",
+      "bytes": 17322,
+      "sha256": "ec578a1773ee18c25ab300babd0bcc7f6386dea23a76e5794428c06e7d632cb6",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -14157,8 +14417,8 @@
     },
     {
       "path": "src/fcomp.c",
-      "bytes": 10566,
-      "sha256": "334cb2b7f025735af5cec48e579cd1cc3067b44a39e80f6e62c0c7c93f1a398f",
+      "bytes": 10704,
+      "sha256": "9e71a9a0f024e7dead146354d67b197ee5631a848b8af560b28591a6d213878c",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -14179,8 +14439,8 @@
     },
     {
       "path": "src/fcomp_dpe.c",
-      "bytes": 4324,
-      "sha256": "67335cb983ebb97d488fb26739e13c688e51078ab4a40480431ec2c517c2e8ce",
+      "bytes": 4340,
+      "sha256": "5787ad4118d4c792fc6e9bd67577618d8e067afe29d3f4127df9e27b8bb5b1e7",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15038,8 +15298,8 @@
     },
     {
       "path": "src/hoenn_factory_screen.c",
-      "bytes": 155894,
-      "sha256": "3166e5e42dff89f8449698b169493b3f618a2033fd1ad131c44e108ef21e5de5",
+      "bytes": 155956,
+      "sha256": "00f09be7c05a04ecd11134e2ca108034e6da66532dd86e325dfd041360eaeb3b",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15603,8 +15863,8 @@
     },
     {
       "path": "src/play_clock.c",
-      "bytes": 6009,
-      "sha256": "f918165d451f80c62eeb8c7ebaae93a0f979f4757415fb7690489a774bd41f69",
+      "bytes": 6144,
+      "sha256": "3bc711c2cde5a3ff1f8eeb79f8e6b03ec6e40a71b085484b5e22cc27a6483f6e",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15702,8 +15962,8 @@
     },
     {
       "path": "src/rtc.c",
-      "bytes": 6208,
-      "sha256": "326140a013526e92a4c6ac4ebf8895579662424738e194c5cf40b73975ab1a88",
+      "bytes": 6205,
+      "sha256": "e7a01b8bd480bbfcf2067a6de6f685010c98cd5120543fa555644f33e8070361",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15724,8 +15984,8 @@
     },
     {
       "path": "src/scripting.c",
-      "bytes": 78411,
-      "sha256": "869075d8df47208483c524b7e81e363889bfa2cf5c486d343b3489ed07e64e32",
+      "bytes": 78670,
+      "sha256": "3dccaa7f630e7085a482fac99dcf30334f0079f23d0fa6cd57993ef95ff18f7e",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",

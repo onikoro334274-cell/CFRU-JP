@@ -82,7 +82,10 @@
     "Recovered achievements graphics header is byte-identical to local original source snapshot",
     "Recovered second-ability header covers 950 sorted current-branch species; 65536 species lookup IDs, all u8 unlock levels and controlled gift-provenance conditions pass",
     "Recovered FComp table layout and stream field reads pass exhaustive field fixtures; actual ARM core is 1532/1696 bytes without BL/BLX",
-    "FComp pixel output bounds and DPE tile-map reference fixes pass controlled production fixtures and reproduce failures in prior revisions"
+    "FComp pixel output bounds and DPE tile-map reference fixes pass controlled production fixtures and reproduce failures in prior revisions",
+    "Latest Python regression discovery passes all 55 tests with GNU ARM tools and no skips (python_regressions.json)",
+    "DNS colour production regression passes after date-arithmetic changes; native channel/packed-colour checks do not prove rendering",
+    "Scoped current-source semantic ledger now includes compressed stream limits/dispatch, Factory exit/selection/copies, RTC input bounds, play clock calendar/adjustment, elapsed calendar arithmetic and daily timestamp alignment; none certifies entire files"
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -145,7 +148,13 @@
     "Invalid rotating-gate state bytes use default map orientation, bounding affine/arm indices",
     "Recovered actual achievements graphics, second-ability table and FComp declarations with recorded provenance",
     "FComp rejects pixel sections larger than output capacity before writing",
-    "DPE expands only fully validated tile maps: references must be within decoded unique tiles and at/before destination tile"
+    "DPE expands only fully validated tile maps: references must be within decoded unique tiles and at/before destination tile",
+    "Reject FComp bit consumption beyond declared compressed words and keep recognized malformed streams away from LZ77 BIOS fallback",
+    "Factory select normal exit frees its background tiles buffer before root destruction",
+    "RTC and elapsed calendar helpers reject invalid dates/times before month-array indexing",
+    "Play-clock day offset exhaustion cannot wrap its 15-bit saved day field backward",
+    "Day differences count complete years arithmetically; day/hour/minute/month results saturate after full-width calculations",
+    "Daily timestamp struct preserves four-byte format with two-byte alignment; ARM writes use halfwords"
   ],
   "limitations": [
     "36 quoted C include references are absent from this checkout; see repository.json for locations",
@@ -159,8 +168,9 @@
     "Factory summary production function was executed in a Windows native fixture; the complete factory file remains blocked by omitted generated headers and GBA runtime is unverified"
   ],
   "next": [
+    "Review clock-mode reset semantics, RTC probe/frame synchronization/play-time counter, and packed timestamp variable-pair bounds; completed arithmetic/storage scopes are recorded in semantic_reviews.json",
     "Recover remaining generated headers with original rules, remapped map metadata and actual input assets; gym puzzles require map layout/remap correspondence, not raw Emerald metatile IDs",
-    "Continue FComp truncated-stream, Huffman-table and DpeFTryDecode/VRAM allocation failure review; controlled pixel/map fixtures do not prove full compressor round trips",
+    "Continue full compressor/decoder round trips and arbitrary Huffman-table validation; declared-word truncation and controlled DPE allocator paths are tested, but actual linked data, partial WRAM failures and GBA VRAM remain unverified",
     "Resolve HACK_FLAG_WONDER_SKIP using authoritative allocation data: adjacent generator snapshot lacks this newer branch flag; do not choose an arbitrary ID",
     "Dome card root preallocation is checked; still review task creation and InitWindows failure handling and tree root/tilemap allocation failures, plus real GBA screen-return behavior",
     "Continue Dome and Factory task creation, window initialization, root/tilemap allocation failures and stage-specific cleanup; Dome card preallocation and scroll-arrow guards are already verified",
@@ -175,7 +185,7 @@
     "Resolve the 36 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T19:14:24.813810+00:00",
+  "updated_utc": "2026-10-10T19:41:37.787512+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }

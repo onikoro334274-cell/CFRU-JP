@@ -251,6 +251,109 @@
       ],
       "verification": "check_abnormal_weather.py production execution with actual generated headers and controlled save/flags/RNG; all u16 step values, invalid locations, 16 route cleanup states, 25 protected creation maps, legendary availability and champion gate; GNU ARM compilation passed",
       "remaining": "Map script expiration cleanup, actual generated map-bank correspondence, frame/step caller timing and GBA weather graphics remain unverified"
+    },
+    {
+      "path": "src/fcomp.c",
+      "source_sha256": "9e71a9a0f024e7dead146354d67b197ee5631a848b8af560b28591a6d213878c",
+      "sections": [
+        "FCompInflateArm pixel output bounds and declared bit consumption",
+        "ARM core copy size and BL/BLX instruction check"
+      ],
+      "verification_records": [
+        "fcomp_pixel_bounds_review.json",
+        "fcomp_stream_length_review.json",
+        "fcomp_arm.json"
+      ],
+      "remaining": "Full compressor round trips, arbitrary Huffman-table damage, linked IWRAM reservation and game runtime remain unverified"
+    },
+    {
+      "path": "src/fcomp_dpe.c",
+      "source_sha256": "5787ad4118d4c792fc6e9bd67577618d8e067afe29d3f4127df9e27b8bb5b1e7",
+      "sections": [
+        "DpeFExpand tile-map validation/expansion",
+        "DpeFTryDecode recognition, header guards and controlled allocator/expansion failure paths"
+      ],
+      "verification_records": [
+        "fcomp_tile_map_review.json",
+        "fcomp_dispatch_review.json"
+      ],
+      "remaining": "Actual compressed corpus, partial WRAM failure writes, hardware VRAM and linked dispatch hooks remain unverified"
+    },
+    {
+      "path": "src/hoenn_factory_screen.c",
+      "source_sha256": "00f09be7c05a04ecd11134e2ca108034e6da66532dd86e325dfd041360eaeb3b",
+      "sections": [
+        "Select_Task_Exit",
+        "Swap_Task_Exit",
+        "Select_CopyMonsToPlayerParty",
+        "CopySwappedMonData",
+        "Select_HandleMonSelectionChange"
+      ],
+      "verification_records": [
+        "factory_select_cleanup_review.json",
+        "factory_swap_exit_review.json",
+        "factory_party_copy_review.json",
+        "factory_selection_order_review.json"
+      ],
+      "remaining": "Native controlled fixtures only; full source build lacks graphics input. Root/window/buffer/task failure handling, summary screen integration and GBA rendering remain incomplete"
+    },
+    {
+      "path": "src/rtc.c",
+      "source_sha256": "e7a01b8bd480bbfcf2067a6de6f685010c98cd5120543fa555644f33e8070361",
+      "sections": [
+        "ConvertBcdToBinary",
+        "RtcCheckInfo"
+      ],
+      "verification_records": [
+        "rtc_validation_review.json"
+      ],
+      "remaining": "RTC GPIO/probe/error propagation, frame synchronization and play-time counter behavior remain unverified"
+    },
+    {
+      "path": "src/play_clock.c",
+      "source_sha256": "3bc711c2cde5a3ff1f8eeb79f8e6b03ec6e40a71b085484b5e22cc27a6483f6e",
+      "sections": [
+        "PlayClock_GameSeconds",
+        "PlayClock_Fill",
+        "PlayClock_SetTimeOfDay"
+      ],
+      "verification_records": [
+        "play_clock_calendar_review.json",
+        "play_clock_adjustment_review.json"
+      ],
+      "remaining": "Mode switching, daily-event reset and actual clock callbacks/game item flow remain unverified"
+    },
+    {
+      "path": "src/dns.c",
+      "source_sha256": "ec578a1773ee18c25ab300babd0bcc7f6386dea23a76e5794428c06e7d632cb6",
+      "sections": [
+        "IsValidCalendarDate",
+        "GetDayDifference",
+        "GetHourDifference",
+        "GetMinuteDifference",
+        "GetMonthDifference"
+      ],
+      "verification_records": [
+        "calendar_difference_review.json",
+        "calendar_span_optimization_review.json",
+        "time_difference_saturation_review.json",
+        "month_difference_review.json"
+      ],
+      "remaining": "Date arithmetic native fixtures and GNU ARM object compilation; no linked runtime/cycle benchmark. Other DNS functions remain subject to prior scoped reviews or incomplete"
+    },
+    {
+      "path": "src/scripting.c",
+      "source_sha256": "3dccaa7f630e7085a482fac99dcf30334f0079f23d0fa6cd57993ef95ff18f7e",
+      "sections": [
+        "DailyEventVar four-byte bit layout with halfword alignment",
+        "UpdateTimeInVars",
+        "CheckAndSetDailyEvent"
+      ],
+      "verification_records": [
+        "daily_event_storage_review.json",
+        "daily_event_arm_disassembly.json"
+      ],
+      "remaining": "Controlled timestamp/event fixture and ARM store instructions only; variable-pair bounds, other timestamp callers, script operations and game runtime remain unverified"
     }
   ]
 }
