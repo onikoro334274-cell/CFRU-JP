@@ -379,8 +379,21 @@ static bool8 IsLeapYear(u32 year)
 	return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
 }
 
+static bool8 IsValidCalendarDate(u32 year, u8 month, u8 day)
+{
+	static const u8 daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	if (month < 1 || month > 12 || day < 1)
+		return FALSE;
+	return day <= daysInMonth[month - 1] + (month == 2 && IsLeapYear(year));
+}
+
 u32 GetMinuteDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour, u8 startMin, u32 endYear, u8 endMonth, u8 endDay, u8 endHour, u8 endMin)
 {
+	if (!IsValidCalendarDate(startYear, startMonth, startDay)
+	|| !IsValidCalendarDate(endYear, endMonth, endDay)
+	|| startHour >= 24 || endHour >= 24 || startMin >= 60 || endMin >= 60)
+		return 0;
+
 	if (startYear > endYear
 	|| (startYear == endYear && startMonth > endMonth)
 	|| (startYear == endYear && startMonth == endMonth && startDay > endDay)
@@ -405,6 +418,11 @@ u32 GetMinuteDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour,
 
 u32 GetHourDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour, u32 endYear, u8 endMonth, u8 endDay, u8 endHour)
 {
+	if (!IsValidCalendarDate(startYear, startMonth, startDay)
+	|| !IsValidCalendarDate(endYear, endMonth, endDay)
+	|| startHour >= 24 || endHour >= 24)
+		return 0;
+
 	if (startYear > endYear
 	|| (startYear == endYear && startMonth > endMonth)
 	|| (startYear == endYear && startMonth == endMonth && startDay > endDay)
@@ -427,6 +445,9 @@ u32 GetDayDifference(u32 startYear, u8 startMonth, u8 startDay, u32 endYear, u8 
 	const u16 cumDays[] = {0,31,59,90,120,151,181,212,243,273,304,334}; //Cumulative Days by month
 	const u16 leapcumDays[] = {0,31,60,91,121,152,182,213,244,274,305,335}; //Cumulative Days by month for leap year
 	u32 totdays = 0;
+	if (!IsValidCalendarDate(startYear, startMonth, startDay)
+	|| !IsValidCalendarDate(endYear, endMonth, endDay))
+		return 0;
 
 	if (!IsDate1BeforeDate2(startYear, startMonth, startDay, endYear, endMonth, endDay))
 		return 0;

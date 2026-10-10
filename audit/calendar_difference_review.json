@@ -1,0 +1,16 @@
+{
+  "scope": "GetDayDifference, GetHourDifference, GetMinuteDifference input validation",
+  "defect": "Calendar arrays indexed by month-1 even for zero/uninitialized or invalid months; malformed calendar/time values also produced elapsed values instead of rejection. GetDaysSinceTimeInValue passes unset month/day through after adjusting year.",
+  "fix": "Validate both full Gregorian dates before indexing or calculating differences, and hour/minute fields before corresponding time calculations. Invalid inputs return zero.",
+  "baseline": "ac5d3b6443a75a4aa0b5d1a149f37cd2367f0e51",
+  "checks": {
+    "scripts/check_calendar_differences.py": "196608 raw month/day cases for 1900,2000,2100; forward/backward endpoints, same-year and reverse-order calculations against Python datetime; 65536 raw hour/minute combinations including both endpoints",
+    "scripts/check_calendar_differences.py --baseline HEAD (before commit)": "Return 1: accepts February 30 instead of rejecting",
+    "audit/gnu_c.json": "174/203 C sources ARM-compiled including dns.c"
+  },
+  "limitations": [
+    "Native fixtures do not execute actual saved packed-variable accesses or daily-event scripts",
+    "Very large year spans, saturated elapsed values and timestamp bitfield representation need separate review",
+    "No complete DNS/scripting semantic approval or GBA runtime claim"
+  ]
+}
