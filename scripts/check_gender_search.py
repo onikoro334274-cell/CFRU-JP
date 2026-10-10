@@ -13,9 +13,10 @@ def main():
     source = (ROOT / 'src/hack_gender_tool.c').read_text(encoding='utf-8')
     original = subprocess.check_output(['git', 'show', 'ceab618:src/hack_gender_tool.c'], cwd=ROOT).decode('utf-8')
     functions = []
-    for text, name in [(source, 'FlipGender'), (original, 'OriginalFlipGender')]:
+    for text, actual, name in [(source, 'FindFlippedGender', 'FindFlippedGender'),
+                               (original, 'FlipGender', 'OriginalFlipGender')]:
         text = re.sub(r'/\*.*?\*/|//[^\n]*', '', text, flags=re.S)
-        functions.append(function(text, 'FlipGender').replace('FlipGender(', name + '('))
+        functions.append(function(text, actual).replace(actual + '(', name + '('))
     fixture = r'''
 typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typedef u8 bool8;
 #define NULL ((void*)0)
@@ -35,7 +36,9 @@ PRODUCTION
 int main(void){
  for(int ratio=0;ratio<256;ratio++)for(u32 i=0;i<256;i++){
   gBaseStats[1].genderRatio=ratio;struct Pokemon a,b;a.personality=b.personality=i*0x9E3779B1u;
-  u32 pid=a.personality;int x=FlipGender(&a),y=OriginalFlipGender(&b);
+  u32 pid=a.personality,candidate=0;int x=FindFlippedGender(&a,&candidate),y=OriginalFlipGender(&b);
+  if(a.personality!=pid)return 6;
+  if(x)a.personality=candidate;
   if(x!=y||a.personality!=b.personality)return 1;
   if(x){if((a.personality&1)!=(pid&1)||a.personality%25!=pid%25)return 2;
    if(((a.personality>>16)^(a.personality&65535))!=((pid>>16)^(pid&65535)))return 3;

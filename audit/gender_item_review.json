@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "cases": 16,
+  "scope": "Production item callback: partner/egg/eligibility/inventory combinations; no mutation on failure, consume before identity initialization, initialize identity before PID commit.",
+  "limitations": "Controlled helper and Pokemon/inventory APIs; actual search covered separately. No GBA runtime claim."
+}

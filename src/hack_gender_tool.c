@@ -34,7 +34,7 @@ bool8 HackPartner_IsMon(const struct Pokemon* mon); //src/hack_story_partner.c
 //  変えない d を選ぶ。色違いは上の XOR の形で変わらない
 //★ 2026-10-10 #70 第 2 段: 萌えもんは裏 ID で決まる（性格値を変える前に HackMonId_Ensure）ので、萌えもんの縛りは外した
 
-static bool8 FlipGender(struct Pokemon* mon)
+static bool8 FindFlippedGender(struct Pokemon* mon, u32* newPersonality)
 {
 	u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
 	u8 ratio = gBaseStats[species].genderRatio;
@@ -53,7 +53,7 @@ static bool8 FlipGender(struct Pokemon* mon)
 		|| GetGenderFromSpeciesAndPersonality(species, npid) == gender)
 			continue;
 
-		mon->personality = npid;
+		*newPersonality = npid;
 		return TRUE;
 	}
 
@@ -64,6 +64,7 @@ static void ItemUseCB_GenderTool(u8 taskId, TaskFunc func)
 {
 	struct Pokemon* mon = &gPlayerParty[gPartyMenu.slotId];
 	u16 item = Var800E;
+	u32 newPersonality;
 
 	PlaySE(SE_SELECT);
 	//★ 2026-10-08 ホウエンのストーリーの相棒には使えない（性格値で相棒を見分けている・ユーザー「きょせいどうぐとか使えなくして」）
@@ -75,8 +76,8 @@ static void ItemUseCB_GenderTool(u8 taskId, TaskFunc func)
 		gTasks[taskId].func = func;
 		return;
 	}
-	HackMonId_Ensure((struct BoxPokemon*) mon);   //★ 2026-10-09 #70 性格値を変える前に表 ID・裏 ID を付ける（色違いが性格値から離れる）
-	if (GetMonData(mon, MON_DATA_IS_EGG, NULL) || !FlipGender(mon))
+	if (GetMonData(mon, MON_DATA_IS_EGG, NULL) || !FindFlippedGender(mon, &newPersonality)
+	|| !RemoveBagItem(item, 1))
 	{
 		gPartyMenuUseExitCallback = FALSE;
 		DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
@@ -85,10 +86,11 @@ static void ItemUseCB_GenderTool(u8 taskId, TaskFunc func)
 		return;
 	}
 
+	HackMonId_Ensure((struct BoxPokemon*) mon); // Preserve appearance before changing personality.
+	mon->personality = newPersonality;
 	UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon); //手持ちの画面の性別の記号を描き直す
 	GetMonNickname(mon, gStringVar1);
 	StringExpandPlaceholders(gStringVar4, GetMonGender(mon) == MON_MALE ? gText_GenderTool_Male : gText_GenderTool_Female);
-	RemoveBagItem(item, 1);
 	DisplayPartyMenuMessage(gStringVar4, TRUE);
 	ScheduleBgCopyTilemapToVram(2);
 	gTasks[taskId].func = func;
