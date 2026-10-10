@@ -4520,12 +4520,12 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
             // If 2 good stats have been found already, choose which to use
             if (i == 2)
             {
-
-                if (allocatedArray[6] < allocatedArray[k])
+                // Slots 6 and 7 hold stat indices; compare their percentages.
+                if (allocatedArray[allocatedArray[6]] < allocatedArray[k])
                 {
-                    if (allocatedArray[7] < allocatedArray[k])
+                    if (allocatedArray[allocatedArray[7]] < allocatedArray[k])
                     {
-                        if (allocatedArray[6] < allocatedArray[7])
+                        if (allocatedArray[allocatedArray[6]] < allocatedArray[allocatedArray[7]])
                         {
                             allocatedArray[6] = allocatedArray[7];
                             allocatedArray[7] = k;
@@ -4543,7 +4543,7 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
                 }
                 else
                 {
-                    if (allocatedArray[7] < allocatedArray[k])
+                    if (allocatedArray[allocatedArray[7]] < allocatedArray[k])
                         allocatedArray[7] = k;
                 }
             }
