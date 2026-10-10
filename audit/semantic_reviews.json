@@ -543,6 +543,17 @@
       ],
       "source_sha256": "e70ed5ef785db6ca5a64b95333e0d6968bdd880240056eb59c46031d4b877973",
       "remaining": "Native script sequencing, save persistence, full stat bonus arithmetic, identity-sharing clones and GBA behavior remain unverified."
+    },
+    {
+      "path": "src/wild_encounter.c",
+      "source_sha256": "2758da7aae0c2fe3bca69ffbfe1bcdefc205fe1f6965bf1f926fb61c51766b22",
+      "sections": [
+        "Task_UpdateDailyValues"
+      ],
+      "verification_records": [
+        "swarm_timestamp_backup_review.json"
+      ],
+      "remaining": "Full encounter algorithms, daily task timing, native event flags/statistics, Pokerus arithmetic and GBA integration remain unverified."
     }
   ]
 }
