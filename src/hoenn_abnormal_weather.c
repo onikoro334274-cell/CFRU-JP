@@ -101,6 +101,13 @@ void HoennAbnormalWeatherTick(bool8 moved)
 		return;
 
 	loc = VarGet(ABN_LOC);
+	if (loc > HOENN_ABN_COUNT)
+	{
+		VarSet(ABN_LOC, 0);
+		VarSet(ABN_END, 0);
+		VarSet(ABN_STEPS, 0);
+		return;
+	}
 
 	/* 終わらせる合図（倒した／捕まえた・洞窟の中で期限が来た）。
 	   その道路にいれば道路の ON_FRAME（AbnormalWeather_EventScript_EndEventAndCleanup_1）が
@@ -129,8 +136,8 @@ void HoennAbnormalWeatherTick(bool8 moved)
 	if (!moved)
 		return;
 
-	steps = VarGet(ABN_STEPS) + 1;
-	if (steps > ABN_EXPIRE_STEPS)
+	steps = VarGet(ABN_STEPS);
+	if (steps >= ABN_EXPIRE_STEPS)
 	{
 		VarSet(ABN_STEPS, 0);
 		/* その道路にいる → ON_FRAME が文を出して片付ける／洞窟の中 → 出てきたときに片付ける */
@@ -141,6 +148,6 @@ void HoennAbnormalWeatherTick(bool8 moved)
 	}
 	else
 	{
-		VarSet(ABN_STEPS, steps);
+		VarSet(ABN_STEPS, steps + 1);
 	}
 }
