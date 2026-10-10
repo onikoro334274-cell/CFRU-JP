@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "cases": 6144,
+  "baseline": "86949c7 fails inventory/mutation ordering check.",
+  "scope": "Actual sugar callback for all six slots, 256 friendship values, egg/non-egg and consumption success/failure. Consumes only for eligible mons, sets friendship only after successful consumption, preserves other party slots, routes messages and task callback.",
+  "limitations": "Controlled native services; rendered party UI and linked GBA runtime unverified."
+}

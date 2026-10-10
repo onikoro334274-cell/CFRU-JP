@@ -27,7 +27,9 @@ static void ItemUseCB_DangerSugar(u8 taskId, TaskFunc func)
 	u8 friendship = FRIENDSHIP_MAX;
 
 	PlaySE(SE_SELECT);
-	if (GetMonData(mon, MON_DATA_IS_EGG, NULL) || GetMonData(mon, MON_DATA_FRIENDSHIP, NULL) >= FRIENDSHIP_MAX)
+	if (GetMonData(mon, MON_DATA_IS_EGG, NULL)
+	|| GetMonData(mon, MON_DATA_FRIENDSHIP, NULL) >= FRIENDSHIP_MAX
+	|| !RemoveBagItem(item, 1))
 	{
 		gPartyMenuUseExitCallback = FALSE;
 		DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
@@ -39,7 +41,6 @@ static void ItemUseCB_DangerSugar(u8 taskId, TaskFunc func)
 	SetMonData(mon, MON_DATA_FRIENDSHIP, &friendship);
 	GetMonNickname(mon, gStringVar1);
 	StringExpandPlaceholders(gStringVar4, gText_DangerSugar_Used);
-	RemoveBagItem(item, 1);
 	DisplayPartyMenuMessage(gStringVar4, TRUE);
 	ScheduleBgCopyTilemapToVram(2);
 	gTasks[taskId].func = func;
