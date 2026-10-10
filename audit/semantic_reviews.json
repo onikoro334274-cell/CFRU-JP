@@ -34,15 +34,6 @@
       "remaining": "Missing-symbol behavior and failure-output atomicity require fixes; actual payload/linker unresolved"
     },
     {
-      "path": "src/hack_save_slot.c",
-      "source_sha256": "2438fbd0b3b1849aff9495c16048322b2ba50749cf2c44f9101728d5bf01f3e9",
-      "sections": [
-        "Heap constant collision; failure-path inspection of CB2_HackSaveSlotSelect"
-      ],
-      "verification": "GNU ARM compilation without warnings; source inspection",
-      "remaining": "Historical inspection superseded by current-state verification below; flash-bank hardware and game runtime remain unverified."
-    },
-    {
       "path": "src/hoenn_frontier.c",
       "source_sha256": "9a3c42fb9070af1d37947ff3c024fd178a1d36c36a32e5e600c74e92ca0f3b2d",
       "sections": [
@@ -63,17 +54,6 @@
       ],
       "verification": "test_insert.py (8 tests with multiple table cases); reproduced original missing-symbol success before modification",
       "remaining": "Source-ROM/request-signature cache invalidation and full write-address validation remain; no actual linked game payload available"
-    },
-    {
-      "path": "src/hack_save_slot.c",
-      "source_sha256": "05b899bec5b9bd23ac9ce0361b21ed8e328f0e344ea59d5f54a0b55ee2558373",
-      "sections": [
-        "CreateSlotScreen",
-        "SkipSlotScreen",
-        "CB2_HackSaveSlotSelect window/allocation failures"
-      ],
-      "verification": "check_slot_screen.py; GNU ARM object compilation without warnings",
-      "remaining": "Full screen rendering, selection and callback transitions have not been run in the game"
     },
     {
       "path": "src/hoenn_frontier.c",
@@ -402,18 +382,6 @@
       "remaining": "Controlled purchase-return helper only; actual bag data, other item functions and linked runtime remain unverified."
     },
     {
-      "path": "src/hack_save_slot.c",
-      "source_sha256": "05b899bec5b9bd23ac9ce0361b21ed8e328f0e344ea59d5f54a0b55ee2558373",
-      "sections": [
-        "CreateSlotScreen",
-        "SkipSlotScreen",
-        "CB2_HackSaveSlotSelect window failure branch"
-      ],
-      "verification_records": [],
-      "verification": "Scoped native fixtures; current GNU ARM compilation",
-      "remaining": "check_slot_screen.py passes controlled allocation/cleanup/window scenarios. CreateTask failure is not exercised; state zero calls ResetTasks first. Flash probe, hardware and linked runtime remain unverified."
-    },
-    {
       "path": "src/bw_option_menu.c",
       "source_sha256": "b0abc1219ccb939450f153ba4927448fd7c89c794727d2a7ff8c9c943eaa3a4c",
       "sections": [
@@ -583,6 +551,21 @@
         "scsd_exfat_entry_review.json"
       ],
       "remaining": "Device/volume capacity, cluster rules/cycles, exFAT entry integrity/attributes/64-bit lengths/Unicode, SD transport and hardware remain unverified."
+    },
+    {
+      "path": "src/hack_save_slot.c",
+      "source_sha256": "05b899bec5b9bd23ac9ce0361b21ed8e328f0e344ea59d5f54a0b55ee2558373",
+      "sections": [
+        "CreateSlotScreen",
+        "SkipSlotScreen",
+        "CB2_HackSaveSlotSelect window/allocation failure branches",
+        "Task_HackSaveSlot"
+      ],
+      "verification_records": [
+        "slot_screen_current_review.json"
+      ],
+      "verification": "Current check_slot_screen.py and check_slot_screen_task.py passed on 2026-10-11; indexed compilation identity matches",
+      "remaining": "Actual task allocation semantics, flash probe/bank hardware, pointer packing, window rendering and native menu transitions remain unverified."
     }
   ]
 }

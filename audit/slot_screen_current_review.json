@@ -1,0 +1,12 @@
+{
+  "scope": "Current save-slot helper/failure and task-control paths in src/hack_save_slot.c",
+  "outcome": "Existing helper checks rerun successfully; newly covered task flow indicates no additional fix in this scope. Historical overlapping index rows consolidated without declaring whole-file completion.",
+  "verification": [
+    "check_slot_screen.py: current allocation failure, slot-load order, cleanup order, unavailable-slot mode and window-initialization cases pass",
+    "check_slot_screen_task.py: all 1024 key masks, two cursors and all fade/exit/unavailable states (16384 cases)",
+    "Task fixture checks input priority, selected-slot caching, cleanup order and callback slot after freed screen memory is poisoned",
+    "Current source inspection confirms ResetTasks immediately precedes CreateSlotScreen",
+    "Current GNU C audit source hash matches and records successful ARM compilation without diagnostics"
+  ],
+  "limitations": "Controlled allocator, input/fade, task and save-loading APIs. Actual task allocation semantics, flash probe/bank hardware, window rendering, pointer packing on GBA and full native menu transitions remain unverified. Entire save-slot file is not certified."
+}

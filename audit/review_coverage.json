@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 844,
+    "source_files": 845,
     "files_with_indexed_scopes": 29,
-    "indexed_scopes": 45,
+    "indexed_scopes": 43,
     "scope_states": {
-      "source_changed": 16,
-      "current": 28,
+      "source_changed": 15,
+      "current": 27,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3819,6 +3819,13 @@
       "whole_file_completion": "not_established"
     },
     {
+      "path": "scripts/check_slot_screen_task.py",
+      "source_sha256": "1dc40101dd709e1f8511dc73440856ef8cc9de584a95cdc0ab9e610352e38ae1",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
       "path": "scripts/check_step_weather_dispatch.py",
       "source_sha256": "20e6a9f0df8462097f04506a73aba99f2fa5214a2d88a541dd335a6f6f5802cc",
       "gnu_c_object": "not_applicable",
@@ -5547,38 +5554,22 @@
       "gnu_c_object": "object_compiled",
       "scoped_reviews": [
         {
-          "state": "source_changed",
-          "sections": [
-            "Heap constant collision; failure-path inspection of CB2_HackSaveSlotSelect"
-          ],
-          "recorded_source_sha256": "2438fbd0b3b1849aff9495c16048322b2ba50749cf2c44f9101728d5bf01f3e9",
-          "evidence": [],
-          "verification": "GNU ARM compilation without warnings; source inspection",
-          "remaining": "Historical inspection superseded by current-state verification below; flash-bank hardware and game runtime remain unverified."
-        },
-        {
           "state": "current",
           "sections": [
             "CreateSlotScreen",
             "SkipSlotScreen",
-            "CB2_HackSaveSlotSelect window/allocation failures"
+            "CB2_HackSaveSlotSelect window/allocation failure branches",
+            "Task_HackSaveSlot"
           ],
           "recorded_source_sha256": "05b899bec5b9bd23ac9ce0361b21ed8e328f0e344ea59d5f54a0b55ee2558373",
-          "evidence": [],
-          "verification": "check_slot_screen.py; GNU ARM object compilation without warnings",
-          "remaining": "Full screen rendering, selection and callback transitions have not been run in the game"
-        },
-        {
-          "state": "current",
-          "sections": [
-            "CreateSlotScreen",
-            "SkipSlotScreen",
-            "CB2_HackSaveSlotSelect window failure branch"
+          "evidence": [
+            {
+              "path": "audit/slot_screen_current_review.json",
+              "exists": true
+            }
           ],
-          "recorded_source_sha256": "05b899bec5b9bd23ac9ce0361b21ed8e328f0e344ea59d5f54a0b55ee2558373",
-          "evidence": [],
-          "verification": "Scoped native fixtures; current GNU ARM compilation",
-          "remaining": "check_slot_screen.py passes controlled allocation/cleanup/window scenarios. CreateTask failure is not exercised; state zero calls ResetTasks first. Flash probe, hardware and linked runtime remain unverified."
+          "verification": "Current check_slot_screen.py and check_slot_screen_task.py passed on 2026-10-11; indexed compilation identity matches",
+          "remaining": "Actual task allocation semantics, flash probe/bank hardware, pointer packing, window rendering and native menu transitions remain unverified."
         }
       ],
       "whole_file_completion": "not_established"
