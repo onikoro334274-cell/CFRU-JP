@@ -898,7 +898,7 @@ u16 CalcFinalAIMoveDamage(u16 move, u8 bankAtk, u8 bankDef, u8 numHits, struct D
 		return gBattleMons[bankDef].hp;
 
 	u16 defAbility = ABILITY(bankDef);
-	if (numHits >= 2 && BATTLER_MAX_HP(bankDef) && (defAbility == ABILITY_MULTISCALE || defAbility == ABILITY_SHADOWSHIELD))
+	if (numHits >= 2 && BATTLER_MAX_HP(bankDef) && (defAbility == ABILITY_MULTISCALE || defAbility == ABILITY_SHADOWSHIELD || defAbility == ABILITY_DRAGONARMOR)) //[hack] 2026-10-03 りゅうのよろい（ABILITY_DRAGONARMOR・patches/0150）
 		return MathMin(dmg + (dmg * 2) * (numHits - 1), gBattleMons[bankDef].maxHP); //Adjust damage on subsequent hits
 
 	return MathMin(dmg * numHits, gBattleMons[bankDef].maxHP);
@@ -1497,6 +1497,7 @@ static u32 GetContactDamageByDefAbilityItemEffect(u16 defAbility, u8 defItemEffe
 	u32 dmg = 0;
 
 	if (defAbility == ABILITY_ROUGHSKIN
+	|| defAbility == ABILITY_DRAGONARMOR //[hack] 2026-10-03 りゅうのよろい（ABILITY_DRAGONARMOR・patches/0150）
 	#ifdef ABILITY_IRONBARBS
 	|| defAbility == ABILITY_IRONBARBS
 	#endif
@@ -3475,6 +3476,8 @@ void DecreaseViability(s16* viability, u16 amount)
 		*viability -= amount;
 }
 
+bool8 HackAI_TeraBlocksKO(u8 bankAtk, u8 bankDef, u16 foeMove); //[hack] patches/0121・src/ai_hack.c
+
 void CalcShouldAITerastal(u8 bankAtk, u8 bankDef)
 {
 	gNewBS->ai.terastalPotential[bankAtk][bankDef] = FALSE;
@@ -3503,7 +3506,8 @@ void CalcShouldAITerastal(u8 bankAtk, u8 bankDef)
 				return;
 		}
 
-		if (gNewBS->ai.terastalMonId[SIDE(bankAtk)] == gBattlerPartyIndexes[bankAtk])
+		if (gNewBS->ai.terastalMonId[SIDE(bankAtk)] == gBattlerPartyIndexes[bankAtk]
+		|| (AI_THINKING_STRUCT->aiFlags > AI_SCRIPT_CHECK_BAD_MOVE && HackAI_TeraBlocksKO(bankAtk, bankDef, IsValidMovePrediction(bankDef, bankAtk)))) //[hack] patches/0121 守りのテラスタル
 		{
 			if (AI_THINKING_STRUCT->aiFlags > AI_SCRIPT_CHECK_BAD_MOVE || SIDE(bankAtk) == B_SIDE_PLAYER) //Smart AI or partners only
 			{
@@ -3519,7 +3523,8 @@ void CalcShouldAITerastal(u8 bankAtk, u8 bankDef)
 					predictedMove = IsValidMovePrediction(bankDef, bankAtk);
 					if (predictedMove != MOVE_NONE
 					&&  MoveWouldHitFirst(predictedMove, bankDef, bankAtk)
-					&&  MoveKnocksOutXHits(predictedMove, bankDef, bankAtk, 1))
+					&&  MoveKnocksOutXHits(predictedMove, bankDef, bankAtk, 1)
+					&& !HackAI_TeraBlocksKO(bankAtk, bankDef, predictedMove)) //[hack] patches/0121 弱点を消して耐えられるなら切る
 						return;
 				}
 

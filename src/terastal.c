@@ -150,7 +150,9 @@ static item_t FindPlayerTeraOrb(void)
 	if (gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_LINK))
 		return ITEM_TERA_ORB;
 
-	if (FlagGet(FLAG_TERASTAL_CHARGE) || FlagGet(FLAG_TERA_ORB_NO_COST))
+	//[hack] patches/0178: 2026-10-06 ユーザー「テラスタルがなぜかジム戦とかでフラグが立っていない」→「毎回の戦いで 1 回使える」。
+	//充電の印（FLAG_TERASTAL_CHARGE）を立てる所がどこにも無く、フロンティアと通信対戦でしか使えなかった。オーブを持っていれば充電なしで使える
+	if (TRUE || FlagGet(FLAG_TERASTAL_CHARGE) || FlagGet(FLAG_TERA_ORB_NO_COST))
 	{
 		for (u8 i = 0; i < ARRAY_COUNT(sTeraOrbTable); ++i)
 		{
@@ -175,6 +177,11 @@ static item_t FindBankTeraOrb(u8 bank)
 
 	if (SIDE(bank) == SIDE_OPPONENT)
 	{
+		//[hack] patches/0203 2026-10-07「野生ポケモン戦でも残っているトレーナーIDを参照し…相手のテラスタル可否が可能と判定される」:
+		//  gTrainerBattleOpponent_A は野生の戦いでは書き換わらない（前に戦ったトレーナーのまま）。相手はトレーナー戦のときだけ探す
+		//  （メガシンカは mega.c 84 行で野生を外している・ダイマックスは BATTLE_TYPE_DYNAMAX のときだけ）
+		if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+			return ITEM_NONE;
 		if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
 		{
 			if (GetBattlerPosition(bank) == B_POSITION_OPPONENT_LEFT)

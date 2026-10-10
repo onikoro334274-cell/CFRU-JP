@@ -16,6 +16,7 @@
 #include "../include/new/util.h"
 #include "../include/new/roamer.h"
 #include "../include/new/wild_encounter.h"
+#include "Tables/hoenn_roamer_locations.h" //[hack] patches/0093: ラティ兄妹のホウエンの徘徊（tools/rom/build_hoenn_roamers.py）
 /*
 roamer.c
 	handles roaming pokemon and relevant functions/hooks
@@ -86,8 +87,25 @@ static const u8 sRoamerLocations[][NUM_MAPS_IN_SET] =
 
 #endif
 
+//[hack] patches/0093: 徘徊する場所の表は群で使い分ける（2026-09-29 ユーザー「ホウエンリーグ制覇時にフラグをたててラティ兄妹2匹を徘徊させる」）。
+//  群 3（ROAMING_MAP_BANK）= カントーの道路（素の表）・群 43（HOENN_ROAMING_MAP_BANK）= ホウエンの道路（エメラルドの表）。
+//  徘徊しているポケモンは自分のいる群（location[MAP_GRP]）の表の中だけを動く
+typedef const u8 RoamerLocationSet[NUM_MAPS_IN_SET];
+
+static RoamerLocationSet* GetRoamerLocationTable(u8 group, u32* numSets)
+{
+	if (group == HOENN_ROAMING_MAP_BANK)
+	{
+		*numSets = ARRAY_COUNT(sHoennRoamerLocations) - 1; //The last row is the terminator
+		return sHoennRoamerLocations;
+	}
+
+	*numSets = ARRAY_COUNT(sRoamerLocations) - 1;
+	return sRoamerLocations;
+}
+
 //This file's functions:
-static void CreateInitialRoamerMon(u16 species, u8 level, bool8 allowedOnLand, bool8 allowedOnWater);
+static void CreateInitialRoamerMon(u16 species, u8 level, bool8 allowedOnLand, bool8 allowedOnWater, u8 group);
 static bool8 IsRoamerAt(u8 mapGroup, u8 mapNum, u8 id);
 static void CreateRoamerMonInstance(u8 id);
 
@@ -96,9 +114,11 @@ void ClearRoamersData(void)
 	memset(gRoamers, 0, sizeof(struct Roamer) * MAX_NUM_ROAMERS);
 }
 
-static void CreateInitialRoamerMon(u16 species, u8 level, bool8 allowedOnLand, bool8 allowedOnWater)
+static void CreateInitialRoamerMon(u16 species, u8 level, bool8 allowedOnLand, bool8 allowedOnWater, u8 group)
 {
 	int i;
+	u32 numSets;
+	RoamerLocationSet* table = GetRoamerLocationTable(group, &numSets);
 	struct Roamer roamer;
 
 	if (species == 0xFFFF) //FRLGSytle
@@ -163,8 +183,8 @@ static void CreateInitialRoamerMon(u16 species, u8 level, bool8 allowedOnLand, b
 	roamer.hp = gEnemyParty[0].hp;
 	roamer.canAppearOnLand = allowedOnLand;
 	roamer.canAppearOnWater = allowedOnWater;
-	roamer.location[MAP_GRP] = ROAMING_MAP_BANK;
-	roamer.location[MAP_NUM] = sRoamerLocations[Random() % (ARRAY_COUNT(sRoamerLocations) - 1)][0];
+	roamer.location[MAP_GRP] = group;
+	roamer.location[MAP_NUM] = table[Random() % numSets][0];
 
 	for (i = 0; i < MAX_NUM_ROAMERS; ++i)
 	{
@@ -187,13 +207,49 @@ static void CreateInitialRoamerMon(u16 species, u8 level, bool8 allowedOnLand, b
 //		Var8002: 0x0 = Roamer Not Allowed On Land
 //		Var8003: 0x0 = Roamer Not Allowed On Water
 // Returns: To LastResult 0 if failed.
+/*★★★ [hack] patches/0050 — 3 匹とも徘徊させる（2026-09-23）
+
+  ユーザー要望「カントーを巡回する 3 犬を最初に選んだポケモンではなく
+  全部でるようにしてほしい」。
+
+  ★★ **CFRU は最初から複数の徘徊に対応している。**
+    `MAX_NUM_ROAMERS` は 10（`SAVE_BLOCK_EXPANSION` が有効なため）で、
+    出現（`TryStartRoamerEncounter`）・移動（`RoamersMove`）・
+    タウンマップのアイコンまで**全部この数でループしている**。
+    **1 匹に絞っていたのはここ 1 か所だけ。**
+
+  ★ `CreateInitialRoamerMon()` は `IsSpeciesRoaming()` で
+    **同じ種族の二重登録を自分で弾く**ので、何度呼んでも増えない。
+    倒した／捕まえた個体は枠が空くが、この関数を呼び直さない限り
+    復活しない（呼び元は下の 2 か所だけ）。
+
+  ★ 起動は素 FRLG の `special InitRoamer` ＝ **ななしま 1 のポケセンで
+    セリオがホウエンと通信をつなぐイベントの最後**（1 回きり）。
+    そこを既に過ぎているセーブのために、`src/hoenn_steps.c` の
+    `HoennRoamerTopUpTick()` が**一度だけ**ここを呼び直す。
+
+  ★ レベル 50・陸/水どちらにも出る、は素のまま。
+*/
 void sp129_InitRoamer(void)
 {
 	#ifdef FRLG_ROAMING
-		CreateInitialRoamerMon(0xFFFF, 50, TRUE, TRUE);
+		#ifdef FRLG_ROAMING_ALL_BEASTS
+			CreateInitialRoamerMon(SPECIES_RAIKOU, 50, TRUE, TRUE, ROAMING_MAP_BANK);
+			CreateInitialRoamerMon(SPECIES_ENTEI, 50, TRUE, TRUE, ROAMING_MAP_BANK);
+			CreateInitialRoamerMon(SPECIES_SUICUNE, 50, TRUE, TRUE, ROAMING_MAP_BANK);
+		#else
+			CreateInitialRoamerMon(0xFFFF, 50, TRUE, TRUE, ROAMING_MAP_BANK);
+		#endif
 	#else
-		CreateInitialRoamerMon(Var8000, Var8001, Var8002, Var8003);
+		CreateInitialRoamerMon(Var8000, Var8001, Var8002, Var8003, ROAMING_MAP_BANK);
 	#endif
+}
+
+//[hack] patches/0093: ホウエンを徘徊させる（ラティ兄妹・src/hoenn_league.c の HoennLeague_OnHallOfFame から）。
+//陸でも水でも出る（エメラルドと同じ）。同じ種族が徘徊中なら何もしない（CreateInitialRoamerMon が弾く）
+void CreateHoennRoamer(u16 species, u8 level)
+{
+	CreateInitialRoamerMon(species, level, TRUE, TRUE, HOENN_ROAMING_MAP_BANK);
 }
 
 void UpdateLocationHistoryForRoamers(void)
@@ -226,11 +282,13 @@ void RoamersMoveToOtherLocationSet(void)
 
 		if (roamer->species != SPECIES_NONE)
 		{
-			roamer->location[MAP_GRP] = ROAMING_MAP_BANK;
+			//[hack] patches/0093: 群は自分のいる群のまま（ホウエンの徘徊をカントーへ移さない）
+			u32 numSets;
+			RoamerLocationSet* table = GetRoamerLocationTable(roamer->location[MAP_GRP], &numSets);
 
 			while (TRUE)
 			{
-				mapNum = sRoamerLocations[Random() % (ARRAY_COUNT(sRoamerLocations) - 1)][0];
+				mapNum = table[Random() % numSets][0];
 				if (roamer->location[MAP_NUM] != mapNum)
 				{
 					roamer->location[MAP_NUM] = mapNum;
@@ -243,7 +301,7 @@ void RoamersMoveToOtherLocationSet(void)
 
 void RoamersMove(void)
 {
-	u8 locSet = 0;
+	u32 locSet;
 
 	if ((Random() % 16) == 0)
 	{
@@ -257,15 +315,21 @@ void RoamersMove(void)
 
 			if (roamer->species != SPECIES_NONE)
 			{
-				while (locSet < (ARRAY_COUNT(sRoamerLocations) - 1))
+				//[hack] patches/0093: 表は自分のいる群のもの。★ 探し始めを 1 匹ごとに 0 に戻す
+				//（素の CFRU は locSet を関数の頭で 1 回だけ 0 にしていて、2 匹目以降は 1 匹目が止まった所から探した）
+				u32 numSets;
+				RoamerLocationSet* table = GetRoamerLocationTable(roamer->location[MAP_GRP], &numSets);
+
+				locSet = 0;
+				while (locSet < numSets)
 				{
-					if (roamer->location[MAP_NUM] == sRoamerLocations[locSet][0])
+					if (roamer->location[MAP_NUM] == table[locSet][0])
 					{
 						u8 mapNum;
 						while (TRUE)
 						{
-							mapNum = sRoamerLocations[locSet][Random() % NUM_MAPS_IN_SET];
-							if (!(roamer->locationHistory[2][MAP_GRP] == ROAMING_MAP_BANK && roamer->locationHistory[2][MAP_NUM] == mapNum) && mapNum != 0xFF)
+							mapNum = table[locSet][Random() % NUM_MAPS_IN_SET];
+							if (!(roamer->locationHistory[2][MAP_GRP] == roamer->location[MAP_GRP] && roamer->locationHistory[2][MAP_NUM] == mapNum) && mapNum != 0xFF)
 								break;
 						}
 						roamer->location[MAP_NUM] = mapNum;
@@ -273,6 +337,10 @@ void RoamersMove(void)
 					}
 					locSet++;
 				}
+
+				//[hack] patches/0093: 居場所が表に無い（2026-09-29 の表の誤りで 0xFF になったセーブ）なら、表の道路へ置き直す
+				if (locSet >= numSets)
+					roamer->location[MAP_NUM] = table[Random() % numSets][0];
 			}
 		}
 	}
@@ -391,29 +459,49 @@ static const union AffineAnimCmd* const sSpriteAffineAnimTable_RegionMapRoamer[]
 
 extern const u16 sMapSectionTopLeftCorners[][2];
 extern const u16 sMapSectionDimensions[][2];
+//[hack] patches/0093: 見ているページの地方にいる徘徊だけを出す（カントーのページ = 群 3・ホウエンのページ = 群 43）。
+//位置は拡張した地名の表（assembly/hoenn/mapsec.s・番号そのままで引く・カントーの行は素と同じ値）。
+//素の表（sMapSectionTopLeftCorners）を番号 - 0x58 で引くと、ホウエンの番号では表の外を読む（patches/0092 の守りを置き換えた）。
+//★ ホウエンのページは横にスクロールするので、印は src/hoenn_townmap.c がスクロールに合わせて動かす
+extern const u16 gExpandedMapSecPos[][2];
+extern const u16 gExpandedMapSecSizes[][2];
+#define HOENN_TOWN_MAP_PAGE 4
+
 void CreateTownMapRoamerSprites(void)
 {
-	if (GetSelectedRegionMap() != 0)
-		return; //Roaming only tracked on the main map
+	u8 page = GetSelectedRegionMap();
+	u8 wantGroup;
+
+	if (page == 0)
+		wantGroup = ROAMING_MAP_BANK;
+	else if (page == HOENN_TOWN_MAP_PAGE)
+		wantGroup = HOENN_ROAMING_MAP_BANK;
+	else
+		return; //No roamers on the Sevii / Sinnoh pages
 
 	for (int i = 0; i < MAX_NUM_ROAMERS; ++i)
 	{
 		//FlagSet(FLAG_SYS_SEVII_MAP_123); //For debugging
-		if (gRoamers[i].species != SPECIES_NONE)
+		if (gRoamers[i].species != SPECIES_NONE && gRoamers[i].location[MAP_GRP] == wantGroup)
 		{
 			LoadMonIconPalettes();
 			u8 mapGroup = gRoamers[i].location[MAP_GRP];
 			u8 mapNum = gRoamers[i].location[MAP_NUM];
+			if (mapNum == 0xFF) //居場所が表の外（2026-09-29 の表の誤りのセーブ・次に区切りをまたげば直る）
+				continue;
 			const struct MapHeader* mapHeader = Overworld_GetMapHeaderByGroupAndId(mapGroup, mapNum);
-			u8 regionMapSecId = mapHeader->regionMapSectionId - (MAPSEC_DYNAMIC + 1);
+			u8 mapsec = mapHeader->regionMapSectionId;
 
-			s16 x = 8 * sMapSectionTopLeftCorners[regionMapSecId][0];
-			s16 y = 8 * sMapSectionTopLeftCorners[regionMapSecId][1];
+			if (mapsec == MAPSEC_NONE || mapsec > 0xFC) //The expanded tables have 0x00-0xFC
+				continue;
 
-			if (sMapSectionDimensions[regionMapSecId][0] > 1)
-				x += 4 * sMapSectionDimensions[regionMapSecId][0];
-			if (sMapSectionDimensions[regionMapSecId][1] > 1)
-				y += 4 * sMapSectionDimensions[regionMapSecId][1];
+			s16 x = 8 * gExpandedMapSecPos[mapsec][0];
+			s16 y = 8 * gExpandedMapSecPos[mapsec][1];
+
+			if (gExpandedMapSecSizes[mapsec][0] > 1)
+				x += 4 * gExpandedMapSecSizes[mapsec][0];
+			if (gExpandedMapSecSizes[mapsec][1] > 1)
+				y += 4 * gExpandedMapSecSizes[mapsec][1];
 
 			u8 spriteId = CreateMonIcon(gRoamers[i].species, SpriteCB_PokeIcon, x + 36, y + 36 - 8, 0, gRoamers[i].personality, FALSE);
 			if (spriteId < MAX_SPRITES)
@@ -440,7 +528,7 @@ void DestroyTownMapRoamerSprites(void)
 		for (j = 0; j < MAX_NUM_ROAMERS; ++j)
 		{
 			if (gRoamers[j].species != SPECIES_NONE
-			&&  (void*) gSprites[i].images == (void*) GetMonIconTiles(gRoamers[j].species, FALSE))
+			&&  (void*) gSprites[i].images == (void*) GetMonIconTiles(GetIconSpecies(gRoamers[j].species, gRoamers[j].personality), FALSE))
 			{
 				FreeSpriteOamMatrix(&gSprites[i]);
 				DestroyMonIcon(&gSprites[i]);
@@ -460,7 +548,7 @@ void HideOrShowTownMapRoamerSprites(bool8 invisible)
 			for (j = 0; j < MAX_NUM_ROAMERS; ++j)
 			{
 				if (gRoamers[j].species != SPECIES_NONE
-				&&  (void*) gSprites[i].images == (void*) GetMonIconTiles(gRoamers[j].species, FALSE))
+				&&  (void*) gSprites[i].images == (void*) GetMonIconTiles(GetIconSpecies(gRoamers[j].species, gRoamers[j].personality), FALSE))
 				{
 					gSprites[i].invisible = invisible;
 				}

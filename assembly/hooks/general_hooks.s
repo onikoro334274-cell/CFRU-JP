@@ -648,6 +648,9 @@ SwapBoxMonMovesUpdate2:
 	ldr r1, =DAMAGE_LOC
 	ldr r1, [r1]
 	bl CreateCompressedMonFromBoxMon @Update the mon in the PC
+	ldr r0, =DAMAGE_LOC @[hack] patches/0196 棚の箱の入れ物を直に書いた → 汚れの印
+	ldr r0, [r0]
+	bl BoxShelf_MarkPtrDirty
 	add sp, #0xC
 	pop {r3-r5}
 	mov r8, r3

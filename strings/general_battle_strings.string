@@ -88,6 +88,12 @@ The Shadow Warrior attacked！\p
 #org @gStatusConditionString_TauntProblem
 ちょうはつ
 
+#org @gStatusConditionString_TormentProblem
+いちゃもん
+
+#org @gStatusConditionString_HealBlockProblem
+かいふくふうじ
+
 //Stat Buff Strings
 
 #org @DrasticallyString
@@ -267,7 +273,7 @@ PP
 すなあらし
 
 #org @gText_MaxMoveHail
-あられ
+ゆき
 
 #org @gText_MaxMoveElectric
 エレキ

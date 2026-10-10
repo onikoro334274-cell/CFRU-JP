@@ -20,6 +20,10 @@
 #include "../include/new/terastal.h"
 
 #include "Tables/type_tables.h"
+#include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
+
+bool8 HackDragonBoulder_Bank(u8 bank); //[hack] patches/0207 りゅうのいわお（src/hack_dragon_boulder.c）
+bool8 HackDragonBoulder_Mon(struct Pokemon* mon);
 
 /*
 damage_calc.c
@@ -129,7 +133,8 @@ void atk04_critcalc(void)
 						+ 2 * (atkEffect == ITEM_EFFECT_STICK && (SpeciesToNationalPokedexNum(SPECIES(gBankAttacker)) == NATIONAL_DEX_FARFETCHD
 						                                       || SpeciesToNationalPokedexNum(SPECIES(gBankAttacker)) == NATIONAL_DEX_SIRFETCHD))
 						#endif
-						+ 2 * (gCurrentMove == MOVE_10000000_VOLT_THUNDERBOLT);
+						+ 2 * (gCurrentMove == MOVE_10000000_VOLT_THUNDERBOLT)
+						+ HackAffection_CritBonus(gBankAttacker); //[hack] patches/0240 なつき度 255 で +1（さいごの いっぴきで さらに +1）
 
 			if (critChance > 4)
 				critChance = 4;
@@ -249,6 +254,9 @@ void atk05_damagecalc(void)
 	u8 moveTarget = GetBaseMoveTarget(gCurrentMove, gBankAttacker);
 	gBattleStruct->dynamicMoveType = GetMoveTypeSpecial(gBankAttacker, gCurrentMove);
 
+	if (HackAffection_BeforeDamageCalc()) //[hack] patches/0240 きずなのいちげき: 文を出してから この命令をもう一度
+		return;
+
 	if (gNewBS->calculatedSpreadMoveData && gMultiHitCounter == 0)
 	{
 		//Just use the calculated values below
@@ -271,7 +279,7 @@ void atk05_damagecalc(void)
 			data.bankDef = bankDef;
 			PopulateDamageCalcStructWithBaseDefenderData(&data);
 			gCritMultiplier = gNewBS->criticalMultiplier[bankDef];
-			gNewBS->DamageTaken[bankDef] = (CalculateBaseDamage(&data) * gCritMultiplier) / BASE_CRIT_MULTIPLIER;
+			gNewBS->DamageTaken[bankDef] = HackAffection_ModifyDamage((CalculateBaseDamage(&data) * gCritMultiplier) / BASE_CRIT_MULTIPLIER); //[hack] patches/0240
 		}
 	}
 	else //Single Battle or single target move
@@ -280,8 +288,10 @@ void atk05_damagecalc(void)
 		data.bankDef = gBankTarget;
 		data.move = gCurrentMove;
 		gCritMultiplier = gNewBS->criticalMultiplier[gBankTarget];
-		gBattleMoveDamage = (CalculateBaseDamage(&data) * gCritMultiplier) / BASE_CRIT_MULTIPLIER;
+		gBattleMoveDamage = HackAffection_ModifyDamage((CalculateBaseDamage(&data) * gCritMultiplier) / BASE_CRIT_MULTIPLIER); //[hack] patches/0240 きずなのいちげき 1.5 倍
 		gNewBS->DamageTaken[gBankTarget] = gBattleMoveDamage;
+		if (HackAffection_AfterDamageCalc()) //[hack] patches/0240 かばう: 相手をとなりの子に変えて この命令をもう一度
+			return;
 	}
 
 	gBattleMoveDamage = gNewBS->DamageTaken[gBankTarget];
@@ -833,9 +843,14 @@ void atk06_typecalc(void)
 			//Check Special Ground Immunities
 			if (moveType == TYPE_GROUND && !CheckGrounding(bankDef) && gCurrentMove != MOVE_THOUSANDARROWS)
 			{
-				if (defAbility == ABILITY_LEVITATE)
+				if ((defAbility == ABILITY_LEVITATE || defAbility == ABILITY_EELEVATE || HackDragonBoulder_Bank(bankDef))) //[hack] patches/0207 りゅうのいわお
 				{
 					gLastUsedAbility = defAbility;
+					if (defAbility != ABILITY_LEVITATE && defAbility != ABILITY_EELEVATE) //[hack] patches/0207 りゅうのいわお で防いだときの札
+					{
+						gLastUsedAbility = ABILITY_DRAGONBOULDER;
+						gNewBS->abilityPopupOverwrite = ABILITY_DRAGONBOULDER;
+					}
 					gNewBS->ResultFlags[bankDef] |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
 					gLastLandedMoves[bankDef] = 0;
 					gLastHitByType[bankDef] = 0;
@@ -951,9 +966,14 @@ void atk4A_typecalc2(void)
 	//Check Special Ground Immunities
 	if (moveType == TYPE_GROUND && !CheckGrounding(gBankTarget) && gCurrentMove != MOVE_THOUSANDARROWS)
 	{
-		if (defAbility == ABILITY_LEVITATE)
+		if ((defAbility == ABILITY_LEVITATE || defAbility == ABILITY_EELEVATE || HackDragonBoulder_Bank(gBankTarget))) //[hack] patches/0207 りゅうのいわお
 		{
 			gLastUsedAbility = atkAbility;
+			if (defAbility != ABILITY_LEVITATE && defAbility != ABILITY_EELEVATE) //[hack] patches/0207 りゅうのいわお で防いだときの札
+			{
+				gLastUsedAbility = ABILITY_DRAGONBOULDER;
+				gNewBS->abilityPopupOverwrite = ABILITY_DRAGONBOULDER;
+			}
 			gMoveResultFlags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
 			gLastLandedMoves[gBankTarget] = 0;
 			gNewBS->missStringId[gBankTarget] = 3;
@@ -1124,7 +1144,7 @@ u8 TypeCalc(u16 move, u8 bankAtk, u8 bankDef, struct Pokemon* monAtk, bool8 Chec
 	//Check Special Ground Immunities
 	if (moveType == TYPE_GROUND
 	&& !CheckGrounding(bankDef)
-	&& ((defAbility == ABILITY_LEVITATE && NO_MOLD_BREAKERS(atkAbility, move)) || defEffect == ITEM_EFFECT_AIR_BALLOON || (gStatuses3[bankDef] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS)))
+	&& (((defAbility == ABILITY_LEVITATE || defAbility == ABILITY_EELEVATE || HackDragonBoulder_Bank(bankDef)) && NO_MOLD_BREAKERS(atkAbility, move)) || defEffect == ITEM_EFFECT_AIR_BALLOON || (gStatuses3[bankDef] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS)))
 	&& move != MOVE_THOUSANDARROWS)
 	{
 		flags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
@@ -1234,7 +1254,7 @@ u8 AI_TypeCalc(u16 move, u8 bankAtk, u8 bankDef, struct Pokemon* monDef)
 	//Check Special Ground Immunities
 	if (moveType == TYPE_GROUND
 	&& !CheckMonGrounding(monDef)
-	&& ((defAbility == ABILITY_LEVITATE && NO_MOLD_BREAKERS(atkAbility, move)) || (defEffect == ITEM_EFFECT_AIR_BALLOON && defAbility != ABILITY_KLUTZ))
+	&& (((defAbility == ABILITY_LEVITATE || defAbility == ABILITY_EELEVATE || HackDragonBoulder_Mon(monDef)) && NO_MOLD_BREAKERS(atkAbility, move)) || (defEffect == ITEM_EFFECT_AIR_BALLOON && defAbility != ABILITY_KLUTZ))
 	&& move != MOVE_THOUSANDARROWS)
 	{
 		flags = MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE;
@@ -1345,7 +1365,7 @@ u8 AI_SpecialTypeCalc(u16 move, u8 bankAtk, u8 bankDef)
 	//Check Special Ground Immunities
 	if (moveType == TYPE_GROUND
 	&& !CheckGrounding(bankDef)
-	&& ((defAbility == ABILITY_LEVITATE && NO_MOLD_BREAKERS(atkAbility, move)) || defEffect == ITEM_EFFECT_AIR_BALLOON || (gStatuses3[bankDef] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS)))
+	&& (((defAbility == ABILITY_LEVITATE || defAbility == ABILITY_EELEVATE || HackDragonBoulder_Bank(bankDef)) && NO_MOLD_BREAKERS(atkAbility, move)) || defEffect == ITEM_EFFECT_AIR_BALLOON || (gStatuses3[bankDef] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS)))
 	&& move != MOVE_THOUSANDARROWS)
 	{
 		flags |= (MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
@@ -1436,7 +1456,7 @@ u8 VisualTypeCalc(u16 move, u8 bankAtk, u8 bankDef)
 	if (moveType == TYPE_GROUND //Check Special Ground Immunities
 	&& SPLIT(move) != SPLIT_STATUS
 	&& !NonInvasiveCheckGrounding(bankDef, defAbility, defType1, defType2, defType3)
-	&& ((defAbility == ABILITY_LEVITATE && NO_MOLD_BREAKERS(atkAbility, move)) || defEffect == ITEM_EFFECT_AIR_BALLOON || (gStatuses3[bankDef] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS)) || underIllusion)
+	&& (((defAbility == ABILITY_LEVITATE || defAbility == ABILITY_EELEVATE || HackDragonBoulder_Bank(bankDef)) && NO_MOLD_BREAKERS(atkAbility, move)) || defEffect == ITEM_EFFECT_AIR_BALLOON || (gStatuses3[bankDef] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS)) || underIllusion)
 	&& move != MOVE_THOUSANDARROWS)
 	{
 		flags |= MOVE_RESULT_DOESNT_AFFECT_FOE;
@@ -1604,7 +1624,7 @@ TYPE_LOOP:
 	if (gSpecialStatuses[bankDef].distortedTypeMatchups
 	|| (ABILITY(bankDef) == ABILITY_TERASHELL && BATTLER_MAX_HP(bankDef) && SPLIT(move) != SPLIT_STATUS))
 	{
-		if (multiplier >= TYPE_MUL_NORMAL)
+		if (gSpecialStatuses[bankDef].distortedTypeMatchups ? multiplier >= TYPE_MUL_NORMAL : multiplier != TYPE_MUL_NO_EFFECT) //★ Champions（patches/0070） テラスシェル
 		{
 			multiplier = TYPE_MUL_NOT_EFFECTIVE;
 			gSpecialStatuses[bankDef].teraShellDone = TRUE;
@@ -1825,6 +1845,8 @@ u8 GetMoveTypeSpecialPostAbility(u16 move, u16 atkAbility, bool8 zMoveActive)
 					return TYPE_FLYING;
 				case ABILITY_GALVANIZE:
 					return TYPE_ELECTRIC;
+				case ABILITY_DRAGONIZE: //★ ZA メガ（patches/0069）
+					return TYPE_DRAGON;
 			}
 		}
 
@@ -1872,6 +1894,7 @@ static bool8 AbilityCanChangeTypeAndBoost(u16 move, u16 atkAbility, u8 electrify
 				case ABILITY_PIXILATE:
 				case ABILITY_AERILATE:
 				case ABILITY_GALVANIZE:
+				case ABILITY_DRAGONIZE: //★ ZA メガ（patches/0069）
 					return TRUE;
 			}
 		}
@@ -1904,7 +1927,9 @@ u8 GetExceptionMoveType(u8 bankAtk, u16 move)
 			break;
 
 		case MOVE_WEATHERBALL:
-			if (WEATHER_HAS_EFFECT)
+			if (ABILITY(bankAtk) == ABILITY_MEGA_SOL) //★ ZA メガ（patches/0069） じぶんの わざは ひざし
+				moveType = TYPE_FIRE;
+			else if (WEATHER_HAS_EFFECT)
 			{
 				if (gBattleWeather & WEATHER_RAIN_ANY && effect != ITEM_EFFECT_UTILITY_UMBRELLA)
 					moveType = TYPE_WATER;
@@ -2058,7 +2083,9 @@ u8 GetMonExceptionMoveType(struct Pokemon* mon, u16 move)
 			break;
 
 		case MOVE_WEATHERBALL:
-			if (gMain.inBattle && WEATHER_HAS_EFFECT)
+			if (ability == ABILITY_MEGA_SOL) //★ ZA メガ（patches/0069）
+				moveType = TYPE_FIRE;
+			else if (gMain.inBattle && WEATHER_HAS_EFFECT)
 			{
 				if (gBattleWeather & WEATHER_RAIN_ANY && effect != ITEM_EFFECT_UTILITY_UMBRELLA)
 					moveType = TYPE_WATER;
@@ -2255,6 +2282,11 @@ void AdjustDamage(bool8 checkFalseSwipe)
 		&& !IsDynamaxed(bankDef)
 		&& ProtectsAgainstZMoves(gCurrentMove, gBankAttacker, bankDef))
 			damage = max(1, (damage  * 25) / 100);
+		else if ((ABILITY(gBankAttacker) == ABILITY_PIERCING_DRILL || ABILITY(gBankAttacker) == ABILITY_UNSEENFIST) //★ ZA メガ（patches/0069）・ふかしのこぶしも（patches/0070）まもるを貫いたら 1/4
+		&& gBattleMoves[gCurrentMove].flags & FLAG_PROTECT_AFFECTED
+		&& CheckContact(gCurrentMove, gBankAttacker, bankDef)
+		&& ProtectsAgainstZMoves(gCurrentMove, gBankAttacker, bankDef))
+			damage = max(1, (damage  * 25) / 100);
 
 		if (MoveBlockedBySubstitute(gCurrentMove, gBankAttacker, bankDef))
 			goto END;
@@ -2297,6 +2329,11 @@ void AdjustDamage(bool8 checkFalseSwipe)
 		{
 			RecordItemEffectBattle(bankDef, itemEffect);
 			gSpecialStatuses[bankDef].focusBanded = TRUE;
+		}
+		else if (HackAffection_TryEndure(bankDef, damage)) //[hack] patches/0240 なつき度で ふんばる（文は general_bs_commands.c）
+		{
+			gSpecialStatuses[bankDef].focusBanded = TRUE;
+			gNewBS->EnduranceHelper[bankDef] = ENDURE_AFFECTION;
 		}
 
 		if (checkFalseSwipe)
@@ -2794,6 +2831,7 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 	switch(data->atkAbility) {
 		case ABILITY_HUGEPOWER:
 		case ABILITY_PUREPOWER:
+		case ABILITY_DRAGONARMOR: //[hack] 2026-10-03 りゅうのよろい（ABILITY_DRAGONARMOR・patches/0150） ちからもちの分
 		//2x Boost
 			attack *= 2;
 			break;
@@ -2894,6 +2932,15 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 		//1.5x Boost
 			if (!IsDynamaxed(bankAtk))
 				attack = (attack * 15) / 10;
+			break;
+
+		case ABILITY_FIRE_MANE: //★ ZA メガ（patches/0069）
+		//1.5x Boost
+			if (data->moveType == TYPE_FIRE)
+			{
+				attack = (attack * 15) / 10;
+				spAttack = (spAttack * 15) / 10;
+			}
 			break;
 
 		case ABILITY_STEELWORKER:
@@ -3126,6 +3173,18 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 			break;
 		#endif
 
+		#ifdef NATIONAL_DEX_PIKACHU
+		//★ 2026-09-24（patches/0066）: でんきだまは HP・こうげき・とくこう以外も 1.5 倍（ユーザー要望）。
+		//   こうげき・とくこうの 2 倍は上の攻撃側の処理のまま
+		case ITEM_EFFECT_LIGHT_BALL:
+			if (SpeciesToNationalPokedexNum(data->defSpecies) == NATIONAL_DEX_PIKACHU)
+			{
+				defense = (defense * 15) / 10;
+				spDefense = (spDefense * 15) / 10;
+			}
+			break;
+		#endif
+
 		case ITEM_EFFECT_EVIOLITE:
 			if (CanSpeciesEvolve(data->defSpecies))
 			{
@@ -3311,7 +3370,21 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 		damage *= 2;
 
 	//Weather Boost
-	if (WEATHER_HAS_EFFECT && data->defItemEffect != ITEM_EFFECT_UTILITY_UMBRELLA)
+	if (data->atkAbility == ABILITY_MEGA_SOL) //★ ZA メガ（patches/0069） ばんがさでも止まらない（expansion と同じ）
+	{
+		switch (data->moveType) {
+			case TYPE_FIRE:
+				damage = (damage * 15) / 10;
+				break;
+			case TYPE_WATER:
+				if (gCurrentMove == MOVE_HYDROSTEAM)
+					damage = (damage * 15) / 10;
+				else
+					damage /= 2;
+				break;
+		}
+	}
+	else if (WEATHER_HAS_EFFECT && data->defItemEffect != ITEM_EFFECT_UTILITY_UMBRELLA)
 	{
 		if (gBattleWeather & WEATHER_RAIN_ANY)
 		{
@@ -3380,6 +3453,11 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 			break;
 	}
 
+	//[hack] patches/0207 りゅうのいわお（2 つ目の特性・ずっと効く）: ハードロックの分（こうかばつぐんを 0.75 倍・かたやぶりの技なら効かない）
+	if (!useMonDef && (data->resultFlags & MOVE_RESULT_SUPER_EFFECTIVE)
+	&& HackDragonBoulder_Bank(bankDef) && NO_MOLD_BREAKERS(data->atkAbility, data->move))
+		damage = (damage * 75) / 100;
+
 	//Second Target Ability Checks
 	switch (data->defAbility) {
 		case ABILITY_DRYSKIN:
@@ -3403,11 +3481,23 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 				damage /= 2;
 			break;
 
+		case ABILITY_DRAGONARMOR: //[hack] 2026-10-03 りゅうのよろい（ABILITY_DRAGONARMOR・patches/0150） マルチスケイルの分（かたやぶりの技なら効かない・ほかの 2 つは効く＝かたやぶりの表には入れない）
+			if (data->defHP >= data->defMaxHP && NO_MOLD_BREAKERS(data->atkAbility, data->move))
+				damage /= 2;
+			break;
+
 		case ABILITY_FLUFFY:
 		//2x Boost / 0.5x Decrement
 			if (data->moveType == TYPE_FIRE)
 				damage *= 2;
 
+			if ((useMonAtk && CheckContactByMon(move, data->monAtk))
+			|| (!useMonAtk && CheckContact(move, bankAtk, bankDef)))
+				damage /= 2;
+			break;
+
+		case ABILITY_AURA_GUARD: //★ ZA メガ（patches/0069）ユーザー決定 2026-09-24: せっしょくわざを はんげん
+		//0.5x Decrement
 			if ((useMonAtk && CheckContactByMon(move, data->monAtk))
 			|| (!useMonAtk && CheckContact(move, bankAtk, bankDef)))
 				damage /= 2;
@@ -3440,7 +3530,7 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 				|| (data->defItemQuality == TYPE_NORMAL && data->moveType == TYPE_NORMAL)) //Chilan Berry
 				{
 					if (data->defAbility == ABILITY_RIPEN)
-						damage /= 3;
+						damage /= 4; //★ Champions（patches/0070） じゅくせい 1/4
 					else
 						damage /= 2;
 				}
@@ -3708,7 +3798,8 @@ static u16 GetBasePower(struct DamageCalc* data)
 			break;
 
 		case MOVE_WEATHERBALL:
-			if (WEATHER_HAS_EFFECT && gBattleWeather & WEATHER_ANY && !(gBattleWeather & WEATHER_AIR_CURRENT_PRIMAL))
+			if (data->atkAbility == ABILITY_MEGA_SOL /*ZA メガ*/
+			|| (WEATHER_HAS_EFFECT && gBattleWeather & WEATHER_ANY && !(gBattleWeather & WEATHER_AIR_CURRENT_PRIMAL)))
 				power *= 2;
 			break;
 
@@ -3957,6 +4048,18 @@ static u16 GetBasePower(struct DamageCalc* data)
 				power *= gBattleScripting.dmgMultiplier;
 			break;
 
+		case MOVE_PIKAPAPOW:	//[hack] 2026-10-09 ピカピカサンダー: なつき度で威力・ユーザー「最大170で」＝ なつき度 × 170 / 255（通信・施設は最大）
+			if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER))
+			|| IsFrontierRaidBattle())
+				power = 170;
+			else if (useMonAtk)
+				power = (170 * (data->monAtk->friendship)) / 255;
+			else
+				power = (170 * (gBattleMons[bankAtk].friendship)) / 255;
+			if (power == 0)
+				power = 1;
+			break;
+
 		case MOVE_RETURN:
 			if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER))
 			|| IsFrontierRaidBattle())
@@ -4106,11 +4209,15 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 	if (data->specialFlags & (FLAG_CONFUSION_DAMAGE))
 		return power;
 
+	//[hack] patches/0207 りゅうのいわお（2 つ目の特性・ずっと効く）: 技の威力 2 倍
+	if (!useMonAtk && HackDragonBoulder_Bank(bankAtk))
+		power *= 2;
+
 	//Check attacker ability boost
 	switch(data->atkAbility) {
 		case ABILITY_TECHNICIAN:
 		//1.5x Boost
-			if (data->basePower <= 60)
+			if (power <= 60) //★ Champions（patches/0070） 変動後の威力で判定
 				power = (power * 15) / 10;
 			break;
 
@@ -4171,6 +4278,7 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 			break;
 
 		case ABILITY_SHEERFORCE:
+		case ABILITY_DRAGONARMOR: //[hack] 2026-10-07 りゅうのよろいに ちからずく（patches/0206）
 		//1.3x Boost
 			if (CheckTableForMove(move, gSheerForceBoostedMoves))
 				power = (power * 13) / 10;
@@ -4180,6 +4288,7 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 		case ABILITY_PIXILATE:
 		case ABILITY_REFRIGERATE:
 		case ABILITY_GALVANIZE:
+		case ABILITY_DRAGONIZE: //★ ZA メガ（patches/0069）
 		case ABILITY_NORMALIZE:
 		//1.2x / 1.3x Boost
 			if ((!useMonAtk && AbilityCanChangeTypeAndBoost(move, data->atkAbility, gNewBS->ElectrifyTimers[bankAtk], (gNewBS->zMoveData.active || gNewBS->zMoveData.viewing)))
@@ -4283,6 +4392,16 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 
 	//Check attacker item effect boost
 	switch (data->atkItemEffect) {
+		case ITEM_EFFECT_GENE_BOND: //[hack] patches/0287 2026-10-10 いでんしのきずな: イーブイと その しんかけい（リンドリスも）の攻撃技 1.3 倍
+			switch (SpeciesToNationalPokedexNum(data->atkSpecies)) {
+				case NATIONAL_DEX_EEVEE: case NATIONAL_DEX_VAPOREON: case NATIONAL_DEX_JOLTEON: case NATIONAL_DEX_FLAREON:
+				case NATIONAL_DEX_ESPEON: case NATIONAL_DEX_UMBREON: case NATIONAL_DEX_LEAFEON: case NATIONAL_DEX_GLACEON:
+				case NATIONAL_DEX_SYLVEON: case NATIONAL_DEX_RINDORIS:
+					if (data->moveSplit != SPLIT_STATUS)
+						power = (power * 13) / 10;
+			}
+			break;
+
 		case ITEM_EFFECT_MUSCLE_BAND:
 			if (data->moveSplit == SPLIT_PHYSICAL)
 				power = (power * 11) / 10;

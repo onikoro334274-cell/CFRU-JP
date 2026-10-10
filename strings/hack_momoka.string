@@ -1,0 +1,53 @@
+#org @gText_Momoka_IntroWelcome
+はじめまして！\pポケット モンスターの せかいへ\nようこそ！\pわたしの なまえは モモカ\nみんなからは ポケモン はかせって\lよばれて いるわ\p
+
+#org @gText_Momoka_IntroInhabited
+ポケット モンスターと よばれる\nいきもの たちが\lいたるところに すんでいるの！\p
+
+#org @gText_Momoka_IntroStudy
+その ポケモン という いきものを\nひとは ペットに したり\lしょうぶに つかったり……\pそして……\pわたしは この ポケモンの\nけんきゅうを しているの\p
+
+#org @gText_Momoka_IntroAboutYou
+では はじめに あなたの ことを\nおしえて もらえるかしら？\p
+
+#org @gText_Momoka_IntroYourName
+あなたの なまえは？\p
+
+#org @gText_Momoka_IntroSoYoure
+ふむふむ……\n[PLAYER] って いうのね！
+
+#org @gText_Momoka_IntroGrandson
+このこは オーキドはかせの まご\pあなたの おさななじみであり\nライバル でもあるわ\p……えーと？\nなまえは なんて いったかしら？
+
+#org @gText_Momoka_IntroRivalName
+あなたの ライバルの なまえは……？
+
+#org @gText_Momoka_IntroRivalWas
+[RIVAL] だったかしら？
+
+#org @gText_Momoka_IntroRemember
+そうそう おもいだしたわ！\n[RIVAL] という なまえよ！\p
+
+#org @gText_Momoka_Lab_Hello
+わたしは モモカ。\nオーキドはかせの もとで\pポケモンの けんきゅうを しているの\nこれから よろしくね！
+
+#org @gText_Momoka_Lab_Ask
+[PLAYER]！\nずかんは じゅんちょう？\pせっかくだから わたしと\nしょうぶ してみない？
+
+#org @gText_Momoka_Lab_Go
+ふふっ じゃあ いくわよ！\nえんりょは しないからね！
+
+#org @gText_Momoka_Lab_Defeat
+すごいじゃない！\nけんきゅう しがいが あるわ！
+
+#org @gText_Momoka_Lab_After
+また いつでも あいてに なるわよ。\nずかんづくり がんばってね！
+
+#org @gText_Momoka_Lab_No
+そう？\nきが むいたら こえを かけてね。
+
+#org @gText_Momoka_ReceivedDex
+[PLAYER]は オーキドと モモカから\nポケモンずかんを もらった！
+
+#org @gText_Momoka_IntroLetsGo
+[PLAYER]！\pいよいよ これから\nあなたの ものがたりの はじまりよ！\pゆめと ぼうけんと！\nポケット モンスターの せかいへ！\pレッツ ゴー！

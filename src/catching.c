@@ -35,6 +35,7 @@ catching.c
 #define BattleScript_TrainerBallBlock 	((u8*) 0x81BDA7D)
 #define BattleScript_DodgedBall 		((u8*) 0x81BDA8D)
 extern const u8 BattleScript_RaidMonEscapeBall[];
+extern bool8 HackLegendRaid_Active(void); //[hack] patches/0181
 
 #define sBallCatchBonuses ((u8*) 0x820D29A)
 
@@ -67,7 +68,9 @@ void atkEF_handleballthrow(void)
 	gActiveBattler = gBankAttacker;
 	gBankTarget = GetCatchingBattler();
 
+	#ifdef SWSH_CATCHING_DIFFICULTY_MODIFIER
 	u8 defLevel = gBattleMons[gBankTarget].level;
+	#endif
 
 	u8 ballType = ItemId_GetType(gLastUsedItem);
 	gNewBS->threwBall = TRUE;
@@ -167,6 +170,10 @@ void atkEF_handleballthrow(void)
 			//		gBattleResults.usedBalls[ballType - BALL_TYPE_ULTRA_BALL]++;
 		}
 
+		//[hack] patches/0181: 伝説レイド（src/hack_legend_raid.c）は勝てば必ず捕まえられる（2026-10-06 ユーザー「捕まえられなかった」）
+		if (HackLegendRaid_Active())
+			odds = 0xFF;
+
 		if (odds >= 0xFF) //Pokemon is Caught
 		{
 			EmitBallThrowAnim(0, 4);
@@ -262,7 +269,25 @@ u32 GetBaseBallCatchOdds(u8 ballType, u8 bankAtk, u8 bankDef)
 	u8 defLevel = gBattleMons[bankDef].level;
 
 	if (ballType == BALL_TYPE_SAFARI_BALL)
-		catchRate = (gBattleStruct->safariCatchFactor * 1275) / 100;
+	{
+		//本家は 被捕獲度 × 100 ÷ 1275 で 0〜20 の係数に潰してから
+		//ここで戻すため、整数除算の切り捨てで**実際の捕獲率が下がる**。
+		//  例: ラッキー 30 → 係数 2 → 25 ／ ケンタロス 45 → 係数 3 → 38
+		//係数そのものは えさ(÷2)・いし(×2) を表すので、
+		//**元の被捕獲度に「係数 ÷ 初期係数」の倍率だけを掛ける**ことで
+		//本家と同じ挙動のまま精度の欠落だけを取り除く。
+		//（patches/0016）
+		u8 baseCatchRate = gBaseStats[defSpecies].catchRate;
+		u16 initialFactor = (baseCatchRate * 100) / 1275; //本家の初期係数
+		u16 scaled;
+
+		if (initialFactor == 0)
+			initialFactor = 1; //0 除算よけ。被捕獲度 12 以下がここに来る
+
+		scaled = (baseCatchRate * gBattleStruct->safariCatchFactor)
+		       / initialFactor;
+		catchRate = (scaled > 255) ? 255 : scaled;
+	}
 	else
 		catchRate = gBaseStats[GetMonData(GetBankPartyData(bankDef), MON_DATA_SPECIES, NULL)].catchRate; //Uses party data b/c Transform update Gen 5+
 
@@ -427,7 +452,7 @@ u32 GetBaseBallCatchOdds(u8 ballType, u8 bankAtk, u8 bankDef)
 				break;
 
 			case BALL_TYPE_SPORT_BALL:
-				ballMultiplier = 15;
+				ballMultiplier = 10; //★ Champions（patches/0071）: 捕獲率はモンスターボールと同じ
 				break;
 
 			case BALL_TYPE_DUSK_BALL:

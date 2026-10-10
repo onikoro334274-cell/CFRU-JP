@@ -79,7 +79,7 @@ HPまんたんで うける ダメージが へる
 どくに なると HPを かいふくする
 
 #org @DESC_ICEBODY
-あられのとき HPを かいふくする
+ゆきのとき HPを かいふくする
 
 #org @DESC_MOODY
 のうりょくが あがったり さがったりする
@@ -91,13 +91,13 @@ HPまんたんで うける ダメージが へる
 みかたの じょうたいいじょうを なおす
 
 #org @DESC_SNOWCLOAK
-あられのとき かいひりつが あがる
+ゆきのとき かいひりつが あがる
 
 #org @DESC_TANGLEDFEET
 こんらんのとき かいひりつが あがる
 
 #org @DESC_SNOWWARNING
-せんとうに でると あられを ふらす
+せんとうに でると ゆきを ふらす
 
 #org @DESC_QUICKFEET
 じょうたいいじょうで すばやさが あがる
@@ -270,7 +270,7 @@ HPまんたんで うける ダメージが へる
 HPが はんぶんで すがたが へんかする
 
 #org @DESC_SLUSHRUSH
-あられのとき すばやさが あがる
+ゆきのとき すばやさが あがる
 
 #org @DESC_SOULHEART
 だれかが たおれると とくこうが あがる
@@ -677,3 +677,39 @@ HPはんぶんで こうげきてきに なる
 
 #org @DESC_POISONPUPPETEER
 あいてを どくに すると こんらん させる
+
+#org @DESC_ZAMEGA_MEGA_SOL
+じぶんの わざは ひざしが つよい あつかい
+
+#org @DESC_ZAMEGA_DRAGONIZE
+ノーマルわざが ドラゴンタイプになる
+
+#org @DESC_ZAMEGA_PIERCING_DRILL
+せっしょくわざ なら まもりを つらぬく
+
+#org @DESC_ZAMEGA_EELEVATE
+ふゆう。たおすと のうりょくが あがる
+
+#org @DESC_ZAMEGA_FIRE_MANE
+ほのおわざの いりょくが あがる
+
+#org @DESC_ZAMEGA_SPICY_SPRAY
+わざを うけると あいてを やけどにする
+
+#org @DESC_ZAMEGA_AURA_GUARD
+せっしょくわざの ダメージを はんげん
+
+#org @DESC_HACK_SCARE
+でると あいての とくこうを さげる
+
+#org @DESC_HACK_DRAGONARMOR
+4つの とくせいを あわせもつ
+
+#org @DESC_HACK_DRAGONBOULDER
+ふゆう わざのいりょく2ばい ハードロック
+
+#org @DESC_HACK_SHINOBIASHI
+あいての せんせいこうげきを ふせぐ
+
+#org @DESC_HACK_URAMESHIYA
+たおされたとき あいてを のろう

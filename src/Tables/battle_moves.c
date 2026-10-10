@@ -2491,7 +2491,7 @@ const struct BattleMove gBattleMoves[] =
 		.effect = EFFECT_HIGH_CRITICAL,
 		.power = 100,
 		.type = TYPE_WATER,
-		.accuracy = 90,
+		.accuracy = 95,
 		.pp = 10,
 		.secondaryEffectChance = 0,
 		.target = MOVE_TARGET_SELECTED,
@@ -2665,7 +2665,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_SLASH] =
 	{
 		.effect = EFFECT_HIGH_CRITICAL,
-		.power = 70,
+		.power = 80,
 		.type = TYPE_NORMAL,
 		.accuracy = 100,
 		.pp = 20,
@@ -2673,7 +2673,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-		.z_move_power = 140,
+		.z_move_power = 160,
 		.split = SPLIT_PHYSICAL,
 		.z_move_effect = 0
 	},
@@ -3225,7 +3225,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_BONERUSH] =
 	{
 		.effect = EFFECT_MULTI_HIT,
-		.power = 25,
+		.power = 30,
 		.type = TYPE_GROUND,
 		.accuracy = 90,
 		.pp = 10,
@@ -3390,7 +3390,7 @@ const struct BattleMove gBattleMoves[] =
 		.accuracy = 0,
 		.pp = 5,
 		.secondaryEffectChance = 0,
-		.target = MOVE_TARGET_USER,
+		.target = MOVE_TARGET_USER_OR_PARTNER,
 		.priority = 0,
 		.flags = FLAG_SNATCH_AFFECTED | FLAG_TRIAGE_AFFECTED,
 		.z_move_power = 0,
@@ -3846,10 +3846,10 @@ const struct BattleMove gBattleMoves[] =
 		.z_move_effect = Z_EFFECT_RESET_STATS
 	},
 
-	[MOVE_HIDDENPOWER] =
+	[MOVE_HIDDENPOWER] =	//★ 2026-09-24（patches/0067）: 威力 60 -> 80・Z 120 -> 160（ユーザー要望）
 	{
 		.effect = EFFECT_HIT,
-		.power = 60,
+		.power = 80,
 		.type = TYPE_NORMAL,
 		.accuracy = 100,
 		.pp = 15,
@@ -3857,7 +3857,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-		.z_move_power = 120,
+		.z_move_power = 160,
 		.split = SPLIT_SPECIAL,
 		.z_move_effect = 0
 	},
@@ -6201,7 +6201,7 @@ const struct BattleMove gBattleMoves[] =
 		.type = TYPE_STEEL,
 		.accuracy = 100,
 		.pp = 15,
-		.secondaryEffectChance = 30,
+		.secondaryEffectChance = 20,
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
@@ -7525,7 +7525,7 @@ const struct BattleMove gBattleMoves[] =
 		.type = TYPE_FAIRY,
 		.accuracy = 100,
 		.pp = 15,
-		.secondaryEffectChance = 30,
+		.secondaryEffectChance = 10,
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
@@ -8124,12 +8124,12 @@ const struct BattleMove gBattleMoves[] =
 
 	[MOVE_FREEZEDRY] =
 	{
-		.effect = EFFECT_FREEZE_HIT,
+		.effect = EFFECT_HIT,
 		.power = 70,
 		.type = TYPE_ICE,
 		.accuracy = 100,
 		.pp = 20,
-		.secondaryEffectChance = 10,
+		.secondaryEffectChance = 0,
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
@@ -8705,7 +8705,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_NIGHTDAZE] =
 	{
 		.effect = EFFECT_ACCURACY_DOWN_HIT,
-		.power = 85,
+		.power = 90,
 		.type = TYPE_DARK,
 		.accuracy = 95,
 		.pp = 10,
@@ -8713,7 +8713,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-		.z_move_power = 160,
+		.z_move_power = 175,
 		.split = SPLIT_SPECIAL,
 		.z_move_effect = 0
 	},
@@ -9409,7 +9409,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_BEAKBLAST] =
 	{
 		.effect = EFFECT_FOCUS_PUNCH,
-		.power = 100,
+		.power = 120,
 		.type = TYPE_FLYING,
 		.accuracy = 100,
 		.pp = 15,
@@ -9417,7 +9417,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 253,
 		.flags = FLAG_PROTECT_AFFECTED,
-		.z_move_power = 180,
+		.z_move_power = 190,
 		.split = SPLIT_PHYSICAL,
 		.z_move_effect = 0
 	},
@@ -9513,7 +9513,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_FIRELASH] =
 	{
 		.effect = EFFECT_DEFENSE_DOWN_HIT,
-		.power = 80,
+		.power = 90,
 		.type = TYPE_FIRE,
 		.accuracy = 100,
 		.pp = 15,
@@ -9521,7 +9521,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-		.z_move_power = 160,
+		.z_move_power = 175,
 		.split = SPLIT_PHYSICAL,
 		.z_move_effect = 0
 	},
@@ -9529,7 +9529,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_FIRSTIMPRESSION] =
 	{
 		.effect = EFFECT_FAKE_OUT,
-		.power = 90,
+		.power = 100,
 		.type = TYPE_BUG,
 		.accuracy = 100,
 		.pp = 10,
@@ -9537,7 +9537,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 2,
 		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-		.z_move_power = 175,
+		.z_move_power = 180,
 		.split = SPLIT_PHYSICAL,
 		.z_move_effect = 0
 	},
@@ -9965,7 +9965,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_SPIRITSHACKLE] =
 	{
 		.effect = EFFECT_MEAN_LOOK,
-		.power = 80,
+		.power = 90,
 		.type = TYPE_GHOST,
 		.accuracy = 100,
 		.pp = 10,
@@ -9973,7 +9973,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-		.z_move_power = 160,
+		.z_move_power = 175,
 		.split = SPLIT_PHYSICAL,
 		.z_move_effect = 0
 	},
@@ -10093,7 +10093,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_TROPKICK] =
 	{
 		.effect = EFFECT_ATTACK_DOWN_HIT,
-		.power = 70,
+		.power = 85,
 		.type = TYPE_GRASS,
 		.accuracy = 100,
 		.pp = 15,
@@ -10101,7 +10101,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-		.z_move_power = 140,
+		.z_move_power = 160,
 		.split = SPLIT_PHYSICAL,
 		.z_move_effect = 0
 	},
@@ -10989,7 +10989,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_SNIPESHOT] =
 	{
 		.effect = EFFECT_IGNORE_REDIRECTION,
-		.power = 80,
+		.power = 85,
 		.type = TYPE_WATER,
 		.accuracy = 100,
 		.pp = 15,
@@ -11246,7 +11246,7 @@ const struct BattleMove gBattleMoves[] =
 	{
 		.effect = EFFECT_TRAP,
 		.power = 35,
-		.type = TYPE_GRASS,
+		.type = TYPE_STEEL,
 		.accuracy = 100,
 		.pp = 15,
 		.secondaryEffectChance = 100,
@@ -11373,7 +11373,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_APPLEACID] =
 	{
 		.effect = EFFECT_SPECIAL_DEFENSE_DOWN_HIT,
-		.power = 80,
+		.power = 90,
 		.type = TYPE_GRASS,
 		.accuracy = 100,
 		.pp = 10,
@@ -11382,14 +11382,14 @@ const struct BattleMove gBattleMoves[] =
 		.priority = 0,
 		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
 		.split = SPLIT_SPECIAL,
-		.z_move_power = 160,
+		.z_move_power = 175,
 		.z_move_effect = 0,
 	},
 
 	[MOVE_GRAVAPPLE] =
 	{
 		.effect = EFFECT_DEFENSE_DOWN_HIT,
-		.power = 80,
+		.power = 90,
 		.type = TYPE_GRASS,
 		.accuracy = 100,
 		.pp = 10,
@@ -11398,7 +11398,7 @@ const struct BattleMove gBattleMoves[] =
 		.priority = 0,
 		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
 		.split = SPLIT_PHYSICAL,
-		.z_move_power = 160,
+		.z_move_power = 175,
 		.z_move_effect = 0,
 	},
 
@@ -11485,7 +11485,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_METEORASSAULT] =
 	{
 		.effect = EFFECT_RECHARGE,
-		.power = 150,
+		.power = 170,
 		.type = TYPE_FIGHTING,
 		.accuracy = 100,
 		.pp = 5,
@@ -12017,7 +12017,7 @@ const struct BattleMove gBattleMoves[] =
 		.type = TYPE_POISON,
 		.accuracy = 100,
 		.pp = 15,
-		.secondaryEffectChance = 50,
+		.secondaryEffectChance = 30,
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
@@ -12029,7 +12029,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_PSYSHIELDBASH] =
 	{
 		.effect = EFFECT_DEFENSE_UP_HIT,
-		.power = 70,
+		.power = 90,
 		.type = TYPE_PSYCHIC,
 		.accuracy = 90,
 		.pp = 10,
@@ -12037,7 +12037,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-		.z_move_power = 140,
+		.z_move_power = 175,
 		.split = SPLIT_PHYSICAL,
 		.z_move_effect = 0
 	},
@@ -12141,7 +12141,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_MOUNTAINGALE] =
 	{
 		.effect = EFFECT_FLINCH_HIT,
-		.power = 100,
+		.power = 120,
 		.type = TYPE_ICE,
 		.accuracy = 85,
 		.pp = 10,
@@ -12149,7 +12149,7 @@ const struct BattleMove gBattleMoves[] =
 		.target = MOVE_TARGET_SELECTED,
 		.priority = 0,
 		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-		.z_move_power = 180,
+		.z_move_power = 190,
 		.split = SPLIT_PHYSICAL,
 		.z_move_effect = 0
 	},
@@ -12269,7 +12269,7 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_INFERNALPARADE] =
 	{
 		.effect = EFFECT_BURN_HIT,
-		.power = 60,
+		.power = 65,
 		.type = TYPE_GHOST,
 		.accuracy = 100,
 		.pp = 15,
@@ -15313,7 +15313,7 @@ const struct BattleMove gBattleMoves[] =
 		.effect = EFFECT_SUPERPOWER,
 		.power = 120,
 		.type = TYPE_STEEL,
-		.accuracy = 100,
+		.accuracy = 95,
 		.pp = 5,
 		.secondaryEffectChance = 0,
 		.target = MOVE_TARGET_BOTH,
@@ -15745,7 +15745,7 @@ const struct BattleMove gBattleMoves[] =
 		.effect = EFFECT_SPEED_DOWN_HIT,
 		.power = 60,
 		.type = TYPE_GRASS,
-		.accuracy = 85,
+		.accuracy = 90,
 		.pp = 10,
 		.secondaryEffectChance = 100,
 		.target = MOVE_TARGET_SELECTED,
@@ -15994,7 +15994,146 @@ const struct BattleMove gBattleMoves[] =
 		.z_move_power = 140,
 		.split = SPLIT_SPECIAL,
 		.z_move_effect = 0
-	}
+	},
+
+	//★ Let's Go! の相棒ピカチュウの技（2026-09-28・Let's Go! の値）
+	//バチバチアクセル: でんき・物理 50・命中 100・PP 15・先制 +2・必ず急所（gAlwaysCriticalMoves）・接触。ものまねの類からは外す
+	[MOVE_ZIPPYZAP] =
+	{
+		.effect = EFFECT_HIT,
+		.power = 50,
+		.type = TYPE_ELECTRIC,
+		.accuracy = 100,
+		.pp = 15,
+		.secondaryEffectChance = 0,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = 2,
+		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED,
+		.z_move_power = 100,
+		.split = SPLIT_PHYSICAL,
+		.z_move_effect = 0
+	},
+
+	//ザブザブサーフ: みず・特殊 90・命中 100・PP 15・相手 2 体・30% でまひ
+	[MOVE_SPLISHYSPLASH] =
+	{
+		.effect = EFFECT_PARALYZE_HIT,
+		.power = 90,
+		.type = TYPE_WATER,
+		.accuracy = 100,
+		.pp = 15,
+		.secondaryEffectChance = 30,
+		.target = MOVE_TARGET_BOTH,
+		.priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED,
+		.z_move_power = 175,
+		.split = SPLIT_SPECIAL,
+		.z_move_effect = 0
+	},
+
+	//★ りゅうのいかりの くさ版・みず版（2026-10-03）: いつも 40 ダメージ（EFFECT_DRAGON_RAGE・りゅうのいかりと同じ値）
+	[MOVE_GRASSRAGE] =
+	{
+		.effect = EFFECT_DRAGON_RAGE,
+		.power = 1,
+		.type = TYPE_GRASS,
+		.accuracy = 100,
+		.pp = 10,
+		.secondaryEffectChance = 0,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+		.z_move_power = 100,
+		.split = SPLIT_SPECIAL,
+		.z_move_effect = 0
+	},
+
+	[MOVE_WATERRAGE] =
+	{
+		.effect = EFFECT_DRAGON_RAGE,
+		.power = 1,
+		.type = TYPE_WATER,
+		.accuracy = 100,
+		.pp = 10,
+		.secondaryEffectChance = 0,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+		.z_move_power = 100,
+		.split = SPLIT_SPECIAL,
+		.z_move_effect = 0
+	},
+
+	//★ しんそく（PP 15 固定・2026-10-03）: MOVE_EXTREMESPEED と同じ中身で PP だけ 15。ポイントアップでも増えない（src/hack_daisy_zigzagoon.c）
+	[MOVE_EXTREMESPEED_15] =
+	{
+		.effect = EFFECT_QUICK_ATTACK,
+		.power = 80,
+		.type = TYPE_NORMAL,
+		.accuracy = 100,
+		.pp = 15,
+		.secondaryEffectChance = 0,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = 2,
+		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+		.z_move_power = 160,
+		.split = SPLIT_PHYSICAL,
+		.z_move_effect = 0
+	},
+
+	//★ りゅうのちかい（2026-10-03）: 優先度 -3・すべての のうりょくを 2 段階（EFFECT_EXTREME_EVOBOOST の素の枝＝ナインエボルブーストと同じ）
+	[MOVE_DRAGONSOATH] =
+	{
+		.effect = EFFECT_EXTREME_EVOBOOST,
+		.power = 0,
+		.type = TYPE_DRAGON,
+		.accuracy = 0,
+		.pp = 5,
+		.secondaryEffectChance = 0,
+		.target = MOVE_TARGET_USER,
+		.priority = -3,
+		.flags = FLAG_SNATCH_AFFECTED,
+		.z_move_power = 0,
+		.split = SPLIT_STATUS,
+		.z_move_effect = Z_EFFECT_RESET_STATS
+	},
+
+	//★ 2026-10-09 Let's Go! の相棒ピカチュウの技のつづき: ピカピカサンダー（なつき度で威力・おんがえしと同じ計算・必中）
+	[MOVE_PIKAPAPOW] =
+	{
+		.effect = EFFECT_HIT,
+		.power = 1,
+		.type = TYPE_ELECTRIC,
+		.accuracy = 0,
+		.pp = 20,
+		.secondaryEffectChance = 0,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED,
+		.z_move_power = 160,
+		.split = SPLIT_SPECIAL,
+		.z_move_effect = 0
+	},
+
+	//★ ふわふわフォール（3 わりで ひるませる）
+	[MOVE_FLOATYFALL] =
+	{
+		.effect = EFFECT_FLINCH_HIT,
+		.power = 90,
+		.type = TYPE_FLYING,
+		.accuracy = 95,
+		.pp = 15,
+		.secondaryEffectChance = 30,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = 0,
+		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED,
+		.z_move_power = 175,
+		.split = SPLIT_PHYSICAL,
+		.z_move_effect = 0
+	} ,
+	[MOVE_URASHINEN] = { .effect = EFFECT_HIT, .power = 50, .type = TYPE_GHOST, .accuracy = 100, .pp = 25,
+		.secondaryEffectChance = 0, .target = MOVE_TARGET_SELECTED, .priority = 1,
+		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED, .z_move_power = 100, .split = SPLIT_SPECIAL, .z_move_effect = 0 },
 #endif
 };
 
@@ -16129,7 +16268,7 @@ const u8 gDynamaxMovePowers[MOVES_COUNT] =
 	[MOVE_HYPERFANG] = 130,
 	[MOVE_TRIATTACK] = 130,
 	[MOVE_SUPERFANG] = 100,
-	[MOVE_SLASH] = 120,
+	[MOVE_SLASH] = 130,
 	[MOVE_STRUGGLE] = 1,
 	[MOVE_TRIPLEKICK] = 80,
 	[MOVE_THIEF] = 110,
@@ -16488,11 +16627,11 @@ const u8 gDynamaxMovePowers[MOVES_COUNT] =
 	[MOVE_SMARTSTRIKE] = 120,
 	[MOVE_REVELATIONDANCE] = 130,
 	[MOVE_COREENFORCER] = 130,
-	[MOVE_TROPKICK] = 120,
+	[MOVE_TROPKICK] = 130,
 	#ifdef MAX_AIRSTREAM_NERF
 	[MOVE_BEAKBLAST] = 90,
 	#else
-	[MOVE_BEAKBLAST] = 130,
+	[MOVE_BEAKBLAST] = 140,
 	#endif
 	[MOVE_CLANGINGSCALES] = 140,
 	[MOVE_DRAGONHAMMER] = 130,
@@ -16571,7 +16710,7 @@ const u8 gDynamaxMovePowers[MOVES_COUNT] =
 	[MOVE_ASTRALBARRAGE] = 140,
 	[MOVE_GLACIALLANCE] = 140,
 	[MOVE_DIRECLAW] = 90,
-	[MOVE_PSYSHIELDBASH] = 120,
+	[MOVE_PSYSHIELDBASH] = 130,
 	[MOVE_MYSTICALPOWER] = 120,
 	#ifdef ACTUAL_PLA_MOVE_POWERS
 	[MOVE_RAGINGFURY] = 130,
@@ -16586,11 +16725,11 @@ const u8 gDynamaxMovePowers[MOVES_COUNT] =
 	#else
 	[MOVE_RAGINGFURY] = 140,
 	[MOVE_CHLOROBLAST] = 150,
-	[MOVE_MOUNTAINGALE] = 130,
+	[MOVE_MOUNTAINGALE] = 140,
 	[MOVE_HEADLONGRUSH] = 140,
 	[MOVE_STONEAXE] = 120,
 	[MOVE_TRIPLEARROWS] = 90,
-	[MOVE_INFERNALPARADE] = 110,
+	[MOVE_INFERNALPARADE] = 120,
 	[MOVE_CEASELESSEDGE] = 120,
 	[MOVE_BARBBARRAGE] = 80,
 	#endif
@@ -16664,5 +16803,15 @@ const u8 gDynamaxMovePowers[MOVES_COUNT] =
     [MOVE_TEMPERFLARE] = 130,
     [MOVE_SUPERCELLSLAM] = 130,
     [MOVE_PSYCHICNOISE] = 130,
+    [MOVE_ZIPPYZAP] = 100,
+    [MOVE_SPLISHYSPLASH] = 130,
+    [MOVE_GRASSRAGE] = 90,
+    [MOVE_WATERRAGE] = 90,
+    [MOVE_EXTREMESPEED_15] = 130,
+    [MOVE_PIKAPAPOW] = 130,
+    [MOVE_FLOATYFALL] = 130,
+/* KAGENONAKANI BEGIN (tools/custom_mon/kagenonakani/build_kagenonakani.py・MAKIO419) */
+	[MOVE_URASHINEN] = 100,
+/* KAGENONAKANI END */
 };
 #endif

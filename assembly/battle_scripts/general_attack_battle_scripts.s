@@ -738,6 +738,7 @@ BS_032_Recover:
 	ppreduce
 	jumpifmove MOVE_ROOST RoostBS
 	jumpifmove MOVE_LIFEDEW LifeDewBS
+	jumpifmove MOVE_MILKDRINK MilkDrinkBS @ ★ Champions（patches/0070）
 	jumpifmove MOVE_JUNGLEHEALING JungleHealingBS
 	jumpifmove MOVE_LUNARBLESSING JungleHealingBS
 
@@ -1391,7 +1392,7 @@ PoisonChecks:
 
 ToxicThreadDo:
 	accuracycheck BS_MOVE_MISSED_PAUSE 0x0
-	setstatchanger STAT_SPD | DECREASE_1
+	setstatchanger STAT_SPD | DECREASE_2 @ ★ Champions（patches/0070）すばやさ 2 段階
 	statbuffchange STAT_TARGET | STAT_BS_PTR ToxicThreadPSN
 	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 ToxicThreadPSN
 
@@ -4174,8 +4175,8 @@ MakeItRainBS:
 
 MIT_LowerSpAtk:
     setbyte STAT_ANIM_PLAYED 0x0
-	playstatchangeanimation BANK_ATTACKER, STAT_ANIM_SPATK, STAT_ANIM_DOWN | STAT_ANIM_IGNORE_ABILITIES
-	setstatchanger STAT_SPATK | DECREASE_1
+	playstatchangeanimation BANK_ATTACKER, STAT_ANIM_SPATK, STAT_ANIM_DOWN | STAT_ANIM_IGNORE_ABILITIES | STAT_ANIM_BY_TWO
+	setstatchanger STAT_SPATK | DECREASE_2 @ ★ Champions（patches/0070）とくこう 2 段階
 	statbuffchange STAT_ATTACKER | STAT_BS_PTR | STAT_CERTAIN BS_MOVE_FAINT
 	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 BS_MOVE_FAINT
 	printfromtable gStatUpStringIds
@@ -5862,6 +5863,25 @@ SoakBS:
 	goto BS_MOVE_END
 
 @;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@ ★ Champions（patches/0070）: ミルクのみ — 自分なら いつもの回復、味方なら いやしのはどうと同じ
+MilkDrinkBS:
+	jumpiftargetpartner MilkDrinkPartnerBS
+	goto RecoverBS
+
+MilkDrinkPartnerBS:
+	jumpifcounter BANK_TARGET HEAL_BLOCK_TIMERS NOTEQUALS 0x0 BattleScript_NoHealTargetAfterHealBlock
+	callasm HealTargetFunc
+	attackanimation
+	waitanimation
+	orword HIT_MARKER HITMARKER_IGNORE_SUBSTITUTE
+	graphicalhpupdate BANK_TARGET
+	datahpupdate BANK_TARGET
+	printstring 0x4B
+	waitmessage DELAY_1SECOND
+	goto BS_MOVE_END
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 .global BS_233_HealTarget
 .global BattleScript_NoHealTargetAfterHealBlock

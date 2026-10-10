@@ -107,11 +107,11 @@ static void DexNavDrawBlackBar(u8* windowId);
 static void DexNavDrawDirectionalArrow(u8* windowId);
 static void DexNavDrawChainNumber(u8* spriteIdNumAddr, u8* spriteIdStarAddr);
 static void DexNavDrawSight(u8 sight_lvl, u8* spriteIdAddr);
-//static void DexNavDrawAbility(u16 ability, u8* spriteIdAddr);
-//static void DexNavDrawMove(u16 move, u8 searchLevel, u8* spriteIdAddr);
+static void DexNavDrawAbility(u16 ability, u8* spriteIdAddr);
+static void DexNavDrawMove(u16 move, u8 searchLevel, u8* spriteIdAddr);
 static void DexNavDrawPotential(u8 potential, u8* spriteIdAddr);
 static void DexNavHudDrawSpeciesIcon(u16 species, u8* spriteIdAddr);
-//static void DexNavDrawHeldItem(u8* spriteIdAddr);
+static void DexNavDrawHeldItem(u8* spriteIdAddr);
 static void DexNavDrawIcons(bool8 detectorMode);
 static void ExecDexNavHUD(void);
 
@@ -147,6 +147,28 @@ static void PrintGUIChainLength(void);
 static void PrintGUIAreaDescriptors(void);
 static void PrintGUISpeciesName(u16 species);
 static void PrintGUISpeciesTypes(u16 species);
+/*★★★ [hack] patches/0042 — サーチレベルを常に最大（100）にする（2026-09-22）
+
+  ユーザー要望「DexNav の枠を道具に割り当てて／のこりはそのタマゴわざとかを
+  1 匹目から 100 の状態で動くようにして」。
+
+  素の CFRU は**種族ごとのサーチレベル**を `gDexNavSearchLevels[999]`
+  （RAM `0x203C6D4`・**999 バイト**）に貯め、見つけるたびに +1 していた。
+  レベルが上がると タマゴわざ／隠れ特性／持ち物／個体値（★）が良くなる
+  （しきい値は `include/new/dexnav_config.h` の 0 / 5 / 10 / 25 / 50 / 100）。
+
+  ここを**定数 100** にすると:
+    ・1 匹目から最高の確率で出る（要望どおり）
+    ・999 バイトの配列が**丸ごと不要**になる
+      → `src/item.c` でバッグのどうぐ欄に回した（450 → 700 枠）
+
+  ★ 触るのはこの 3 か所だけ（`gDexNavSearchLevels` の参照は他に無い）。
+    `tools/rom/verify_bag_dexnav.py` が「参照が 0 件か」を毎回見る。
+  ★ BPRJ.ld の `gDexNavSearchLevels = 0x203C6D4;` は**残してある**が、
+    そこはもうバッグの領域なので**二度と読み書きしないこと**。
+*/
+#define DEXNAV_FIXED_SEARCH_LEVEL 100
+
 static void PrintGUISearchLevel(u16 species);
 static void PrintGUIEncounterMethod(u8 encounterMethod);
 static void PrintGUIHiddenAbility(u16 species);
@@ -666,7 +688,7 @@ static void DexNavFreeHUD(void)
 	if (sDexNavHudPtr->spriteIdChainStar < MAX_SPRITES)
 		FieldEffectFreeGraphicsResources(&gSprites[sDexNavHudPtr->spriteIdChainStar]);
 
-	/*if (sDexNavHudPtr->spriteIdAbility < MAX_SPRITES)
+	if (sDexNavHudPtr->spriteIdAbility < MAX_SPRITES)
 		FieldEffectFreeGraphicsResources(&gSprites[sDexNavHudPtr->spriteIdAbility]);
 
 	if (sDexNavHudPtr->spriteIdMove < MAX_SPRITES)
@@ -674,7 +696,7 @@ static void DexNavFreeHUD(void)
 
 	if (sDexNavHudPtr->spriteIdItem < MAX_SPRITES)
 		FieldEffectFreeGraphicsResources(&gSprites[sDexNavHudPtr->spriteIdItem]);
-*/
+
 	if (sDexNavHudPtr->spriteIdPotential[0] < MAX_SPRITES)
 		FieldEffectFreeGraphicsResources(&gSprites[sDexNavHudPtr->spriteIdPotential[0]]);
 
@@ -767,11 +789,23 @@ static void OutlinedFontDraw(u8 spriteId, u16 tileNum, u16 size)
 	u16 prevIndex;
 
 	u8 element = *strPtr;
-
+	bool8 isFullWidth = FALSE;
 	while (element != 0xFF)
 	{
 		prevIndex = index;
-		if ((element <= 0xEE) && (element >= 0xD5))
+		if ((element <= 0x50) && (element >= 0x01))
+		{
+			// Hiragana
+			index =(((element - 0x01) * TILE_SIZE) + 2496);
+			isFullWidth = TRUE;
+		}
+		else if ((element <= 0xA0) && (element >= 0x51))
+		{
+			// Katakana
+			index =(((element - 0x51) * TILE_SIZE) + 5056);
+			isFullWidth = TRUE;
+		}
+		else if ((element <= 0xEE) && (element >= 0xD5))
 		{
 			// lower case letters
 			index = (((element - 0xD5) * TILE_SIZE) + 1600);
@@ -808,8 +842,13 @@ static void OutlinedFontDraw(u8 spriteId, u16 tileNum, u16 size)
 				case 0xAD: // period
 					symbolId = 5;
 					break;
+				case 0xAF: //nakaguro
+					symbolId = 230;
+					isFullWidth = TRUE;
+					break;
 				case 0xBA: // slash
 					symbolId = 6;
+					isFullWidth = TRUE;
 					break;
 				case 0xB1: // open double quote
 					symbolId = 7;
@@ -836,6 +875,10 @@ static void OutlinedFontDraw(u8 spriteId, u16 tileNum, u16 size)
 				case 0xB6: // f
 					symbolId = 14;
 					break;
+				case 0xF1:// vu
+					symbolId = 229;
+					isFullWidth = TRUE;
+					break;
 				case 0xFF: // empty
 					symbolId = 1;
 					break;
@@ -844,6 +887,7 @@ static void OutlinedFontDraw(u8 spriteId, u16 tileNum, u16 size)
 			index = (symbolId + 9) * TILE_SIZE;
 		}
 
+		
 		if ((counter == 0) || (*(strPtr + 1) == 0xFF))
 		{
 			// first or last pcharacters don't need pixel merging
@@ -880,7 +924,7 @@ static void OutlinedFontDraw(u8 spriteId, u16 tileNum, u16 size)
 			*(dst + 28) |= (((*(prevLetter + 28) & 0xF) == 0) ? (*(dst + 28) & 0xF) : (*(prevLetter + 28) & 0xF));*/
 		}
 
-		if (counter == 2 && *(strPtr + 1) != EOS)
+		if (!isFullWidth && counter == 2 && *(strPtr + 1) != EOS)
 		{
 			//Every second character, merge
 			//8x8px tile made of 4x8px from previous char and 4x8px of this char
@@ -907,11 +951,30 @@ static void OutlinedFontDraw(u8 spriteId, u16 tileNum, u16 size)
 			counter = 0;
 		}
 
-		counter++;
+
+		if (isFullWidth)
+		{
+    		counter = 0;  // Zenkaku
+		}
+		else
+		{
+    		counter++;
+		}
+
 		dst += TILE_SIZE; // next tile
 		strPtr++;
 		element = *strPtr;
+		
+		
+		/*
+		Memcpy(dst, &gInterfaceGfx_dexnavStarsTiles[index], TILE_SIZE);
+
+		dst += TILE_SIZE;
+		strPtr++;
+		element = *strPtr;
+		*/
 	}
+	
 
 	Memcpy((void*) toWrite, originalDst, size);
 	Free(originalDst);
@@ -940,7 +1003,7 @@ static void DexNavIconsVisionUpdate(u8 proximity, u8 searchLevel)
 		gSprites[sDexNavHudPtr->spriteIdSight].invisible = FALSE;
 
 	// hide everything at the start, and recalc what needs to be shown
-	/*if (sDexNavHudPtr->spriteIdMove < MAX_SPRITES)
+	if (sDexNavHudPtr->spriteIdMove < MAX_SPRITES)
 		gSprites[sDexNavHudPtr->spriteIdMove].invisible = TRUE;
 
 	if (sDexNavHudPtr->spriteIdAbility < MAX_SPRITES)
@@ -948,7 +1011,7 @@ static void DexNavIconsVisionUpdate(u8 proximity, u8 searchLevel)
 
 	if (sDexNavHudPtr->spriteIdItem < MAX_SPRITES)
 		gSprites[sDexNavHudPtr->spriteIdItem].invisible = TRUE;
-	*/
+
 	if (sDexNavHudPtr->spriteIdPotential[0] < MAX_SPRITES)
 		gSprites[sDexNavHudPtr->spriteIdPotential[0]].invisible = TRUE;
 
@@ -971,7 +1034,7 @@ static void DexNavIconsVisionUpdate(u8 proximity, u8 searchLevel)
 		if (searchLevel > 2)
 		{
 			// show ability, move, hide others
-			/*if (sDexNavHudPtr->spriteIdAbility < MAX_SPRITES)
+			if (sDexNavHudPtr->spriteIdAbility < MAX_SPRITES)
 				gSprites[sDexNavHudPtr->spriteIdAbility].invisible = FALSE;
 			if (sDexNavHudPtr->heldItem)
 			{
@@ -979,7 +1042,7 @@ static void DexNavIconsVisionUpdate(u8 proximity, u8 searchLevel)
 				if (sDexNavHudPtr->heldItem != ITEM_NONE
 				&& sDexNavHudPtr->spriteIdItem < MAX_SPRITES)
 					gSprites[sDexNavHudPtr->spriteIdItem].invisible = FALSE;
-			}*/
+			}
 		}
 		if (searchLevel > 4)
 		{
@@ -1115,10 +1178,8 @@ static void Task_ManageDexNavHUD(u8 taskId)
 
 		TryRandomizeSpecies(&species);
 
-		//Increment the search level
-		u16 dexNum = SpeciesToNationalPokedexNum(species);
-		if (dexNum < 999 && gDexNavSearchLevels[dexNum] < 255)
-			gDexNavSearchLevels[dexNum] += 1;
+		//★ [hack] patches/0042: サーチレベルは常に最大なので貯めない
+		//   （`gDexNavSearchLevels` の 999 バイトはバッグに回した）
 
 		//Freeing only the state, objects and hblank cleared on battle start.
 		Free(sDexNavHudPtr);
@@ -1698,7 +1759,7 @@ static void DexNavDrawBButton(u8* spriteIdAddr)
 	*spriteIdAddr = spriteId;
 };
 
-/*static void DexNavDrawAbility(u16 ability, u8* spriteIdAddr)
+static void DexNavDrawAbility(u16 ability, u8* spriteIdAddr)
 {
 	LoadCompressedSpriteSheetUsingHeap(&sAbilityCanvasSpriteSheet);
 	LoadSpritePalette(&gHeldItemSpritePalette);
@@ -1707,7 +1768,7 @@ static void DexNavDrawBButton(u8* spriteIdAddr)
 	{
 		//Ability name beside move name
 		u8 len = sDexNavHudPtr->moveNameLength;
-		gSprites[spriteId].pos1.x += ((8 * (len/2)) + (4 * (len % 2)));
+		gSprites[spriteId].pos1.x += (8 * len); //+ (2 * (len % 2)));
 
 		//Copy ability string from table using state id
 		CopyAbilityName(gStringVar4, ability);
@@ -1722,7 +1783,7 @@ static void DexNavDrawBButton(u8* spriteIdAddr)
 		}
 
 		//Draw the Ability name on a blank sprite
-		OutlinedFontDraw(spriteId, 0, 32 * 8);
+		OutlinedFontDraw(spriteId, 0, 32 * 12);
 	}
 
 	*spriteIdAddr = spriteId;
@@ -1761,11 +1822,11 @@ static void DexNavDrawMove(u16 move, u8 searchLevel, u8* spriteIdAddr)
 		}
 
 		//Draw the move name on a blank sprite
-		OutlinedFontDraw(spriteId, 0, 32 * 8);
+		OutlinedFontDraw(spriteId, 0, 32 * 12);
 	}
 
 	*spriteIdAddr = spriteId;
-};*/
+};
 
 static void DexNavDrawPotential(u8 potential, u8* spriteIdAddr)
 {
@@ -1799,18 +1860,18 @@ void DexNavHudDrawSpeciesIcon(u16 species, u8* spriteIdAddr)
 		gSprites[spriteId].oam.priority = 0;
 }
 
-/*void DexNavDrawHeldItem(u8* spriteIdAddr)
+void DexNavDrawHeldItem(u8* spriteIdAddr)
 {
 	//Create SPRITE for held item icon
 	LoadSpriteSheet(&gHeldItemSpriteSheet);
 	LoadSpritePalette(&gHeldItemSpritePalette);
 	u8 spriteId = CreateSprite(&gHeldItemTemplate, ICONX + 0x8, ICONY + 0xC, 0x0);
 	*spriteIdAddr = spriteId;
-}*/
+}
 
 static void DexNavDrawIcons(bool8 detectorMode)
 {
-	//u8 searchLevel = sDexNavHudPtr->searchLevel;
+	u8 searchLevel = sDexNavHudPtr->searchLevel;
 	DexNavDrawBlackBar(&sDexNavHudPtr->blackBarWindowId);
 	DexNavDrawDirectionalArrow(&sDexNavHudPtr->arrowWindowId);
 	DexNavDrawChainNumber(&sDexNavHudPtr->spriteIdChainNumber, &sDexNavHudPtr->spriteIdChainStar);
@@ -1819,18 +1880,18 @@ static void DexNavDrawIcons(bool8 detectorMode)
 	
 	if (!detectorMode)
 	{
-		//DexNavDrawMove(sDexNavHudPtr->moveId[0], searchLevel, &sDexNavHudPtr->spriteIdMove);
-		//DexNavDrawHeldItem(&sDexNavHudPtr->spriteIdItem);
-		//DexNavDrawAbility(sDexNavHudPtr->ability, &sDexNavHudPtr->spriteIdAbility);
+		DexNavDrawMove(sDexNavHudPtr->moveId[0], searchLevel, &sDexNavHudPtr->spriteIdMove);
+		DexNavDrawHeldItem(&sDexNavHudPtr->spriteIdItem);
+		DexNavDrawAbility(sDexNavHudPtr->ability, &sDexNavHudPtr->spriteIdAbility);
 		DexNavDrawPotential(sDexNavHudPtr->potential, &sDexNavHudPtr->spriteIdPotential[0]);
 		DexNavHudDrawSpeciesIcon(sDexNavHudPtr->species, &sDexNavHudPtr->spriteIdSpecies);
 	}
 	else
 	{
 		DexNavHudDrawSpeciesIcon(SPECIES_NONE, &sDexNavHudPtr->spriteIdSpecies); //Show ? instead of species
-		/*sDexNavHudPtr->spriteIdMove = MAX_SPRITES;
+		sDexNavHudPtr->spriteIdMove = MAX_SPRITES;
 		sDexNavHudPtr->spriteIdItem = MAX_SPRITES;
-		sDexNavHudPtr->spriteIdAbility = MAX_SPRITES;*/
+		sDexNavHudPtr->spriteIdAbility = MAX_SPRITES;
 		Memset(sDexNavHudPtr->spriteIdPotential, MAX_SPRITES, sizeof(sDexNavHudPtr->spriteIdPotential));
 	}
 }
@@ -1867,7 +1928,7 @@ bool8 InitDexNavHUD(u16 species, u8 environment, bool8 detectorMode)
 
 	sDexNavHudPtr->environment = environment;
 	u16 dexNum = SpeciesToNationalPokedexNum(species);
-	u8 searchLevel = dexNum < 999 ? gDexNavSearchLevels[dexNum] : 0;
+	u8 searchLevel = DEXNAV_FIXED_SEARCH_LEVEL;	//★ [hack] patches/0042
 	sDexNavHudPtr->searchLevel = searchLevel;
 	sDexNavHudPtr->pokemonLevel = DexNavGenerateMonLevel(sDexNavHudPtr->species, gCurrentDexNavChain, environment, detectorMode);
 
@@ -2688,7 +2749,8 @@ static void PrintGUISearchLevel(u16 species)
 			text = gText_DexNav_NoInfo;
 		else
 		{
-			ConvertIntToDecimalStringN(gStringVar4, gDexNavSearchLevels[dexNum], 0, 4);
+			//★ [hack] patches/0042: 常に最大
+			ConvertIntToDecimalStringN(gStringVar4, DEXNAV_FIXED_SEARCH_LEVEL, 0, 4);
 			text = gStringVar4;
 		}
 	}

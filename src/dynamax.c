@@ -58,6 +58,11 @@ static item_t FindBankDynamaxBand(u8 bank);
 static move_t GetTypeBasedMaxMove(u8 moveType, u8 moveSplit);
 static move_t GetGMaxMove(u8 moveType, u8 moveSplit, u16 species, bool8 canGigantamax);
 static u8 GetRaidMapSectionId(void);
+//[hack] patches/0179: 伝説レイド（src/hack_legend_raid.c・2026-10-06）。印が立っている間だけ相手・星・レベル・助っ人を自前で決める
+extern bool8 HackLegendRaid_Active(void);
+extern void HackLegendRaid_SetStarsSpeciesLevel(void);
+extern u8 HackLegendRaid_Level(void);
+extern void HackLegendRaid_Partners(bool8* checkedPartners);
 static u32 GetRaidRandomNumber(void);
 static void ModifyNormalRaidBattleSpecies(void);
 static bool8 ShouldTryGigantamaxRaidMon(void);
@@ -1855,6 +1860,10 @@ static u8 GetRaidMapSectionId(void)
 
 	return Overworld_GetMapHeaderByGroupAndId((u16) gSaveBlock1->dynamicWarp.mapGroup, (u16) gSaveBlock1->dynamicWarp.mapNum) -> regionMapSectionId - MAPSEC_DYNAMIC;
 	#else
+	//[hack] patches/0092: gRaidsByMapSection・レイドの旗はカントー・ななしまの番号（MAPSEC_DYNAMIC から）だけ。
+	//ホウエン（0x00〜0x56）・ジョウト（0xD1〜）の番号では表の外を読むので 0 番（MAPSEC_DYNAMIC・レイドなし）に寄せる（2026-09-29）
+	if (currRegionMapSecId < MAPSEC_DYNAMIC || currRegionMapSecId - MAPSEC_DYNAMIC >= KANTO_MAPSEC_COUNT)
+		return 0;
 	return currRegionMapSecId - MAPSEC_DYNAMIC;
 	#endif
 }
@@ -1919,6 +1928,12 @@ static bool8 ShouldTryGigantamaxRaidMon(void)
 
 void DetermineRaidStars(void)
 {
+	if (HackLegendRaid_Active()) //[hack] patches/0179
+	{
+		HackLegendRaid_SetStarsSpeciesLevel();
+		return;
+	}
+
 	u8 numBadges = GetOpenWorldBadgeCount();
 	if (FlagGet(FLAG_BATTLE_FACILITY))
 		numBadges = 9; //Battle Frontier Demo
@@ -1939,6 +1954,12 @@ void DetermineRaidSpecies(void)
 	u16 index, altSpecies;
 	u8 numStars = gRaidBattleStars;
 	const struct RaidData* raid = &gRaidsByMapSection[GetRaidMapSectionId()][numStars];
+
+	if (HackLegendRaid_Active()) //[hack] patches/0179
+	{
+		HackLegendRaid_SetStarsSpeciesLevel();
+		return;
+	}
 
 	if (FlagGet(FLAG_BATTLE_FACILITY)) //Battle Tower Demo
 	{
@@ -2018,7 +2039,9 @@ void DetermineRaidLevel(void)
 	u8 max = gRaidBattleLevelRanges[numStars][1];
 	u32 randomNum = GetRaidRandomNumber();
 
-	if (FlagGet(FLAG_BATTLE_FACILITY)) //Battle Frontier Demo
+	if (HackLegendRaid_Active()) //[hack] patches/0179
+		gRaidBattleLevel = HackLegendRaid_Level();
+	else if (FlagGet(FLAG_BATTLE_FACILITY)) //Battle Frontier Demo
 		gRaidBattleLevel = VarGet(VAR_BATTLE_FACILITY_POKE_LEVEL);
 	else if (min == max)
 		gRaidBattleLevel = min;
@@ -2028,6 +2051,9 @@ void DetermineRaidLevel(void)
 
 u8 GetRandomRaidLevel(void)
 {
+	if (HackLegendRaid_Active()) //[hack] patches/0179: 助っ人もレベル 100
+		return HackLegendRaid_Level();
+
 	if (FlagGet(FLAG_BATTLE_FACILITY)) //Battle Frontier Demo
 		return VarGet(VAR_BATTLE_FACILITY_POKE_LEVEL);
 
@@ -2037,6 +2063,9 @@ u8 GetRandomRaidLevel(void)
 
 u8 GetRaidRecommendedLevel(void)
 {
+	if (HackLegendRaid_Active()) //[hack] patches/0179
+		return HackLegendRaid_Level();
+
 	if (FlagGet(FLAG_BATTLE_FACILITY)) //Battle Frontier Demo
 		return VarGet(VAR_BATTLE_FACILITY_POKE_LEVEL);
 
@@ -2051,6 +2080,12 @@ void DetermineRaidPartners(bool8* checkedPartners, u8 maxPartners)
 	u16 numMarked = 0;
 	u16 numViable = 0;
 	u32 randomNum = GetRaidRandomNumber();
+
+	if (HackLegendRaid_Active()) //[hack] patches/0179: 助っ人は主人公たち（raid_partners.h の最後の 4 人）
+	{
+		HackLegendRaid_Partners(checkedPartners);
+		return;
+	}
 
 	#ifdef VAR_RAID_PARTNER_RANDOM_NUM
 	randomNum += VarGet(VAR_RAID_PARTNER_RANDOM_NUM); //Helps give more varied results

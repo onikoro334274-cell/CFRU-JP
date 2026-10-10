@@ -4,7 +4,14 @@
 #include "global.h"
 #include "pokemon.h"
 
-#define HALL_OF_FAME_MAX_TEAMS 40
+// [hack] patches/0019 で 40 → 5 に減らした。
+// 殿堂入りは物理セクタ 28/29（0x2000 バイト＝ gDecompressionBuffer）に入る。
+// 1 チーム = sizeof(struct HallofFameTeam) = 144 バイト（_Static_assert で実測）。
+//   40 チーム … 5,760 バイト使用 / 2,432 バイト余り
+//    5 チーム …   720 バイト使用 / 7,472 バイト余り
+// 余りを別用途に使うには save.c 側の追加も要る（まだやっていない）。
+// 詳細は docs/research/2026-09-15_save-space-headroom.md
+#define HALL_OF_FAME_MAX_TEAMS 5
 #define GAME_STAT_ENTERED_HOF 10
 
 #define tDontSaveData       data[0]

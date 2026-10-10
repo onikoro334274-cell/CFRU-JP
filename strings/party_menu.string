@@ -66,3 +66,6 @@
 
 #org @gText_MintUsed
 [BUFFER1]の のうりょくに\nへんかが おきたようだ！[PAUSE_UNTIL_PRESS]
+
+#org @gText_ExpCandyGotExp
+[BUFFER1]は けいけんちを\n[BUFFER2] もらった！[PAUSE_UNTIL_PRESS]

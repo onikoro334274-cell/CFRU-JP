@@ -279,9 +279,9 @@ struct Trainer
 #define PARTY_FLAG_CUSTOM_MOVES     0x1
 #define PARTY_FLAG_HAS_ITEM         0x2
 
-/*
+// src/Tables/trainer_data.c が実体を持つようにしたので有効化した。
+// （もとはコメントアウトされており、defines_battle.h のマクロで代用していた）
 extern const struct Trainer gTrainers[];
-*/
 #define TRAINER_ENCOUNTER_MUSIC(trainer)((gTrainers[trainer].encounterMusic_gender & 0x7F))
 
 struct UnknownFlags
@@ -1048,6 +1048,11 @@ struct NewBattleStruct
 	} ai;
 
 	struct Pokemon** foePartyBackup; //Pointer to dynamically allocated memory
+	u8 battleBondDone[NUM_BATTLE_SIDES]; //★ Champions（patches/0070） きずなへんげ（1 戦闘 1 回・末尾に足して他の欄の位置を変えない）
+	u16 secondAbilitySpecies[MAX_BATTLERS_COUNT]; //★ 2026-10-01 2 つ目の特性（src/second_ability.c）をこの種族で出した印（入れ替えで 0・メガシンカで種族が変われば もう 1 回）
+	u8 hackAffectionMove; //[hack] patches/0240 なつき度（src/hack_affection.c）: 1 回の技の間の印（技の始めに 0）
+	u8 hackAffectionLastMon; //[hack] patches/0240 「さいごの いっぴき」の文を出した場（ビット）
+	u8 hackAffectionUsed; //[hack] patches/0240 この戦いで技を出した自分の手持ち（番号のビット）
 };
 
 extern struct NewBattleStruct* gNewBS; //0x203E038
@@ -1487,7 +1492,7 @@ struct MonSpritesGfx
     void *field_17C;
 };
 
-enum EnduranceListings {ENUDRE_REG, ENDURE_STURDY, ENDURE_FOCUS_SASH};
+enum EnduranceListings {ENUDRE_REG, ENDURE_STURDY, ENDURE_FOCUS_SASH, ENDURE_AFFECTION}; //[hack] patches/0240 ENDURE_AFFECTION = なつき度で ふんばった（src/hack_affection.c）
 
 extern u16 gBattle_BG0_X;
 extern u16 gBattle_BG0_Y;

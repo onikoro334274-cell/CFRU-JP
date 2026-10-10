@@ -1,0 +1,293 @@
+#org @gText_WonderTrade_Ask
+ここでは ほかのトレーナーと\nミラクルこうかんが できます
+
+#org @gText_WonderTrade_Ask2
+ミラクルこうかんを おこないますか？
+
+#org @gText_WonderTrade_ComeAgain
+またの おこしを\nおまちしております
+
+#org @gText_WonderTrade_SelectMon
+こうかんにだす ポケモンを\nせんたく してください
+
+#org @gText_WonderTrade_Confirm
+[BUFFER1]を\nこうかんに だしますか？
+
+#org @gText_WonderTrade_ItemWarn
+もちものの [BUFFER2]も\nいっしょに なくなります\pそれでも\nこうかんに だしますか？
+
+#org @gText_WonderTrade_Wait
+こうかんあいてを\nさがしています。
+
+#org @gText_WonderTrade_Wait2
+こうかんあいてが\nみつかりました！\pこうかんを かいしします！
+
+#org @gText_WonderTrade_Thanks
+こうかんした ポケモンを\nかわいがって あげてね！
+
+#org @gText_WonderTrade_NoEgg
+タマゴは こうかんに\nだすことが できません
+
+#org @gText_WonderTrade_Someone
+だれか
+
+#org @gText_WonderTradeOT0
+ももアイス
+#org @gText_WonderTradeOT1
+アスナ
+#org @gText_WonderTradeOT2
+アダン
+#org @gText_WonderTradeOT3
+アユミ
+#org @gText_WonderTradeOT4
+イクエ
+#org @gText_WonderTradeOT5
+ウンショウ
+#org @gText_WonderTradeOT6
+エイイチ
+#org @gText_WonderTradeOT7
+エイスケ
+#org @gText_WonderTradeOT8
+カオル
+#org @gText_WonderTradeOT9
+カゲツ
+#org @gText_WonderTradeOT10
+カズキ
+#org @gText_WonderTradeOT11
+キンジ
+#org @gText_WonderTradeOT12
+ケンサク
+#org @gText_WonderTradeOT13
+ゲンジ
+#org @gText_WonderTradeOT14
+コズエ
+#org @gText_WonderTradeOT15
+ゴロウ
+#org @gText_WonderTradeOT16
+サエコ
+#org @gText_WonderTradeOT17
+シホミ
+#org @gText_WonderTradeOT18
+ショウコ
+#org @gText_WonderTradeOT19
+ジロウ
+#org @gText_WonderTradeOT20
+セイジ
+#org @gText_WonderTradeOT21
+タケル
+#org @gText_WonderTradeOT22
+ツツジ
+#org @gText_WonderTradeOT23
+ツバサ
+#org @gText_WonderTradeOT24
+ツヨシ
+#org @gText_WonderTradeOT25
+テリー
+#org @gText_WonderTradeOT26
+トシオ
+#org @gText_WonderTradeOT27
+ナギ
+#org @gText_WonderTradeOT28
+ナギサ
+#org @gText_WonderTradeOT29
+ナツミ
+#org @gText_WonderTradeOT30
+ノブオ
+#org @gText_WonderTradeOT31
+ノブヒコ
+#org @gText_WonderTradeOT32
+ハツネ
+#org @gText_WonderTradeOT33
+パパ
+#org @gText_WonderTradeOT34
+ヒデアキ
+#org @gText_WonderTradeOT35
+ヒデオ
+#org @gText_WonderTradeOT36
+フヨウ
+#org @gText_WonderTradeOT37
+プリム
+#org @gText_WonderTradeOT38
+ホノカ
+#org @gText_WonderTradeOT39
+マキ
+#org @gText_WonderTradeOT40
+マサコ
+#org @gText_WonderTradeOT41
+マドカ
+#org @gText_WonderTradeOT42
+マナミ
+#org @gText_WonderTradeOT43
+ママ
+#org @gText_WonderTradeOT44
+マモル
+#org @gText_WonderTradeOT45
+マリア
+#org @gText_WonderTradeOT46
+ミキオ
+#org @gText_WonderTradeOT47
+ミキヤ
+#org @gText_WonderTradeOT48
+ミサコ
+#org @gText_WonderTradeOT49
+ミツグ
+#org @gText_WonderTradeOT50
+ミツハル
+#org @gText_WonderTradeOT51
+ミツル
+#org @gText_WonderTradeOT52
+モトキ
+#org @gText_WonderTradeOT53
+ヤヨイ
+#org @gText_WonderTradeOT54
+ユウスケ
+#org @gText_WonderTradeOT55
+ユウタ
+#org @gText_WonderTradeOT56
+ユリカ
+#org @gText_WonderTradeOT57
+ヨシハル
+#org @gText_WonderTradeOT58
+ヨリコ
+#org @gText_WonderTradeOT59
+レイカ
+#org @gText_WonderTradeOT60
+ロバート
+#org @gText_WonderTradeOT61
+サトシ
+#org @gText_WonderTradeOT62
+シゲル
+#org @gText_WonderTradeOT63
+カスミ
+
+#org @gText_WonderTradeNick0
+クアウテモク
+#org @gText_WonderTradeNick1
+ぼにふぁしお
+#org @gText_WonderTradeNick2
+やじぇへさん
+#org @gText_WonderTradeNick3
+ヴァレーリヤ
+#org @gText_WonderTradeNick4
+れもんぐらす
+#org @gText_WonderTradeNick5
+ルイトポルト
+#org @gText_WonderTradeNick6
+イェスペル
+#org @gText_WonderTradeNick7
+とりくしー
+#org @gText_WonderTradeNick8
+アイヴィー
+#org @gText_WonderTradeNick9
+すぃひょや
+#org @gText_WonderTradeNick10
+もんすてら
+#org @gText_WonderTradeNick11
+ヒビノスケ
+#org @gText_WonderTradeNick12
+でゅらんた
+#org @gText_WonderTradeNick13
+リンカロウ
+#org @gText_WonderTradeNick14
+セアしゃん
+#org @gText_WonderTradeNick15
+ばじぃくぃ
+#org @gText_WonderTradeNick16
+ゆずちゃん
+#org @gText_WonderTradeNick17
+フレイチェ
+#org @gText_WonderTradeNick18
+ケッルドゥ
+#org @gText_WonderTradeNick19
+あんぜりか
+#org @gText_WonderTradeNick20
+タローさん
+#org @gText_WonderTradeNick21
+ヨウショウ
+#org @gText_WonderTradeNick22
+ライノシン
+#org @gText_WonderTradeNick23
+あるばーと
+#org @gText_WonderTradeNick24
+マウンテン
+#org @gText_WonderTradeNick25
+イスラエル
+#org @gText_WonderTradeNick26
+チヅナたん
+#org @gText_WonderTradeNick27
+かいりゅう
+#org @gText_WonderTradeNick28
+きるしうむ
+#org @gText_WonderTradeNick29
+びょとたん
+#org @gText_WonderTradeNick30
+ポンポン
+#org @gText_WonderTradeNick31
+カラムシ
+#org @gText_WonderTradeNick32
+こしょう
+#org @gText_WonderTradeNick33
+ひそっぷ
+#org @gText_WonderTradeNick34
+ナカミチ
+#org @gText_WonderTradeNick35
+あいとる
+#org @gText_WonderTradeNick36
+にんじん
+#org @gText_WonderTradeNick37
+はくさい
+#org @gText_WonderTradeNick38
+あるでぃ
+#org @gText_WonderTradeNick39
+にんげん
+#org @gText_WonderTradeNick40
+スマイル
+#org @gText_WonderTradeNick41
+むねとし
+#org @gText_WonderTradeNick42
+ノリトキ
+#org @gText_WonderTradeNick43
+ほいすと
+#org @gText_WonderTradeNick44
+ワタアメ
+#org @gText_WonderTradeNick45
+エウロパ
+#org @gText_WonderTradeNick46
+ぱつるむ
+#org @gText_WonderTradeNick47
+ハルトオ
+#org @gText_WonderTradeNick48
+ゆーかり
+#org @gText_WonderTradeNick49
+いざなぎ
+#org @gText_WonderTradeNick50
+チュメル
+#org @gText_WonderTradeNick51
+テヴィン
+#org @gText_WonderTradeNick52
+コヌムィ
+#org @gText_WonderTradeNick53
+あらべる
+#org @gText_WonderTradeNick54
+しろくま
+#org @gText_WonderTradeNick55
+あけゆき
+#org @gText_WonderTradeNick56
+こむにす
+#org @gText_WonderTradeNick57
+タラゴン
+#org @gText_WonderTradeNick58
+ずらいか
+#org @gText_WonderTradeNick59
+タケキチ
+#org @gText_WonderTradeNick60
+どんぐり
+#org @gText_WonderTradeNick61
+むくのき
+#org @gText_WonderTradeNick62
+ガルマル
+#org @gText_WonderTradeNick63
+にぼし
+
+#org @gText_WonderTrade_Received
+[BUFFER1]が やってきた！

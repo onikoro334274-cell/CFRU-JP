@@ -434,7 +434,7 @@ u16 TryGetSpecialFrontierTrainerMusic(u16 trainerId, u8 battlerNum)
 
 u32 GetAIFlagsInBattleFrontier(unusedArg u8 bank)
 {
-	return AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_CHECK_GOOD_MOVE;
+	return AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_SEMI_SMART | AI_SCRIPT_CHECK_GOOD_MOVE; //[hack] patches/0120 フロンティアも最大の AI（素は SEMI_SMART 抜きの 5）
 }
 
 u8 GetNumMonsOnTeamInFrontier(void)

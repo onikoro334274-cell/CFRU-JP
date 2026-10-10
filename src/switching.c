@@ -30,6 +30,8 @@
 #include "../include/new/switching.h"
 #include "../include/new/trainer_sliding.h"
 #include "../include/new/z_move_battle_scripts.h"
+
+u8 HackDragonBoulder_Type2(const struct Pokemon* mon, u16 species, u8 type2); //[hack] patches/0207 りゅうのいわお（src/hack_dragon_boulder.c・特別なガブリアスZ は 2 つ目のタイプが いわ）
 /*
 switching.c
 	handles battle switching logic
@@ -78,6 +80,8 @@ static bool8 TryDoForceSwitchOut(void);
 static void SwitchPartyOrderInGameMulti(u8 bank, u8 monToSwitchIntoId);
 static bool8 PPIsMaxed(bank_t);
 static u8 GetStealthRockDivisor(void);
+
+bool8 SecondAbility_TrySwitchIn(u8 bank); //★ 2026-10-01 src/second_ability.c
 
 void atkE2_switchoutabilities(void)
 {
@@ -337,6 +341,9 @@ void atk61_drawpartystatussummary(void)
 	gBattlescriptCurrInstr += 2;
 }
 
+extern void HoennPalace_OnSwitchIn(u8 bank); //★ src/hoenn_palace.c（patches/0085）
+extern void HoennArena_OnSwitchIn(void); //★ src/hoenn_arena.c（patches/0096）
+extern bool8 HoennArena_IsActive(void);
 void atk4D_switchindataupdate(void)
 {
 	struct BattlePokemon oldData;
@@ -359,7 +366,8 @@ void atk4D_switchindataupdate(void)
 	else
 	{
 		gBattleMons[gActiveBattler].type1 = gBaseStats[gBattleMons[gActiveBattler].species].type1;
-		gBattleMons[gActiveBattler].type2 = gBaseStats[gBattleMons[gActiveBattler].species].type2;
+		gBattleMons[gActiveBattler].type2 = HackDragonBoulder_Type2(GetBankPartyData(gActiveBattler), gBattleMons[gActiveBattler].species,
+		                                                            gBaseStats[gBattleMons[gActiveBattler].species].type2); //[hack] patches/0207 りゅうのいわお
 	}
 
 	gBattleMons[gActiveBattler].ability = GetMonAbility(GetBankPartyData(gActiveBattler));
@@ -370,6 +378,7 @@ void atk4D_switchindataupdate(void)
 	ClearSwitchBytes(gActiveBattler);
 	ClearSwitchBits(gActiveBattler);
 	gNewBS->AttackerDidDamageAtLeastOnce = FALSE; //Helps with Throat Spray
+	gNewBS->rageFistCounter[SIDE(gActiveBattler)][gBattlerPartyIndexes[gActiveBattler]] = 0; //★ Champions（patches/0070） ふんどのこぶしは交代でリセット
 	
 	// Clear selected party ID so Revival Blessing doesn't get confused.
     gSelectedMonPartyId = PARTY_SIZE;
@@ -417,6 +426,8 @@ void atk4D_switchindataupdate(void)
 		SwitchInClearSetData();
 		TryReactivateCentifernoSandblast(backupStatus2);
 	}
+	HoennPalace_OnSwitchIn(gActiveBattler); //★ バトルパレス: すでに HP 半分以下なら印（src/hoenn_palace.c・patches/0085）
+	HoennArena_OnSwitchIn(); //★ バトルアリーナ: ターンを数え直す・点数を 0 に（src/hoenn_arena.c・patches/0096）
 
 	if (ABILITY(gActiveBattler) == ABILITY_ILLUSION)
 	{
@@ -803,8 +814,9 @@ void atk52_switchineffects(void)
 		__attribute__ ((fallthrough));
 
 		case SwitchIn_EmergencyExit:
-			if (ABILITY(gActiveBattler) == ABILITY_EMERGENCYEXIT
-			||  ABILITY(gActiveBattler) == ABILITY_WIMPOUT)
+			if (FALSE //★ Champions（patches/0070）: まきびし・ステルスロック等では発動しない
+			&& (ABILITY(gActiveBattler) == ABILITY_EMERGENCYEXIT
+			||  ABILITY(gActiveBattler) == ABILITY_WIMPOUT))
 			{
 				if (gBattleMons[gActiveBattler].hp > 0
 				&&  gBattleMons[gActiveBattler].hp <= gBattleMons[gActiveBattler].maxHP / 2
@@ -841,6 +853,8 @@ void atk52_switchineffects(void)
 
 		case SwitchIn_Abilities:
 			if (SWITCH_IN_ABILITY1(ability) && AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, gActiveBattler, 0, 0, 0))
+				return;
+			if (SecondAbility_TrySwitchIn(gActiveBattler)) //★ 2026-10-01 2 つ目の特性（src/second_ability.c・1 回だけ）
 				return;
 
 			for (i = 0; i < gBattlersCount; ++i)
@@ -895,7 +909,8 @@ void atk52_switchineffects(void)
 		__attribute__ ((fallthrough));
 
 		case SwitchIn_Items2:
-			if ((ITEM_EFFECT(gActiveBattler) == ITEM_EFFECT_SEEDS || ITEM_EFFECT(gActiveBattler) == ITEM_EFFECT_ROOM_SERVICE)
+			if ((ITEM_EFFECT(gActiveBattler) == ITEM_EFFECT_SEEDS || ITEM_EFFECT(gActiveBattler) == ITEM_EFFECT_ROOM_SERVICE
+			  || ITEM_EFFECT(gActiveBattler) == ITEM_EFFECT_DANGER_LEAF) //[hack] patches/0237 あぶないはっぱ
 			&& ItemBattleEffects(ItemEffects_SwitchIn, gActiveBattler, TRUE, FALSE))
 			{
 				++gNewBS->switchInEffectsState;
@@ -1275,6 +1290,7 @@ bool8 HasNoMonsToSwitch(u8 battler)
 
 void ClearSwitchBytes(u8 bank)
 {
+	gNewBS->secondAbilitySpecies[bank] = 0; //★ 2026-10-01 2 つ目の特性（src/second_ability.c）
 	gNewBS->TelekinesisTimers[bank] = 0;
 	gNewBS->HealBlockTimers[bank] = 0;
 	gNewBS->LaserFocusTimers[bank] = 0;
@@ -1347,7 +1363,8 @@ void PartyMenuSwitchingUpdate(void)
 	gBattleStruct->switchoutPartyIndex[gActiveBattler] = gBattlerPartyIndexes[gActiveBattler];
 
 	if (gStatuses3[gActiveBattler] & STATUS3_SKY_DROP_TARGET
-	|| gNewBS->commanderActive[gActiveBattler] != SPECIES_NONE) //Being Ghost doesn't get you out of this
+	|| gNewBS->commanderActive[gActiveBattler] != SPECIES_NONE //Being Ghost doesn't get you out of this
+	|| HoennArena_IsActive()) //★ バトルアリーナは入れ替えられない（エメラルドの battle_main.c:4243・patches/0096）
 		goto TRAPPED;
 	else if (!CanBeTrapped(gActiveBattler))
 		goto SKIP_SWITCH_BLOCKING_CHECK;

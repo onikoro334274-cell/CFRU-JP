@@ -93,11 +93,30 @@ static const struct CharacterCustomizationPaletteSwitch sCharacterPalSwitchTable
 	};
 
 #else //Modify this
+	//★ 表 1〜5 = ポケモンの連れ歩きの絵（src/bw_follower_gfx.c・#16。256 件 × 5 = 1280 枠）
+	extern const struct EventObjectGraphicsInfo* const gBwFollowerOwTable1[256];
+	extern const struct EventObjectGraphicsInfo* const gBwFollowerOwTable2[256];
+	extern const struct EventObjectGraphicsInfo* const gBwFollowerOwTable3[256];
+	extern const struct EventObjectGraphicsInfo* const gBwFollowerOwTable4[256];
+	extern const struct EventObjectGraphicsInfo* const gBwFollowerOwTable5[256];
+	//★ 表 6 = BW の主人公の絵（src/bw_player_gfx.c・#20）
+	extern const struct EventObjectGraphicsInfo* const gBwPlayerOwTable[256];
+	//★ 表 7 = ホウエンの NPC（src/Tables/hoenn_ow_gfx.c・#2 ジム）
+	extern const struct EventObjectGraphicsInfo* const gHoennOwTable[256];
+	//★ 表 8 = 主人公の歩き・走りを BW の主人公に塗り替えたもの（src/Tables/bw_walk_gfx.c・#20 案 C）
+	extern const struct EventObjectGraphicsInfo* const gBwWalkOwTable[256];
 	// create 255 OW tables
 	const struct EventObjectGraphicsInfo** const gOverworldTableSwitcher[255] =
 	{
 		(NPCPtr*) 0x8363E38,
-		(NPCPtr*) 0x0,
+		(NPCPtr*) gBwFollowerOwTable1,
+		(NPCPtr*) gBwFollowerOwTable2,
+		(NPCPtr*) gBwFollowerOwTable3,
+		(NPCPtr*) gBwFollowerOwTable4,
+		(NPCPtr*) gBwFollowerOwTable5,
+		(NPCPtr*) gBwPlayerOwTable,
+		(NPCPtr*) gHoennOwTable,
+		(NPCPtr*) gBwWalkOwTable,
 		// etc...
 		// please note that this method makes compatability with OW Manager challenging
 	};
@@ -111,14 +130,38 @@ struct PlayerGraphics
 
 static const struct PlayerGraphics sPlayerAvatarGfxIds[][2] =
 {
-	[PLAYER_AVATAR_STATE_NORMAL] =     {{EVENT_OBJ_GFX_RED_NORMAL, PLAYER_AVATAR_FLAG_ON_FOOT},          {EVENT_OBJ_GFX_LEAF_NORMAL, PLAYER_AVATAR_FLAG_ON_FOOT}},
-	[PLAYER_AVATAR_STATE_BIKE] =       {{EVENT_OBJ_GFX_RED_BIKE, PLAYER_AVATAR_FLAG_BIKE},               {EVENT_OBJ_GFX_LEAF_BIKE, PLAYER_AVATAR_FLAG_BIKE}},
-	[PLAYER_AVATAR_STATE_SURFING] =    {{EVENT_OBJ_GFX_RED_SURFING, PLAYER_AVATAR_FLAG_SURFING},         {EVENT_OBJ_GFX_LEAF_SURFING, PLAYER_AVATAR_FLAG_SURFING}},
-	[PLAYER_AVATAR_STATE_FIELD_MOVE] = {{EVENT_OBJ_GFX_RED_FIELD_MOVE, PLAYER_AVATAR_FLAG_FIELD_MOVE},   {EVENT_OBJ_GFX_LEAF_FIELD_MOVE, PLAYER_AVATAR_FLAG_FIELD_MOVE}},
-	[PLAYER_AVATAR_STATE_FISHING] =    {{EVENT_OBJ_GFX_RED_FISHING, 0},                                  {EVENT_OBJ_GFX_LEAF_FISHING, 0}},
-	[PLAYER_AVATAR_STATE_VS_SEEKER] =  {{EVENT_OBJ_GFX_RED_VS_SEEKER, 0},                                {EVENT_OBJ_GFX_LEAF_VS_SEEKER, 0}},
-	[PLAYER_AVATAR_STATE_UNDERWATER] = {{EVENT_OBJ_GFX_RED_UNDERWATER, PLAYER_AVATAR_FLAG_UNDERWATER},   {EVENT_OBJ_GFX_LEAF_UNDERWATER, PLAYER_AVATAR_FLAG_UNDERWATER}},
+	//★ #20: 歩き・走りは素のレッド／リーフを BW のトウヤ／トウコに**塗り替えた絵**（表 8・案 C・2026-09-23）。
+	//   0x0800 = トウヤ / 0x0801 = トウコ（tools/bwplayer/build_bw_walk.py）。素に戻すときは
+	//   EVENT_OBJ_GFX_RED_NORMAL / EVENT_OBJ_GFX_LEAF_NORMAL に戻すだけでよい。
+	//   ★ 表 6 の 0x0600（DS の絵を縮めたもの）は 2026-09-20 に取りやめたまま使っていない。
+	//★ 2026-09-23: 自転車・なみのり・技を使う・つりざお・VS シーカー・潜水も同じ塗り替え（表 8 の 2〜13 番）。
+	//   素に戻すときは各行を EVENT_OBJ_GFX_RED_* / EVENT_OBJ_GFX_LEAF_* に戻すだけでよい。
+	[PLAYER_AVATAR_STATE_NORMAL] =     {{0x0800, PLAYER_AVATAR_FLAG_ON_FOOT},          {0x0801, PLAYER_AVATAR_FLAG_ON_FOOT}},
+	[PLAYER_AVATAR_STATE_BIKE] =       {{0x0802, PLAYER_AVATAR_FLAG_BIKE},               {0x0803, PLAYER_AVATAR_FLAG_BIKE}},
+	[PLAYER_AVATAR_STATE_SURFING] =    {{0x0804, PLAYER_AVATAR_FLAG_SURFING},         {0x0805, PLAYER_AVATAR_FLAG_SURFING}},
+	[PLAYER_AVATAR_STATE_FIELD_MOVE] = {{0x0806, PLAYER_AVATAR_FLAG_FIELD_MOVE},   {0x0807, PLAYER_AVATAR_FLAG_FIELD_MOVE}},
+	[PLAYER_AVATAR_STATE_FISHING] =    {{0x0808, 0},                                  {0x0809, 0}},
+	[PLAYER_AVATAR_STATE_VS_SEEKER] =  {{0x080A, 0},                                {0x080B, 0}},
+	[PLAYER_AVATAR_STATE_UNDERWATER] = {{0x080C, PLAYER_AVATAR_FLAG_UNDERWATER},   {0x080D, PLAYER_AVATAR_FLAG_UNDERWATER}},
 };
+
+void BwFollowerUpdateFromParty(void); //★ #16（src/bw_follower.c）
+u16 HoennBikeModeGfx(u8 gender, u16 normalGfx); //★ 2026-09-24 自転車のモード（src/hoenn_bike.c）
+
+//★ 2026-09-24: マッハ・ダートの絵（表 8 の 16〜19 番）を「自転車の絵」として数える。
+//   逆引き（絵 → 状態・性別）は素の表の番号でしか引けないので、通常の自転車の絵に直してから引く
+static u16 NormalizeBikeModeGfx(u16 graphicsId)
+{
+	switch (graphicsId) {
+		case 0x0810:
+		case 0x0812:
+			return sPlayerAvatarGfxIds[PLAYER_AVATAR_STATE_BIKE][MALE].graphicsId;
+		case 0x0811:
+		case 0x0813:
+			return sPlayerAvatarGfxIds[PLAYER_AVATAR_STATE_BIKE][FEMALE].graphicsId;
+	}
+	return graphicsId;
+}
 
 //This file's functions:
 #ifdef UNBOUND
@@ -153,6 +196,11 @@ NPCPtr GetEventObjectGraphicsInfo(u16 graphicsId)
 					{
 						tableId = (newId >> 8) & 0xFF;	// upper byte
 						spriteId = (newId & 0xFF);		// lower byte
+					}
+					else //★ #20: 自転車の VS シーカーも BW の主人公の塗り替え（表 8 の 12 / 13 番）
+					{
+						spriteId = (spriteId == EVENT_OBJ_GFX_RED_BIKE_VS_SEEKER) ? 14 : 15; //★ 2026-09-23: 12/13 は潜水（エメラルドの絵）に分けた
+						tableId = 8;
 					}
 				}
 				break;
@@ -225,6 +273,9 @@ u16 GetPlayerAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
 	if (graphicsId != 0)
 		return graphicsId;
 
+	if (state == PLAYER_AVATAR_STATE_BIKE) //★ 2026-09-24 自転車のモードの絵
+		return HoennBikeModeGfx(gender, sPlayerAvatarGfxIds[state][gender].graphicsId);
+
 	return sPlayerAvatarGfxIds[state][gender].graphicsId;
 }
 
@@ -235,6 +286,7 @@ u16 GetPlayerAvatarGraphicsIdByStateId(u8 state)
 
 u8 GetPlayerAvatarStateTransitionByGraphicsId(u16 graphicsId, u8 gender)
 {
+	graphicsId = NormalizeBikeModeGfx(graphicsId); //★ 2026-09-24
     for (u8 state = 0; state < NELEMS(sPlayerAvatarGfxIds); ++state)
     {
 		u16 customGraphicsId = GetCustomGraphicsIdByState(state);
@@ -262,6 +314,8 @@ u16 GetPlayerAvatarGraphicsIdByCurrentState(void)
 			u16 customGraphicsId = GetCustomGraphicsIdByState(state);
 			if (customGraphicsId != 0)
 				graphicsId = customGraphicsId;
+			else if (state == PLAYER_AVATAR_STATE_BIKE) //★ 2026-09-24 自転車のモードの絵
+				graphicsId = HoennBikeModeGfx(gender, graphicsId);
 
 			return graphicsId;
 		}
@@ -270,8 +324,12 @@ u16 GetPlayerAvatarGraphicsIdByCurrentState(void)
     return sPlayerAvatarGfxIds[0][0].graphicsId;
 }
 
-u8 GetPlayerAvatarGenderByGraphicsId(u8 gfxId)
+//★ 2026-09-23: 引数を u8 → u16 に。表 8 の絵（0x0800〜）は u8 だと下位 1 バイトに切り詰められ、
+//   トウコ（0x0801 → 0x01）がどの行とも一致せず MALE を返していた（メニューや戦闘から戻るたびに男扱い）。
+//   素の呼び元（0805E904）は SetPlayerAvatarEventObjectIdAndObjectId ごと hooks で差し替え済みなので通らない。
+u8 GetPlayerAvatarGenderByGraphicsId(u16 gfxId)
 {
+	gfxId = NormalizeBikeModeGfx(gfxId); //★ 2026-09-24
     for (u8 state = 0; state < NELEMS(sPlayerAvatarGfxIds); ++state)
     {
 		for (u8 gender = 0; gender < NELEMS(sPlayerAvatarGfxIds[0]); ++gender)
@@ -360,6 +418,7 @@ void InitPlayerAvatar(s16 x, s16 y, u8 direction, u8 gender)
 	gPlayerAvatar->spriteId = eventObject->spriteId;
 	gPlayerAvatar->gender = gender;
 	SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_FIELD_MOVE | PLAYER_AVATAR_FLAG_ON_FOOT);
+	BwFollowerUpdateFromParty(); //★ #16: 手持ちの先頭から連れ歩きを組み立てる（src/bw_follower.c）
 	CreateFollowerAvatar();
 }
 

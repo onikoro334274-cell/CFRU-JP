@@ -165,6 +165,11 @@ sp109_IsPlayerFacingNPCWithOverworldPic 816348C
 sp10A_CanUseCutOnTree 8163490
 sp10B_CanUseRockSmashOnRock 8163494
 sp10C_CanUseStrengthOnBoulder 8163498
+##patches/0013 本家の木のスクリプト用。checkattack と同じく LASTRESULT に返す
+sp10D_CanUseCutOnTree_LastResult 816349C
+##patches/0014 いわくだき・かいりきも同じやり方で
+sp120_CanUseRockSmashOnRock_LastResult 81634E8
+sp121_CanUseStrengthOnBoulder_LastResult 81634EC
 
 sp112_BufferNaturalGiftPowerAndType 81634B0
 
@@ -265,3 +270,14 @@ FieldUseFunc_FormChangeItem 887D334
 FieldUseFunc_AbilityCapsule 8877168
 FieldUseFunc_AbilityCapsule 887CA9C
 #endif
+
+## Mystery Gift (src/hack_mystery_gift.c, 2026-10-03)
+##   main menu: the task set when Mystery Gift is chosen (vanilla 0800C5BD, the notice) -> HackMG_Task (hands over to 0800C5BD)
+HackMG_Task 800C51C
+##   special 0x180 ValidateSavedWonderCard (CableClub_OnTransition shows/hides the deliveryman on Pokemon Center 2F)
+HackMG_ShouldShowDeliveryman 8163668
+
+## [hack] 2026-10-09 ももアイスを持った子をゲームの中の人と交換に出せない（src/hack_momo_ice.c）: special 0xFF GetTradeSpecies（素 080535F1）
+HackMomoIce_GetTradeSpecies 8163464
+## [hack] 2026-10-09 タイトルで START のあとの行き先（08078A28 SetMainCallback2 の r0 の語 08078A54・素の値 0800BCE1 CB2_InitMainMenu）-> ぼうけんのしょを選ぶ画面（src/hack_save_slot.c）
+CB2_HackSaveSlotSelect 08078A54

@@ -1,0 +1,56 @@
+#org @gText_KantoHyper_Intro
+おれは すごいとっくんの おとこ！\nおうかんを もってきたら\pポケモンを さいこうの ちからまで\nきたえて やるぞ！
+
+#org @gText_KantoHyper_WhichCap
+どっちの おうかんで\nきたえる？
+
+#org @gText_KantoHyper_Gold
+きんのおうかん
+
+#org @gText_KantoHyper_Silver
+ぎんのおうかん
+
+#org @gText_KantoHyper_Cancel
+やめる
+
+#org @gText_KantoHyper_GoldOffer
+おっ きんのおうかん！\nすべての ちからを きたえるか？
+
+#org @gText_KantoHyper_SilverOffer
+おっ ぎんのおうかん！\nちからを 1つ きたえるか？
+
+#org @gText_KantoHyper_WhichMon
+どの ポケモンを きたえる？
+
+#org @gText_KantoHyper_WhichStat
+どの ちからを きたえる？
+
+#org @gText_KantoHyper_HP
+HP
+
+#org @gText_KantoHyper_Atk
+こうげき
+
+#org @gText_KantoHyper_Def
+ぼうぎょ
+
+#org @gText_KantoHyper_SpAtk
+とくこう
+
+#org @gText_KantoHyper_SpDef
+とくぼう
+
+#org @gText_KantoHyper_Spe
+すばやさ
+
+#org @gText_KantoHyper_Egg
+タマゴは きたえられないぞ
+
+#org @gText_KantoHyper_Done
+すごいとっくん かんりょう！\p[BUFFER1]は\nさいこうに なった！
+
+#org @gText_KantoHyper_AlreadyMax
+その ちからは もう\nさいこうだぞ！
+
+#org @gText_KantoHyper_Bye
+また こいよ！

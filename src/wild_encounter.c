@@ -59,6 +59,12 @@ extern u8 sUnownLetterSlots[NUM_TANOBY_CHAMBERS][12]; //[NUM_ROOMS][NUM_WILD_IND
 extern const struct WildPokemonHeader gWildMonMorningHeaders[];
 extern const struct WildPokemonHeader gWildMonEveningHeaders[];
 extern const struct WildPokemonHeader gWildMonNightHeaders[];
+extern const struct WildPokemonHeader gWildMonDayHeaders[]; //[hack] patches/0003
+//[hack] patches/0126 バトルチューブの野生の部屋（src/hoenn_pike.c）
+bool8 HoennPike_InWildRoom(void);
+const struct WildPokemonInfo* HoennPike_WildMonsInfo(u8 type);
+void HoennPike_AdjustWildMon(void);
+void HoennPike_CB2_EndWildBattle(void);
 extern const u8 gSwarmOrders[31][24];
 extern const struct SwarmData gSwarmTable[];
 extern const u16 gSwarmTableLength;
@@ -194,8 +200,10 @@ static const struct WildPokemonHeader* GetCurrentMapWildMonHeader(void)
 			headerTable = gWildMonMorningHeaders;
 		else if (IsEvening())
 			headerTable = gWildMonEveningHeaders;
+		else //[hack] patches/0003: Daytime も C 側のテーブルで上書きできるようにする
+			headerTable = gWildMonDayHeaders;
 
-		if (headerTable != NULL) //Not Daytime
+		if (headerTable != NULL)
 		{
 			for (i = 0; headerTable[i].mapGroup != 0xFF; ++i)
 			{
@@ -861,6 +869,25 @@ bool8 StandardWildEncounter(const u32 currMetaTileBehavior, const u16 previousMe
 		return FALSE;
 	#endif
 
+	//[hack] patches/0126 バトルチューブの野生の部屋は床の種類を見ずにどのマスでも出る（エメラルドの StandardWildEncounter・
+	//地図に草むらは無い）。徘徊・2 匹・むしよけは無し・出た子は決め直す（TryGenerateBattlePikeWildMon）
+	if (HoennPike_InWildRoom())
+	{
+		landMonsInfo = LoadProperMonsData(LAND_MONS_HEADER);
+		if (landMonsInfo == NULL)
+			return FALSE;
+		if (GetMetatileAttributeFromRawMetatileBehavior(currMetaTileBehavior, METATILE_ATTRIBUTE_BEHAVIOR) != previousMetaTileBehavior
+		&& !DoGlobalWildEncounterDiceRoll())
+			return FALSE;
+		if (DoWildEncounterRateTest(landMonsInfo->encounterRate, FALSE) != TRUE)
+			return FALSE;
+		if (TryGenerateWildMon(landMonsInfo, WILD_AREA_LAND, 0) != TRUE)
+			return FALSE;
+		HoennPike_AdjustWildMon();
+		BattleSetup_StartWildBattle();
+		return TRUE;
+	}
+
 	if (lowerByte & TILE_FLAG_ENCOUNTER_TILE)
 	{
 		if (GetMetatileAttributeFromRawMetatileBehavior(currMetaTileBehavior, METATILE_ATTRIBUTE_BEHAVIOR) != previousMetaTileBehavior
@@ -915,7 +942,8 @@ bool8 StandardWildEncounter(const u32 currMetaTileBehavior, const u16 previousMe
 		}
 	}
 	else if (lowerByte & TILE_FLAG_SURFABLE
-		 &&  (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) || (currMetaTileBehavior & 0xFF) == MB_CAVE)) //For alternate grass data on route
+		 &&  (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) || (currMetaTileBehavior & 0xFF) == MB_CAVE //For alternate grass data on route
+		  || TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_UNDERWATER))) //[hack] patches/0220 潜っている間も海草（水の野生のマス）で出る（エメラルドどおり）
 	{
 		if (previousMetaTileBehavior != GetMetatileAttributeFromRawMetatileBehavior(currMetaTileBehavior, METATILE_ATTRIBUTE_BEHAVIOR)
 		&& !DoGlobalWildEncounterDiceRoll())
@@ -970,7 +998,8 @@ bool8 StandardWildEncounter(const u32 currMetaTileBehavior, const u16 previousMe
 
 bool8 TryStandardWildEncounter(u32 currMetatileBehavior)
 {
-	if (!HandleWildEncounterCooldown(currMetatileBehavior))
+	//[hack] patches/0126 バトルチューブの野生の部屋は「野生の出ないマス」だけなので、素の歩数の待ち（出ないマスで止まる）を通さない
+	if (!HoennPike_InWildRoom() && !HandleWildEncounterCooldown(currMetatileBehavior))
     {
         sWildEncounterData.prevMetatileBehavior = GetMetatileAttributeFromRawMetatileBehavior(currMetatileBehavior, METATILE_ATTRIBUTE_BEHAVIOR);
         return FALSE;
@@ -1231,6 +1260,12 @@ void DoStandardWildBattle(void)
 	if (FlagGet(FLAG_AI_CONTROL_BATTLE))
 		gBattleTypeFlags |= BATTLE_TYPE_MOCK_BATTLE;
 	#endif
+
+	if (HoennPike_InWildRoom()) //[hack] patches/0126 バトルチューブの野生: フロンティアの戦い（経験値・バッグ無し）・負けても全滅にしない
+	{
+		gBattleTypeFlags |= BATTLE_TYPE_BATTLE_TOWER;
+		gMain.savedCallback = HoennPike_CB2_EndWildBattle;
+	}
 
 	CreateBattleStartTask(GetWildBattleTransition(), GetMUS_ForBattle());
 	IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
@@ -1518,11 +1553,17 @@ u16 GetLocalWaterMon(void)
 	return SPECIES_NONE;
 }
 
+const struct WildPokemonInfo* HackWild_Shuffle(const struct WildPokemonInfo* info); //[hack] patches/0123・src/wild_shuffle.c
+
 const struct WildPokemonInfo* LoadProperMonsData(u8 type)
 {
 	const struct WildPokemonInfo* monsInfo;
-	const struct WildPokemonHeader* header = GetCurrentMapWildMonHeader();
+	const struct WildPokemonHeader* header;
 
+	if (HoennPike_InWildRoom()) //[hack] patches/0126 バトルチューブの野生の部屋は専用の表（エメラルドの gBattlePikeWildMonHeaders）
+		return HoennPike_WildMonsInfo(type);
+
+	header = GetCurrentMapWildMonHeader();
 	if (header == NULL) //No data whatsoever on this map
 		return NULL;
 
@@ -1538,7 +1579,7 @@ const struct WildPokemonInfo* LoadProperMonsData(u8 type)
 				return NULL;
 	}
 
-	return monsInfo;
+	return HackWild_Shuffle(monsInfo); //[hack] patches/0123 強化リーグに勝ったあとは他の世代に入れ替えた表
 }
 
 static const struct WildPokemonInfo* LoadProperMonsPointer(const struct WildPokemonHeader* header, const u8 type)

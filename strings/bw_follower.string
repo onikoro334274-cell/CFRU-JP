@@ -1,0 +1,80 @@
+// 連れ歩き（#16）に話しかけたときの文章。気分ごとに 2 つ。
+// 気分の選び方は pokeemerald-expansion の GetFollowerAction() に合わせた。
+//
+// ★★ 差し込みコード（[FD][xx]）を入れてはいけない。
+//   素 FRLG の ShowFieldMessage(str) は StringExpandPlaceholders(gStringVar4, str) を呼ぶ
+//   （pokefirered field_message_box.c の ExpandStringAndStartDrawFieldMessageBox）。
+//   こちらは組み立てた文章を gStringVar4 に置いて渡すので、差し込みがあると
+//   同じ入れ物の中で展開されて自分を壊し、暴走する（実機 2026-09-20 のクラッシュ）。
+//   ニックネームは BwFollowerTalk が前に足してから渡す。だからここは「〜は …」から始める。
+//
+// ★ 助詞のうしろで改行する（1 行目は「名前＋は」だけにする）。
+//   窓は 1 行およそ 19 文字しか入らず、ニックネームは最大 7 文字なので、
+//   1 行に収めようとすると長い名前で見切れる（実機 2026-09-20）。
+//   2 行目はいちばん長いもので 16 文字なので収まる。
+
+#org @gText_BwFollower_Happy1
+は\nごきげんだ！
+
+#org @gText_BwFollower_Happy2
+は\nうれしそうに とびはねた！
+
+#org @gText_BwFollower_Neutral1
+は\nあたりを みまわしている。
+
+#org @gText_BwFollower_Neutral2
+は\nきみの ほうを みている。
+
+#org @gText_BwFollower_Sad1
+は\nつかれて いるようだ…
+
+#org @gText_BwFollower_Sad2
+は\nしょんぼり している…
+
+#org @gText_BwFollower_Upset1
+は\nふてくされて いる…
+
+#org @gText_BwFollower_Upset2
+は\nそっぽを むいた！
+
+#org @gText_BwFollower_Angry1
+は\nごきげんななめだ！
+
+#org @gText_BwFollower_Angry2
+が\nぷんぷん している！
+
+#org @gText_BwFollower_Pensive1
+は\nなにか かんがえこんで いる…
+
+#org @gText_BwFollower_Pensive2
+は\nじっと とおくを みつめている。
+
+#org @gText_BwFollower_Love1
+は\nきみが だいすきな ようだ！
+
+#org @gText_BwFollower_Love2
+が\nうれしそうに すりよってきた！
+
+#org @gText_BwFollower_Surprise1
+は\nなにかに おどろいている！
+
+#org @gText_BwFollower_Surprise2
+が\nびくっと した！
+
+#org @gText_BwFollower_Curious1
+は\nまわりを しらべている。
+
+#org @gText_BwFollower_Curious2
+は\nなにかを さがして いるようだ。
+
+#org @gText_BwFollower_Music1
+は\nたのしそうに うたって いる！
+
+#org @gText_BwFollower_Music2
+は\nリズムを とっている！
+
+#org @gText_BwFollower_Sick1
+は\nぐあいが わるそうだ…
+
+#org @gText_BwFollower_Sick2
+は\nつらそうに している…

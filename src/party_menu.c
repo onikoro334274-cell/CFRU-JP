@@ -486,7 +486,9 @@ u8 ChangeSummaryScreenMonSinglesDoubles(u8 delta)
 	return result;
 };
 
-#define sMultiPokemonPartyMenuOrder ((u8*) 0x8463FB8)
+//[hack] patches/0272: 英語版（BPRE）の番地 0x8463FB8 のままだった。日本語版の 0x08463FB8 は無関係なデータで、それを手持ちの添字にして
+//gPlayerParty の外を読んでいた。同じ表（00 02 03 01 04 05）は日本語版では 0x0842D344 の 1 か所だけ（素 ROM 2 本を読んで確かめた・2026-10-10）
+#define sMultiPokemonPartyMenuOrder ((u8*) 0x842D344)
 s8 ChangeSummaryScreenMonMulti(s8 delta)
 {
 	u8 i;
@@ -1379,6 +1381,63 @@ void sp10A_CanUseCutOnTree(void)
 		Var8004 = PartyHasMonWithFieldMovePotential(MOVE_CUT, item, SHOULDNT_BE_SURFING);
 }
 
+//---------------------------------------------------------------------------
+// 本家の木のスクリプトを直すための special（patches/0013）
+//
+// 本家の木は special ではなく**スクリプト命令 0x7C（checkattack）**で
+// 「いあいぎりを覚えている手持ちを探す」をしている。
+//   7c 0f 00        checkattack MOVE_CUT
+//   21 0d 80 06 00  compare LASTRESULT, 6
+//   06 01 ...       if == goto @使えない
+// このため ONLY_CHECK_ITEM_FOR_HM_USAGE を有効にしても、
+// 木に話しかける経路だけは「覚えていないと切れない」ままだった。
+//
+// sp10A は Var8004 に返すので、そのままでは差し替えられない。
+// **checkattack と同じく LASTRESULT に返す**版を用意し、
+// スクリプト側の `7c 0f 00` を `25 0d 01`（special 0x10D）に
+// 置き換える。どちらも 3 バイトなので、長さを変えずに差し替えられる。
+//---------------------------------------------------------------------------
+void sp10D_CanUseCutOnTree_LastResult(void)
+{
+	u16 item = ITEM_NONE;
+
+	#ifdef ONLY_CHECK_ITEM_FOR_HM_USAGE
+	item = ITEM_HM01_CUT;
+	#endif
+
+	gSpecialVar_LastResult = PARTY_SIZE;
+	if (HasBadgeToUseFieldMove(FIELD_MOVE_CUT))
+		gSpecialVar_LastResult = PartyHasMonWithFieldMovePotential(MOVE_CUT, item, SHOULDNT_BE_SURFING);
+}
+
+//いわくだき版。岩のスクリプト 0x081A47FB の checkattack を差し替える
+void sp120_CanUseRockSmashOnRock_LastResult(void)
+{
+	u16 item = ITEM_NONE;
+
+	#ifdef ONLY_CHECK_ITEM_FOR_HM_USAGE
+	item = ITEM_HM06_ROCK_SMASH;
+	#endif
+
+	gSpecialVar_LastResult = PARTY_SIZE;
+	if (HasBadgeToUseFieldMove(FIELD_MOVE_ROCK_SMASH))
+		gSpecialVar_LastResult = PartyHasMonWithFieldMovePotential(MOVE_ROCKSMASH, item, SHOULDNT_BE_SURFING);
+}
+
+//かいりき版。岩（大）のスクリプト 0x081A48D9 の checkattack を差し替える
+void sp121_CanUseStrengthOnBoulder_LastResult(void)
+{
+	u16 item = ITEM_NONE;
+
+	#ifdef ONLY_CHECK_ITEM_FOR_HM_USAGE
+	item = ITEM_HM04_STRENGTH;
+	#endif
+
+	gSpecialVar_LastResult = PARTY_SIZE;
+	if (HasBadgeToUseFieldMove(FIELD_MOVE_STRENGTH))
+		gSpecialVar_LastResult = PartyHasMonWithFieldMovePotential(MOVE_STRENGTH, item, SHOULDNT_BE_SURFING);
+}
+
 void sp10B_CanUseRockSmashOnRock(void)
 {
 	u16 item = ITEM_NONE;
@@ -2145,6 +2204,40 @@ static void ItemUseCB_FormChangeItem(u8 taskId, TaskFunc func)
 			#endif
 				goto NO_EFFECT;
 			break;
+		// 参考「CFRU-JP_変更ファイル」機能3 より（patches/0008）
+		case ITEM_ROTOM_CATALOG:
+		{
+			u16 newSpecies = SPECIES_NONE;
+			switch (species)
+			{
+				case SPECIES_ROTOM:       newSpecies = SPECIES_ROTOM_HEAT;  break;
+				case SPECIES_ROTOM_HEAT:  newSpecies = SPECIES_ROTOM_WASH;  break;
+				case SPECIES_ROTOM_WASH:  newSpecies = SPECIES_ROTOM_FROST; break;
+				case SPECIES_ROTOM_FROST: newSpecies = SPECIES_ROTOM_FAN;   break;
+				case SPECIES_ROTOM_FAN:   newSpecies = SPECIES_ROTOM_MOW;   break;
+				case SPECIES_ROTOM_MOW:   newSpecies = SPECIES_ROTOM;       break;
+				default: goto NO_EFFECT;
+			}
+			DoItemFormChange(mon, newSpecies);
+			gTasks[taskId].func = Task_TryLearnPostFormeChangeMove;
+			break;
+		}
+		case ITEM_METEORITE:
+		{
+			u16 newSpecies = SPECIES_NONE;
+			switch (species)
+			{
+				case SPECIES_DEOXYS:         newSpecies = SPECIES_DEOXYS_ATTACK;  break;
+				case SPECIES_DEOXYS_ATTACK:  newSpecies = SPECIES_DEOXYS_DEFENSE; break;
+				case SPECIES_DEOXYS_DEFENSE: newSpecies = SPECIES_DEOXYS_SPEED;   break;
+				case SPECIES_DEOXYS_SPEED:   newSpecies = SPECIES_DEOXYS;         break;
+				default: goto NO_EFFECT;
+			}
+			DoItemFormChange(mon, newSpecies);
+			gTasks[taskId].func = func;
+			break;
+		}
+
 		default:
 		NO_EFFECT:
 			gPartyMenuUseExitCallback = FALSE;
@@ -2393,6 +2486,30 @@ static void Task_TryLearnPostFormeChangeMove(u8 taskId)
 			case SPECIES_CALYREX_SHADOW_RIDER:
 				gMoveToLearn = MOVE_ASTRALBARRAGE;
 				break;
+			// 参考「CFRU-JP_変更ファイル」機能3 より（patches/0008）
+			// フォルムが変わったら、その姿の専用技を覚え直す
+			case SPECIES_ROTOM:
+				replaceMove = MOVE_LEAFSTORM;
+				break;
+			case SPECIES_ROTOM_HEAT:
+				gMoveToLearn = MOVE_OVERHEAT;
+				break;
+			case SPECIES_ROTOM_WASH:
+				gMoveToLearn = MOVE_HYDROPUMP;
+				replaceMove = MOVE_OVERHEAT;
+				break;
+			case SPECIES_ROTOM_FROST:
+				gMoveToLearn = MOVE_BLIZZARD;
+				replaceMove = MOVE_HYDROPUMP;
+				break;
+			case SPECIES_ROTOM_FAN:
+				gMoveToLearn = MOVE_AIRSLASH;
+				replaceMove = MOVE_BLIZZARD;
+				break;
+			case SPECIES_ROTOM_MOW:
+				gMoveToLearn = MOVE_LEAFSTORM;
+				replaceMove = MOVE_AIRSLASH;
+				break;
 		}
 
 		if (gMoveToLearn != MOVE_NONE)
@@ -2492,6 +2609,15 @@ static void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc func)
 	}
 }
 
+//[hack] patches/0201 夢特性をやめたときの特性（特性の番の bit が 1 なら特性 2・無ければ特性 1）
+static u16 HackAbilityNormal(struct Pokemon* mon, u16 ability1, u16 ability2)
+{
+	u16 normal = (GetMonData(mon, MON_DATA_ALT_ABILITY, NULL) && ability2 != ABILITY_NONE) ? ability2 : ability1;
+	u16 now = GetMonAbility(mon);
+
+	return (normal != now) ? normal : ABILITY_NONE; //同じなら効果なし
+}
+
 static u16 GetAbilityCapsuleNewAbility(struct Pokemon* mon)
 {
 	u16 item = Var800E;
@@ -2516,6 +2642,14 @@ static u16 GetAbilityCapsuleNewAbility(struct Pokemon* mon)
 		#endif
 		)
 			changeTo = hiddenAbility; //Set the Hidden Ability
+		//[hack] patches/0201 2026-10-07 ユーザー「とくせいパッチで夢特性を通常に戻せないみたい」:
+		//  SV と同じく、夢特性のポケモンには通常の特性（今の特性 1／2 の番）に戻す
+		else if (mon->hiddenAbility)
+			changeTo = HackAbilityNormal(mon, ability1, ability2);
+	}
+	else if (mon->hiddenAbility) //[hack] patches/0201 ユーザー「とくせいカプセルが使えないみたい」: 夢特性のポケモンは通常の特性に戻す
+	{
+		changeTo = HackAbilityNormal(mon, ability1, ability2);
 	}
 	else //Regular ability capsule
 	{
@@ -2566,7 +2700,12 @@ static void Task_ChangeAbility(u8 taskId)
 	struct Pokemon* mon = &gPlayerParty[gPartyMenu.slotId];
 	PlaySE(SE_USE_ITEM);
 	
-	if (abilityType != 0) //Hidden Ability capsule
+	if (mon->hiddenAbility) //[hack] patches/0201 夢特性 → 通常の特性（パッチ・カプセルとも・特性の番は変えない）
+	{
+		mon->hiddenAbility = FALSE;
+		CalculateMonStats(mon);
+	}
+	else if (abilityType != 0) //Hidden Ability capsule
 	{
 		mon->hiddenAbility = TRUE;
 	}
@@ -2695,7 +2834,7 @@ void ItemUseCB_RareCandy(u8 taskId, TaskFunc func)
 
 	PlaySE(SE_SELECT);
 
-	if (level >= MAX_LEVEL
+	if (level >= 100 //[hack] patches/0236 2026-10-09 レベル上限 200 にしたが、ふしぎなアメは Lv100 まで（ユーザー「100からはふしぎなアメつかえないように」）
 	#ifdef FLAG_HARD_LEVEL_CAP
 	|| (FlagGet(FLAG_HARD_LEVEL_CAP) && level >= GetCurrentLevelCap())
 	#endif

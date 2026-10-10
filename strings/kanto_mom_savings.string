@@ -1,0 +1,86 @@
+#org @gText_MomCall_Ring
+プルルル…… プルルル……\nおかあさんから でんわだ！
+
+#org @gText_MomCall_Talk
+もしもし [PLAYER]？ おかあさんよ\pちょきんで [BUFFER1]を\nかっておいたわ\pいえに かえったら わたすわね！\nがんばってね！
+
+#org @gText_MomSav_Gift
+おかえり！\nちょきんで かっておいた ものよ
+
+#org @gText_MomSav_StatusOn
+ちょきんは いま [BUFFER1]えんよ\pしょうきんの [BUFFER2]パーセントを\nためているわ
+
+#org @gText_MomSav_StatusOff
+ちょきんは いま [BUFFER1]えんよ\pいまは ちょきんを\nおやすみ してるわ
+
+#org @gText_MomSav_What
+ちょきんは どうする？
+
+#org @gText_MomSav_Withdraw
+ひきだす
+
+#org @gText_MomSav_Percent
+わりあい
+
+#org @gText_MomSav_Start
+ためる
+
+#org @gText_MomSav_Stop
+やすむ
+
+#org @gText_MomSav_Cancel
+やめる
+
+#org @gText_MomSav_Withdrew
+[BUFFER1]えん ひきだしたわよ\nたいせつに つかってね
+
+#org @gText_MomSav_NoWithdraw
+いまは ひきだせる おかねが ないわ
+
+#org @gText_MomSav_WhichPercent
+しょうきんの どれだけを ためる？
+
+#org @gText_MomSav_P10
+10パーセント
+
+#org @gText_MomSav_P20
+20パーセント
+
+#org @gText_MomSav_P30
+30パーセント
+
+#org @gText_MomSav_P40
+40パーセント
+
+#org @gText_MomSav_P50
+50パーセント
+
+#org @gText_MomSav_P75
+75パーセント
+
+#org @gText_MomSav_P100
+100パーセント
+
+#org @gText_MomSav_PercentSet
+わかったわ しょうきんの\n[BUFFER2]パーセントを ためておくわね
+
+#org @gText_MomSav_Started
+まかせて！ しょうきんの\n[BUFFER2]パーセントを ためておくわね\pためた ぶんと おなじだけ\nおかあさんも たしておくわ\pやせいの ポケモンに かったときも\nすこし ためておくわね\pたまったら やくに たつ ものを\nかっておくわ
+
+#org @gText_MomSav_Stopped
+わかったわ\nちょきんは おやすみ するわね
+
+#org @gText_MomSav_Bye
+いってらっしゃい！
+
+#org @gText_MomSav_BattleSent
+ママに [BUFFER][02]えん おくった！\nちょきんは いま [BUFFER][03]えん
+
+#org @gText_MomSav_Etc
+など
+
+#org @gText_MomSav_GotAll
+[PLAYER]は かいものを\n[BUFFER1]こ うけとった！
+
+#org @gText_MomSav_BagFull
+バッグが いっぱいで わたせなかった\nものは またこんど わたすわね

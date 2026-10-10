@@ -1,0 +1,80 @@
+#org @gText_Tera_Intro
+わたしは テラスタルの けんきゅうを\nしている コックさ！\pポケモンの テラスタイプを\nすきな タイプに かえてあげよう\pもちろん おかねは いらないよ\nかえてみるかい？
+
+#org @gText_Tera_WhichMon
+どの ポケモンの テラスタイプを\nかえるかね？
+
+#org @gText_Tera_WhichType
+どの タイプに するかね？
+
+#org @gText_Tera_Done
+[BUFFER1]の テラスタイプが\n[BUFFER2]に かわったよ！
+
+#org @gText_Tera_Same
+おや？ もう その テラスタイプだよ
+
+#org @gText_Tera_Banned
+その ポケモンの テラスタイプは\nかえられないんだ……
+
+#org @gText_Tera_Egg
+タマゴの テラスタイプは\nかえられないよ
+
+#org @gText_Tera_Bye
+また いつでも おいで！
+
+#org @gText_Tera_Normal
+ノーマル
+
+#org @gText_Tera_Fire
+ほのお
+
+#org @gText_Tera_Water
+みず
+
+#org @gText_Tera_Electric
+でんき
+
+#org @gText_Tera_Grass
+くさ
+
+#org @gText_Tera_Ice
+こおり
+
+#org @gText_Tera_Fighting
+かくとう
+
+#org @gText_Tera_Poison
+どく
+
+#org @gText_Tera_Ground
+じめん
+
+#org @gText_Tera_Flying
+ひこう
+
+#org @gText_Tera_Psychic
+エスパー
+
+#org @gText_Tera_Bug
+むし
+
+#org @gText_Tera_Rock
+いわ
+
+#org @gText_Tera_Ghost
+ゴースト
+
+#org @gText_Tera_Dragon
+ドラゴン
+
+#org @gText_Tera_Dark
+あく
+
+#org @gText_Tera_Steel
+はがね
+
+#org @gText_Tera_Fairy
+フェアリー
+
+#org @gText_Tera_Stellar
+ステラ

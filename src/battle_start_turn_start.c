@@ -112,6 +112,8 @@ static u32 BoostSpeedByItemEffect(u8 itemEffect, u8 itemQuality, u16 species, u3
 
 const u8 gText_EmptyString[] = {EOS};
 
+bool8 SecondAbility_TrySwitchIn(u8 bank); //★ 2026-10-01 src/second_ability.c
+
 void HandleNewBattleRamClearBeforeBattle(void)
 {
 	gNewBS = Calloc(sizeof(struct NewBattleStruct));
@@ -200,6 +202,8 @@ static void TryClearLevelCapKeptOn(void)
 	}
 	#endif
 }
+
+extern void HoennArena_OnBattleStart(void); //★ src/hoenn_arena.c（patches/0096）
 
 void BattleBeginFirstTurn(void)
 {
@@ -425,6 +429,15 @@ void BattleBeginFirstTurn(void)
 						return;
 					}
 				}
+				//★ 2026-10-01 2 つ目の特性の 2 周目（*bank が gBattlersCount〜2 倍・src/second_ability.c）
+				for (; *bank < gBattlersCount * 2; ++*bank)
+				{
+					if (SecondAbility_TrySwitchIn(gBanksByTurnOrder[*bank - gBattlersCount]))
+					{
+						++*bank;
+						return;
+					}
+				}
 
 				*bank = 0; //Reset Bank for next loop
 				++*state;
@@ -496,6 +509,7 @@ void BattleBeginFirstTurn(void)
 					switch (ITEM_EFFECT(gBanksByTurnOrder[*bank])) {
 						case ITEM_EFFECT_SEEDS:
 						case ITEM_EFFECT_ROOM_SERVICE:
+						case ITEM_EFFECT_DANGER_LEAF: //[hack] patches/0237 あぶないはっぱ
 							if (ItemBattleEffects(ItemEffects_SwitchIn, gBanksByTurnOrder[*bank], FALSE, FALSE))
 							{
 								++*bank;
@@ -687,6 +701,7 @@ void BattleBeginFirstTurn(void)
 				gSelectedMonPartyId = PARTY_SIZE; // Revival Blessing
 				CalculateShellSideArmSplits(); //Only done at the beginning of each turn
 				*state = 0;
+				HoennArena_OnBattleStart(); //★ バトルアリーナ: 点数を 0 に・「しょうぶ！ はじめ」（src/hoenn_arena.c・patches/0096）
 		}
 	}
 }
@@ -1217,6 +1232,15 @@ void RunTurnActionsFunctions(void)
 				}
 				++*megaBank;
 			}
+			//★ 2026-10-01 メガシンカで種族が変わったら、メガの 2 つ目の特性（src/second_ability.c）
+			while (*megaBank < gBattlersCount * 2) {
+				if (SecondAbility_TrySwitchIn(gBanksByTurnOrder[*megaBank - gBattlersCount]))
+				{
+					++*megaBank;
+					return;
+				}
+				++*megaBank;
+			}
 			*megaBank = 0;
 			++gNewBS->megaData.state;
 			return;
@@ -1351,6 +1375,8 @@ void RunTurnActionsFunctions(void)
 	}
 }
 
+extern bool8 HoennPalace_TryIncapable(void); //★ src/hoenn_palace.c（patches/0085）
+extern void HoennArena_OnUseMove(void); //★ src/hoenn_arena.c（patches/0096）
 void HandleAction_UseMove(void)
 {
 	u8 side;
@@ -1693,8 +1719,13 @@ void HandleAction_UseMove(void)
 	else
 		gBankTarget = selectedTarget;
 
+	HoennArena_OnUseMove(); //★ バトルアリーナ: こころの点（src/hoenn_arena.c・patches/0096）
+
 	// choose battlescript
-	if (gStatuses3[gBankAttacker] & STATUS3_SKY_DROP_ATTACKER
+	if (HoennPalace_TryIncapable()) //★ バトルパレスの「うまく技が出せない」（src/hoenn_palace.c・patches/0085）
+	{
+	}
+	else if (gStatuses3[gBankAttacker] & STATUS3_SKY_DROP_ATTACKER
 	&& !BATTLER_ALIVE(gNewBS->skyDropAttackersTarget[gBankAttacker]))
 	{
 		gStatuses3[gBankAttacker] &= ~(STATUS3_SKY_DROP_ATTACKER | STATUS3_SKY_DROP_TARGET | STATUS3_IN_AIR);
@@ -1787,9 +1818,14 @@ static u16 GetRandomBattleBGM(void)
 	return song;
 }
 
+u16 HackHoenn_BattleMusic(void); //[hack] patches/0229
 u16 GetMUS_ForBattle(void)
 {
 	u16 song;
+
+	song = HackHoenn_BattleMusic(); //[hack] patches/0229 ホウエンの地図の戦闘はエメラルドの曲（src/hack_hoenn_battle_music.c）
+	if (song != 0)
+		return song;
 
 	if (gBattleTypeFlags & BATTLE_TYPE_LINK)
 	{
@@ -2285,6 +2321,14 @@ static u32 BoostSpeedByItemEffect(u8 itemEffect, u8 itemQuality, u16 species, u3
 		case ITEM_EFFECT_QUICK_POWDER:
 			if (species == SPECIES_DITTO)
 				speed *= 2;
+			break;
+		#ifdef NATIONAL_DEX_PIKACHU
+		//★ 2026-09-24（patches/0066）: でんきだまはすばやさも 1.5 倍（ユーザー要望）
+		case ITEM_EFFECT_LIGHT_BALL:
+			if (SpeciesToNationalPokedexNum(species) == NATIONAL_DEX_PIKACHU)
+				speed = (speed * 15) / 10;
+			break;
+		#endif
 	}
 
 	return speed;

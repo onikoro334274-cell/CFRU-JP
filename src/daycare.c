@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "map_region.h" //[hack] patches/0091
 #include "../include/daycare.h"
 #include "../include/pokemon.h"
 #include "../include/pokemon_storage_system.h"
@@ -777,7 +778,7 @@ void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 {
 	u16 species;
 	u32 personality, pokerus;
-	u8 i, friendship, language, gameMet, markings, abilityNum, hidden;
+	u8 i, friendship, language, gameMet, markings, abilityNum, hidden, obedience;
 	u16 moves[4];
 	u32 ivs[NUM_STATS];
 	u8 ballType;
@@ -799,10 +800,14 @@ void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 	ballType = GetMonData(egg, MON_DATA_POKEBALL, NULL);
 	language = GetMonData(egg, MON_DATA_LANGUAGE, NULL);
 	gameMet = GetMonData(egg, MON_DATA_MET_GAME, NULL);
+	//[hack] patches/0091: かえった場所はここ（素の AddHatchedMonToParty が出会った場所を今の地名にする）なので、
+	//このゲームのタマゴなら親の版もここの地方に合わせる（シンオウは 12・src/map_region.c）。よそのゲームのタマゴはそのまま
+	if (MapRegion_IsOurMetGame(gameMet))
+		gameMet = MapRegion_MetGameHere();
 	markings = GetMonData(egg, MON_DATA_MARKINGS, NULL);
 	pokerus = GetMonData(egg, MON_DATA_POKERUS, NULL);
 
-	//obedience = GetMonData(egg, MON_DATA_OBEDIENCE, NULL);
+	obedience = GetMonData(egg, MON_DATA_OBEDIENCE, NULL); //[hack] patches/0155 うんめいの印を引き継ぐ（クチバのフカマルの りゅうのよろい・src/hack_gible_egg.c）
 	abilityNum = GetMonData(egg, MON_DATA_ALT_ABILITY, NULL);
 	hidden = egg->hiddenAbility;
 
@@ -828,7 +833,7 @@ void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 	SetMonData(temp, MON_DATA_FRIENDSHIP, &friendship);
 	SetMonData(temp, MON_DATA_POKERUS, &pokerus);
 
-	//SetMonData(temp, MON_DATA_OBEDIENCE, &obedience);
+	SetMonData(temp, MON_DATA_OBEDIENCE, &obedience); //[hack] patches/0155
 	SetMonData(temp, MON_DATA_ALT_ABILITY, &abilityNum);
 	temp->hiddenAbility = hidden;
 
@@ -990,13 +995,27 @@ u8 ModifyBreedingScoreForOvalCharm(u8 score)
 	return score;
 }
 
+//[hack] patches/0273: 上流は bool8 moveInList[MOVES_COUNT]（今の技の数で約 1,000 バイト）をスタックに置いていた。この関数だけで
+//1,264 バイト・RestoreEffectBankHPStatsAndRemoveBackupSpecies（928 バイト）から呼ばれると 2,224 バイト＝スタックの予算 2,576 バイトの 86%
+//（CLAUDE.md 6.35・音楽の領域を壊した件と同じ条件）。集めるのは最大 EGG_MOVES_ARRAY_COUNT（50）個なので、集めた一覧の中を探せば足りる
+static bool8 IsMoveInList(const u16* moves, u32 count, u16 move)
+{
+	u32 i;
+
+	for (i = 0; i < count; ++i)
+	{
+		if (moves[i] == move)
+			return TRUE;
+	}
+	return FALSE;
+}
+
 u8 GetAllEggMoves(struct Pokemon* mon, u16* moves, bool8 ignoreAlreadyKnownMoves)
 {
 	u8 numEggMoves;
 	u32 i, j;
 	struct Pokemon dummyMon = {0};
 	u16 eggMovesBuffer[EGG_MOVES_ARRAY_COUNT];
-	bool8 moveInList[MOVES_COUNT] = {FALSE};
 	u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
 	u16 eggSpecies = GetEggSpecies(species);
 	eggSpecies = GetOverrideEggSpecies(eggSpecies);
@@ -1008,10 +1027,7 @@ u8 GetAllEggMoves(struct Pokemon* mon, u16* moves, bool8 ignoreAlreadyKnownMoves
 	for (i = 0, j = 0; i < numEggMoves; ++i)
 	{
 		if (!ignoreAlreadyKnownMoves || !MoveInMonMoveset(eggMovesBuffer[i], mon))
-		{
 			moves[j++] = eggMovesBuffer[i];
-			moveInList[eggMovesBuffer[i]] = TRUE;
-		}
 	}
 
 	u16 eggSpecies2 = eggSpecies;
@@ -1024,7 +1040,7 @@ u8 GetAllEggMoves(struct Pokemon* mon, u16* moves, bool8 ignoreAlreadyKnownMoves
 		//Filter out any egg moves the Pokemon already knows
 		for (i = 0; i < numEggMoves && j < EGG_MOVES_ARRAY_COUNT; ++i)
 		{
-			if (!moveInList[eggMovesBuffer[i]]) //Move wasn't already added above
+			if (!IsMoveInList(moves, j, eggMovesBuffer[i])) //Move wasn't already added above
 			{
 				if (!ignoreAlreadyKnownMoves || !MoveInMonMoveset(eggMovesBuffer[i], mon))
 					moves[j++] = eggMovesBuffer[i];

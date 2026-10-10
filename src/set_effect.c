@@ -14,6 +14,9 @@
 #include "../include/new/stat_buffs.h"
 #include "../include/new/util.h"
 
+bool8 HackDragonBoulder_Bank(u8 bank); //[hack] patches/0207 りゅうのいわお（src/hack_dragon_boulder.c）
+bool8 HackDragonBoulder_Mon(struct Pokemon* mon);
+
 /*
 set_effect.c
 	handles move effects
@@ -1118,7 +1121,8 @@ bool8 SetMoveEffect2(void)
 			}
 
 			if (IsOfType(gEffectBank, TYPE_FLYING)
-			||  ABILITY(gEffectBank) == ABILITY_LEVITATE
+			||  (ABILITY(gEffectBank) == ABILITY_LEVITATE || ABILITY(gEffectBank) == ABILITY_EELEVATE)
+			||  HackDragonBoulder_Bank(gEffectBank) //[hack] patches/0207 りゅうのいわお ふゆう
 			||  (gStatuses3[gEffectBank] & (STATUS3_IN_AIR | STATUS3_LEVITATING | STATUS3_TELEKINESIS))
 			||  (ITEM_EFFECT(gEffectBank) == ITEM_EFFECT_AIR_BALLOON))
 			{

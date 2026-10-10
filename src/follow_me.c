@@ -232,7 +232,9 @@ void FollowMe(struct EventObject* npc, u8 state, bool8 ignoreScriptActive)
 	struct EventObject* follower = &gEventObjects[GetFollowerMapObjId()];
 
 	//Check if state would cause hidden follower to reappear
-	if (IsStateMovement(state) && gFollowerState.warpEnd)
+	//[hack] 2026-10-08 ドアから歩いて出る途中（Task_PlayerExitDoor）は見せない＝その一歩をワープ後の一歩目と数えて
+	//ドアのマスに見せていた（patches/0214）。出終わってから FollowMe_WarpSetEnd が置き直し、src/bw_follower.c が横でボールから出す
+	if (IsStateMovement(state) && gFollowerState.warpEnd && !FuncIsActiveTask((TaskFunc) (0x0807D6EC | 1))) //素の Task_ExitDoor（hooks で Task_PlayerExitDoor へ・タスクの関数は素の番地のまま）
 	{
 		gFollowerState.warpEnd = 0;
 
@@ -1403,6 +1405,7 @@ void FollowMe_WarpSetEnd(void)
 
 	follower->facingDirection = player->facingDirection;
 	follower->movementDirection = player->movementDirection;
+	follower->invisible = TRUE; //[hack] 2026-10-08 ワープの終わりは隠す（ドアから歩いて出る途中にドアのマスで見えていた・patches/0214）。見せるのは一歩目（FollowMe）・Task_FollowerOutOfDoor・src/bw_follower.c
 }
 
 bool8 IsFollowerAtCoords(s16 x, s16 y)

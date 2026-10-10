@@ -114,6 +114,9 @@ void __attribute__((long_call)) BT_GenerateCircle(u16* buffer, s16 x, s16 y, s16
 static u8 CreateMugshotTrainerSprite(u8 trainerSpriteID, s16 x, s16 y, u8 subpriority, u8* buffer, bool8 loadingPlayer);
 static void UpdateMugshotSpriteTemplate(struct SpriteTemplate* spriteTemplate, u16 tag);
 static void UpdateMugshotSpriteData(u8 spriteId, u8 shape, u16 scaleX, u16 scaleY, u16 rotation, bool8 setScale);
+#ifdef FLAG_LOAD_MUGSHOT_SPRITE_FROM_TABLE
+static void TryCreateWideMugshotRightHalf(u8 parentId, u8 trainerPicId);
+#endif
 static void BT_Phase2CustomLogo(u8 taskId);
 static bool8 BT_Phase2CustomLogo_Init(struct Task *task);
 static bool8 BT_Phase2CustomLogo_LoadTilemapAndWave(struct Task *task);
@@ -488,6 +491,8 @@ void Mugshots_CreateOpponentPlayerSprites(struct Task* task)
 	{
 		if (!IS_VALID_TABLE_SPRITE(trainerPicId))
 			SetOamMatrixRotationScaling(opponentSprite->oam.matrixNum, sMugshotsOpponentRotationScales[mugshotId][0], sMugshotsOpponentRotationScales[mugshotId][1], 0);
+		else //AllocOamMatrix doesn't reset the matrix, so a stale one could stretch the sprite
+			SetOamMatrixRotationScaling(opponentSprite->oam.matrixNum, 256, 256, 0);
 	}
 	else
 	#endif
@@ -504,11 +509,74 @@ void Mugshots_CreateOpponentPlayerSprites(struct Task* task)
 	{
 		if (!IS_VALID_TABLE_SPRITE(PlayerGenderToFrontTrainerPicId(gSaveBlock2->playerGender, TRUE)))
 			SetOamMatrixRotationScaling(playerSprite->oam.matrixNum, -512, 512, 0);
+		else //AllocOamMatrix doesn't reset the matrix, so a stale one could stretch the sprite
+			SetOamMatrixRotationScaling(playerSprite->oam.matrixNum, 256, 256, 0);
 	}
 	#endif
 	else
 		SetOamMatrixRotationScaling(playerSprite->oam.matrixNum, -512, 512, 0);
+
+	#ifdef FLAG_LOAD_MUGSHOT_SPRITE_FROM_TABLE
+	if (mugshotSprite == MUGSHOT_PLAYER && FlagGet(FLAG_LOAD_MUGSHOT_SPRITE_FROM_TABLE))
+		TryCreateWideMugshotRightHalf(task->tPlayerSpriteId, PlayerGenderToFrontTrainerPicId(gSaveBlock2->playerGender, TRUE));
+	#endif
 }
+
+#ifdef FLAG_LOAD_MUGSHOT_SPRITE_FROM_TABLE
+//A table mugshot wider than 64x64 (the BW VS portraits are 128x64) is drawn as two 64x64 halves.
+//The sheet holds the left half (64 tiles) then the right half. The right half follows the left one.
+static void SpriteCB_MugshotRightHalf(struct Sprite* sprite)
+{
+	struct Sprite* parent = &gSprites[sprite->data[0]];
+
+	if (!parent->inUse || parent->sheetTileStart != (u16) sprite->data[1])
+	{
+		DestroySprite(sprite);
+		return;
+	}
+
+	sprite->pos1.x = parent->pos1.x + 64;
+	sprite->pos1.y = parent->pos1.y;
+	sprite->pos2 = parent->pos2;
+	sprite->invisible = parent->invisible;
+	sprite->oam.tileNum = parent->sheetTileStart + 64;
+}
+
+static void TryCreateWideMugshotRightHalf(u8 parentId, u8 trainerPicId)
+{
+	struct SpriteTemplate spriteTemplate;
+	struct Sprite *parent, *child;
+	u8 childId;
+
+	if (!IS_VALID_TABLE_SPRITE(trainerPicId))
+		return;
+
+	//The corner vector was calculated for the 64x32 shape of the vanilla (2x) sprite, which puts
+	//a 64x64 table sprite 32 pixels too low. Recalculate it for the real shape.
+	parent = &gSprites[parentId];
+	CalcCenterToCornerVec(parent, SPRITE_SHAPE(64x64), SPRITE_SIZE(64x64), ST_OAM_AFFINE_DOUBLE);
+
+	if (sPreBattleMugshotSprites[trainerPicId].size <= 64 * 64 / 2)
+		return;
+
+	UpdateMugshotSpriteTemplate(&spriteTemplate, gTrainerFrontPicTable[trainerPicId].tag);
+	childId = CreateSpriteAtEnd(&spriteTemplate, parent->pos1.x + 64, parent->pos1.y, 0); //After the parent, so it copies this frame's position
+	if (childId >= MAX_SPRITES)
+		return;
+
+	child = &gSprites[childId];
+	child->oam = parent->oam; //Same affine matrix, shape, size, palette and priority
+	child->oam.tileNum = parent->sheetTileStart + 64;
+	child->animBeginning = FALSE; //Otherwise the first frame resets tileNum to the left half
+	child->animPaused = TRUE;
+	child->centerToCornerVecX = parent->centerToCornerVecX - 32; //The pair is centred where the single sprite was
+	child->centerToCornerVecY = parent->centerToCornerVecY;
+	parent->centerToCornerVecX -= 32;
+	child->data[0] = parentId;
+	child->data[1] = parent->sheetTileStart;
+	child->callback = SpriteCB_MugshotRightHalf;
+}
+#endif
 
 static void UpdateMugshotSpriteTemplate(struct SpriteTemplate* spriteTemplate, u16 tag)
 {

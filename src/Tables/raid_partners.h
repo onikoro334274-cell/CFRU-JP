@@ -1126,6 +1126,256 @@ extern const u8 sTrainerName_Alford[];
 extern const u8 sTrainerName_Marlon[];
 extern const u8 sTrainerName_Jax[];
 extern const u8 sTrainerName_Red[];
+extern const u8 sTrainerName_HackBrendan[];
+extern const u8 sTrainerName_HackMay[];
+extern const u8 sTrainerName_HackHilbert[];
+extern const u8 sTrainerName_HackHilda[];
+
+//[hack] patches/0180: 伝説レイドの助っ人（主人公たち・2026-10-06・src/hack_legend_raid.c）。★6 だけ・レベルは 100（GetRandomRaidLevel）
+static const struct BattleTowerSpread sRaidPartnerSpread_HackBrendan_Rank6[] =
+{
+	{
+		.species = SPECIES_SWAMPERT,
+		.nature = NATURE_ADAMANT,
+		.hpIv = 31, .atkIv = 31, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.atkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_1,
+		.item = ITEM_LIFE_ORB,
+		.moves =
+		{
+			MOVE_LIQUIDATION,
+			MOVE_EARTHQUAKE,
+			MOVE_ICEPUNCH,
+			MOVE_SUPERPOWER,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+	{
+		.species = SPECIES_METAGROSS,
+		.nature = NATURE_JOLLY,
+		.hpIv = 31, .atkIv = 31, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.atkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_1,
+		.item = ITEM_CHOICE_BAND,
+		.moves =
+		{
+			MOVE_METEORMASH,
+			MOVE_ZENHEADBUTT,
+			MOVE_EARTHQUAKE,
+			MOVE_BULLETPUNCH,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+	{
+		.species = SPECIES_SALAMENCE,
+		.nature = NATURE_ADAMANT,
+		.hpIv = 31, .atkIv = 31, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.atkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_1,
+		.item = ITEM_LIFE_ORB,
+		.moves =
+		{
+			MOVE_DRAGONDANCE,
+			MOVE_DRAGONCLAW,
+			MOVE_EARTHQUAKE,
+			MOVE_FIREFANG,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+};
+
+static const struct BattleTowerSpread sRaidPartnerSpread_HackMay_Rank6[] =
+{
+	{
+		.species = SPECIES_BLAZIKEN,
+		.nature = NATURE_ADAMANT,
+		.hpIv = 31, .atkIv = 31, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.atkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_HIDDEN,
+		.item = ITEM_LIFE_ORB,
+		.moves =
+		{
+			MOVE_SWORDSDANCE,
+			MOVE_FLAREBLITZ,
+			MOVE_CLOSECOMBAT,
+			MOVE_THUNDERPUNCH,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+	{
+		.species = SPECIES_GARDEVOIR,
+		.nature = NATURE_MODEST,
+		.hpIv = 31, .atkIv = 0, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.spAtkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_1,
+		.item = ITEM_CHOICE_SPECS,
+		.moves =
+		{
+			MOVE_MOONBLAST,
+			MOVE_PSYCHIC,
+			MOVE_SHADOWBALL,
+			MOVE_FOCUSBLAST,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+	{
+		.species = SPECIES_MILOTIC,
+		.nature = NATURE_BOLD,
+		.hpIv = 31, .atkIv = 0, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.spAtkEv = 252, .hpEv = 252, .defEv = 4,
+		.ability = FRONTIER_ABILITY_2,
+		.item = ITEM_LEFTOVERS,
+		.moves =
+		{
+			MOVE_SCALD,
+			MOVE_ICEBEAM,
+			MOVE_RECOVER,
+			MOVE_HAZE,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+};
+
+static const struct BattleTowerSpread sRaidPartnerSpread_HackHilbert_Rank6[] =
+{
+	{
+		.species = SPECIES_EXCADRILL,
+		.nature = NATURE_ADAMANT,
+		.hpIv = 31, .atkIv = 31, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.atkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_HIDDEN,
+		.item = ITEM_LIFE_ORB,
+		.moves =
+		{
+			MOVE_SWORDSDANCE,
+			MOVE_EARTHQUAKE,
+			MOVE_IRONHEAD,
+			MOVE_ROCKSLIDE,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+	{
+		.species = SPECIES_VOLCARONA,
+		.nature = NATURE_TIMID,
+		.hpIv = 31, .atkIv = 0, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.spAtkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_1,
+		.item = ITEM_LIFE_ORB,
+		.moves =
+		{
+			MOVE_QUIVERDANCE,
+			MOVE_FIERYDANCE,
+			MOVE_BUGBUZZ,
+			MOVE_GIGADRAIN,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+	{
+		.species = SPECIES_HYDREIGON,
+		.nature = NATURE_MODEST,
+		.hpIv = 31, .atkIv = 0, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.spAtkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_1,
+		.item = ITEM_LIFE_ORB,
+		.moves =
+		{
+			MOVE_DRAGONPULSE,
+			MOVE_DARKPULSE,
+			MOVE_FLAMETHROWER,
+			MOVE_EARTHPOWER,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+};
+
+static const struct BattleTowerSpread sRaidPartnerSpread_HackHilda_Rank6[] =
+{
+	{
+		.species = SPECIES_SERPERIOR,
+		.nature = NATURE_TIMID,
+		.hpIv = 31, .atkIv = 0, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.spAtkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_HIDDEN,
+		.item = ITEM_LEFTOVERS,
+		.moves =
+		{
+			MOVE_LEAFSTORM,
+			MOVE_DRAGONPULSE,
+			MOVE_GLARE,
+			MOVE_LEECHSEED,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+	{
+		.species = SPECIES_HAXORUS,
+		.nature = NATURE_ADAMANT,
+		.hpIv = 31, .atkIv = 31, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.atkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_2,
+		.item = ITEM_LIFE_ORB,
+		.moves =
+		{
+			MOVE_DRAGONDANCE,
+			MOVE_DRAGONCLAW,
+			MOVE_EARTHQUAKE,
+			MOVE_CLOSECOMBAT,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+	{
+		.species = SPECIES_CHANDELURE,
+		.nature = NATURE_MODEST,
+		.hpIv = 31, .atkIv = 0, .defIv = 31, .spAtkIv = 31, .spDefIv = 31, .spdIv = 31,
+		.spAtkEv = 252, .spdEv = 252, .hpEv = 4,
+		.ability = FRONTIER_ABILITY_1,
+		.item = ITEM_LIFE_ORB,
+		.moves =
+		{
+			MOVE_SHADOWBALL,
+			MOVE_FLAMETHROWER,
+			MOVE_ENERGYBALL,
+			MOVE_WILLOWISP,
+		},
+		.ball = BALL_TYPE_POKE_BALL,
+		.forSingles = TRUE,
+		.forDoubles = TRUE,
+		.modifyMovesDoubles = FALSE,
+	},
+};
+
 
 const struct MultiRaidTrainer gRaidPartners[] =
 {
@@ -1279,6 +1529,69 @@ const struct MultiRaidTrainer gRaidPartners[] =
 		.spreadSizes =
 		{
 			[SIX_STAR_RAID] = NELEMS(sRaidPartnerSpread_Red_Rank6),
+		},
+	},	{ //[hack] patches/0180: 伝説レイドの助っ人 ユウキ（最後の 4 人の並びは src/hack_legend_raid.c が数える）
+		.owNum = EVENT_OBJ_GFX_BRENDAN,
+		.trainerClass = CLASS_PKMN_TRAINER_3, //「ポケモントレーナー」（クラス 1 はフロンティアブレーンに書き換えた・patches/0088）
+		.backSpriteId = TRAINER_BACK_PIC_BRENDAN,
+		.gender = MALE,
+		.otId = 0x5E1A0E03,
+		.name = sTrainerName_HackBrendan,
+		.spreads =
+		{
+			[SIX_STAR_RAID] = sRaidPartnerSpread_HackBrendan_Rank6,
+		},
+		.spreadSizes =
+		{
+			[SIX_STAR_RAID] = NELEMS(sRaidPartnerSpread_HackBrendan_Rank6),
+		},
+	},
+	{ //[hack] patches/0180: 伝説レイドの助っ人 ハルカ（最後の 4 人の並びは src/hack_legend_raid.c が数える）
+		.owNum = EVENT_OBJ_GFX_MAY,
+		.trainerClass = CLASS_PKMN_TRAINER_3, //「ポケモントレーナー」（クラス 1 はフロンティアブレーンに書き換えた・patches/0088）
+		.backSpriteId = TRAINER_BACK_PIC_MAY,
+		.gender = FEMALE,
+		.otId = 0x5E1A0E04,
+		.name = sTrainerName_HackMay,
+		.spreads =
+		{
+			[SIX_STAR_RAID] = sRaidPartnerSpread_HackMay_Rank6,
+		},
+		.spreadSizes =
+		{
+			[SIX_STAR_RAID] = NELEMS(sRaidPartnerSpread_HackMay_Rank6),
+		},
+	},
+	{ //[hack] patches/0180: 伝説レイドの助っ人 トウヤ（最後の 4 人の並びは src/hack_legend_raid.c が数える）
+		.owNum = EVENT_OBJ_GFX_RED_NORMAL,
+		.trainerClass = CLASS_PKMN_TRAINER_3, //「ポケモントレーナー」（クラス 1 はフロンティアブレーンに書き換えた・patches/0088）
+		.backSpriteId = TRAINER_BACK_PIC_RED,
+		.gender = MALE,
+		.otId = 0x5E1A0E05,
+		.name = sTrainerName_HackHilbert,
+		.spreads =
+		{
+			[SIX_STAR_RAID] = sRaidPartnerSpread_HackHilbert_Rank6,
+		},
+		.spreadSizes =
+		{
+			[SIX_STAR_RAID] = NELEMS(sRaidPartnerSpread_HackHilbert_Rank6),
+		},
+	},
+	{ //[hack] patches/0180: 伝説レイドの助っ人 トウコ（最後の 4 人の並びは src/hack_legend_raid.c が数える）
+		.owNum = EVENT_OBJ_GFX_LEAF_NORMAL,
+		.trainerClass = CLASS_PKMN_TRAINER_3, //「ポケモントレーナー」（クラス 1 はフロンティアブレーンに書き換えた・patches/0088）
+		.backSpriteId = TRAINER_BACK_PIC_LEAF,
+		.gender = FEMALE,
+		.otId = 0x5E1A0E06,
+		.name = sTrainerName_HackHilda,
+		.spreads =
+		{
+			[SIX_STAR_RAID] = sRaidPartnerSpread_HackHilda_Rank6,
+		},
+		.spreadSizes =
+		{
+			[SIX_STAR_RAID] = NELEMS(sRaidPartnerSpread_HackHilda_Rank6),
 		},
 	},
 };

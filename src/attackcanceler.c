@@ -5,6 +5,7 @@
 #include "../include/util.h"
 #include "../include/constants/flags.h"
 #include "../include/constants/items.h"
+#include "hack_danger_leaf.h"
 
 #include "../include/new/ability_tables.h"
 #include "../include/new/accuracy_calc.h"
@@ -20,6 +21,7 @@
 #include "../include/new/item.h"
 #include "../include/new/move_tables.h"
 #include "../include/new/util.h"
+#include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
 /*
 attackcanceler.c
 	Handles any logic for discerning if a move can be used or is effective, eg. mold breaker, flinch status, truant, etc.
@@ -32,6 +34,7 @@ static u8 AtkCanceller_UnableToUseMove(void);
 static bool8 TryActivateMagicCoat(u8 bankDef, u8 bankAtk, u16 currentMove);
 static bool8 TryActivateMagicBounce(u8 bankDef);
 static u8 IsMonDisobedient(void);
+static bool8 HackMild_TryLoaf(void);
 static bool8 IsTargetUnaffectedByPrankster(u8 bankAtk, u8 bankDef, u16 currentMove, u16 chosenMove);
 
 void atk00_attackcanceler(void)
@@ -203,6 +206,13 @@ static u8 AtkCanceller_UnableToUseMove(void)
 			gBattleScripting.tripleKickPower = 0;
 			gNewBS->ai.zMoveHelper = 0;
 			gBattleStruct->atkCancellerTracker++;
+			HackAffection_MoveStart(gBankAttacker); //[hack] patches/0240 なつき度: 1 回の技の印を 0 に・技を出した子を覚える
+			if (HackAffection_TryLastMonMessage(gBankAttacker)) //[hack] patches/0240 さいごの いっぴき（1 戦闘 1 回）
+			{
+				BattleScriptPushCursor();
+				gBattlescriptCurrInstr = BattleScript_AffectionLastMon;
+				effect = 1;
+			}
 			break;
 
 		case CANCELLER_ASLEEP: // check being asleep
@@ -221,7 +231,15 @@ static u8 AtkCanceller_UnableToUseMove(void)
 
 				if (gBattleMons[gBankAttacker].status1 & STATUS1_SLEEP)
 				{
-					if (gCurrentMove != MOVE_SNORE && gCurrentMove != MOVE_SLEEPTALK)
+					if (gCurrentMove != MOVE_SNORE && gCurrentMove != MOVE_SLEEPTALK && HackAffection_TryShakeOff(gBankAttacker)) //[hack] patches/0240 トレーナーの こえで めを さます
+					{
+						gBattleMons[gBankAttacker].status1 &= ~(STATUS1_SLEEP);
+						gBattleMons[gBankAttacker].status2 &= ~(STATUS2_NIGHTMARE);
+						BattleScriptPushCursor();
+						gBattlescriptCurrInstr = BattleScript_AffectionWokeUp;
+						effect = 2;
+					}
+					else if (gCurrentMove != MOVE_SNORE && gCurrentMove != MOVE_SLEEPTALK)
 					{
 						if (BATTLER_SEMI_INVULNERABLE(gBankAttacker)) //Caused by Yawn
 							CancelMultiTurnMoves(gActiveBattler = gBankAttacker);
@@ -250,7 +268,14 @@ static u8 AtkCanceller_UnableToUseMove(void)
 			{
 				if (umodsi(Random(), 5))
 				{
-					if (!CheckTableForMove(gCurrentMove, gMovesCanUnfreezeAttacker) || gMoveResultFlags & MOVE_RESULT_FAILED) // unfreezing via a move effect happens in case 13
+					if ((!CheckTableForMove(gCurrentMove, gMovesCanUnfreezeAttacker) || gMoveResultFlags & MOVE_RESULT_FAILED)
+					&& HackAffection_TryShakeOff(gBankAttacker)) //[hack] patches/0240 トレーナーの こえで こおりを とかす
+					{
+						gBattleMons[gBankAttacker].status1 &= ~(STATUS1_FREEZE);
+						BattleScriptPushCursor();
+						gBattlescriptCurrInstr = BattleScript_AffectionUnfroze;
+					}
+					else if (!CheckTableForMove(gCurrentMove, gMovesCanUnfreezeAttacker) || gMoveResultFlags & MOVE_RESULT_FAILED) // unfreezing via a move effect happens in case 13
 					{
 						gBattlescriptCurrInstr = BattleScript_MoveUsedIsFrozen;
 						gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
@@ -527,6 +552,7 @@ static u8 AtkCanceller_UnableToUseMove(void)
 			break;
 
 		case CANCELLER_CONFUSED: // confusion
+			HackDangerLeaf_KeepConfused(gBankAttacker); //[hack] patches/0237 あぶないはっぱは何をしても こんらんが治らない
 			if (IsConfused(gBankAttacker))
 			{
 				if (gBattleMons[gBankAttacker].status2 & STATUS2_CONFUSION)
@@ -571,6 +597,13 @@ static u8 AtkCanceller_UnableToUseMove(void)
 		case CANCELLER_PARALYSED: // paralysis
 			if ((gBattleMons[gBankAttacker].status1 & STATUS1_PARALYSIS) && Random() % 4 == 0)
 			{
+				if (HackAffection_TryShakeOff(gBankAttacker)) //[hack] patches/0240 トレーナーの こえで しびれを ふりはらう（まひは治らない）
+				{
+					BattleScriptPushCursor();
+					gBattlescriptCurrInstr = BattleScript_AffectionShookParalysis;
+					gBattleStruct->atkCancellerTracker++;
+					return 1;
+				}
 				gProtectStructs[gBankAttacker].prlzImmobility = 1;
 				CancelMultiTurnMoves(gBankAttacker);
 				gBattlescriptCurrInstr = BattleScript_MoveUsedIsParalyzed;
@@ -620,6 +653,12 @@ static u8 AtkCanceller_UnableToUseMove(void)
 		case CANCELLER_OBEDIENCE:
 			if (gBattleMons[gBankAttacker].status2 & STATUS2_MULTIPLETURNS)
 				gHitMarker |= HITMARKER_OBEYS; //Second turn always obeys
+			else if (!(gHitMarker & HITMARKER_OBEYS) && HackMild_TryLoaf())
+			{
+				//[hack] patches/0289 2026-10-10 マイルド: 相手（場にいる持ち主）がいると 2 割で いうことを きかず なまける
+				gMoveResultFlags |= MOVE_RESULT_MISSED;
+				effect = 1;
+			}
 			else if (!(gHitMarker & HITMARKER_OBEYS))
 			{
 				switch (IsMonDisobedient()) {
@@ -1114,6 +1153,28 @@ static bool8 TryActivateMagicBounce(u8 bankDef)
 	}
 
 	return FALSE;
+}
+
+//[hack] patches/0289 2026-10-10 マイルド（ユーザー「持たせることにより相手の命中率をさげ、20%の確率で相手のポケモンが言うことを聞かなくなる」）:
+//  技を出すポケモンの相手側の場に マイルド を持ったポケモンがいれば 2 割で なまける（素の「なまけている」の文・技は出ない）。
+//  Z 技・ダイマックス技・さいはい・おどりこは除く（IsMonDisobedient と同じ）・2 ターン目の技は呼び元で除く
+static bool8 HackMild_TryLoaf(void)
+{
+	u8 i;
+
+	if (gNewBS->InstructInProgress || gNewBS->DancerInProgress || gNewBS->zMoveData.active || IsAnyMaxMove(gCurrentMove))
+		return FALSE;
+	for (i = 0; i < gBattlersCount; ++i)
+	{
+		if (SIDE(i) != SIDE(gBankAttacker) && BATTLER_ALIVE(i) && ITEM_EFFECT(i) == ITEM_EFFECT_MILD)
+			break;
+	}
+	if (i == gBattlersCount || Random() % 100 >= 20)
+		return FALSE;
+	gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+	gBattleCommunication[MULTISTRING_CHOOSER] = Random() & 3;
+	gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
+	return TRUE;
 }
 
 static u8 IsMonDisobedient(void)

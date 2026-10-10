@@ -198,6 +198,10 @@ gInstructBannedMoves:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 gMetronomeBannedMoves:
+.hword MOVE_ZIPPYZAP @ Let's Go! 2026-09-28
+.hword MOVE_SPLISHYSPLASH
+.hword MOVE_PIKAPAPOW @ Let's Go! 2026-10-09
+.hword MOVE_FLOATYFALL
 .hword MOVE_MIRRORMOVE
 .hword MOVE_SNORE
 .hword MOVE_COUNTER
@@ -585,6 +589,7 @@ gRaidBattleBannedRaidMonMoves:
 .hword MOVE_OBSTRUCT
 .hword MOVE_SILKTRAP
 .hword MOVE_BURNINGBULWARK
+.hword MOVE_RECOVER @[hack] 2026-10-08 ユーザー「レイドバトルで出現するポケモンにじこさいせいはなしにして」
 .hword MOVE_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -857,6 +862,7 @@ gPunchingMoves:
 .hword MOVE_HEADLONGRUSH
 .hword MOVE_JETPUNCH
 .hword MOVE_RAGEFIST
+.hword MOVE_DOUBLESHOCK @ Champions
 .hword MOVE_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -983,6 +989,7 @@ gSoundMoves:
 .hword MOVE_TORCHSONG
 .hword MOVE_ALLURINGVOICE
 .hword MOVE_PSYCHICNOISE
+.hword MOVE_DRAGONCHEER @ Champions
 .hword MOVE_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1101,6 +1108,7 @@ gAlwaysCriticalMoves:
 .hword MOVE_SURGINGSTRIKES
 .hword MOVE_WICKEDBLOW
 .hword MOVE_FLOWERTRICK
+.hword MOVE_ZIPPYZAP @ Let's Go! 2026-09-28
 .hword MOVE_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1455,6 +1463,10 @@ gSlicingMoves:
 .hword MOVE_BITTERBLADE
 .hword MOVE_LEAFBLADE
 .hword MOVE_FURYCUTTER
+.hword MOVE_DIRECLAW @ Champions
+.hword MOVE_DRAGONCLAW @ Champions
+.hword MOVE_SHADOWCLAW @ Champions
+.hword MOVE_CRUSHCLAW @ Champions
 .hword MOVE_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1475,6 +1487,5 @@ gWindMoves:
 .hword MOVE_BLIZZARD
 .hword MOVE_HURRICANE
 .hword MOVE_FAIRYWIND
-.hword MOVE_SILVERWIND
-.hword MOVE_OMINOUSWIND
+@ ★ Champions（patches/0070）: ぎんいろのかぜ・あやしいかぜ は風技ではない
 .hword MOVE_TABLES_TERMIN

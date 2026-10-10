@@ -41,6 +41,7 @@
 #include "../include/new/set_z_effect.h"
 #include "../include/new/terastal.h"
 #include "../include/new/util.h"
+#include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
 
 /*
 general_bs_commands.c
@@ -782,7 +783,7 @@ void atk0C_datahpupdate(void)
 		&& (!(gHitMarker & (HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_NON_ATTACK_DMG)) || gNewBS->breakDisguiseSpecialDmg)
 		&& !IS_TRANSFORMED(gActiveBattler))
 		{
-			gBattleMoveDamage = GetBaseCurrentHP(gActiveBattler) / 8;
+			gBattleMoveDamage = GetBaseMaxHP(gActiveBattler) / 8; //★ Champions（patches/0070） ばけのかわ: 最大 HP の 1/8
 
 			if (gSpecialStatuses[gActiveBattler].moveturnLostHP == 0)
 				gSpecialStatuses[gActiveBattler].moveturnLostHP = 1;
@@ -1202,6 +1203,11 @@ void atk0F_resultmessage(void)
 				gNewBS->EnduranceHelper[gBankTarget] = 0;
 				gBattlescriptCurrInstr = BattleScript_HangedOnFocusSash;
 			}
+			else if (gNewBS->EnduranceHelper[gBankTarget] == ENDURE_AFFECTION) //[hack] patches/0240 なつき度で ふんばった
+			{
+				gNewBS->EnduranceHelper[gBankTarget] = 0;
+				gBattlescriptCurrInstr = BattleScript_AffectionEndured;
+			}
 			else
 				gBattlescriptCurrInstr = BattleScript_HangedOnMsg;
 			return;
@@ -1265,6 +1271,11 @@ void atk0F_resultmessage(void)
 				{
 					gNewBS->EnduranceHelper[gBankTarget] = 0;
 					gBattlescriptCurrInstr = BattleScript_HangedOnFocusSash;
+				}
+				else if (gNewBS->EnduranceHelper[gBankTarget] == ENDURE_AFFECTION) //[hack] patches/0240 なつき度で ふんばった
+				{
+					gNewBS->EnduranceHelper[gBankTarget] = 0;
+					gBattlescriptCurrInstr = BattleScript_AffectionEndured;
 				}
 				else
 					gBattlescriptCurrInstr = BattleScript_HangedOnMsg;
@@ -2044,12 +2055,34 @@ static bool8 ShouldAnimBeDoneEvenWithBattleAnimsOff(u8 animId)
 		|| animId == B_ANIM_TERASTAL;
 }
 
+//Hack (patches/0167, 2026-10-04 user: skip the field (terrain) ability animations when battle animations are off):
+//the surge animations fall through into *_TERRAIN_ACTIVE (BG change + two sounds + 0x80 frames) and played even with animations off.
+//With animations off, only load the new BG (B_ANIM_LOAD_DEFAULT_BG picks up the terrain BG).
+static u8 HackSkipTerrainAnimWhenAnimsOff(u8 animId)
+{
+	if (!(gHitMarker & HITMARKER_NO_ANIMATIONS))
+		return animId;
+
+	switch (animId) {
+		case B_ANIM_ELECTRIC_SURGE:
+		case B_ANIM_GRASSY_SURGE:
+		case B_ANIM_MISTY_SURGE:
+		case B_ANIM_PSYCHIC_SURGE:
+		case B_ANIM_ELECTRIC_TERRAIN_ACTIVE:
+		case B_ANIM_GRASSY_TERRAIN_ACTIVE:
+		case B_ANIM_MISTY_TERRAIN_ACTIVE:
+		case B_ANIM_PSYCHIC_TERRAIN_ACTIVE:
+			return B_ANIM_LOAD_DEFAULT_BG;
+	}
+	return animId;
+}
+
 void atk45_playanimation(void)
 {
 	u16* argumentPtr, animId;
 
 	gActiveBattler = GetBankForBattleScript(gBattlescriptCurrInstr[1]);
-	animId = gBattlescriptCurrInstr[2];
+	animId = HackSkipTerrainAnimWhenAnimsOff(gBattlescriptCurrInstr[2]);
 	argumentPtr = T2_READ_PTR(gBattlescriptCurrInstr + 3);
 
 	if (animId == B_ANIM_STATS_CHANGE)
@@ -2123,7 +2156,7 @@ void atk46_playanimation2(void) // animation Id is stored in the first pointer
 	u8 animId;
 
 	gActiveBattler = GetBankForBattleScript(gBattlescriptCurrInstr[1]);
-	animId = *((const u8*) T2_READ_PTR(gBattlescriptCurrInstr + 2));
+	animId = HackSkipTerrainAnimWhenAnimsOff(*((const u8*) T2_READ_PTR(gBattlescriptCurrInstr + 2)));
 	argumentPtr = T2_READ_PTR(gBattlescriptCurrInstr + 6);
 
 	if (animId == B_ANIM_STATS_CHANGE)
@@ -4712,6 +4745,7 @@ void atkBE_rapidspinfree(void)
 		{
 			if (gCurrentMove == MOVE_RAPIDSPIN
 			&& ABILITY(bankAtk) != ABILITY_SHEERFORCE
+			&& ABILITY(bankAtk) != ABILITY_DRAGONARMOR //[hack] 2026-10-07 りゅうのよろいに ちからずく（patches/0206）
 			&& STAT_CAN_RISE(bankAtk, STAT_STAGE_SPEED)) //From Gen 8
 			{
 				gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_SPD_PLUS_1 | MOVE_EFFECT_AFFECTS_USER;
@@ -4831,7 +4865,9 @@ void atkC0_recoverbasedonsunlight(void)
 
 	if (!BATTLER_MAX_HP(gBankAttacker))
 	{
-		if (gBattleWeather == 0 || gBattleWeather & WEATHER_AIR_CURRENT_PRIMAL || !WEATHER_HAS_EFFECT)
+		if (ABILITY(gBankAttacker) == ABILITY_MEGA_SOL && gCurrentMove != MOVE_SHOREUP) //★ ZA メガ（patches/0069） じぶんの わざは ひざし
+			gBattleMoveDamage = (2 * GetBaseMaxHP(gBankAttacker)) / 3;
+		else if (gBattleWeather == 0 || gBattleWeather & WEATHER_AIR_CURRENT_PRIMAL || !WEATHER_HAS_EFFECT)
 		{
 			NO_WEATHER_EFFECT:
 			gBattleMoveDamage = GetBaseMaxHP(gBankAttacker) / 2;
@@ -5570,10 +5606,15 @@ void atkE5_pickupitemcalculation(void)
 static item_t ChoosePickupItem(u8 level)
 {
 	u32 row_num = (level - 1) / 10;
+	if (row_num > 9) //[hack] patches/0284: 表は Lv100 まで（10 行）。レベル上限 200（patches/0236）で Lv101 以上は表の外を読んでいた（Lv0 も u32 で大きくなる）
+		row_num = 9;
 	const item_t* const common_row = sPickupCommonItems + row_num;
 	const item_t* const rare_row = sPickupRareItems + row_num;
 
 	u16 k = Random();
+
+	if (Random() % 10 == 0) //[hack] 2026-10-03 ものひろいの 1 割は けいけんアメXL（どのレベルでも・patches/0138）
+		return ITEM_EXP_CANDY_XL;
 
 	for (u32 i = 0; i < PU_COMMON_PER_ROW; ++i)
 		if (k < pickup_common_item_ceilings[i])

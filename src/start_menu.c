@@ -7,6 +7,9 @@
 #include "../include/safari_zone.h"
 #include "../include/script.h"
 #include "../include/start_menu.h"
+#include "../include/string_util.h"
+#include "../include/text.h"
+#include "../include/window.h"
 #include "../include/constants/flags.h"
 #include "../include/constants/songs.h"
 
@@ -101,8 +104,43 @@ void __attribute__((long_call)) PrintTextOnHelpMessageWindow(const u8 * text, u8
 //Exported functions:
 void BuildStartMenuActions(void);
 
+//---------------------------------------------------------------------------
+// スタートメニューの時計（左上に AM12:56 と出す）
+//
+// 時刻は gClock（global.h）。RtcCalcLocalTime() が read_keys.c から毎フレーム
+// 呼ばれていて 1 秒ごとに更新される。StartCB_HandleInput の先頭にある
+// ForceClockUpdate() は元々この用途のために置かれていたもの。
+//
+// ウィンドウはサファリゾーンの歩数ウィンドウと**同じ枠を借りる**。
+// 本家のテンプレート（ROM 0x0836B3BC）が
+//   bg0 / 左1 / 上1 / 幅10 / 高4 / パレット15 / baseBlock 0x8
+// で、**スタートメニューと同時に表示される実績がある**ため、
+// VRAM のタイルがぶつからないことが確かめられている。
+// （スタートメニュー本体は baseBlock 0x13D・幅7 で、重ならない）
+//
+// そのぶん、サファリゾーンでは本家の歩数ウィンドウが同じ枠を使うので
+// 時計は出さない。通信中・ユニオンルームでも出さない。
+//---------------------------------------------------------------------------
+#define CLOCK_WINDOW_BASE_BLOCK 0x8	//サファリの歩数ウィンドウと同じ
+#define CLOCK_WINDOW_FONT 2			//スタートメニューの項目と同じフォント
+//幅は決め打ちにせず、GetStringWidth で実際の描画幅から出す（下の GetClockWindowWidth）
+
+#define sClockWindowId (*((u8*) 0x203E03F))		//空き RAM（BPRJ.ld に割り当て無し）
+#define sClockLastMinute (*((u8*) 0x203E040))	//同上。描き直しの判定用
+
+//文字コードは charmap.tbl より。A=0xBB M=0xC7 P=0xCA :=0xF0
+static const u8 sText_ClockAM[] = {0xBB, 0xC7, EOS};
+static const u8 sText_ClockPM[] = {0xCA, 0xC7, EOS};
+static const u8 sText_ClockColon[] = {0xF0, EOS};
+
 //This file's functions:
 static void SetUpStartMenu_NormalField(void);
+static bool8 ShouldShowStartMenuClock(void);
+static u8* BuildClockString(u8* str, u8 hour24, u8 minute);
+static u8 GetClockWindowWidth(void);
+static void PrintStartMenuClock(void);
+static void ShowStartMenuClock(void);
+static void DestroyStartMenuClock(void);
 static void SetUpStartMenu_SafariZone(void);
 static void BuildPokeToolsMenu(void);
 static bool8 CloseAndReloadStartMenu(void);
@@ -249,11 +287,96 @@ void SetUpStartMenu(void)
 		BuildPokeToolsMenu();
 	else
 		SetUpStartMenu_NormalField();
+
+	ShowStartMenuClock();
+}
+
+static bool8 ShouldShowStartMenuClock(void)
+{
+	//サファリでは本家の歩数ウィンドウが同じ枠を使う。通信中も触らない
+	return !GetSafariZoneFlag()
+		&& !IsUpdateLinkStateCBActive()
+		&& InUnionRoom() != TRUE;
+}
+
+//AM12:56 の形に組み立てる。終端を指すポインタを返す
+static u8* BuildClockString(u8* str, u8 hour24, u8 minute)
+{
+	u8 hour = hour24 % 12;
+
+	if (hour == 0)
+		hour = 12; //0時台と12時台はどちらも 12 と出す
+
+	str = StringCopy(str, (hour24 < 12) ? sText_ClockAM : sText_ClockPM);
+	str = ConvertIntToDecimalStringN(str, hour, STR_CONV_MODE_LEFT_ALIGN, 2);
+	str = StringCopy(str, sText_ClockColon);
+	str = ConvertIntToDecimalStringN(str, minute, STR_CONV_MODE_LEADING_ZEROS, 2);
+	*str = EOS;
+	return str;
+}
+
+//窓の幅を実際の描画幅から決める。決め打ちだと余白が出るため。
+//時刻で幅が変わらないよう、一番広くなる「12時台・2桁の分」で測る
+static u8 GetClockWindowWidth(void)
+{
+	u8 text[16];
+	s32 width, other;
+
+	BuildClockString(text, 0, 88);	//AM12:88
+	width = GetStringWidth(CLOCK_WINDOW_FONT, text, 0);
+	BuildClockString(text, 12, 88);	//PM12:88
+	other = GetStringWidth(CLOCK_WINDOW_FONT, text, 0);
+
+	if (other > width)
+		width = other;
+
+	return (width + 7) / 8; //ピクセル → タイル（切り上げ）
+}
+
+static void PrintStartMenuClock(void)
+{
+	u8 text[16];
+
+	BuildClockString(text, gClock.hour, gClock.minute);
+
+	FillWindowPixelBuffer(sClockWindowId, PIXEL_FILL(1));
+	AddTextPrinterParameterized(sClockWindowId, CLOCK_WINDOW_FONT, text, 0, 2, 0, NULL);
+	CopyWindowToVram(sClockWindowId, 2);
+	sClockLastMinute = gClock.minute;
+}
+
+static void ShowStartMenuClock(void)
+{
+	struct WindowTemplate template;
+
+	if (!ShouldShowStartMenuClock())
+		return;
+
+	template = SetWindowTemplateFields(0, 1, 1, GetClockWindowWidth(), 2, 15, CLOCK_WINDOW_BASE_BLOCK);
+	sClockWindowId = AddWindow(&template);
+	DrawStdWindowFrame(sClockWindowId, FALSE);
+	PutWindowTilemap(sClockWindowId);
+	PrintStartMenuClock();
+}
+
+static void DestroyStartMenuClock(void)
+{
+	//出した時と同じ条件でしか消さない。メニューを開いている間に
+	//条件が変わることは無いので、これで作った分と対応が取れる
+	if (!ShouldShowStartMenuClock())
+		return;
+
+	ClearStdWindowAndFrame(sClockWindowId, TRUE);
+	RemoveWindow(sClockWindowId);
 }
 
 bool8 StartCB_HandleInput(void)
 {
 	ForceClockUpdate(); //To help with the clock in the start menu routine
+
+	//分が変わったときだけ描き直す
+	if (sClockLastMinute != gClock.minute && ShouldShowStartMenuClock())
+		PrintStartMenuClock();
 
 	if (JOY_NEW(DPAD_UP))
 	{
@@ -302,12 +425,14 @@ bool8 StartCB_HandleInput(void)
 		PlaySE(SE_SELECT);
 		if (!StartMenuPokedexSanityCheck())
 			return FALSE;
+		DestroyStartMenuClock();
 		sStartMenuCallback = sStartMenuActionTable[sStartMenuOrder[sStartMenuCursorPos]].func.u8_void;
 		StartMenu_FadeScreenIfLeavingOverworld();
 		return FALSE;
 	}
 	else if (JOY_NEW(B_BUTTON | START_BUTTON))
 	{
+		DestroyStartMenuClock();
 		DestroySafariZoneStatsWindow();
 		DestroyHelpMessageWindow_();
 		CloseStartMenu();
@@ -319,6 +444,7 @@ bool8 StartCB_HandleInput(void)
 
 static bool8 CloseAndReloadStartMenu(void)
 {
+	DestroyStartMenuClock(); //SetUpStartMenu で作り直される
 	ClearStdWindowAndFrame(GetStartMenuWindowId(), TRUE);
 	RemoveStartMenuWindow();
 	sStartMenuCallback = ReloadStartMenu;

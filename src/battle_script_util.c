@@ -91,9 +91,10 @@ void IncreaseNimbleCounter(void)
 void ModifyGrowthInSun(void)
 {
 	if (gCurrentMove == MOVE_GROWTH
-	&& WEATHER_HAS_EFFECT
+	&& ((WEATHER_HAS_EFFECT
 	&& gBattleWeather & WEATHER_SUN_ANY
 	&& ITEM_EFFECT(gBankAttacker) != ITEM_EFFECT_UTILITY_UMBRELLA)
+	|| ABILITY(gBankAttacker) == ABILITY_MEGA_SOL)) //★ ZA メガ（patches/0069）
 		gBattleScripting.statChanger += INCREASE_1;
 }
 
@@ -1055,7 +1056,7 @@ void HealTargetFunc(void)
 
 	switch (gCurrentMove) {
 		case MOVE_HEALPULSE:
-			if (ABILITY(gBankTarget) == ABILITY_MEGALAUNCHER)
+			if (ABILITY(gBankAttacker) == ABILITY_MEGALAUNCHER) //★ Champions（patches/0070） 使う側の特性
 				gBattleMoveDamage = udivsi(maxHP * 75, 100);
 			else
 				gBattleMoveDamage = maxHP / 2;
@@ -1069,6 +1070,7 @@ void HealTargetFunc(void)
 			break;
 
 		case MOVE_POLLENPUFF:
+		case MOVE_MILKDRINK: //★ Champions（patches/0070） 味方にも使える
 			gBattleMoveDamage = maxHP / 2;
 			break;
 	}
@@ -2076,7 +2078,9 @@ void RestoreEffectBankHPStatsAndRemoveBackupSpecies(void)
 	//Update Moveset
 	struct Pokemon* mon = GetBankPartyData(gEffectBank);
 	bool8 canLearnMove[MAX_MON_MOVES] = {FALSE};
-	u16 moves[MAX_LEARNABLE_MOVES + EGG_MOVES_ARRAY_COUNT + EGG_MOVES_ARRAY_COUNT + NUM_TMSHMS + (LAST_TOTAL_TUTOR_NUM + 1)] = {MOVE_NONE};
+	//[hack] patches/0273: 上流はこの一覧（約 860 バイト）をスタックに置き、この関数だけで 928 バイト・中で呼ぶ GetAllEggMoves と合わせて
+	//2,224 バイト（スタックの予算 2,576 バイトの 86%・CLAUDE.md 6.35）だった → ヒープへ（Calloc は 0 で埋める＝上流の = {MOVE_NONE} と同じ）
+	u16* moves = Calloc(sizeof(u16) * (MAX_LEARNABLE_MOVES + EGG_MOVES_ARRAY_COUNT + EGG_MOVES_ARRAY_COUNT + NUM_TMSHMS + (LAST_TOTAL_TUTOR_NUM + 1)));
 	u16 numMoves = BuildLearnableMoveset(mon, moves);
 
 	for (i = 0; i < MAX_MON_MOVES; ++i)
@@ -2094,6 +2098,7 @@ void RestoreEffectBankHPStatsAndRemoveBackupSpecies(void)
 		if (j < numMoves)
 			canLearnMove[i] = TRUE;
 	}
+	Free(moves);
 
 	u16 newMoves[MAX_MON_MOVES] = {0};
 	u16 newPP[MAX_MON_MOVES] = {0};
@@ -2768,7 +2773,7 @@ void RemoveWeatherAndTerrain(void)
 {
 	u8 effect = 0;
 
-	if (!(gBattleWeather & (WEATHER_PRIMAL_ANY | WEATHER_PERMANENT_ANY | WEATHER_CIRCUS)))
+	if (!(gBattleWeather & (WEATHER_PRIMAL_ANY | WEATHER_CIRCUS))) //★ Champions（patches/0070） 永続の天気も消す（ゼロフォーミング専用）
 	{
 		if (gBattleWeather & WEATHER_RAIN_ANY)
 		{
@@ -2845,7 +2850,7 @@ void TryTerastalAbility(void)
 	if (ABILITY(gBattleScripting.bank) == ABILITY_TERAFORMZERO)
 	{
 		if ((gBattleWeather & WEATHER_ANY
-		&& !(gBattleWeather & (WEATHER_PRIMAL_ANY | WEATHER_PERMANENT_ANY | WEATHER_CIRCUS)))
+		&& !(gBattleWeather & (WEATHER_PRIMAL_ANY | WEATHER_CIRCUS))) //★ Champions（patches/0070） 永続の天気も消す
 		|| gTerrainType != 0)
 		{
 			gBattlescriptCurrInstr += 5;

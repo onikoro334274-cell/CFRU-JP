@@ -150,7 +150,11 @@
 #define ITEM_EFFECT_MIRROR_HERB 146
 #define ITEM_EFFECT_ABILITY_SHIELD 147
 
-#define ITEM_EFFECT_COUNT (ITEM_EFFECT_ABILITY_SHIELD + 1)
+#define ITEM_EFFECT_MOMO_ICE 148 //[hack] 2026-10-05 ももアイス（patches/0175）
+#define ITEM_EFFECT_DANGER_LEAF 149 //[hack] 2026-10-09 あぶないはっぱ（patches/0237）
+#define ITEM_EFFECT_GENE_BOND 150 //[hack] 2026-10-10 いでんしのきずな（patches/0287・damage_calc.c）
+#define ITEM_EFFECT_MILD 151 //[hack] 2026-10-10 マイルド（patches/0289・accuracy_calc.c／attackcanceler.c）
+#define ITEM_EFFECT_COUNT (ITEM_EFFECT_MILD + 1)
 
 //Focus Sash: Item Effect = ITEM_EFFECT_FOCUS_BAND, Item Quality = 100, Item Mystery 2 = 1
 //Power Items: Item Effect = ITEM_EFFECT_MACHO_BRACE Item Quality = See Below

@@ -45,6 +45,32 @@ static const item_t sKeystoneTable[] =
 #endif
 };
 
+//[hack] patches/0183: ももアイスはどのメガストーンの代わりにもなる（2026-10-06 ユーザー「ももアイスでメガ進化できるようにしてほしい
+//2種類いるポケモンは2回押すとかの工夫で解決してほしい」）。メガが 2 種類以上いるときは megaData.chosen[bank] に
+//「何番目のメガ + 1」を入れる（R を押すたびに 1 → 2 → … → 0・src/move_menu.c TriggerMegaEvolution）。0／1 は 1 番目
+u8 HackMomoIce_MegaCount(u8 bank)
+{
+	#ifndef MEGA_EVOLUTION_FEATURE
+		return 0;
+	#else
+	pokemon_t* mon = GetBankPartyData(bank);
+	const struct Evolution* evolutions = gEvolutionTable[mon->species];
+	u8 i, count = 0;
+
+	if (mon->item != ITEM_MOMO_ICE)
+		return 0;
+
+	for (i = 0; i < EVOS_PER_MON; ++i)
+	{
+		if (evolutions[i].method == EVO_NONE)
+			break;
+		if (evolutions[i].method == EVO_MEGA && evolutions[i].param != 0 && evolutions[i].unknown == MEGA_VARIANT_STANDARD)
+			++count;
+	}
+	return count;
+	#endif
+}
+
 const struct Evolution* CanMegaEvolve(unusedArg u8 bank, unusedArg bool8 CheckUBInstead)
 {
 	#ifndef MEGA_EVOLUTION_FEATURE
@@ -61,6 +87,10 @@ const struct Evolution* CanMegaEvolve(unusedArg u8 bank, unusedArg bool8 CheckUB
 	pokemon_t* mon = GetBankPartyData(bank);
 	const struct Evolution* evolutions = gEvolutionTable[mon->species];
 	int i, j;
+	u8 momoWant = 0xFF, momoIndex = 0; //[hack] patches/0183 ももアイス
+
+	if (!CheckUBInstead && mon->item == ITEM_MOMO_ICE)
+		momoWant = (gNewBS->megaData.chosen[bank] >= 2) ? gNewBS->megaData.chosen[bank] - 1 : 0;
 
 	for (i = 0; i < EVOS_PER_MON; ++i)
 	{
@@ -76,6 +106,13 @@ const struct Evolution* CanMegaEvolve(unusedArg u8 bank, unusedArg bool8 CheckUB
 			{
 				if (evolutions[i].param == mon->item)
 					return &evolutions[i];
+
+				if (momoWant != 0xFF) //[hack] patches/0183 ももアイスは選んだ番目のメガ
+				{
+					if (momoIndex == momoWant)
+						return &evolutions[i];
+					++momoIndex;
+				}
 			}
 			else if (evolutions[i].unknown == MEGA_VARIANT_WISH && !CheckUBInstead
 			&& !IsZCrystal(mon->item)) //If Mega Rayquaza holds a Z-Crystal it can't Mega Evolve
@@ -138,6 +175,7 @@ species_t GetMegaSpecies(unusedArg u16 species, unusedArg u16 item, unusedArg co
 	#endif
 }
 
+u16 HackGibleEgg_SpecialAbility(const struct Pokemon* mon, u16 species); //[hack] 2026-10-03 りゅうのよろい（ABILITY_DRAGONARMOR・patches/0150） src/hack_gible_egg.c
 ability_t GetBankMegaFormAbility(u8 megaBank, u8 foe)
 {
 	u16 ability = ABILITY_NONE;
@@ -147,7 +185,11 @@ ability_t GetBankMegaFormAbility(u8 megaBank, u8 foe)
 	{
 		evos = CanMegaEvolve(megaBank, FALSE);
 		if (evos != NULL)
-			ability = GetAbility1(evos->targetSpecies); //Megas can only have 1 ability
+		{
+			ability = HackGibleEgg_SpecialAbility(GetBankPartyData(megaBank), evos->targetSpecies); //[hack] 2026-10-03 りゅうのよろい（ABILITY_DRAGONARMOR・patches/0150）
+			if (ability == ABILITY_NONE)
+				ability = GetAbility1(evos->targetSpecies); //Megas can only have 1 ability
+		}
 		else
 		{
 			//Check Ultra Burst
@@ -211,7 +253,8 @@ const u8* DoPrimalReversion(u8 bank, u8 caseId)
 	{
 		for (u8 i = 0; i < EVOS_PER_MON; ++i)
 		{
-			if (evolutions[i].method == EVO_MEGA && evolutions[i].unknown == MEGA_VARIANT_PRIMAL && evolutions[i].param == item)
+			if (evolutions[i].method == EVO_MEGA && evolutions[i].unknown == MEGA_VARIANT_PRIMAL
+			&& (evolutions[i].param == item || item == ITEM_MOMO_ICE)) //[hack] patches/0184 ももアイスでも ゲンシカイキ（2026-10-06）
 			{
 				DoFormChange(bank, evolutions[i].targetSpecies, TRUE, TRUE, TRUE);
 

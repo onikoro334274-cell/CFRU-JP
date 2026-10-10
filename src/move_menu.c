@@ -27,6 +27,10 @@
 #include "../include/new/util.h"
 #include "../include/new/z_move_effects.h"
 
+u8 HackDragonBoulder_Type2(const struct Pokemon* mon, u16 species, u8 type2); //[hack] patches/0207 りゅうのいわお（src/hack_dragon_boulder.c・特別なガブリアスZ は 2 つ目のタイプが いわ）
+
+bool8 HoennPyramid_BagUsableInBattle(void); //[hack] patches/0131 src/hoenn_pyramid.c
+
 /*
 move_menu.c
 	functions for displaying move data and z moves in the battle menu
@@ -71,6 +75,8 @@ static void LoadShadowColourForGreyedOutBagText(void);
 static void TryLoadTypeIcons(void);
 static void SpriteCB_CamomonsTypeIcon(struct Sprite* sprite);
 static void TriggerTerastal(void);
+u8 HackMomoIce_MegaCount(u8 bank); //[hack] patches/0183 src/mega.c（0192 で START からも使うので上へ）
+static bool8 HackMomoIce_CanViewMaxMove(void); //[hack] patches/0192
 
 static const struct Coords16 sTypeIconPositions[][/*IS_SINGLE_BATTLE*/2] =
 {
@@ -125,7 +131,9 @@ static const struct OamData sTypeIconOAM =
 };
 
 #define type_icon_frame(ptr, frame) {.data = (u8 *)ptr + (1 * 2 * frame * 32), .size = 1 * 2 * 32}
-static const struct SpriteFrameImage sTypeIconPicTable[] =
+//[hack] patches/0275: 上流は長さ指定なし＝TYPE_FAIRY + 1（24）で、タイプの数（TYPE_STELLAR まで 25）より 1 つ短かった。
+//ステラの絵は無いので、使わない番号と同じ「？？？」の絵にする
+static const struct SpriteFrameImage sTypeIconPicTable[NUMBER_OF_MON_TYPES] =
 {
 	[TYPE_NORMAL] =		type_icon_frame(CamomonsTypeIconsTiles, TYPE_NORMAL),
 	[TYPE_FIGHTING] =	type_icon_frame(CamomonsTypeIconsTiles, TYPE_FIGHTING),
@@ -151,6 +159,7 @@ static const struct SpriteFrameImage sTypeIconPicTable[] =
 	[0x15] = 			type_icon_frame(CamomonsTypeIcons2Tiles, TYPE_MYSTERY),
 	[0x16] = 			type_icon_frame(CamomonsTypeIcons2Tiles, TYPE_MYSTERY),
 	[TYPE_FAIRY] = 		type_icon_frame(CamomonsTypeIconsTiles, TYPE_FAIRY),
+	[TYPE_STELLAR] = 	type_icon_frame(CamomonsTypeIcons2Tiles, TYPE_MYSTERY),
 };
 
 static struct SpriteTemplate sTypeIconSpriteTemplate =
@@ -420,7 +429,17 @@ void HandleInputChooseMove(void)
 	{
 		if (!MoveSelectionDisplayZMove()) //Only one is allowed at a time
 		{
-			if (!TriggerMegaEvolution() && gBattleTypeFlags & BATTLE_TYPE_DYNAMAX)
+			//[hack] patches/0192: ももアイスは START でダイマックス（メガシンカは R・2026-10-06 ユーザー「ももアイスがメガストーン扱いになっている
+			//メガ進化できるダイマックスできる両方対応」）。ダイマックスを見るときはメガとテラスタルの選択を外す
+			if (HackMomoIce_MegaCount(gActiveBattler) != 0 && (gBattleTypeFlags & BATTLE_TYPE_DYNAMAX)
+			&& HackMomoIce_CanViewMaxMove())
+			{
+				gNewBS->megaData.chosen[gActiveBattler] = 0;
+				gNewBS->terastalData.chosen[gActiveBattler] = FALSE;
+				MoveSelectionDisplayMoveType(); //メガのタイプの表示を技のタイプに戻す
+				MoveSelectionDisplayMaxMove();
+			}
+			else if (!TriggerMegaEvolution() && gBattleTypeFlags & BATTLE_TYPE_DYNAMAX)
 				MoveSelectionDisplayMaxMove();
 		}
 	}
@@ -437,6 +456,33 @@ void HandleInputChooseMove(void)
 		if (!gNewBS->zMoveData.viewing && !gNewBS->dynamaxData.viewing)
 			MoveSelectionDisplayDetails();
 	}
+}
+
+
+//[hack] patches/0192: ダイマックスの技を見られるか（今のカーソルの技にダイマックス技がある）
+static bool8 HackMomoIce_CanViewMaxMove(void)
+{
+	struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct*)(&gBattleBufferA[gActiveBattler][4]);
+	return moveInfo->possibleMaxMoves[gMoveSelectionCursor[gActiveBattler]] != MOVE_NONE;
+}
+
+//[hack] patches/0183: ももアイスで選んだメガのタイプを、技のタイプの枠に出す（メガの名前は元と同じなので X／Y が見分けられない）
+static void HackMomoIce_ShowMegaTypes(void)
+{
+	const struct Evolution* evo = CanMegaEvolve(gActiveBattler, FALSE);
+	u8 type1, type2;
+
+	if (evo == NULL)
+		return;
+
+	type1 = gBaseStats[evo->targetSpecies].type1;
+	type2 = HackDragonBoulder_Type2(GetBankPartyData(gActiveBattler), evo->targetSpecies, gBaseStats[evo->targetSpecies].type2); //[hack] patches/0207 りゅうのいわお
+	FillWindowPixelBuffer(8, PIXEL_FILL(15)); //White
+	blit_move_info_icon(8, type1 + 1, 2, 3);
+	if (type2 != type1)
+		blit_move_info_icon(8, type2 + 1, 36, 3);
+	CopyWindowToVram(8, COPYWIN_BOTH);
+	PutWindowTilemap(8);
 }
 
 static bool8 TriggerMegaEvolution(void)
@@ -465,6 +511,43 @@ static bool8 TriggerMegaEvolution(void)
 	}
 	else //Regular Megas
 	{
+		u8 momoCount = HackMomoIce_MegaCount(gActiveBattler); //[hack] patches/0183
+		if (momoCount != 0)
+		{
+			u8 next;
+
+			//[hack] patches/0192: R は なし → メガ 1 → （メガ 2）→ テラスタル → なし。ダイマックスを見ていたら閉じる
+			if (gNewBS->dynamaxData.viewing)
+				MoveSelectionDisplayMaxMove();
+			if (gNewBS->terastalData.chosen[gActiveBattler])
+			{
+				TriggerTerastal(); //テラスタル → なし（外す音と技のタイプの枠を戻す）
+				return TRUE;
+			}
+			next = gNewBS->megaData.chosen[gActiveBattler] + 1; //0 → 1 → … → 種類の数 → テラスタル
+			if (next > momoCount)
+			{
+				gNewBS->megaData.chosen[gActiveBattler] = 0;
+				MoveSelectionDisplayMoveType();
+				if (moveInfo->canterastal)
+					return FALSE; //呼び元が TriggerTerastal でテラスタルを選ぶ
+				PlaySE(3);
+				return TRUE;
+			}
+			gNewBS->megaData.chosen[gActiveBattler] = next;
+			if (next != 0)
+			{
+				PlaySE(2);
+				HackMomoIce_ShowMegaTypes();
+			}
+			else
+			{
+				PlaySE(3);
+				MoveSelectionDisplayMoveType();
+			}
+			return TRUE;
+		}
+
 		if (gNewBS->megaData.chosen[gActiveBattler])
 		{
 			// Turn Off
@@ -2125,10 +2208,27 @@ static void LoadShadowColourForGreyedOutBagText(void)
 
 void HandleInputChooseAction(void)
 {
+	bool8 choose = (gMain.newKeys & A_BUTTON) != 0;
+
 	DoBounceEffect(gActiveBattler, BOUNCE_HEALTHBOX, 7, 1);
 	DoBounceEffect(gActiveBattler, BOUNCE_MON, 7, 1);
 
-	if (gMain.newKeys & A_BUTTON)
+	//[hack] patches/0199 2026-10-07 ユーザー「たたかう にげる の4つが表示されているときにショートカットでにげられるようにしてほしい」「R ですぐ逃げる」:
+	//  R でカーソルを「にげる」へ移して、A で「にげる」を選んだのと同じに（トレーナー戦の にげられない・ダブルの 2 匹目・レイドの終わりも A と同じ扱い）
+	if (gMain.newKeys & R_BUTTON)
+	{
+		u8 run = RAID_BATTLE_END ? 1 : 3;
+
+		if (gActionSelectionCursor[gActiveBattler] != run)
+		{
+			ActionSelectionDestroyCursorAt(gActionSelectionCursor[gActiveBattler]);
+			gActionSelectionCursor[gActiveBattler] = run;
+			ActionSelectionCreateCursorAt(run, 0);
+		}
+		choose = TRUE;
+	}
+
+	if (choose)
 	{
 		PlaySE(SE_SELECT);
 
@@ -2317,7 +2417,8 @@ bool8 IsBagDisabled(void)
 	}
 	#endif
 
-	return FlagGet(FLAG_DISABLE_BAG) || (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_FRONTIER));
+	return FlagGet(FLAG_DISABLE_BAG) || (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_EREADER_TRAINER))
+	    || ((gBattleTypeFlags & BATTLE_TYPE_FRONTIER) && !HoennPyramid_BagUsableInBattle()); //[hack] patches/0131 ピラミッドの中はバトルバッグを使える
 }
 
 static void TryLoadTypeIcons(void)

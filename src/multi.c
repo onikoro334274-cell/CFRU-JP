@@ -22,6 +22,7 @@
 #include "../include/new/multi.h"
 #include "../include/new/new_bs_commands.h"
 #include "../include/new/switching.h"
+bool8 HackAI_PreferTerastal(u8 bankAtk, u8 bankDef); //[hack] patches/0121・src/ai_hack.c
 /*
 multi.c
 	handles partner battle logic
@@ -433,10 +434,18 @@ static void PlayerIntro_TryShinyAnimShowHealthbox(void)
 }
 
 void __attribute__((long_call)) PlayerStartSendOutAnim(u8 battlerId, bool8 dontClearSubstituteBit);
+void __attribute__((long_call)) BwCreateHeldBall(u8 playerSpriteId);	//#20 src/bw_throwball.c
+
 void Task_PlayerStartSendOutAnim(u8 taskId)
 {
 	if (gTasks[taskId].data[1] < 31)
 	{
+		//#20 投げ始めた最初のコマで「手に持っているボール」を出す。
+		//    この数え上げ（0〜30）がそのまま持っている時間で、
+		//    31 でゲームが本物のボールを作る。
+		if (gTasks[taskId].data[1] == 0)
+			BwCreateHeldBall(gBattlerSpriteIds[gTasks[taskId].data[0]]);
+
 		++gTasks[taskId].data[1];
 	}
 	else
@@ -494,7 +503,7 @@ u32 MultiMoneyCalc(void)
 static u32 CalcMultiMoneyForTrainer(u16 trainerId)
 {
 	u8 i, firstMonId, lastMonId, level, rate;
-	struct Trainer* trainer = &gTrainers[trainerId];
+	const struct Trainer* trainer = &gTrainers[trainerId];
 
 	//Get the party range to search through for the given trainer
 	if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
@@ -732,7 +741,7 @@ static void PlayerPartnerHandleChooseMove(void)
 	{
 		if (ShouldAIDynamax(gActiveBattler, gBankTarget))
 		{
-			if (ShouldAITerastal(gActiveBattler, gBankTarget) && Random() & 1)
+			if (ShouldAITerastal(gActiveBattler, gBankTarget) && HackAI_PreferTerastal(gActiveBattler, gBankTarget)) //[hack] patches/0121 素は 50% の乱数
 				gNewBS->terastalData.chosen[gActiveBattler] = TRUE;
 			else
 				gNewBS->dynamaxData.toBeUsed[gActiveBattler] = TRUE;
@@ -821,9 +830,14 @@ static void PlayerPartnerHandleChooseAction(void)
 	PlayerPartnerBufferExecComplete();
 }
 
+extern bool8 HoennArena_PlayerChooseNext(void); //★ src/hoenn_arena.c（patches/0096）
+
 void PlayerHandleChoosePokemon(void)
 {
     s32 i;
+
+    if (HoennArena_PlayerChooseNext()) //★ バトルアリーナ: 次の子を並び順で黙って出す（エメラルドの battle_controller_player.c:2672）
+        return;
 
     gBattleControllerData[gActiveBattler] = CreateTask(TaskDummy, 0xFF);
     gTasks[gBattleControllerData[gActiveBattler]].data[0] = gBattleBufferA[gActiveBattler][1] & 0xF;

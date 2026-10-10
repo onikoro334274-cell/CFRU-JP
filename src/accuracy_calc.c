@@ -11,6 +11,7 @@
 #include "../include/new/util.h"
 #include "../include/new/move_tables.h"
 #include "../include/new/move_battle_scripts.h"
+#include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
 /*
 accuracy_calc.c
 	-rewrites how accuracy is calculated, including all relevant abilities, effects, etc.
@@ -141,6 +142,11 @@ ACCURACY_CHECK_START:
 							goto ACCURACY_CHECK_START;
 						}
 					}
+					else if (HackAffection_TryEvade(bankDef)) //[hack] patches/0240 なつき度で よける（文は gBattleStringLoader）
+					{
+						gNewBS->ResultFlags[bankDef] = MOVE_RESULT_MISSED;
+						gNewBS->missStringId[bankDef] = gBattleCommunication[6] = 10; //0x184
+					}
 				}
 
 				if (!calcSpreadMove)
@@ -192,8 +198,9 @@ bool8 ProtectAffects(u16 move, u8 bankAtk, u8 bankDef, bool8 set)
 	u8 defSide = SIDE(bankDef);
 	u8 item = ITEM_EFFECT(bankAtk) != ITEM_EFFECT_PROTECTIVE_PADS;
 
-	if (protectFlag && contact && ABILITY(bankAtk) == ABILITY_UNSEENFIST) //Uses IsContactMove instead of CheckContact because Protective Pads don't affect this Ability
-		protectFlag = FALSE;
+	u8 pierce = protectFlag && contact && (ABILITY(bankAtk) == ABILITY_UNSEENFIST || ABILITY(bankAtk) == ABILITY_PIERCING_DRILL);
+	u8 savedMissString = gNewBS->missStringId[bankDef], savedComm6 = gBattleCommunication[6];
+	//★ Champions（patches/0070） 守りは貫くが、触れたときの効果（ニードルガード・キングシールド等）は発動する（SV までは完全に貫いた）
 
 	if (ProtectedByMaxGuard(bankDef, move))
 	{
@@ -300,6 +307,13 @@ bool8 ProtectAffects(u16 move, u8 bankAtk, u8 bankDef, bool8 set)
 		gNewBS->missStringId[bankDef] = gBattleCommunication[6] = 9;
 	}
 
+	if (pierce && effect && !ProtectedByMaxGuard(bankDef, move)) //★ Champions（patches/0070） ダイウォールは貫かない
+	{
+		effect = 0;
+		gNewBS->missStringId[bankDef] = savedMissString;
+		gBattleCommunication[6] = savedComm6;
+	}
+
 	return effect;
 }
 
@@ -310,7 +324,7 @@ bool8 DoesProtectionMoveBlockMove(u8 bankAtk, u8 bankDef, u16 atkMove, u16 prote
 	u8 target = GetBaseMoveTarget(atkMove, bankAtk);
 
 	if (!CheckTableForMove(atkMove, gMovesThatLiftProtectTable)
-	&& ABILITY(bankAtk) != ABILITY_UNSEENFIST)
+	&& ABILITY(bankAtk) != ABILITY_UNSEENFIST && ABILITY(bankAtk) != ABILITY_PIERCING_DRILL)
 	{
 		switch (protectMove) {
 			case MOVE_PROTECT:
@@ -432,7 +446,7 @@ static u32 AccuracyCalcPassDefAbilityItemEffect(u16 move, u8 bankAtk, u8 bankDef
 	{
 		buff = acc;
 	}
-	else if (atkAbility == ABILITY_KEENEYE || atkAbility == ABILITY_MINDSEYE)
+	else if (atkAbility == ABILITY_KEENEYE || atkAbility == ABILITY_MINDSEYE || atkAbility == ABILITY_ILLUMINATE) //★ Champions（patches/0070） はっこう
 	{
 		if (STAT_STAGE(bankDef, STAT_STAGE_EVASION) > 6) //Stops higher evasion, allows lower
 			buff = acc;
@@ -450,9 +464,10 @@ static u32 AccuracyCalcPassDefAbilityItemEffect(u16 move, u8 bankAtk, u8 bankDef
 	moveAcc = gBattleMoves[move].accuracy;
 
 	//Check Thunder + Hurricane in sunny weather
-	if (WEATHER_HAS_EFFECT
+	if (((WEATHER_HAS_EFFECT
 	&& (gBattleWeather & WEATHER_SUN_ANY)
-	&& defEffect != ITEM_EFFECT_UTILITY_UMBRELLA
+	&& defEffect != ITEM_EFFECT_UTILITY_UMBRELLA)
+	|| ABILITY(bankAtk) == ABILITY_MEGA_SOL) //★ ZA メガ（patches/0069）
 	&& CheckTableForMove(move, gAlwaysHitInRainMoves))
 		moveAcc = 50;
 
@@ -518,7 +533,8 @@ static u32 AccuracyCalcPassDefAbilityItemEffect(u16 move, u8 bankAtk, u8 bankDef
 	if (IsGravityActive())
 		calc = udivsi((calc * 5), 3); // 5/3 Gravity boost
 
-	if (defEffect == ITEM_EFFECT_EVASION_UP)
+	if (defEffect == ITEM_EFFECT_EVASION_UP
+	|| defEffect == ITEM_EFFECT_MILD) //[hack] patches/0289 2026-10-10 マイルド（持ち主を狙う技の命中 0.9 倍・holdEffectParam 10）
 		calc = udivsi((calc * (100 - defQuality)), 100); // 0.9 Bright Powder/Lax Incense loss
 
 	if (gNewBS->MicleBerryBits & gBitTable[bankAtk])
@@ -571,8 +587,9 @@ u32 VisualAccuracyCalc_NoTarget(u16 move, u8 bankAtk)
 	moveAcc = gBattleMoves[move].accuracy;
 
 	//Check Thunder + Hurricane in sunny weather
-	if (WEATHER_HAS_EFFECT
-	&& (gBattleWeather & WEATHER_SUN_ANY)
+	if (((WEATHER_HAS_EFFECT
+	&& (gBattleWeather & WEATHER_SUN_ANY))
+	|| ABILITY(bankAtk) == ABILITY_MEGA_SOL) //★ ZA メガ（patches/0069）
 	&& CheckTableForMove(move, gAlwaysHitInRainMoves))
 		moveAcc = 50;
 

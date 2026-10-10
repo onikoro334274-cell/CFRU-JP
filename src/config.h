@@ -8,7 +8,7 @@
 /*===== Debugging Options =====*/
 //#define DEBUG_MEGA //Mega Evolution can always be used
 //#define DEBUG_HMS //HMs can always be used from the party screen, Surf, Waterfall, and Rock Climb can always be used
-//#define DEBUG_OBEDIENCE //Traded Pokemon never have obedience issues
+#define DEBUG_OBEDIENCE //Traded Pokemon never have obedience issues //[hack] patches/0267 2026-10-10 ユーザー「バッチによる別親の命令無視システムを削除」
 //#define DEBUG_DYNAMAX //Dynamax can be used in Dynamax battles without a Dynamax Band
 //#define DEBUG_TERASTAL
 
@@ -74,6 +74,11 @@
 #define FLAG_SYS_SAVE_HIDE 0x91D	//Toggle save off
 #define FLAG_SYS_DEXNAV 0x91E		//Flag to turn dexnav on/off in start menu (if undefined, this will eliminate dexnav from the start menu)
 
+//Achievements system (see Achievements.md). [hack] 2026-10-10: the BW start menu (src/bw_start_menu.c) shows it; flags 0xB00-0xCFF (include/new/achievements.h)
+//#define DISABLE_ACHIEVEMENTS //Uncomment to remove the whole Achievements system
+//#define ACH_UNLOCK_MESSAGEBOX //Uncomment to announce unlocks with a message box instead of the SoulGold-style popup (top right)
+//#define ACH_REWARDS_VIA_NPC //[hack] off: no NPC is placed, milestone rewards are given automatically. Uncomment to stop giving milestone rewards automatically; they are then given by an NPC calling EventScript_AchievementNPC
+
 /*===== Pedometer Flags as in JPAN Engine =====*/
 #define FLAG_LONG_PEDOMETER 0x920		//32 bit / 4 bytes / Max 4 294 967 295 steps
 #define FLAG_MED_PEDOMETER 0x921		//16 bit / 2 bytes / Max 65 535 steps
@@ -124,7 +129,7 @@ enum //These vars need to be one after the other (hence the enum)
 #define NUM_MOVE_TUTORS 152 //keep this defined even if EXPANDED_MOVE_TUTORS is not!! If using DPE, set to 128.
 #define LAST_TOTAL_TUTOR_NUM 160 //Should be equal to (NUM_MOVE_TUTORS - 1) + 9. Must be set to an actual integer or the compilation will not work.
 //#define TMS_BEFORE_HMS  //Uncomment this if you want the HMs to appear after the TMs in your bag
-//#define DELETABLE_HMS //Uncomment this if you want HMs to be deletable without the Move Deleter
+#define DELETABLE_HMS //Uncomment this if you want HMs to be deletable without the Move Deleter
 #define REUSABLE_TMS	//if defined, don't forget to give all TMs a Mystery byte of 1!
 
 /*===== Time of Day Options =====*/
@@ -135,9 +140,9 @@ enum //These vars need to be one after the other (hence the enum)
 
 /*===== General Number Options =====*/
 #define KANTO_DEX_COUNT 151
-#define NATIONAL_DEX_COUNT 1025
+#define NATIONAL_DEX_COUNT 1027
 
-#define MAX_LEVEL 100 //Also change this in the file "asm_defines.asm" found in the root
+#define MAX_LEVEL 200 //Also change this in the file "asm_defines.asm" found in the root //[hack] patches/0236 100 → 200（2026-10-09）
 #define NUM_TRAINER_CLASSES 107 //Vanilla FR has 107
 #define EVOS_PER_MON 16 //The number of maximum evolutions per Pokemon. Vanilla FR has 5. DPE has 16!!!
 #define EV_CAP 252 //Also change this in the file "asm_defines.s" found in the root
@@ -208,7 +213,8 @@ enum //These vars need to be one after the other (hence the enum)
 #define DNS_IN_BATTLE //Comment this line to disable the Day/Night system from working in battle
 #define OVERWRITE_RIVAL //Comment this line to disable to loading of your rival's name into trainer classes 0x51, 0x59, and 0x5A
 #define TRAINER_CLASS_POKE_BALLS //Comment this line to disable creating Trainer's pokemon with Poke Balls specific to their trainer class
-//#define TRAINERS_WITH_EVS //Uncomment this line to enable the Trainers with EVs hack, (only avaible with custom moveset and held item)
+#define TRAINERS_WITH_EVS //[hack] patches/0011 で有効化。トレーナーの手持ちに努力値・性格・個体値・特性・ボールの型を割り当てる。手持ちの iv 欄がスプレッド番号になる点に注意
+#define SCALED_TRAINERS //[hack] やりたいこと #4。トレーナーのレベルを badge 数とプレイヤーの平均/最高レベルに応じて動的に調整する。patches/0001-enable-scaled-trainers.patch / docs/research/2026-09-14_enable-scaled-trainers.md 参照
 //#define CONTINUE_LOST_BATTLES //Uncommenting this line will allow using trainerbattle 0x9 to continue lost battles if var 0x8000 is set to 0xFEFE
 #define DISPLAY_REAL_MOVE_TYPE_ON_MENU //If this line remains uncommented, the "true" move type will be displayed (such as Hidden Power, Weather Ball in Weather, etc.)
 #define DISPLAY_REAL_ACCURACY_ON_MENU //If this line remains uncommented, the "true" move accuracy will be displayed (Eg. The move Psychic on a Pokemon with Compound Eyes will have its accuracy appear as 130)
@@ -219,7 +225,7 @@ enum //These vars need to be one after the other (hence the enum)
 #define MEGA_EVOLUTION_FEATURE //Comment this line to remove Mega Evolutions
 #define DYNAMAX_FEATURE //Comment this line to remove Dynamax and Raid Battles
 #define TERASTAL_FEATURE
-//#define TUTORIAL_BATTLES //Comment this line to remove Oak's Tutorial
+#define TUTORIAL_BATTLES //Comment this line to remove Oak's Tutorial
 #define TANOBY_RUINS_ENABLED //The Tanoby Ruins will be the only location Unown can be encountered
 #define ALTERING_CAVE_ENABLED //The Altering Cave from FR will work as intended provided the proper var is set
 #define SWEET_SCENT_ONLY_IN_CLEAR_WEATHER //Sweet Scent won't attract any wild Pokemon if the weather is not clear
@@ -232,10 +238,18 @@ enum //These vars need to be one after the other (hence the enum)
 #define EVO_HOLD_ITEM_REMOVAL //Comment this out if you want leveling up/hold item evolution (eg. sneasel) to remove the item (like normal)
 //#define EXPAND_MOVESETS //Comment this out if you're using the Dynamic Pokemon Expansion repo to expand the movesets
 //#define FATHER_PASSES_TMS //Uncomment this out if you want TMs the father knows to be passed through breeding
-//#define INHERIT_MASTER_CHERISH_BALL  //Uncomment this if you want Master and Cherish balls to be inherited by daycare offspring
+#define INHERIT_MASTER_CHERISH_BALL  //Uncomment this if you want Master and Cherish balls to be inherited by daycare offspring
 //#define GIVEPOKEMON_CUSTOM_HACK //Alows custom Pokemon to be given by setting the second last byte of the givepokemon scripting command
 //#define GIVEPOKEMON_BALL_HACK //Allows Pokemon to be given with a custom ball by setting the last byte of the givepokemon scripting command
 #define FRLG_ROAMING //When a roaming Pokemon is created, it will either be a Entei, Raikou, or Suicune, depending on the player's starter choice
+#define FRLG_ROAMING_ALL_BEASTS //[hack] All three beasts roam at once, instead of only the one picked by the starter. Requires FRLG_ROAMING.
+//[hack] build_rom.py --demo（デモ版ビルド.bat）は -DHACK_DEMO_BUILD を渡して、下の 2 つのデバッグを切る（2026-10-01）
+#ifndef HACK_DEMO_BUILD
+#define JOHTO_TOWNMAP_DEBUG //[hack] Debug: the Kanto town map always scrolls west to show Johto (normally only after flag 0x13E2). Comment out for release.
+#define SINNOH_TOWNMAP_DEBUG //[hack] Debug: the town map switch menu always offers Sinnoh (normally only after flag 0x13E1). Comment out for release.
+#define KITAKAMI_TOWNMAP_DEBUG //[hack] Debug: the town map switch menu always offers Kitakami and Kitakami Village is always a Fly destination (normally after visiting it). Comment out for release.
+#define WILD_SHUFFLE_DEBUG //[hack] Debug: Kanto and Hoenn morning/night wild encounters always use the other-generation tables (normally after the strengthened league). Comment out for release.
+#endif
 #define CAN_RUN_IN_BUILDINGS //Comment this line out to prevent the player from running indoors.
 //#define NO_POISON_IN_OW //Uncommenting this line will stop Pokemon from taking Poison damage in the overworld.
 #define POISON_1_HP_SURVIVAL //Comment this line to allow Pokemon to faint from Poison in the overworld.
@@ -272,13 +286,13 @@ enum //These vars need to be one after the other (hence the enum)
 //#define OLD_BURN_DAMAGE //Uncomment this line if you want burn damage to do 1/8 of max health instead of 1/16
 //#define OLD_PARALYSIS_SPD_DROP //Uncomment this line if you want paralysis to lower Spd down to 1/4 instead of 1/2
 //#define OLD_CONFUSION_CHANCE //Uncomment this line if you want the chance that confusion will stop your attack to 50% instead of 33%
-//#define INFINITE_WEATHER //Uncomment this line if you want weather abilities to last for infinite turns
+#define INFINITE_WEATHER //Uncomment this line if you want weather abilities to last for infinite turns
 //#define INFINITE_TERRAIN //Uncomment this line if you want terrain abilities to last for infinite turns
 //#define NO_SHEER_COLD_NERF //Uncomment this line to remove all Gen 7 Sheer Cold nerfs
 //#define OLD_MOVE_SPLIT //Uncomment this line to use the Physical/Special split based on move types. Status moves are still set with the split byte.
 //#define OLD_CONFUSION_HEAL_BERRIES //Uncomment this line for berries like Figy and Wiki Berry to restore only 1/8 max HP when HP is below 1/2
 //#define GEN_7_CONFUSION_HEAL_BERRIES //Uncomment this line for berries like Figy and Wiki Berry to restore 1/2 max HP (Gen 8 is 1/3) when HP is below 1/4
-//#define GEN9_SNOW
+#define GEN9_SNOW //★ Champions（patches/0070）: あられ → ゆき（ダメージ無し・こおりの ぼうぎょ 1.5 倍）
 #define GEN9_CHARGE
 
 /*===== Ability Options =====*/
@@ -298,10 +312,10 @@ enum //These vars need to be one after the other (hence the enum)
 //#define OLD_ATE_BOOST //Uncomment this line to make 'ate' abilities give a 1.3 boost instead of 1.2
 //#define OLD_GEM_BOOST //Uncomment this line to make Gems give a 1.5 boost instead of 1.3
 //#define OLD_TERRAIN_BOOST //Uncomment this line to make Terrains give a 1.5 boost instead of 1.3
-//#define OLD_EXPLOSION_BOOST //Uncomment this line to make Exploding moves halve the target's defense
+#define OLD_EXPLOSION_BOOST //Uncomment this line to make Exploding moves halve the target's defense
 //#define OLD_HIDDEN_POWER_BP //Uncomment this line for Hidden Power to have its Base Power calculated from the Pokemon's IVs
 //#define PORTAL_POWER //Uncomment this line to enable Hoopa-Unbound's special ability in Pokemon Unbound, Portal Power (reduces power of non-contact moves by 25%)
-//#define OLD_SOUL_DEW_EFFECT //Uncomment this line if you want the Soul Dew to double Latios + Latias' Sp. Atk & Sp. Def
+#define OLD_SOUL_DEW_EFFECT //Uncomment this line if you want the Soul Dew to double Latios + Latias' Sp. Atk & Sp. Def
 //#define OLD_PARENTAL_BOND_DAMAGE //Uncomment this line to make the second hit of Parental Bond do 50% of the original damage instead of 25%
 #define GEN_6_POWER_NERFS //Comment out for moves that had powers nerfed in Gen 6 to retain their original base powers.
 #define GEN_7_POWER_NERFS //Comment out for Sucker Punch to retain its original base power.
@@ -309,15 +323,15 @@ enum //These vars need to be one after the other (hence the enum)
 #define DARK_VOID_ACC_NERF //Comment out for Dark Void to retain its original accuracy.
 
 /*===== Capturing Pokemon Options =====*/
-//#define NO_HARDER_WILD_DOUBLES //In Gen 5, Pokemon encountered in double wild battles were harder to catch (based on how many species are owned). Uncomment this line to remove the catch rate decrement.
+#define NO_HARDER_WILD_DOUBLES //[hack] 2026-10-03 ユーザー「野生のダブルも下がらないように」 In Gen 5, Pokemon encountered in double wild battles were harder to catch (based on how many species are owned). Uncomment this line to remove the catch rate decrement.
 #define CRITICAL_CAPTURE //Comment this line to remove the Critical Capture feature
-#define SWSH_CATCHING_DIFFICULTY_MODIFIER //Trying to catch a Pokemon that's higher level than your current Pokemon makes it harder to catch
+//#define SWSH_CATCHING_DIFFICULTY_MODIFIER //[hack] 2026-10-03 ユーザー「捕獲率1/10は変動しないように」 Trying to catch a Pokemon that's higher level than your current Pokemon makes it harder to catch
 
 /*===== Exp Gain Options =====*/
 //#define OLD_EXP_SHARE //Uncomment this line to make the Exp. Share work like it did before Gen 6
 //#define TRAINER_EXP_BOOST // Uncomment this line to give the Exp boost for battling a Trainer's Pokemon (Pre Gen 7)
 //#define OLD_EXP_SPLIT //Uncomment this line to split the Exp amongst all participating pokemon (Pre Gen 6)
-//#define FLAT_EXP_FORMULA //Uncomment this line to use a Flat Exp calculation formula (Gens 2 - 4, 6)
+#define FLAT_EXP_FORMULA //Uncomment this line to use a Flat Exp calculation formula (Gens 2 - 4, 6) [hack] 2026-10-03: level-scaled exp gave ~1 Exp from low-level wild mons
 #define CAPTURE_EXPERIENCE //Experience is awared upon capturing Pokemon.
 #define EXP_AFFECTION_BOOST //Pokemon with friendship >= 220 gain boosted experience
 
@@ -325,7 +339,7 @@ enum //These vars need to be one after the other (hence the enum)
 //#define NO_GHOST_BATTLES //Uncomment this line to disable the Ghost battle feature from Pokemon Tower in Lavender town
 //#define GEN4_PLUS_SELECTION_SCREEN //Uncommenting this line does not give you the Gen 4+ selection screen, it only adds features that supports it
 //#define OBEDIENCE_CHECK_FOR_PLAYER_ORIGINAL_POKEMON //Uncommenting line line will open up the possibility that the Player's Pokemon can disobey them (not just traded mons)
-//#define WILD_ALWAYS_SMART //Uncomment this line if you want all Wild Pokemon to act smartly
+#define WILD_ALWAYS_SMART //[hack] 2026-10-02 ユーザー「AI最適化」→ 野生も賢く（patches/0120・ai_master.c で AI を 7 に）
 //#define HAIL_IN_BATTLE //Uncommenting this line enables the Hail weather effect in battle when the OW weather is set to WEATHER_STEADY_SNOW (0x7)
 //#define FOG_IN_BATTLE //Uncommenting this line enables the Fog weather effect in battle. Don't uncomment this line without uncommenting one of the lines below!
 //#define FOG_IN_BATTLE_1 //Uncommenting this line enables the Fog weather effect when the OW weather is set to WEATHER_FOG_1 (0x6)

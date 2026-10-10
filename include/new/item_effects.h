@@ -2,11 +2,11 @@
 
 #include "../global.h"
 
-static const u8 sItemEffect_Potion[8] = {
-    [3] = 0x20,
+//[hack] 2026-10-03 patches/0142: 上流は [3] = 0x20（ITEM3_SLEEP＝ねむりを治す）と [7] = 0xFF が入っていて、
+//  キズぐすりで目がさめた（ユーザーの動画）。素の FRLG（pokefirered gItemEffect_Potion）と同じ「HP を 20 回復するだけ」に戻す
+static const u8 sItemEffect_Potion[7] = {
     [4] = ITEM4_HEAL_HP,
-    [6] = 0x14, // Byte 7 (cura de 20 HP)
-    [7] = 0xFF,
+    [6] = 20,
 };
 
 static const u8 sItemEffect_Antidote[6] = {
@@ -122,6 +122,11 @@ static const u8 sItemEffect_RevivalHerb[10] = {
 static const u8 sItemEffect_Ether[7] = {
     [4] = ITEM4_HEAL_PP_ONE | ITEM4_HEAL_PP_ALL,
     [6] = 10,
+};
+
+static const u8 sItemEffect_PPMini[7] = {   //[hack] 2026-10-03 ピーピーミニ: ピーピーエイダーと同じで 5 だけ回復
+    [4] = ITEM4_HEAL_PP_ONE | ITEM4_HEAL_PP_ALL,
+    [6] = 5,
 };
 
 static const u8 sItemEffect_MaxEther[7] = {
@@ -476,6 +481,7 @@ const u8 *const gItemEffectTable2[ITEMS_COUNT] =
     [ITEM_REVIVAL_HERB - ITEM_POTION] = sItemEffect_RevivalHerb,
     [ITEM_ETHER - ITEM_POTION] = sItemEffect_Ether,
     [ITEM_MAX_ETHER - ITEM_POTION] = sItemEffect_MaxEther,
+    [ITEM_PP_MINI - ITEM_POTION] = sItemEffect_PPMini,
     [ITEM_ELIXIR - ITEM_POTION] = sItemEffect_Elixir,
     [ITEM_MAX_ELIXIR - ITEM_POTION] = sItemEffect_MaxElixir,
     [ITEM_LAVA_COOKIE - ITEM_POTION] = sItemEffect_LavaCookie,

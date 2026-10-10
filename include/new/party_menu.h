@@ -40,6 +40,9 @@ void sp109_IsPlayerFacingNPCWithOverworldPic(void);
 void sp10A_CanUseCutOnTree(void);
 void sp10B_CanUseRockSmashOnRock(void);
 void sp10C_CanUseStrengthOnBoulder(void);
+void sp10D_CanUseCutOnTree_LastResult(void); //patches/0013
+void sp120_CanUseRockSmashOnRock_LastResult(void); //patches/0014
+void sp121_CanUseStrengthOnBoulder_LastResult(void); //patches/0014
 
 //Exported Data Structures
 //extern const struct XX gPartyMenuCursorOptions[];

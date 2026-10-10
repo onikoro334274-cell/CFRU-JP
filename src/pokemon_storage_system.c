@@ -13,6 +13,8 @@
 #include "../include/new/frontier.h"
 #include "../include/new/item.h"
 #include "../include/new/pokemon_storage_system.h"
+#include "hack_mon_id.h" //[hack] patches/0259
+#include "hack_box_shelf.h" //[hack] patches/0196 ボックスの仮想化
 /*
 pokemon_storage_system.c
 	handles pokemon storage expansion and related functions
@@ -36,6 +38,8 @@ enum
 	WALLPAPER_POKECENTER,
 	WALLPAPER_TILES,
 	WALLPAPER_SIMPLE,
+	WALLPAPER_SPARE, //[hack] patches/0242 使わない番号（メニューの文 38 番は CFRU の Select）
+	WALLPAPER_PEACH, //[hack] patches/0242 もも（src/hack_box_wallpaper.c）
 	WALLPAPER_COUNT
 };
 
@@ -56,7 +60,8 @@ typedef u8 BoxNameT[9];
 
 #define gDisposableBoxMon ((struct BoxPokemon*) 0x2022B24) //Reuse Battle Buffer A
 
-struct CompressedPokemon* const sPokemonBoxPtrs[TOTAL_BOXES_COUNT] =
+//[hack] patches/0196: 1〜19 箱・26〜39 箱は棚（src/hack_box_shelf.c）。この表は 20〜25 箱（棚でない箱）だけが使う
+struct CompressedPokemon* const sPokemonBoxPtrs[25] =
 {
 	ORIGINAL_BOX_POKEMON_RAM,				//Box 1
 	ORIGINAL_BOX_POKEMON_RAM + (30 * 1),	//Box 2
@@ -112,6 +117,33 @@ BoxNameT* const sPokemonBoxNamePtrs[TOTAL_BOXES_COUNT] =
 	ORIGINAL_BOX_NAME_RAM - 9,	//Box 23
 	ORIGINAL_BOX_NAME_RAM - 10,	//Box 24
 	ORIGINAL_BOX_NAME_RAM - 11,	//Box 25
+	//[hack] patches/0196 26〜39 箱（PokemonStorage + 0x8134 の空き・棚のページ 0 に入る）
+	(BoxNameT*) (0x202924C + 0x8134) + 0,	//Box 26
+	(BoxNameT*) (0x202924C + 0x8134) + 1,	//Box 27
+	(BoxNameT*) (0x202924C + 0x8134) + 2,	//Box 28
+	(BoxNameT*) (0x202924C + 0x8134) + 3,	//Box 29
+	(BoxNameT*) (0x202924C + 0x8134) + 4,	//Box 30
+	(BoxNameT*) (0x202924C + 0x8134) + 5,	//Box 31
+	(BoxNameT*) (0x202924C + 0x8134) + 6,	//Box 32
+	(BoxNameT*) (0x202924C + 0x8134) + 7,	//Box 33
+	(BoxNameT*) (0x202924C + 0x8134) + 8,	//Box 34
+	(BoxNameT*) (0x202924C + 0x8134) + 9,	//Box 35
+	(BoxNameT*) (0x202924C + 0x8134) + 10,	//Box 36
+	(BoxNameT*) (0x202924C + 0x8134) + 11,	//Box 37
+	(BoxNameT*) (0x202924C + 0x8134) + 12,	//Box 38
+	(BoxNameT*) (0x202924C + 0x8134) + 13,	//Box 39
+	//[hack] patches/0232 40〜50 箱（PokemonStorage + 0x8260・追加のセーブ領域のページ 4 に入る）
+	(BoxNameT*) (0x202924C + 0x8260) + 0,	//Box 40
+	(BoxNameT*) (0x202924C + 0x8260) + 1,	//Box 41
+	(BoxNameT*) (0x202924C + 0x8260) + 2,	//Box 42
+	(BoxNameT*) (0x202924C + 0x8260) + 3,	//Box 43
+	(BoxNameT*) (0x202924C + 0x8260) + 4,	//Box 44
+	(BoxNameT*) (0x202924C + 0x8260) + 5,	//Box 45
+	(BoxNameT*) (0x202924C + 0x8260) + 6,	//Box 46
+	(BoxNameT*) (0x202924C + 0x8260) + 7,	//Box 47
+	(BoxNameT*) (0x202924C + 0x8260) + 8,	//Box 48
+	(BoxNameT*) (0x202924C + 0x8260) + 9,	//Box 49
+	(BoxNameT*) (0x202924C + 0x8260) + 10,	//Box 50
 };
 
 //Declaring this as "static" makes it not compile properly for some reason.
@@ -142,14 +174,58 @@ u8* const sPokemonBoxWallpaperPtrs[TOTAL_BOXES_COUNT] =
 	(u8*) (ORIGINAL_BOX_POKEMON_RAM + (30 * 19)) + 8,	//Box 23
 	(u8*) (ORIGINAL_BOX_POKEMON_RAM + (30 * 19)) + 9,	//Box 24
 	(u8*) (ORIGINAL_BOX_POKEMON_RAM + (30 * 19)) + 10,	//Box 25
+	//[hack] patches/0196 26〜39 箱（PokemonStorage + 0x81B2）
+	(u8*) (0x202924C + 0x81B2) + 0,	//Box 26
+	(u8*) (0x202924C + 0x81B2) + 1,	//Box 27
+	(u8*) (0x202924C + 0x81B2) + 2,	//Box 28
+	(u8*) (0x202924C + 0x81B2) + 3,	//Box 29
+	(u8*) (0x202924C + 0x81B2) + 4,	//Box 30
+	(u8*) (0x202924C + 0x81B2) + 5,	//Box 31
+	(u8*) (0x202924C + 0x81B2) + 6,	//Box 32
+	(u8*) (0x202924C + 0x81B2) + 7,	//Box 33
+	(u8*) (0x202924C + 0x81B2) + 8,	//Box 34
+	(u8*) (0x202924C + 0x81B2) + 9,	//Box 35
+	(u8*) (0x202924C + 0x81B2) + 10,	//Box 36
+	(u8*) (0x202924C + 0x81B2) + 11,	//Box 37
+	(u8*) (0x202924C + 0x81B2) + 12,	//Box 38
+	(u8*) (0x202924C + 0x81B2) + 13,	//Box 39
+	//[hack] patches/0232 40〜50 箱（PokemonStorage + 0x82C3）
+	(u8*) (0x202924C + 0x82C3) + 0,	//Box 40
+	(u8*) (0x202924C + 0x82C3) + 1,	//Box 41
+	(u8*) (0x202924C + 0x82C3) + 2,	//Box 42
+	(u8*) (0x202924C + 0x82C3) + 3,	//Box 43
+	(u8*) (0x202924C + 0x82C3) + 4,	//Box 44
+	(u8*) (0x202924C + 0x82C3) + 5,	//Box 45
+	(u8*) (0x202924C + 0x82C3) + 6,	//Box 46
+	(u8*) (0x202924C + 0x82C3) + 7,	//Box 47
+	(u8*) (0x202924C + 0x82C3) + 8,	//Box 48
+	(u8*) (0x202924C + 0x82C3) + 9,	//Box 49
+	(u8*) (0x202924C + 0x82C3) + 10,	//Box 50
 };
 
 #define gTempTeamBackup ((struct CompressedPokemon*) 0x203E118)
 
 //This file's functions:
 void CreateBoxMonFromCompressedMon(struct BoxPokemon* boxMon, struct CompressedPokemon* compMon);
+#define HACK_MARK_OFF 0x10   //[hack] patches/0286 hyperTraining（手持ち・縮めた形とも 0x10）
+#define HACK_MARK_BIT 0x80
 void CreateCompressedMonFromBoxMon(struct BoxPokemon* boxMon, struct CompressedPokemon* compMon);
 struct CompressedPokemon* GetCompressedMonPtr(u8 boxId, u8 boxPosition);
+
+//[hack] patches/0196 ボックスの仮想化: 読むときは 1 匹の写し（棚の箱が入れ物に無ければフラッシュから直に）・書くときは入れ物（汚れの印）
+static void ReadMonAt(u8 boxId, u8 boxPosition, struct CompressedPokemon* out)
+{
+	if (BoxShelf_ShelfIndex(boxId) >= 0)
+		BoxShelf_ReadMon(boxId, boxPosition, out);
+	else
+		*out = sPokemonBoxPtrs[boxId][boxPosition];
+}
+
+static struct CompressedPokemon* MonPtrForWrite(u8 boxId, u8 boxPosition)
+{
+	struct CompressedPokemon* box = BoxShelf_BoxMons(boxId, TRUE);
+	return (box != NULL) ? &box[boxPosition] : &sPokemonBoxPtrs[boxId][boxPosition];
+}
 
 u32 GetBoxMonDataAt(u8 boxId, u8 boxPosition, s32 request)
 {
@@ -158,12 +234,16 @@ u32 GetBoxMonDataAt(u8 boxId, u8 boxPosition, s32 request)
 		if (request == MON_DATA_SPECIES)
 		{
 			//Save time since checking if a slot is empty is very common
-			return sPokemonBoxPtrs[boxId][boxPosition].substruct0.species;
+			struct CompressedPokemon comp;
+			ReadMonAt(boxId, boxPosition, &comp);
+			return comp.substruct0.species;
 		}
 		else
 		{
 			struct BoxPokemon mon;
-			CreateBoxMonFromCompressedMon(&mon, &sPokemonBoxPtrs[boxId][boxPosition]);
+			struct CompressedPokemon comp;
+			ReadMonAt(boxId, boxPosition, &comp);
+			CreateBoxMonFromCompressedMon(&mon, &comp);
 			return GetBoxMonData(&mon, request, NULL);
 		}
 	}
@@ -176,9 +256,10 @@ void SetBoxMonDataAt(u8 boxId, u8 boxPosition, s32 request, const void* value)
 	if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
 	{
 		struct Pokemon mon; //Not Box Mon just in case stats are modified by hold item form change and it corrupts data
-		CreateBoxMonFromCompressedMon((struct BoxPokemon*) &mon, &sPokemonBoxPtrs[boxId][boxPosition]); //Create temporary mon
+		struct CompressedPokemon* comp = MonPtrForWrite(boxId, boxPosition);
+		CreateBoxMonFromCompressedMon((struct BoxPokemon*) &mon, comp); //Create temporary mon
 		SetBoxMonData((struct BoxPokemon*) &mon, request, value);
-		CreateCompressedMonFromBoxMon((struct BoxPokemon*) &mon, &sPokemonBoxPtrs[boxId][boxPosition]); //Copy new data back
+		CreateCompressedMonFromBoxMon((struct BoxPokemon*) &mon, comp); //Copy new data back
 	}
 }
 
@@ -187,7 +268,9 @@ void GetBoxMonNickAt(u8 boxId, u8 boxPosition, u8* dst)
 	if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
 	{
 		struct BoxPokemon mon;
-		CreateBoxMonFromCompressedMon(&mon, &sPokemonBoxPtrs[boxId][boxPosition]);
+		struct CompressedPokemon comp;
+		ReadMonAt(boxId, boxPosition, &comp);
+		CreateBoxMonFromCompressedMon(&mon, &comp);
 		GetBoxMonData(&mon, MON_DATA_NICKNAME, dst);
 	}
 	else
@@ -199,9 +282,10 @@ void SetBoxMonNickAt(u8 boxId, u8 boxPosition, const u8* nick)
 	if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
 	{
 		struct BoxPokemon mon;
-		CreateBoxMonFromCompressedMon(&mon, &sPokemonBoxPtrs[boxId][boxPosition]);
+		struct CompressedPokemon* comp = MonPtrForWrite(boxId, boxPosition);
+		CreateBoxMonFromCompressedMon(&mon, comp);
 		SetBoxMonData(&mon, MON_DATA_NICKNAME, nick);
-		CreateCompressedMonFromBoxMon(&mon, &sPokemonBoxPtrs[boxId][boxPosition]); //Copy new data back
+		CreateCompressedMonFromBoxMon(&mon, comp); //Copy new data back
 	}
 }
 
@@ -210,7 +294,9 @@ u32 GetAndCopyBoxMonDataAt(u8 boxId, u8 boxPosition, s32 request, void* dst)
 	if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
 	{
 		struct BoxPokemon mon;
-		CreateBoxMonFromCompressedMon(&mon, &sPokemonBoxPtrs[boxId][boxPosition]);
+		struct CompressedPokemon comp;
+		ReadMonAt(boxId, boxPosition, &comp);
+		CreateBoxMonFromCompressedMon(&mon, &comp);
 		return GetBoxMonData(&mon, request, dst);
 	}
 	else
@@ -228,14 +314,14 @@ void SetBoxMonAt(u8 boxId, u8 boxPosition, struct BoxPokemon* src)
 
 		struct CompressedPokemon mon;
 		CreateCompressedMonFromBoxMon(src, &mon);
-		sPokemonBoxPtrs[boxId][boxPosition] = mon;
+		*MonPtrForWrite(boxId, boxPosition) = mon;
 	}
 }
 
 void CopyBoxMonAt(u8 boxId, u8 boxPosition, struct CompressedPokemon* dst)
 {
 	if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
-		*dst = sPokemonBoxPtrs[boxId][boxPosition];
+		ReadMonAt(boxId, boxPosition, dst);
 }
 
 void CreateBoxMonAt(u8 boxId, u8 boxPosition, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 personality, u8 otIDType, u32 otID)
@@ -252,14 +338,23 @@ void CreateBoxMonAt(u8 boxId, u8 boxPosition, u16 species, u8 level, u8 fixedIV,
 
 		struct CompressedPokemon compMon;
 		CreateCompressedMonFromBoxMon(&boxMon, &compMon);
-		sPokemonBoxPtrs[boxId][boxPosition] = compMon;
+		*MonPtrForWrite(boxId, boxPosition) = compMon;
 	}
 }
 
 void ZeroBoxMonAt(u8 boxId, u8 boxPosition)
 {
 	if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
-		memset(&sPokemonBoxPtrs[boxId][boxPosition], 0, sizeof(struct CompressedPokemon));
+	{
+		//[hack] patches/0196 もう空なら書かない（はじめからの全部の箱を空にする所で、棚の箱を汚さない）
+		struct CompressedPokemon comp;
+		const u8* b = (const u8*) &comp;
+		u32 i;
+		ReadMonAt(boxId, boxPosition, &comp);
+		for (i = 0; i < sizeof(comp) && b[i] == 0; ++i);
+		if (i < sizeof(comp))
+			memset(MonPtrForWrite(boxId, boxPosition), 0, sizeof(struct CompressedPokemon));
+	}
 }
 
 void BoxMonAtToMon(u8 boxId, u8 boxPosition, struct Pokemon* dst)
@@ -267,7 +362,9 @@ void BoxMonAtToMon(u8 boxId, u8 boxPosition, struct Pokemon* dst)
 	if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
 	{
 		struct BoxPokemon mon;
-		CreateBoxMonFromCompressedMon(&mon, &sPokemonBoxPtrs[boxId][boxPosition]);
+		struct CompressedPokemon comp;
+		ReadMonAt(boxId, boxPosition, &comp);
+		CreateBoxMonFromCompressedMon(&mon, &comp);
 		BoxMonToMon(&mon, dst);
 	}
 }
@@ -283,8 +380,9 @@ struct BoxPokemon* GetBoxedMonPtr(u8 boxId, u8 boxPosition)
 {
 	if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
 	{
-		struct CompressedPokemon* compMon = &sPokemonBoxPtrs[boxId][boxPosition];
-		CreateBoxMonFromCompressedMon(gDisposableBoxMon, compMon); //Use a static location in memory
+		struct CompressedPokemon compMon;
+		ReadMonAt(boxId, boxPosition, &compMon);
+		CreateBoxMonFromCompressedMon(gDisposableBoxMon, &compMon); //Use a static location in memory
 		return gDisposableBoxMon;
 	}
 	else
@@ -294,7 +392,11 @@ struct BoxPokemon* GetBoxedMonPtr(u8 boxId, u8 boxPosition)
 struct CompressedPokemon* GetCompressedMonPtr(u8 boxId, u8 boxPosition)
 {
 	if (boxId < TOTAL_BOXES_COUNT && boxPosition < IN_BOX_COUNT)
-		return &sPokemonBoxPtrs[boxId][boxPosition];
+	{
+		//[hack] patches/0196 ポインタを渡す（ステータス画面がこの先を 58 バイトずつ足して読む）→ 棚の箱は入れ物に読み込む（今の箱は追い出さない）
+		struct CompressedPokemon* box = BoxShelf_BoxMons(boxId, FALSE);
+		return (box != NULL) ? &box[boxPosition] : &sPokemonBoxPtrs[boxId][boxPosition];
+	}
 	else
 		return NULL;
 }
@@ -315,6 +417,18 @@ void CreateBoxMonFromCompressedMon(struct BoxPokemon* boxMon, struct CompressedP
 
 	for (int i = 0; i < MAX_MON_MOVES; ++i) //Give PP
 		boxMon->substruct1.pp[i] = CalculatePPWithBonus(boxMon->substruct1.moves[i], boxMon->substruct0.ppBonuses, i);
+
+	//[hack] patches/0259 #70 ポケモン自身の表 ID・裏 ID: 縮めた形の空きビット 32 本 → コンディションの 4 バイト（src/hack_mon_id.c）
+	HackMonId_ClearSpare(boxMon);
+	HackMonId_Set(boxMon, HackMonId_UnpackComp(compMon));
+
+	//[hack] patches/0286 うんめいの印（obedient・クチバの特別なフカマル・お母さんのピカチュウ）: 縮めた形には欄が無く、預けると消えていた。
+	//  縮めるとき すごいとっくんの欄（0x10・使うのは bit0〜5）の bit7 に入れたものを戻す
+	if (((u8*) boxMon)[HACK_MARK_OFF] & HACK_MARK_BIT)
+	{
+		((u8*) boxMon)[HACK_MARK_OFF] &= ~HACK_MARK_BIT;
+		boxMon->substruct3.obedient = TRUE;
+	}
 }
 
 void CreateCompressedMonFromBoxMon(struct BoxPokemon* boxMon, struct CompressedPokemon* compMon)
@@ -330,6 +444,15 @@ void CreateCompressedMonFromBoxMon(struct BoxPokemon* boxMon, struct CompressedP
 	compMon->move2 = boxMon->substruct1.moves[1];
 	compMon->move3 = boxMon->substruct1.moves[2];
 	compMon->move4 = boxMon->substruct1.moves[3];
+
+	//[hack] patches/0259 #70 ポケモン自身の表 ID・裏 ID: まだ無ければ今の色違いのまま付けて、空きビット 32 本へ（src/hack_mon_id.c）
+	HackMonId_Ensure(boxMon);
+	HackMonId_PackComp(compMon, HackMonId_Get(boxMon));
+
+	//[hack] patches/0286 うんめいの印を すごいとっくんの欄の bit7 へ（上の CreateBoxMonFromCompressedMon で戻す）
+	((u8*) compMon)[HACK_MARK_OFF] &= ~HACK_MARK_BIT;
+	if (boxMon->substruct3.obedient)
+		((u8*) compMon)[HACK_MARK_OFF] |= HACK_MARK_BIT;
 }
 
 u8* GetBoxNamePtr(u8 boxId)
@@ -410,12 +533,13 @@ u8 SendMonToPC(struct Pokemon* mon)
 
 	do
 	{
-		for (boxPos = 0; boxPos < IN_BOX_COUNT; boxPos++)
+		for (boxPos = 0; boxPos < IN_BOX_COUNT && BoxShelf_CanTouchBox(boxNo); boxPos++) //[hack] patches/0196 次のレポートに収まらない箱は「いっぱい」と同じ
 		{
-			struct CompressedPokemon* checkingMon = GetCompressedMonPtr(boxNo, boxPos);
-			if (checkingMon->substruct0.species == SPECIES_NONE)
+			struct CompressedPokemon checking;
+			ReadMonAt(boxNo, boxPos, &checking); //[hack] patches/0196 空きを探すだけでは入れ物を動かさない
+			if (checking.substruct0.species == SPECIES_NONE)
 			{
-				CreateCompressedMonFromBoxMon((struct BoxPokemon*) mon, checkingMon);
+				CreateCompressedMonFromBoxMon((struct BoxPokemon*) mon, MonPtrForWrite(boxNo, boxPos));
 				gSpecialVar_MonBoxId = boxNo;
 				gSpecialVar_MonBoxPos = boxPos;
 				if (GetPCBoxToSendMon() != boxNo)
@@ -440,7 +564,7 @@ bool8 SendMonToBoxPos(struct Pokemon* mon, u8 boxNo, u8 boxPos)
 	if (boxNo > TOTAL_BOXES_COUNT || boxPos > IN_BOX_COUNT)
 		return TRUE;
 
-	struct CompressedPokemon* checkingMon = GetCompressedMonPtr(boxNo, boxPos);
+	struct CompressedPokemon* checkingMon = MonPtrForWrite(boxNo, boxPos); //[hack] patches/0196
 	CreateCompressedMonFromBoxMon((struct BoxPokemon*) mon, checkingMon);
 	gSpecialVar_MonBoxId = boxNo;
 	gSpecialVar_MonBoxPos = boxPos;

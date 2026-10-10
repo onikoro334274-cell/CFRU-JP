@@ -9,6 +9,8 @@
 
 extern u8 BattleScript_StatsResetZMove[];
 extern u8 BattleScript_AllStatsUpZMove[];
+extern u8 BattleScript_AllStatsDownZMove[]; //★ Champions（patches/0070）
+extern u8 BattleScript_StatDownZMove[];
 extern u8 BattleScript_BoostCritsZMove[];
 extern u8 BattleScript_FollowMeZMove[];
 extern u8 BattleScript_RecoverHPZMove[];

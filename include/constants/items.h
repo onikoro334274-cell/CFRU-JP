@@ -817,7 +817,89 @@ enum
 #define ITEM_NAIVE_MINT 0x304
 #define ITEM_SERIOUS_MINT 0x305
 
-#define ITEMS_COUNT (ITEM_SERIOUS_MINT + 1)
+// 参考「CFRU-JP_変更ファイル」機能3 より（patches/0008）
+#define ITEM_HISUI_ROCK 0x306
+#define ITEM_ROTOM_CATALOG 0x307
+
+// きのみプランター（patches/0018）
+#define ITEM_BERRY_PLANTER 0x308
+
+// ZAMEGA BEGIN (tools/megas/build_za_megas.py) 新しいメガストーン・道具
+#define ITEM_ZA_ABSOLITE_Z 0x309
+#define ITEM_ZA_BARBARACITE 0x30A
+#define ITEM_ZA_BAXCALIBRITE 0x30B
+#define ITEM_ZA_CHANDELURITE 0x30C
+#define ITEM_ZA_CHESNAUGHTITE 0x30D
+#define ITEM_ZA_CHIMECHITE 0x30E
+#define ITEM_ZA_CLEFABLITE 0x30F
+#define ITEM_ZA_CRABOMINITE 0x310
+#define ITEM_ZA_DARKRANITE 0x311
+#define ITEM_ZA_DELPHOXITE 0x312
+#define ITEM_ZA_DRAGALGITE 0x313
+#define ITEM_ZA_DRAGONINITE 0x314
+#define ITEM_ZA_DRAMPANITE 0x315
+#define ITEM_ZA_EELEKTROSSITE 0x316
+#define ITEM_ZA_EMBOARITE 0x317
+#define ITEM_ZA_EXCADRITE 0x318
+#define ITEM_ZA_FALINKSITE 0x319
+#define ITEM_ZA_FERALIGITE 0x31A
+#define ITEM_ZA_FLOETTITE 0x31B
+#define ITEM_ZA_FROSLASSITE 0x31C
+#define ITEM_ZA_GARCHOMPITE_Z 0x31D
+#define ITEM_ZA_GLIMMORANITE 0x31E
+#define ITEM_ZA_GOLISOPITE 0x31F
+#define ITEM_ZA_GOLURKITE 0x320
+#define ITEM_ZA_GRENINJITE 0x321
+#define ITEM_ZA_HAWLUCHANITE 0x322
+#define ITEM_ZA_HEATRANITE 0x323
+#define ITEM_ZA_LUCARIONITE_Z 0x324
+#define ITEM_ZA_MAGEARNITE 0x325
+#define ITEM_ZA_MALAMARITE 0x326
+#define ITEM_ZA_MEGANIUMITE 0x327
+#define ITEM_ZA_MEOWSTICITE 0x328
+#define ITEM_ZA_PYROARITE 0x329
+#define ITEM_ZA_RAICHUNITE_X 0x32A
+#define ITEM_ZA_RAICHUNITE_Y 0x32B
+#define ITEM_ZA_SCOLIPITE 0x32C
+#define ITEM_ZA_SCOVILLAINITE 0x32D
+#define ITEM_ZA_SCRAFTINITE 0x32E
+#define ITEM_ZA_SKARMORITE 0x32F
+#define ITEM_ZA_STARAPTITE 0x330
+#define ITEM_ZA_STARMINITE 0x331
+#define ITEM_ZA_TATSUGIRINITE 0x332
+#define ITEM_ZA_VICTREEBELITE 0x333
+#define ITEM_ZA_ZERAORITE 0x334
+#define ITEM_ZA_ZYGARDITE 0x335
+#define ITEM_FAIRY_FEATHER 0x336
+// ZAMEGA END
+// #28 ミュージックプレイヤー（自作・ZAMEGA の外。tools/megas/build_za_megas.py はこれより前に番号を振れない）
+#define ITEM_MUSIC_PLAYER 0x337
+// 2026-10-01 けいけんアメ XS〜XL（自作・src/exp_candy.c。ユーザー「経験アメXLとか…ショップ店員に売って欲しい」）
+#define ITEM_EXP_CANDY_XS 0x338
+#define ITEM_EXP_CANDY_S 0x339
+#define ITEM_EXP_CANDY_M 0x33A
+#define ITEM_EXP_CANDY_L 0x33B
+#define ITEM_EXP_CANDY_XL 0x33C
+// 2026-10-01 タイムテレビ（自作・プレイ時間の時計の切り替えと時間帯の変更・src/play_clock.c・絵は教えテレビ）
+#define ITEM_TIME_TV 0x33D
+#define ITEM_MOVE_NOTE 0x33E   //★ 2026-10-03 おもいだしノート（src/hack_mystery_gift.c）
+#define ITEM_PP_MINI 0x33F   //★ 2026-10-03 ピーピーミニ（PP を 5 回復・ピーピーエイダーの絵）
+#define ITEM_EV_RESET 0x340  //★ 2026-10-03 どりょくリセット（努力値を全部 0・src/hack_ev_reset.c）
+#define ITEM_SHINING_CHARM 0x341  //★ 2026-10-04 かがやくおまもり（色違い 1/500・使うと ON/OFF・src/hack_shining_charm.c）
+#define ITEM_BOX_LINK 0x342  //★ 2026-10-04 ボックスリンク（どこでもボックスを操作・回復はしない・src/hack_box_link.c）
+#define ITEM_MOMO_ICE 0x343  //★ 2026-10-05 ももアイス（もたせると 能力 2 倍・状態異常と能力ダウンを受けない・毎ターン 1/3 回復・うばわれない・src/hack_momo_ice.c）
+#define ITEM_LEVEL_DOWN 0x344  //★ 2026-10-06 レベルダウン（レベルを 1 下げる・src/hack_level_down.c）
+#define ITEM_TRAINING_POUCH 0x345  //★ 2026-10-06 いくせいポーチ（育成の道具だけを見せる袋・src/hack_training_pouch.c）
+#define ITEM_GENDER_TOOL 0x346  //★ 2026-10-06 きょせいどうぐ（オス・メスを入れ替える・src/hack_gender_tool.c）
+#define ITEM_MOEMON_SWITCH 0x347  //★ 2026-10-08 Moemonボタン（Moémon の絵の ON/OFF・たいせつなもの・src/hack_moemon_switch.c）
+#define ITEM_DANGER_LEAF 0x348  //★ 2026-10-09 あぶないはっぱ（もたせる道具・場に出ると 5 つの能力 +3・ずっと こんらん・src/hack_danger_leaf.c）
+#define ITEM_DANGER_SUGAR 0x349  //★ 2026-10-09 あぶないこなざとう（つかうと なつき度が最大・src/hack_danger_sugar.c）
+#define ITEM_HABITAT_SWITCH 0x34A  //★ 2026-10-10 せいそくスイッチ（入れ替えた野生 ⇔ 元の生息地・たいせつなもの・src/hack_habitat_switch.c）
+#define ITEM_MOEMON_FOSSIL 0x34B  //★ 2026-10-10 Moemonかせき（グレンの研究所で よみがえらせると 化石ポケモンの どれかが 必ず Moémon の絵・src/hack_moemon_fossil.c）
+#define ITEM_GENE_BOND 0x34C  //★ 2026-10-10 いでんしのきずな（もたせる道具・イーブイと その しんかけいの 攻撃技 1.3 倍・ユーザーの仕様書）
+#define ITEM_MILD 0x34D  //★ 2026-10-10 マイルド（もたせる道具・相手の命中 0.9 倍・相手が 20% で いうことを きかない・accuracy_calc.c／attackcanceler.c）
+#define ITEM_GOLD_CAPSULE 0x34E  //★ 2026-10-10 おうごんのカプセル（もたせる道具・一度でも戦闘に出ると賞金とネコにこばん系のお金が 4 倍・効き目は おまもりこばん と同じ）
+#define ITEMS_COUNT (ITEM_GOLD_CAPSULE + 1)
 
 //For Pokemon Unbound
 #ifdef UNBOUND

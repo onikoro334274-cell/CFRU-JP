@@ -1286,7 +1286,7 @@ bool8 ShouldPivot(u8 bankAtk, u8 bankDef, u16 move, u8 class)
 					&& SPLIT(move) != SPLIT_STATUS //Damaging move
 					&& (switchScore >= SWITCHING_INCREASE_RESIST_ALL_MOVES + SWITCHING_INCREASE_KO_FOE //Or remove hazards
 					 || (BATTLER_MAX_HP(bankDef)
-					    && (IsBankHoldingFocusSash(bankDef) || defAbility == ABILITY_STURDY || defAbility == ABILITY_MULTISCALE || defAbility == ABILITY_SHADOWSHIELD)))) //Pivot to break the sash/sturdy/multiscale
+					    && (IsBankHoldingFocusSash(bankDef) || defAbility == ABILITY_STURDY || defAbility == ABILITY_MULTISCALE || defAbility == ABILITY_SHADOWSHIELD || defAbility == ABILITY_DRAGONARMOR)))) //Pivot to break the sash/sturdy/multiscale
 						return PIVOT;
 				}
 				else if (!hasUsefulStatBoost) //3HKO+ the foe
@@ -1294,7 +1294,7 @@ bool8 ShouldPivot(u8 bankAtk, u8 bankDef, u16 move, u8 class)
 					if (IsClassDamager(class)
 					&& BATTLER_MAX_HP(bankDef)
 					&& SPLIT(move) != SPLIT_STATUS //Damaging move
-					&& (IsBankHoldingFocusSash(bankDef) || defAbility == ABILITY_STURDY || defAbility == ABILITY_MULTISCALE || defAbility == ABILITY_SHADOWSHIELD)) //Pivot to break the sash/sturdy/multiscale
+					&& (IsBankHoldingFocusSash(bankDef) || defAbility == ABILITY_STURDY || defAbility == ABILITY_MULTISCALE || defAbility == ABILITY_SHADOWSHIELD || defAbility == ABILITY_DRAGONARMOR)) //Pivot to break the sash/sturdy/multiscale
 						return PIVOT;
 
 					if (IsClassDamager(class) && switchScore >= SWITCHING_INCREASE_WALLS_FOE)
@@ -1670,25 +1670,26 @@ void IncreaseStatViability(s16* originalViability, u8 class, u8 boost, u8 bankAt
 			break;
 
 		case FIGHT_CLASS_TEAM_SUPPORT_BATON_PASS:
+			//[hack] patches/0276: 英語の本家 4512d5ca と同じ直し。上流はこの型だけ能力の段階しか見ず、倒されそうでも積み技を選び続けた
 			switch (stat) {
 				//Offsensive Stat Booster
 				case STAT_STAGE_ATK:
 				case STAT_STAGE_SPATK:
 				case STAT_STAGE_SPEED:
 				case STAT_STAGE_ACC:
-					if (STAT_STAGE(bankAtk, stat) < 6 + 4)
+					if (ShouldTryToSetUpStat(bankAtk, bankDef, move, stat, 6 + 4))
 						INCREASE_VIABILITY(5);
 					break;
 
 				case STAT_STAGE_DEF:
 				case STAT_STAGE_SPDEF:
-					if (STAT_STAGE(bankAtk, stat) < 6 + 4)
+					if (ShouldTryToSetUpStat(bankAtk, bankDef, move, stat, 6 + 4))
 						INCREASE_VIABILITY(4);
 					break;
 
 				//Evasiveness Stat Booster
 				case STAT_STAGE_EVASION:
-					if (STAT_STAGE(bankAtk, stat) < STAT_STAGE_MAX)
+					if (ShouldTryToSetUpStat(bankAtk, bankDef, move, stat, STAT_STAGE_MAX))
 						INCREASE_VIABILITY(6);
 					break;
 			}

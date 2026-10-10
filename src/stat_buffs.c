@@ -11,6 +11,7 @@
 #include "../include/new/battle_util.h"
 #include "../include/new/stat_buffs.h"
 #include "../include/new/item_battle_scripts.h"
+#include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
 /*
 stat_buffs.c
 	adjusts stat-related functions to include abilities and effects that change their opteraions (eg. contrary)
@@ -270,8 +271,11 @@ void atk48_playstatchangeanimation(void)
 void atk89_statbuffchange(void)
 {
 	u8* jump_loc = T1_READ_PTR(gBattlescriptCurrInstr + 2);
+	const u8* before = gBattlescriptCurrInstr; //[hack] 0255
 	if (ChangeStatBuffs(gBattleScripting.statChanger & 0xF0, gBattleScripting.statChanger & 0xF, T2_READ_8(gBattlescriptCurrInstr + 1), jump_loc) == 0)
 		gBattlescriptCurrInstr += 6;
+	else if (gBattlescriptCurrInstr == before) //[hack] 0255 STAT_BS_PTR の無い命令で ももアイス・なつき度にはじかれると、位置が進まず同じ命令を繰り返して固まる（くだけるよろい）→ 失敗の飛び先へ
+		gBattlescriptCurrInstr = jump_loc;
 }
 
 u8 ChangeStatBuffs(s8 statValue, u8 statId, u8 flags, const u8* BS_ptr)
@@ -305,11 +309,49 @@ u8 ChangeStatBuffs(s8 statValue, u8 statId, u8 flags, const u8* BS_ptr)
 
 	if ((statValue << 0x18) < 0) // stat decrease
 	{
-		if (ABILITY(gActiveBattler) == ABILITY_CONTRARY && !gNewBS->zMoveData.runningZEffect)
+		if (ABILITY(gActiveBattler) == ABILITY_CONTRARY) //★ Champions（patches/0070） あまのじゃくは Z 技の追加効果にも効く（ユーザー判断）
 			goto RAISE_STAT_BUFF;
 
 	LOWER_STAT_BUFF:
-		if (BankSideHasMist(gActiveBattler)
+		if (ITEM_EFFECT(gActiveBattler) == ITEM_EFFECT_MOMO_ICE) //[hack] patches/0175 ももアイスは能力が下がらない（相手の技も自分の技も）
+		{
+			if (flags == STAT_CHANGE_BS_PTR)
+			{
+				if (gSpecialStatuses[gActiveBattler].statLowered)
+				{
+					gBattlescriptCurrInstr = BS_ptr;
+				}
+				else
+				{
+					BattleScriptPush(BS_ptr);
+					gBattleScripting.bank = gActiveBattler;
+					gBattleCommunication[0] = gActiveBattler;
+					gLastUsedItem = ITEM(gActiveBattler);
+					gBattlescriptCurrInstr = BattleScript_ClearAmulet;
+					gSpecialStatuses[gActiveBattler].statLowered = 1;
+				}
+			}
+			return STAT_CHANGE_DIDNT_WORK;
+		}
+		else if (!affectsUser && HackAffection_TryBlockStatDrop(gActiveBattler)) //[hack] patches/0240 なつき度で 相手に能力を下げられるのを はじく
+		{
+			if (flags == STAT_CHANGE_BS_PTR)
+			{
+				if (gSpecialStatuses[gActiveBattler].statLowered)
+				{
+					gBattlescriptCurrInstr = BS_ptr;
+				}
+				else
+				{
+					BattleScriptPush(BS_ptr);
+					gBattleScripting.bank = gActiveBattler;
+					gBattlescriptCurrInstr = BattleScript_AffectionStatBlock;
+					gSpecialStatuses[gActiveBattler].statLowered = 1;
+				}
+			}
+			return STAT_CHANGE_DIDNT_WORK;
+		}
+		else if (BankSideHasMist(gActiveBattler)
 		&& !certain
 		&& gCurrentMove != MOVE_CURSE
 		&& ABILITY(gBankAttacker) != ABILITY_INFILTRATOR)
@@ -449,7 +491,7 @@ u8 ChangeStatBuffs(s8 statValue, u8 statId, u8 flags, const u8* BS_ptr)
 		{
 			statValue = -GET_STAT_BUFF_VALUE(statValue);
 
-			if (ability == ABILITY_SIMPLE && !gNewBS->zMoveData.runningZEffect)
+			if (ability == ABILITY_SIMPLE /*★ Champions（patches/0070） たんじゅんは Z 技の追加効果にも効く */)
 				statValue *= 2;
 
 			gBattleTextBuff2[0] = B_BUFF_PLACEHOLDER_BEGIN;
@@ -494,13 +536,13 @@ u8 ChangeStatBuffs(s8 statValue, u8 statId, u8 flags, const u8* BS_ptr)
 	//Stat Increase
 	else
 	{
-		if (ABILITY(gActiveBattler) == ABILITY_CONTRARY && !gNewBS->zMoveData.runningZEffect)
+		if (ABILITY(gActiveBattler) == ABILITY_CONTRARY) //★ Champions（patches/0070）
 			goto LOWER_STAT_BUFF;
 
 	RAISE_STAT_BUFF:
 		statValue = GET_STAT_BUFF_VALUE(statValue);
 
-		if (ability == ABILITY_SIMPLE && !gNewBS->zMoveData.runningZEffect)
+		if (ability == ABILITY_SIMPLE /*★ Champions（patches/0070） たんじゅんは Z 技の追加効果にも効く */)
 			statValue *= 2;
 
 		gBattleTextBuff2[0] = B_BUFF_PLACEHOLDER_BEGIN;
@@ -578,7 +620,8 @@ u8 CanStatNotBeLowered(u8 statId, u8 bankDef, u8 bankAtk, u16 defAbility)
 
 	if (IsClearBodyAbility(defAbility)
 	|| (defAbility == ABILITY_FLOWERVEIL && IsOfType(bankDef, TYPE_GRASS))
-	|| ITEM_EFFECT(bankDef) == ITEM_EFFECT_CLEAR_AMULET)
+	|| ITEM_EFFECT(bankDef) == ITEM_EFFECT_CLEAR_AMULET
+	|| ITEM_EFFECT(bankDef) == ITEM_EFFECT_MOMO_ICE) //[hack] patches/0175
 		return STAT_PROTECTED_BY_GENERAL_ABILITY;
 	else if (ABILITY(PARTNER(bankDef)) == ABILITY_FLOWERVEIL && IsOfType(bankDef, TYPE_GRASS))
 		return STAT_PROTECTED_BY_PARTNER_ABILITY;

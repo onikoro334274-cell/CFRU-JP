@@ -964,6 +964,7 @@ static void SpriteCB_MegaIndicator(struct Sprite* self)
 		// Figure out the X position for the indicator - it differs depending on
 		// the battle type and the side the healthbox represents.
 		s16 shift = 64; // Halfway point for OAM
+		bool8 fixedShift = FALSE;
 
 		#ifdef POKEMON_NAME_6
 			shift += 26;
@@ -974,11 +975,42 @@ static void SpriteCB_MegaIndicator(struct Sprite* self)
 				shift += 26;
 		#endif
 
+		// ★★ BW 風の HP バー（#17・src/bw_hpbar.c）は素と配置が違う。
+		//   **相手側だけ**印がレベルの数字の上に乗る
+		//   （2026-09-21 にユーザーが実機で発見）。
+		//
+		//   実機の写真を画面の画素に直して測った値（枠の左端が x=0）:
+		//     "Lv"        58〜64
+		//     数字 "100"  64〜88   （bw_hpbar.c の BW_LEVEL_TILE_OPPONENT 40〜42）
+		//     印のいま    65〜72   ＝ 1 の桁の真上
+		//     88 より右は何も無い
+		//
+		//   味方は数字がタイル 74〜（もっと右）なので素のままぶつからない。
+		//   ★ レベルの桁数による補正は要らない。BW の枠では数字の位置が
+		//     固定で、桁が減っても左詰めのまま右端は変わらないため。
+		if (SIDE(INDICATOR_BANK) == B_SIDE_OPPONENT)
+		{
+			shift = 98;     // 印（8x8）の左端が枠の左端 +94 に来る
+			fixedShift = TRUE;
+		}
+		// ★ 味方（シングル）も「Lv」の上に乗っていた（2026-09-29 ユーザー「メガ進化アイコンとレベルが重なっている」・
+		//   バトルタワーのメガガブリアス）。写真の画素で: 印のいま 198〜205 ＝「Lv」の真上・「Lv」198〜205・
+		//   数字 "100" 〜229（"50" は 〜221）・画面の右端 240。→ 数字の右の 232〜239 に固定（素の計算より +34）。
+		//   ダブルの味方（BW_LEVEL_TILE_DOUBLES_PLAYER）は写真が無いので素のまま（未確認）
+		else if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+		{
+			shift = 110;    // 印の左端が枠の左端 +106（画面 232）に来る
+			fixedShift = TRUE;
+		}
+
 		// Convert the level to a string to get how long it is
-		if (GetBankPartyData(INDICATOR_BANK)->level > 99)
-			shift -= 21;
-		else
-			shift -= 14;
+		if (!fixedShift)
+		{
+			if (GetBankPartyData(INDICATOR_BANK)->level > 99)
+				shift -= 21;
+			else
+				shift -= 14;
+		}
 
 		// The x position depends on the X origin of the healthbox as well as
 		// the string length

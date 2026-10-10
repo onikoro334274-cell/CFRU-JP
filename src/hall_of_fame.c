@@ -351,7 +351,6 @@ void Task_HofPC_PrintMonInfo(u8 taskId)
 void HallOfFame_PrintMonInfo(struct HallofFameMon *currMon, unusedArg u8 a1, unusedArg u8 a2)
 {
 	u8 text[16];
-	u8 text2[24];
 	u16 i;
 	u8 *stringPtr;
 	u16 dexNumber;
@@ -379,7 +378,8 @@ void HallOfFame_PrintMonInfo(struct HallofFameMon *currMon, unusedArg u8 a1, unu
 			text[0] = text[1] = text[2] = text[3] = CHAR_QUESTION_MARK;
 		}
 		text[4] = EOS;
-		StringAppend(text2, text);
+		//[hack] 0252: text2 は初期化されていない（素の StringCopy(text2, gText_Number) が text に変わっている）。
+		//StringAppend が 0xFF を探してスタックの奥まで走り、そこへ書いて壊すので呼ばない（text2 は使われていない）
 		WindowPrint(0, 2, 0x10, 1, sUnknown_083D2414, 0, text);
 	}
 

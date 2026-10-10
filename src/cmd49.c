@@ -898,6 +898,7 @@ void atk49_moveend(void) //All the effects that happen after a move is used
 					}
 					break;
 
+				case ABILITY_EELEVATE: //★ ZA メガ（patches/0069） ふゆう＋ビーストブースト
 				case ABILITY_BEASTBOOST: ;
 					if ((arg1 != ARG_IN_FUTURE_ATTACK || gWishFutureKnock.futureSightPartyIndex[bankDef] == gBattlerPartyIndexes[gBankAttacker])
 					&& gBattleMons[bankDef].hp == 0
@@ -945,24 +946,33 @@ void atk49_moveend(void) //All the effects that happen after a move is used
 					}
 					break;
 
-				#if (defined SPECIES_GRENINJA && defined SPECIES_ASHGRENINJA)
-				case ABILITY_BATTLEBOND:
+				case ABILITY_BATTLEBOND: //★ Champions（patches/0070） 第 9 世代: 1 回だけ こうげき・とくこう・すばやさ +1（フォルムチェンジはしない）
 					if ((arg1 != ARG_IN_FUTURE_ATTACK || gWishFutureKnock.futureSightPartyIndex[bankDef] == gBattlerPartyIndexes[gBankAttacker])
-					&& SPECIES(gBankAttacker) == SPECIES_GRENINJA
+					&& !(gNewBS->battleBondDone[SIDE(gBankAttacker)] & gBitTable[gBattlerPartyIndexes[gBankAttacker]])
 					&& gBattleMons[bankDef].hp == 0
 					&& BATTLER_ALIVE(gBankAttacker)
 					&& TOOK_DAMAGE(bankDef)
 					&& MOVE_HAD_EFFECT
 					&& ViableMonCountFromBank(FOE(gBankAttacker)) > 0 //Use FOE so as to not get boost when KOing partner last after enemy has no mons left
-					&& !IS_TRANSFORMED(gBankAttacker))
+					&& (STAT_CAN_RISE(gBankAttacker, STAT_STAGE_ATK) || STAT_CAN_RISE(gBankAttacker, STAT_STAGE_SPATK) || STAT_CAN_RISE(gBankAttacker, STAT_STAGE_SPEED)
+					 #ifdef SPECIES_ASHGRENINJA
+					 || (SPECIES(gBankAttacker) == SPECIES_GRENINJA && !IS_TRANSFORMED(gBankAttacker))
+					 #endif
+					))
 					{
-						DoFormChange(gBankAttacker, SPECIES_ASHGRENINJA, TRUE, TRUE, FALSE);
-
+						gNewBS->battleBondDone[SIDE(gBankAttacker)] |= gBitTable[gBattlerPartyIndexes[gBankAttacker]];
+						gBattleScripting.bank = gBankAttacker;
 						BattleScriptPushCursor();
-						gBattlescriptCurrInstr = BattleScript_AbilityTransformed;
+						gBattlescriptCurrInstr = BattleScript_BattleBondBoost;
+						#ifdef SPECIES_ASHGRENINJA
+						if (SPECIES(gBankAttacker) == SPECIES_GRENINJA && !IS_TRANSFORMED(gBankAttacker)) //★ Champions（patches/0070） ユーザー判断: サトシゲッコウガにもなる
+						{
+							DoFormChange(gBankAttacker, SPECIES_ASHGRENINJA, TRUE, TRUE, FALSE);
+							gBattlescriptCurrInstr = BattleScript_BattleBondTransformBoost;
+						}
+						#endif
 						effect = 1;
 					}
-				#endif
 			}
 			*gSeedHelper = 0; //For Soul-Heart Loop
 			gBattleScripting.atk49_state++;
@@ -982,6 +992,7 @@ void atk49_moveend(void) //All the effects that happen after a move is used
 
 					if (!IsConfused(gBankAttacker)
 					&& ABILITY(gBankAttacker) != ABILITY_OWNTEMPO
+					&& ITEM_EFFECT(gBankAttacker) != ITEM_EFFECT_MOMO_ICE //[hack] patches/0182 ももアイスは げきりんのあとも こんらんしない（ユーザー「ももアイス持たせたガブリアスがげきりんしたときこんらんする」）
 					&& !(CheckGrounding(gBankAttacker) && gTerrainType == MISTY_TERRAIN))
 					{
 						gBattleMons[gBankAttacker].status2 |= (umodsi(Random(), 4)) + 2;
@@ -1089,6 +1100,12 @@ void atk49_moveend(void) //All the effects that happen after a move is used
 			if (gNewBS->MoveBounceInProgress)
 				gNewBS->MoveBounceInProgress = 2; //Bounce just finished
 
+			//[hack] patches/0290 2026-10-10 ゴールドラッシュ（MAKEITRAIN）も ネコにこばん と同じくお金が散らばる（全部の相手に当て終わったあと 1 回・
+			//  レベル × 5 円を戦いのあとに拾う・おまもりこばん／おうごんのカプセル の倍率も効く）。CFRU では散らばらなかった
+			if (gCurrentMove == MOVE_MAKEITRAIN && SIDE(gBankAttacker) == B_SIDE_PLAYER && gNewBS->AttackerDidDamageAtLeastOnce
+			&& !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE))
+				gNewBS->PayDayByPartyIndices[gBattlerPartyIndexes[gBankAttacker]]++;
+
 			gNewBS->MoveBounceTargetCount = 0;
 			gNewBS->OriginalAttackerTargetCount = 0;
 			gBattleScripting.atk49_state++;
@@ -1100,6 +1117,7 @@ void atk49_moveend(void) //All the effects that happen after a move is used
 			{
 				if ((gCurrentMove == MOVE_MINDBLOWN || gCurrentMove == MOVE_STEELBEAM || gCurrentMove == MOVE_CHLOROBLAST)
 				&& ABILITY(gBankAttacker) != ABILITY_MAGICGUARD
+				&& !(gCurrentMove == MOVE_CHLOROBLAST && ABILITY(gBankAttacker) == ABILITY_ROCKHEAD) //★ Champions（patches/0070） クロロブラストは いしあたまで反動なし
 				&& BATTLER_ALIVE(gBankAttacker)
 				&& !(gMoveResultFlags & MOVE_RESULT_FAILED))
 				{
@@ -1514,7 +1532,8 @@ void atk49_moveend(void) //All the effects that happen after a move is used
 			gNewBS->terastalBoostAnimationPlayed = FALSE;
 			gNewBS->poisonPuppeteerConfusion = FALSE;
 			#ifdef GEN9_CHARGE
-			if (moveType == TYPE_ELECTRIC)
+			if (moveType == TYPE_ELECTRIC
+			&& gChosenMove != MOVE_CHARGE && gCurrentMove != MOVE_CHARGE) //[hack] patches/0159 じゅうでん 自身（電気タイプ）は消さない。前は使い終えた瞬間に自分で消していた
 				gStatuses3[gBankAttacker] &= ~STATUS3_CHARGED_UP;
 			#endif
 			gBattleScripting.atk49_state++;

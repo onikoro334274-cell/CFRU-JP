@@ -54,6 +54,8 @@ extern const u8 SystemScript_EnableSurfTurboBoost[];
 extern const u8 SystemScript_DisableSurfTurboBoost[];
 extern const u8 SystemScript_PartyMenuFromField[];
 extern const u8 SystemScript_ItemMenuFromField[];
+bool8 HoennBikeCycleModeAllowed(void); //★ 2026-09-24 src/hoenn_bike.c
+bool8 HoennBikeCycleMode(void);
 extern const u8 SystemScript_MiningScan[];
 extern const u8 SystemScript_DebugMenu[];
 
@@ -193,20 +195,14 @@ bool8 StartLButtonFunc(void)
 		#ifdef FLAG_BIKE_TURBO_BOOST
 		if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_BIKE))
 		{
-			DismissMapNamePopup();
+			//★ 2026-09-24: 自転車の L はターボの切り替えではなく、モード（通常 → マッハ → ダート）の
+			//   切り替え（src/hoenn_bike.c）。キンセツの自転車屋でモードを付けてもらうまでは何もしない
+			//   （ユーザー判断）。patches/0063
+			if (!HoennBikeCycleModeAllowed())
+				return FALSE;
 
-			if (FlagGet(FLAG_BIKE_TURBO_BOOST))
-			{
-				FlagClear(FLAG_BIKE_TURBO_BOOST);
-				ScriptContext1_SetupScript(SystemScript_DisableBikeTurboBoost);
-			}
-			else
-			{
-				FlagSet(FLAG_BIKE_TURBO_BOOST);
-				ScriptContext1_SetupScript(SystemScript_EnableBikeTurboBoost);
-			}
-			
-			return TRUE;
+			DismissMapNamePopup();
+			return HoennBikeCycleMode();
 		}
 		else
 		#endif

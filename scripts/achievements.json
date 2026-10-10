@@ -1,0 +1,1547 @@
+{
+ "achievements": [
+  {
+   "id": "PARTNER",
+   "name": "ともに あゆむ",
+   "desc": "さいしょの ポケモンを もらう",
+   "tier": "BRONZE",
+   "kind": "FLAG",
+   "param": "FLAG_SYS_POKEMON_GET",
+   "target": 1,
+   "reward": {
+    "type": "MON",
+    "id": "SPECIES_CHARMANDER",
+    "amount": 5,
+    "held": "ITEM_NONE"
+   }
+  },
+  {
+   "id": "POKEDEX",
+   "name": "ずかんの はじまり",
+   "desc": "ポケモンずかんを てにいれる",
+   "tier": "BRONZE",
+   "kind": "FLAG",
+   "param": "FLAG_SYS_POKEDEX_GET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FAST_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "BADGE1",
+   "name": "いわを うちくだけ",
+   "desc": "タケシに かって\\nグレーバッジを てにいれる",
+   "tier": "BRONZE",
+   "kind": "FLAG",
+   "param": "FLAG_BADGE01_GET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LEVEL_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "BADGE2",
+   "name": "みずを のりこえろ",
+   "desc": "カスミに かって\\nブルーバッジを てにいれる",
+   "tier": "BRONZE",
+   "kind": "FLAG",
+   "param": "FLAG_BADGE02_GET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LURE_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "BADGE3",
+   "name": "でんげきの しゅんかん",
+   "desc": "マチスに かって\\nオレンジバッジを てにいれる",
+   "tier": "BRONZE",
+   "kind": "FLAG",
+   "param": "FLAG_BADGE03_GET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_HEAVY_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "BADGE4",
+   "name": "はなの ちから",
+   "desc": "エリカに かって\\nレインボーバッジを てにいれる",
+   "tier": "SILVER",
+   "kind": "FLAG",
+   "param": "FLAG_BADGE04_GET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LOVE_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "BADGE5",
+   "name": "どくを こえて",
+   "desc": "キョウに かって\\nピンクバッジを てにいれる",
+   "tier": "SILVER",
+   "kind": "FLAG",
+   "param": "FLAG_BADGE05_GET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FRIEND_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "BADGE6",
+   "name": "みらいを みぬく",
+   "desc": "ナツメに かって\\nゴールドバッジを てにいれる",
+   "tier": "SILVER",
+   "kind": "FLAG",
+   "param": "FLAG_BADGE06_GET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MOON_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "BADGE7",
+   "name": "ほのおの ちょうせん",
+   "desc": "カツラに かって\\nクリムゾンバッジを てにいれる",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "FLAG_BADGE07_GET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SPORT_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "BADGE8",
+   "name": "さいごの ジムリーダー",
+   "desc": "サカキに かって\\nグリーンバッジを てにいれる",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "FLAG_BADGE08_GET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SAFARI_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "HALL_OF_FAME",
+   "name": "あたらしい チャンピオン",
+   "desc": "ポケモンリーグを せいはして\\nでんどういりを はたす",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_ENTERED_HOF",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_DREAM_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "CAPTURE_1",
+   "name": "はじめての ゲット",
+   "desc": "ポケモンを はじめて つかまえる",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_POKEMON_CAPTURES",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_BEAST_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "CAPTURE_50",
+   "name": "ポケモン コレクター",
+   "desc": "ポケモンを 50ひき つかまえる",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_POKEMON_CAPTURES",
+   "target": 50,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FAST_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "CAPTURE_200",
+   "name": "つかまえの めいじん",
+   "desc": "ポケモンを 200ひき つかまえる",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_POKEMON_CAPTURES",
+   "target": 200,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LEVEL_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "DEX_30",
+   "name": "ずかんづくり",
+   "desc": "ポケモンを 30しゅるい つかまえる",
+   "tier": "BRONZE",
+   "kind": "DEX",
+   "param": "0",
+   "target": 30,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LURE_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "DEX_80",
+   "name": "ずかんの たびびと",
+   "desc": "ポケモンを 80しゅるい つかまえる",
+   "tier": "SILVER",
+   "kind": "DEX",
+   "param": "0",
+   "target": 80,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_HEAVY_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "DEX_151",
+   "name": "ずかん ハンター",
+   "desc": "ポケモンを 151しゅるい つかまえる",
+   "tier": "GOLD",
+   "kind": "DEX",
+   "param": "0",
+   "target": 151,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LOVE_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "DEX_250",
+   "name": "ずかんの たつじん",
+   "desc": "ポケモンを 250しゅるい つかまえる",
+   "tier": "PLATINUM",
+   "kind": "DEX",
+   "param": "0",
+   "target": 250,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FRIEND_BALL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "KANTO_DEX",
+   "name": "カントーはかせ",
+   "desc": "カントーの ポケモン151ひきを\\nすべて つかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_KANTO_DEX",
+   "target": 151,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MOON_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "NICKNAME",
+   "name": "なまえを つけた",
+   "desc": "てもちの ポケモンに\\nニックネームを つける",
+   "tier": "BRONZE",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_NICKNAME",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SPORT_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "SHINY",
+   "name": "きらきらの であい",
+   "desc": "ひかる ポケモンを\\nてもちに くわえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_SHINY",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SAFARI_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "HATCH_1",
+   "name": "うまれたよ！",
+   "desc": "たまごを はじめて かえす",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_HATCHED_EGGS",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_DREAM_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "HATCH_30",
+   "name": "ふかの プロ",
+   "desc": "たまごを 30こ かえす",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_HATCHED_EGGS",
+   "target": 30,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_BEAST_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "EVOLVE_1",
+   "name": "しんかの ひかり",
+   "desc": "ポケモンを しんかさせる",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_EVOLVED_POKEMON",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FAST_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "EVOLVE_30",
+   "name": "しんかの けんきゅう",
+   "desc": "ポケモンを 30かい しんかさせる",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_EVOLVED_POKEMON",
+   "target": 30,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LEVEL_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "FISHING_10",
+   "name": "つりびとの いちにち",
+   "desc": "つりで ポケモンを\\n10ひき つかまえる",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_FISHING_CAPTURES",
+   "target": 10,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LURE_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "TRAINER_50",
+   "name": "かけだし トレーナー",
+   "desc": "トレーナーと 50かい たたかう",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_TRAINER_BATTLES",
+   "target": 50,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_HEAVY_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "TRAINER_200",
+   "name": "ベテラン トレーナー",
+   "desc": "トレーナーと 200かい たたかう",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_TRAINER_BATTLES",
+   "target": 200,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LOVE_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "TRAINER_500",
+   "name": "バトルの たつじん",
+   "desc": "トレーナーと 500かい たたかう",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_TRAINER_BATTLES",
+   "target": 500,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FRIEND_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "PARTY_LV100",
+   "name": "さいきょうの パーティ",
+   "desc": "6ひき ぜんいんが\\nレベル100の パーティを つくる",
+   "tier": "PLATINUM",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_PARTY_ALL_LEVEL_100",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MOON_BALL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "PARTY_SAME_TYPE",
+   "name": "タイプ いっしょく",
+   "desc": "6ひき ぜんいんが おなじ タイプの\\nパーティを つくる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_PARTY_SAME_TYPE",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SPORT_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "STEPS_10K",
+   "name": "さんぽ びより",
+   "desc": "10000ぽ あるく",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_STEPS",
+   "target": 10000,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SAFARI_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "STEPS_100K",
+   "name": "たびの とちゅう",
+   "desc": "100000ぽ あるく",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_STEPS",
+   "target": 100000,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_DREAM_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "STEPS_500K",
+   "name": "せかいを あるく",
+   "desc": "500000ぽ あるく",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_STEPS",
+   "target": 500000,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_BEAST_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "POKECENTER",
+   "name": "ポケセンの じょうれん",
+   "desc": "ポケモンセンターを\\n30かい つかう",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_USED_POKECENTER",
+   "target": 30,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FAST_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "SAFARI",
+   "name": "サファリ デビュー",
+   "desc": "サファリゾーンに はいる",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_ENTERED_SAFARI_ZONE",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LEVEL_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "SLOT",
+   "name": "ジャックポット！",
+   "desc": "スロットで ジャックポットを だす",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_SLOT_JACKPOTS",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LURE_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "TRADE",
+   "name": "つながる ポケモン",
+   "desc": "ポケモンを こうかんする",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_POKEMON_TRADES",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_HEAVY_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "LEVEL_100",
+   "name": "レベル100の きずな",
+   "desc": "レベル100の ポケモンを\\nてもちに くわえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_LEVEL_100",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LOVE_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "FACILITY_7",
+   "name": "れんしょうの はじまり",
+   "desc": "バトルしせつで 7れんしょうする",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_BATTLE_FACILITY_BEST_STREAK",
+   "target": 7,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FRIEND_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "FACILITY_21",
+   "name": "フロンティアの はしゃ",
+   "desc": "バトルしせつで 21れんしょうする",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_BATTLE_FACILITY_BEST_STREAK",
+   "target": 21,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MOON_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "BIRDS",
+   "name": "でんせつの とり",
+   "desc": "フリーザー・サンダー・ファイヤーを\\nつかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_LEGEND_BIRDS",
+   "target": 3,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SPORT_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "BEASTS",
+   "name": "でんせつの けもの",
+   "desc": "ライコウ・エンテイ・スイクンを\\nつかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_LEGEND_BEASTS",
+   "target": 3,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SAFARI_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "MEWTWO",
+   "name": "さいきょうの いでんし",
+   "desc": "ミュウツーを つかまえる",
+   "tier": "GOLD",
+   "kind": "SPECIES",
+   "param": "SPECIES_MEWTWO",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_DREAM_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "MEW",
+   "name": "まぼろしの ポケモン",
+   "desc": "ミュウを てにいれる",
+   "tier": "GOLD",
+   "kind": "SPECIES",
+   "param": "SPECIES_MEW",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_BEAST_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "LUGIA",
+   "name": "うみの まもりがみ",
+   "desc": "ルギアを つかまえる",
+   "tier": "GOLD",
+   "kind": "SPECIES",
+   "param": "SPECIES_LUGIA",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FAST_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "HO_OH",
+   "name": "にじいろの まもりがみ",
+   "desc": "ホウオウを つかまえる",
+   "tier": "GOLD",
+   "kind": "SPECIES",
+   "param": "SPECIES_HO_OH",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LEVEL_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "CELEBI",
+   "name": "ときを こえる もの",
+   "desc": "セレビィを てにいれる",
+   "tier": "GOLD",
+   "kind": "SPECIES",
+   "param": "SPECIES_CELEBI",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LURE_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "DEOXYS",
+   "name": "うちゅうの きょうい",
+   "desc": "デオキシスを つかまえる",
+   "tier": "GOLD",
+   "kind": "SPECIES",
+   "param": "SPECIES_DEOXYS",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_HEAVY_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "SURF_PIKACHU",
+   "name": "なみのり ピカチュウ",
+   "desc": "なみのりを おぼえた ピカチュウを\\nてもちに くわえる",
+   "tier": "SILVER",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_SURF_PIKACHU",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LOVE_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "TM_10",
+   "name": "わざマシン ガクセイ",
+   "desc": "わざマシンを 10こ あつめる",
+   "tier": "BRONZE",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_TM_10",
+   "target": 10,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FRIEND_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "TM_30",
+   "name": "わざマシン けんきゅうか",
+   "desc": "わざマシンを 30こ あつめる",
+   "tier": "SILVER",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_TM_30",
+   "target": 30,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MOON_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "TM_50",
+   "name": "わざマシン マスター",
+   "desc": "わざマシンを 50こ すべて あつめる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_TM_50",
+   "target": 50,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SPORT_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "MASTER",
+   "name": "カントーの でんせつ",
+   "desc": "ほかの すべての じっせきを\\nかいじょする",
+   "tier": "PLATINUM",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_ALL_OTHERS",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SAFARI_BALL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "BOX_LINK",
+   "name": "どこでも ボックス",
+   "desc": "ボックスリンクを てにいれる",
+   "tier": "BRONZE",
+   "kind": "ITEM",
+   "param": "ITEM_BOX_LINK",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_DREAM_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "MEGA_STONE",
+   "name": "メガシンカの いぶき",
+   "desc": "メガストーンを もたせた ポケモンを\\nてもちに くわえる",
+   "tier": "SILVER",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_MEGA_STONE",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_BEAST_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "TRAINING_POUCH",
+   "name": "そだての はじまり",
+   "desc": "いくせいポーチを てにいれる",
+   "tier": "BRONZE",
+   "kind": "ITEM",
+   "param": "ITEM_TRAINING_POUCH",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FAST_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "Z_CRYSTAL",
+   "name": "ぜんりょく じゅんび",
+   "desc": "Zクリスタルを もたせた ポケモンを\\nてもちに くわえる",
+   "tier": "SILVER",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_Z_CRYSTAL",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LEVEL_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "MOVE_NOTE",
+   "name": "わざの おもいで",
+   "desc": "おもいだしノートを てにいれる",
+   "tier": "BRONZE",
+   "kind": "ITEM",
+   "param": "ITEM_MOVE_NOTE",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LURE_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "GIGANTAMAX",
+   "name": "キョダイな ちから",
+   "desc": "キョダイマックスできる ポケモンを\\nてもちに くわえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_GIGANTAMAX",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_HEAVY_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "ROTOM_CATALOG",
+   "name": "でんきの カタログ",
+   "desc": "ロトムを てにいれて\\nロトムのカタログを もらう",
+   "tier": "SILVER",
+   "kind": "ITEM",
+   "param": "ITEM_ROTOM_CATALOG",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LOVE_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "RAID_1",
+   "name": "レイド デビュー",
+   "desc": "マックスレイドバトルに\\nちょうせんする",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_RAID_BATTLES",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FRIEND_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "RAID_10",
+   "name": "レイドの なかま",
+   "desc": "マックスレイドバトルに\\n10かい ちょうせんする",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_RAID_BATTLES",
+   "target": 10,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_DYNAMAX_CANDY",
+    "amount": 3
+   }
+  },
+  {
+   "id": "RAID_50",
+   "name": "ダイマックス ハンター",
+   "desc": "マックスレイドバトルに\\n50かい ちょうせんする",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_RAID_BATTLES",
+   "target": 50,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_WISHING_PIECE",
+    "amount": 5
+   }
+  },
+  {
+   "id": "DEXNAV_10",
+   "name": "ずかんナビ デビュー",
+   "desc": "ずかんナビで 10かい サーチする",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_DEXNAV_SCANNED",
+   "target": 10,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MOON_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "DEXNAV_100",
+   "name": "サーチの たつじん",
+   "desc": "ずかんナビで 100かい サーチする",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_DEXNAV_SCANNED",
+   "target": 100,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SPORT_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "HIDDEN_ABILITY",
+   "name": "かくれた ちから",
+   "desc": "かくれとくせいの ポケモンを\\nてもちに くわえる",
+   "tier": "SILVER",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_HIDDEN_ABILITY",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_ABILITY_PATCH",
+    "amount": 1
+   }
+  },
+  {
+   "id": "CAUGHT_TODAY_10",
+   "name": "きょうは たいりょう",
+   "desc": "1にちで ポケモンを\\n10ぴき つかまえる",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_CAUGHT_TODAY",
+   "target": 10,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SAFARI_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "PICKUP_10",
+   "name": "ものひろい じょうず",
+   "desc": "とくせい ものひろいで\\nどうぐを 10こ ひろう",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_PICKUP_ITEMS",
+   "target": 10,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_DREAM_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "HIDDEN_ITEM_30",
+   "name": "おとしもの たんてい",
+   "desc": "かくれた どうぐを 30こ みつける",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_FOUND_HIDDEN_ITEM",
+   "target": 30,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_BEAST_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "SHOPPED_50",
+   "name": "おとくいさま",
+   "desc": "おみせで 50かい かいものをする",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_SHOPPED",
+   "target": 50,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FAST_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "WILD_500",
+   "name": "くさむらの ぼうけんしゃ",
+   "desc": "やせいの ポケモンと\\n500かい たたかう",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_WILD_BATTLES",
+   "target": 500,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LEVEL_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "BATTLES_1000",
+   "name": "ひゃくせん れんま",
+   "desc": "ポケモンバトルを 1000かい する",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_TOTAL_BATTLES",
+   "target": 1000,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LURE_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "STEPS_1M",
+   "name": "ちきゅう いっしゅう",
+   "desc": "1000000ぽ あるく",
+   "tier": "PLATINUM",
+   "kind": "STAT",
+   "param": "GAME_STAT_STEPS",
+   "target": 1000000,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_HEAVY_BALL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "CAPTURE_500",
+   "name": "ゲットの でんせつ",
+   "desc": "ポケモンを 500ぴき つかまえる",
+   "tier": "PLATINUM",
+   "kind": "STAT",
+   "param": "GAME_STAT_POKEMON_CAPTURES",
+   "target": 500,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MASTER_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "EVOLVE_100",
+   "name": "しんかの はかせ",
+   "desc": "ポケモンを 100かい しんかさせる",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_EVOLVED_POKEMON",
+   "target": 100,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LOVE_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "FRIENDSHIP",
+   "name": "こころの きずな",
+   "desc": "なつきどが さいだいの ポケモンを\\nてもちに くわえる",
+   "tier": "SILVER",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_MAX_FRIENDSHIP",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FRIEND_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "POKERUS",
+   "name": "ラッキーな びょうき",
+   "desc": "ポケルスに かかった ポケモンを\\nてもちに くわえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_POKERUS",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MOON_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "PERFECT_IV",
+   "name": "さいこうの こたい",
+   "desc": "こたいちが すべて さいこうの\\nポケモンを てもちに くわえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_PERFECT_IV",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_GOLD_BOTTLE_CAP",
+    "amount": 1
+   }
+  },
+  {
+   "id": "MAX_EV",
+   "name": "どりょくの けっしょう",
+   "desc": "きそポイントを 510 ためた\\nポケモンを てもちに くわえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_MAX_EV",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SPORT_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "HATCH_100",
+   "name": "そだての たつじん",
+   "desc": "たまごを 100こ かえす",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_HATCHED_EGGS",
+   "target": 100,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SAFARI_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "METEORITE",
+   "name": "そらから きた いし",
+   "desc": "デオキシスを てにいれて\\nいんせきを もらう",
+   "tier": "GOLD",
+   "kind": "ITEM",
+   "param": "ITEM_METEORITE",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_DREAM_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "MYSTIC_TICKET",
+   "name": "しんぴの しま",
+   "desc": "しんぴのチケットを てにいれる",
+   "tier": "SILVER",
+   "kind": "ITEM",
+   "param": "ITEM_MYSTIC_TICKET",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_BEAST_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "ALL_REGIONS",
+   "name": "せかいを めぐる",
+   "desc": "8つの ちほう それぞれの ポケモンを\\n1ぴき いじょう つかまえる",
+   "tier": "SILVER",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_ALL_REGIONS",
+   "target": 8,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_RARE_CANDY",
+    "amount": 10
+   }
+  },
+  {
+   "id": "DEX_400",
+   "name": "ずかんの けんきゅういん",
+   "desc": "ポケモンを 400しゅるい つかまえる",
+   "tier": "PLATINUM",
+   "kind": "DEX",
+   "param": "0",
+   "target": 400,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FAST_BALL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "DEX_600",
+   "name": "ずかんの はかせ",
+   "desc": "ポケモンを 600しゅるい つかまえる",
+   "tier": "PLATINUM",
+   "kind": "DEX",
+   "param": "0",
+   "target": 600,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SHINY_CHARM",
+    "amount": 1
+   }
+  },
+  {
+   "id": "EEVEELUTIONS",
+   "name": "イーブイ マスター",
+   "desc": "イーブイの しんかけい 8しゅるいを\\nすべて つかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_EEVEELUTIONS",
+   "target": 8,
+   "reward": {
+    "type": "MON",
+    "id": "SPECIES_EEVEE",
+    "amount": 10,
+    "held": "ITEM_NONE"
+   }
+  },
+  {
+   "id": "ALL_STARTERS",
+   "name": "ごさんけ コンプリート",
+   "desc": "8ちほうの さいしょの ポケモン\\n24しゅるいを すべて つかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_ALL_STARTERS",
+   "target": 24,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LEVEL_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "PSEUDO_LEGENDS",
+   "name": "さいきょうの いちぞく",
+   "desc": "カイリューや バンギラスなど\\n600ぞく 9しゅるいを つかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_PSEUDO_LEGENDS",
+   "target": 9,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LURE_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "WEATHER_TRIO",
+   "name": "てんきの かみがみ",
+   "desc": "グラードン・カイオーガ・\\nレックウザを つかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_WEATHER_TRIO",
+   "target": 3,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_HEAVY_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "REGI_TRIO",
+   "name": "きょじんの いせき",
+   "desc": "レジロック・レジアイス・\\nレジスチルを つかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_REGI_TRIO",
+   "target": 3,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LOVE_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "LAKE_TRIO",
+   "name": "みずうみの せいれい",
+   "desc": "ユクシー・エムリット・アグノムを\\nつかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_LAKE_TRIO",
+   "target": 3,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FRIEND_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "CREATION_TRIO",
+   "name": "じくうの はざま",
+   "desc": "ディアルガ・パルキア・ギラティナを\\nつかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_CREATION_TRIO",
+   "target": 3,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MOON_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "TAO_TRIO",
+   "name": "しんじつと りそう",
+   "desc": "レシラム・ゼクロム・キュレムを\\nつかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_TAO_TRIO",
+   "target": 3,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SPORT_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "XY_DUO",
+   "name": "いのちと はかい",
+   "desc": "ゼルネアスと イベルタルを\\nつかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_XY_DUO",
+   "target": 2,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SAFARI_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "SUN_MOON_DUO",
+   "name": "たいようと つき",
+   "desc": "ソルガレオと ルナアーラを\\nつかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_SUN_MOON_DUO",
+   "target": 2,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_DREAM_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "HERO_DUO",
+   "name": "けんと たて",
+   "desc": "ザシアンと ザマゼンタを\\nつかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_HERO_DUO",
+   "target": 2,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_BEAST_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "ULTRA_BEAST",
+   "name": "いせかいの らいほうしゃ",
+   "desc": "ウルトラビーストを つかまえる",
+   "tier": "GOLD",
+   "kind": "FUNC",
+   "param": "ACH_FUNC_ULTRA_BEAST",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FAST_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "ETERNATUS",
+   "name": "ムゲンの ちから",
+   "desc": "ムゲンダイナを つかまえる",
+   "tier": "GOLD",
+   "kind": "SPECIES",
+   "param": "SPECIES_ETERNATUS",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LEVEL_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "ARCEUS",
+   "name": "そうぞうの かみ",
+   "desc": "アルセウスを てにいれる",
+   "tier": "PLATINUM",
+   "kind": "SPECIES",
+   "param": "SPECIES_ARCEUS",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LURE_BALL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WONDER_1",
+   "name": "ミラクル デビュー",
+   "desc": "ミラクルこうかんを はじめて する",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_WONDER_TRADES",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_HEAVY_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "WONDER_10",
+   "name": "ふしぎな であい",
+   "desc": "ミラクルこうかんを 10かい する",
+   "tier": "BRONZE",
+   "kind": "STAT",
+   "param": "GAME_STAT_WONDER_TRADES",
+   "target": 10,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_LOVE_BALL",
+    "amount": 1
+   }
+  },
+  {
+   "id": "WONDER_50",
+   "name": "こうかんの たつじん",
+   "desc": "ミラクルこうかんを 50かい する",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_WONDER_TRADES",
+   "target": 50,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_FRIEND_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "WONDER_100",
+   "name": "ミラクル マスター",
+   "desc": "ミラクルこうかんを 100かい する",
+   "tier": "SILVER",
+   "kind": "STAT",
+   "param": "GAME_STAT_WONDER_TRADES",
+   "target": 100,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_MOON_BALL",
+    "amount": 3
+   }
+  },
+  {
+   "id": "WONDER_500",
+   "name": "こうかんの きわみ",
+   "desc": "ミラクルこうかんを 500かい する",
+   "tier": "GOLD",
+   "kind": "STAT",
+   "param": "GAME_STAT_WONDER_TRADES",
+   "target": 500,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SPORT_BALL",
+    "amount": 5
+   }
+  },
+  {
+   "id": "WONDER_1000",
+   "name": "ミラクル レジェンド",
+   "desc": "ミラクルこうかんを 1000かい する",
+   "tier": "PLATINUM",
+   "kind": "STAT",
+   "param": "GAME_STAT_WONDER_TRADES",
+   "target": 1000,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_SAFARI_BALL",
+    "amount": 10
+   }
+  }
+ ],
+ "rewards": [
+  {
+   "count": 5,
+   "item": "ITEM_RARE_CANDY",
+   "amount": 3
+  },
+  {
+   "count": 10,
+   "item": "ITEM_ULTRA_BALL",
+   "amount": 20
+  },
+  {
+   "count": 20,
+   "item": "ITEM_PP_MAX",
+   "amount": 5
+  },
+  {
+   "count": 30,
+   "item": "ITEM_RARE_CANDY",
+   "amount": 10
+  },
+  {
+   "count": 40,
+   "item": "ITEM_MASTER_BALL",
+   "amount": 1
+  },
+  {
+   "count": 50,
+   "item": "ITEM_MASTER_BALL",
+   "amount": 3
+  },
+  {
+   "count": 60,
+   "item": "ITEM_BOTTLE_CAP",
+   "amount": 3
+  },
+  {
+   "count": 70,
+   "item": "ITEM_ABILITY_CAPSULE",
+   "amount": 3
+  },
+  {
+   "count": 80,
+   "item": "ITEM_GOLD_BOTTLE_CAP",
+   "amount": 2
+  },
+  {
+   "count": 90,
+   "item": "ITEM_ABILITY_PATCH",
+   "amount": 3
+  },
+  {
+   "count": 100,
+   "item": "ITEM_MASTER_BALL",
+   "amount": 5
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+#org @gText_HoennBike_Offer
+いらっしゃい！ じてんしゃの みせ\nカゼノ サイクルへ ようこそ！\pおや？ いい じてんしゃを\nもっているね！\pどうだい？ ぼくが ちょっと\nいじって あげようか？\pマッハじてんしゃ にも\nダートじてんしゃ にもなる\pすごい じてんしゃに\nしてあげるよ！
+
+#org @gText_HoennBike_NoBike
+いらっしゃい！ じてんしゃの みせ\nカゼノ サイクルへ ようこそ！\pじてんしゃを もってきてくれたら\nちょっと いじって あげるよ！
+
+#org @gText_HoennBike_Declined
+そうかい？\nきが かわったら また きてね！
+
+#org @gText_HoennBike_Working
+よーし まかせて！\pカチャカチャ……\nカチャカチャ……\pできた！
+
+#org @gText_HoennBike_Got
+[PLAYER]の じてんしゃに\nモードが ついた！
+
+#org @gText_HoennBike_Explain
+じてんしゃに のっているとき\nLボタンを おすと\pつうじょう・マッハ・ダートの\nじゅんに きりかわるよ！\pマッハは とにかく はやい！\nすなの さかも のぼれるよ\pダートは Bボタンで\nウィリーが できる！\pくわしい ことは みせの\nスタッフに きいてね！
+
+#org @gText_HoennBike_Again
+じてんしゃの ちょうしは どうだい？\pモードは のっているとき\nLボタンで きりかえてね！
+
+#org @gText_HoennBike_Staff
+ダートモードの のりかたを\nおしえて あげるね！\pBボタンを おすと\nウィリーが できるよ\pBを おしたまま しばらく まつと\nそのばで ぴょんぴょん はねる！\pはねながら うごけば\nほそい レールの うえも すすめる\pBを おした すぐあとに よこを\nおすと よこっとび！\pうしろを おすと\nふりむきジャンプ だよ
+
+#org @gText_HoennBike_ModeNormal
+じてんしゃ [GREEN]つうじょう[BLACK]
+
+#org @gText_HoennBike_ModeMach
+じてんしゃ [GREEN]マッハ[BLACK]
+
+#org @gText_HoennBike_ModeDirt
+じてんしゃ [GREEN]ダート[BLACK]

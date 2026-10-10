@@ -184,6 +184,8 @@ static void UpdateClockFromRtc(struct SiiRtcInfo *rtc)
 }
 
 void __attribute__((long_call)) break_func();
+bool8 PlayClock_IsOn(void);    //[hack] src/play_clock.c
+void PlayClock_Fill(void);
 extern const u8 SystemScript_StopZooming[];
 void RtcCalcLocalTime(void)
 {
@@ -196,6 +198,8 @@ void RtcCalcLocalTime(void)
 
 		//u8 prevSecond = gClock.second;
 		UpdateClockFromRtc(&sRtc);
+		if (PlayClock_IsOn())      //[hack] 2026-10-01 プレイ時間の時計（src/play_clock.c）: RTC から作った時計を上書きする
+			PlayClock_Fill();
 		
 		/*if (prevSecond == gClock.second
 		&& !ScriptContext2_IsEnabled())
@@ -236,7 +240,8 @@ void PlayTimeCounter_Update(void)
 		if (gSaveBlock2->playTimeVBlanks < 0xFF)
 			++gSaveBlock2->playTimeVBlanks;
 
-		if (RtcGetErrorStatus() & RTC_ERR_FLAG_MASK)
+		if ((RtcGetErrorStatus() & RTC_ERR_FLAG_MASK)
+		|| PlayClock_IsOn()) //[hack] 2026-10-01 プレイ時間の時計は画面の書き換え 60 回で 1 秒（RTC の秒を待つと時計と待ち合って止まる）
 			secondPassed = gSaveBlock2->playTimeVBlanks > 59;
 		else
 			secondPassed = gClock.second != gLastClockSecond //Sync clock to RTC

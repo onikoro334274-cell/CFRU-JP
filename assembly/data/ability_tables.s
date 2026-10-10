@@ -61,6 +61,7 @@ gRolePlayBannedAbilities:
 .hword ABILITY_TERASHIFT
 .hword ABILITY_TERASHELL
 .hword ABILITY_TERAFORMZERO
+.hword ABILITY_DRAGONARMOR @ [hack] 2026-10-03 りゅうのよろい（1 匹だけの特性・写させない）
 .hword ABILITY_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -117,6 +118,7 @@ gSkillSwapBannedAbilities:
 .hword ABILITY_TERASHIFT
 .hword ABILITY_TERASHELL
 .hword ABILITY_TERAFORMZERO
+.hword ABILITY_DRAGONARMOR @ [hack] 2026-10-03 りゅうのよろい（1 匹だけの特性・写させない）
 .hword ABILITY_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -200,6 +202,7 @@ gEntrainmentBannedAbilitiesAttacker:
 .hword ABILITY_TERASHIFT
 .hword ABILITY_TERASHELL
 .hword ABILITY_TERAFORMZERO
+.hword ABILITY_DRAGONARMOR @ [hack] 2026-10-03 りゅうのよろい（1 匹だけの特性・写させない）
 .hword ABILITY_TABLES_TERMIN
 
 gSimpleBeamBannedAbilities:
@@ -221,11 +224,13 @@ gEntrainmentBannedAbilitiesTarget:
 .hword ABILITY_ASONE_CHILLING
 .hword ABILITY_ZEROTOHERO
 .hword ABILITY_TERASHIFT
+.hword ABILITY_DRAGONARMOR @ [hack] 2026-10-03 りゅうのよろい（1 匹だけの特性・写させない）
 .hword ABILITY_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 gReceiverBannedAbilities:
+.hword ABILITY_WONDERGUARD @ ★ Champions（patches/0070）
 .hword ABILITY_TRACE
 .hword ABILITY_FORECAST
 .hword ABILITY_FLOWERGIFT
@@ -261,6 +266,7 @@ gReceiverBannedAbilities:
 .hword ABILITY_TERASHIFT
 .hword ABILITY_TERASHELL
 .hword ABILITY_TERAFORMZERO
+.hword ABILITY_DRAGONARMOR @ [hack] 2026-10-03 りゅうのよろい（1 匹だけの特性・写させない）
 .hword ABILITY_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -301,6 +307,7 @@ gTraceBannedAbilities:
 .hword ABILITY_TERASHIFT
 .hword ABILITY_TERASHELL
 .hword ABILITY_TERAFORMZERO
+.hword ABILITY_DRAGONARMOR @ [hack] 2026-10-03 りゅうのよろい（1 匹だけの特性・写させない）
 .hword ABILITY_TABLES_TERMIN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

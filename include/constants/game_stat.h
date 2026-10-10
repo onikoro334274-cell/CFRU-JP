@@ -56,7 +56,8 @@
 #define GAME_STAT_NUM_UNION_ROOM_BATTLES    50
 #define GAME_STAT_BERRY_CRUSH_POINTS        51
 
-#define NUM_USED_GAME_STATS                 52
+#define GAME_STAT_WONDER_TRADES             52 //[hack] 2026-10-10 ミラクル交換の回数（src/hack_wonder_trade.c・じっせき・素の 3 関数の上限を bytereplacement で 63 に）
+#define NUM_USED_GAME_STATS                 53
 #define NUM_GAME_STATS                      64
 
 #endif // GUARD_CONSTANTS_GAME_STAT_H

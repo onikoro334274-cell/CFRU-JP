@@ -1,0 +1,29 @@
+#org @gText_Affection_Endured
+[TARGET]は トレーナーを\nかなしませまいと ふんばった！
+
+#org @gText_Affection_Cured
+[SCRIPTING_BANK]は トレーナーの\nために [BUFFER][00]を なおした！
+
+#org @gText_Affection_Evaded
+[TARGET]は トレーナーの\nこえに こたえて よけた！
+
+#org @gText_Affection_LastMon
+[SCRIPTING_BANK]は さいごまで\nあきらめない かおを している！
+
+#org @gText_Affection_Bond
+[ATTACKER]は トレーナーの\nために ちからを ふりしぼった！
+
+#org @gText_Affection_Cover
+[SCRIPTING_BANK]は\nなかまを かばった！
+
+#org @gText_Affection_WokeUp
+[ATTACKER]は トレーナーの\nこえで めを さました！
+
+#org @gText_Affection_Unfroze
+[ATTACKER]は トレーナーの\nこえで こおりを とかした！
+
+#org @gText_Affection_ShookParalysis
+[ATTACKER]は トレーナーの\nこえで しびれを ふりはらった！
+
+#org @gText_Affection_StatBlock
+[SCRIPTING_BANK]は トレーナーを\nみて ふみとどまった！

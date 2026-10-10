@@ -59,6 +59,8 @@ static const species_t sBannedBackupSpecies[] =
 };
 
 //This file's functions:
+u8 HackDragonBoulder_Type2(const struct Pokemon* mon, u16 species, u8 type2); //[hack] patches/0207 りゅうのいわお（src/hack_dragon_boulder.c・特別なガブリアスZ は 2 つ目のタイプが いわ）
+
 void DoFormChange(u8 bank, u16 species, bool8 ReloadType, bool8 ReloadStats, bool8 reloadAbility)
 {
 	u16 backup;
@@ -96,7 +98,7 @@ void DoFormChange(u8 bank, u16 species, bool8 ReloadType, bool8 ReloadStats, boo
 		else
 		{
 			gBattleMons[bank].type1 = gBaseStats[species].type1;
-			gBattleMons[bank].type2 = gBaseStats[species].type2;
+			gBattleMons[bank].type2 = HackDragonBoulder_Type2(GetBankPartyData(bank), species, gBaseStats[species].type2); //[hack] patches/0207 りゅうのいわお
 		}
 
 		gBattleMons[bank].type3 = TYPE_BLANK;

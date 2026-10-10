@@ -304,6 +304,8 @@ void BattleAI_SetupAIData(u8 defaultScoreMoves)
 		//AI_THINKING_STRUCT->aiFlags |= AI_SCRIPT_DOUBLE_BATTLE; // act smart in doubles and don't attack your partner
 }
 
+u32 HackDifficulty_AIFlags(u32 flags); //[hack] patches/0132 src/hack_difficulty.c
+
 u32 GetAIFlags(void)
 {
 	u32 flags;
@@ -334,6 +336,13 @@ u32 GetAIFlags(void)
 			flags = gTrainers[gTrainerBattleOpponent_A].aiFlags | gTrainers[VarGet(VAR_SECOND_OPPONENT)].aiFlags;
 		else
 			flags = gTrainers[gTrainerBattleOpponent_A].aiFlags;
+
+		flags = HackDifficulty_AIFlags(flags); //[hack] patches/0132 なんいど「やさしい」はふつうのトレーナーをいちばん弱い AI に（src/hack_difficulty.c）
+
+		#ifdef WILD_ALWAYS_SMART
+		if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER)) //[hack] patches/0120 野生も最大の AI（素はトレーナー 0 番の 0 を読んで何もしない）
+			flags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_SEMI_SMART | AI_SCRIPT_CHECK_GOOD_MOVE;
+		#endif
 
 		#ifdef VAR_GAME_DIFFICULTY
 		if (difficulty == OPTIONS_EASY_DIFFICULTY && gBattleTypeFlags & BATTLE_TYPE_TRAINER)
@@ -802,6 +811,12 @@ static void CalculateAIPredictions(void)
 	}
 }
 
+extern bool8 HoennArena_IsActive(void); //★ src/hoenn_arena.c（patches/0096）
+
+bool8 HackAI_ShouldUseHealItem(u8 bank, u16 healAmount); //[hack] patches/0121・src/ai_hack.c
+bool8 HackAI_ShouldSwitchStatsDropped(void);
+s8 HackAI_SecondAbilitySwitchBonus(struct Pokemon* mon);
+
 static bool8 ShouldSwitch(void)
 {
 	u8 battlerIn1, battlerIn2;
@@ -810,7 +825,8 @@ static bool8 ShouldSwitch(void)
 	struct Pokemon *party;
 	int i;
 
-	if (IsTrapped(gActiveBattler, TRUE))
+	if (IsTrapped(gActiveBattler, TRUE)
+	|| HoennArena_IsActive()) //★ バトルアリーナの相手は入れ替えない（エメラルドの battle_ai_switch_items.c:452）
 		return FALSE;
 
 	availableToSwitch = 0;
@@ -867,6 +883,8 @@ static bool8 ShouldSwitch(void)
 	if (IsTakingAnnoyingSecondaryDamage())
 		return TRUE;
 	if (ShouldSwitchToAvoidDeath())
+		return TRUE;
+	if (HackAI_ShouldSwitchStatsDropped()) //[hack] patches/0121 攻撃が 2 段以上下がったら交代
 		return TRUE;
 	//if (CanKillAFoe(gActiveBattler))
 	//	return FALSE;
@@ -2239,6 +2257,8 @@ u8 CalcMostSuitableMonToSwitchInto(void)
 				}
 			}
 
+			scores[i] += HackAI_SecondAbilitySwitchBonus(&party[i]); //[hack] patches/0121 場に出たときの 2 つ目の特性
+
 			if (!IS_DOUBLE_BATTLE || ViableMonCountFromBank(foe1) == 1) //Single Battle or 1 target left
 			{
 				if (scores[i] >= SWITCHING_SCORE_MAX && canRemoveHazards[i]) //This mon is perfect
@@ -2750,7 +2770,7 @@ static bool8 ShouldAIUseItem(void)
 				if (paramOffset > 0 && BATTLER_ALIVE(gActiveBattler) && !BATTLER_MAX_HP(gActiveBattler))
 				{
 					if (gBattleMons[gActiveBattler].maxHP - gBattleMons[gActiveBattler].hp > itemEffects[paramOffset]) //Item won't restore all HP
-						shouldUse = TRUE;
+						shouldUse = HackAI_ShouldUseHealItem(gActiveBattler, itemEffects[paramOffset]); //[hack] patches/0121 素は TRUE（減っていれば使う）
 					else
 						goto FULL_RESTORE_LOGIC;
 				}

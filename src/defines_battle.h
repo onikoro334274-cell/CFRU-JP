@@ -119,10 +119,23 @@ extern u8 BattleScript_ButItFailed[];
 
 typedef u8 TrainerClassNames_t[11];
 #define gTrainerClassNames ((TrainerClassNames_t*) *((u32*) 0x811BCF0)) //0x823E558
-#define gTrainers ((struct Trainer*) *((u32*) 0x800F5C0)) //0x823EAC8
-#define gTrainerFrontPicCoords ((struct TrainerPicCoords*) 0x81F8910)
-#define gTrainerFrontPicTable ((struct CompressedSpriteSheet*) 0x81F8B60)
-#define gTrainerFrontPicPaletteTable ((struct CompressedSpritePalette*) 0x81F9000)
+// gTrainers は src/Tables/trainer_data.c で C の実体として定義するようにした。
+// 以前は下のように ROM のポインタ（0x800F5C0）を実行時に辿っていた。
+// マクロが生きていると trainer_data.c の定義がマクロ展開で壊れるため止める。
+//   #define gTrainers ((struct Trainer*) *((u32*) 0x800F5C0)) //0x823EAC8
+// 元の表を指すポインタは ROM 内に 20 箇所あり、repoints で全部差し替える。
+/* ★★★ 座標表も広げた表を見る。素は 148 件しかないので、
+   148 番以降を引くと配列の外になる（2026-09-21・テッセン戦で落ちた）。*/
+#define gTrainerFrontPicCoords ((struct TrainerPicCoords*) gExpandedTrainerFrontPicCoords)
+/* ★★ #2 ジム: ホウエンのリーダー 5 人の戦闘の絵を足すため、
+   素の表（148 件ちょうど・空きゼロ）を **153 件に広げた**。
+   中身は src/Tables/hoenn_trainer_pics.c（生成物）。
+   素 ROM 側のリテラル語 20 箇所は repoints で同じ表へ向けてある。 */
+extern const struct CompressedSpriteSheet gExpandedTrainerFrontPicTable[];
+extern const struct CompressedSpritePalette gExpandedTrainerFrontPicPaletteTable[];
+extern const u32 gExpandedTrainerFrontPicCoords[];
+#define gTrainerFrontPicTable ((struct CompressedSpriteSheet*) gExpandedTrainerFrontPicTable)
+#define gTrainerFrontPicPaletteTable ((struct CompressedSpritePalette*) gExpandedTrainerFrontPicPaletteTable)
 extern struct TrainerPicCoords gTrainerBackPicCoords[];
 
 #define sATypeMove_Table ((u8**) 0x80D86D0) //Table of things like "A Normal Move!"

@@ -138,12 +138,15 @@ void HealMon(struct Pokemon* mon)
 	SetMonData(mon, MON_DATA_STATUS, &none);
 }
 
+void HackMeteorite_OnCaught(u16 nationalNum); //[hack] src/hack_meteorite.c
 void HandleSetPokedexFlag(u16 nationalNum, u8 caseId, u32 personality)
 {
     u8 getFlagCaseId = (caseId == FLAG_SET_SEEN) ? FLAG_GET_SEEN : FLAG_GET_CAUGHT;
     if (!GetSetPokedexFlag(nationalNum, getFlagCaseId)) // don't set if it's already set
     {
         GetSetPokedexFlag(nationalNum, caseId);
+        if (caseId == FLAG_SET_CAUGHT) //[hack] 2026-10-09 src/hack_meteorite.c デオキシスを初めてつかまえたらいんせき
+            HackMeteorite_OnCaught(nationalNum);
         if (NationalPokedexNumToSpecies(nationalNum) == SPECIES_UNOWN)
             gSaveBlock2->pokedex.unownPersonality = personality;
         if (NationalPokedexNumToSpecies(nationalNum) == SPECIES_SPINDA)
@@ -374,6 +377,8 @@ bool8 AllHittingMoveWithTypeInMonMoveset(struct Pokemon* mon, u8 moveType)
 	return FALSE;
 }
 
+u8 HackDragonBoulder_Type2(const struct Pokemon* mon, u16 species, u8 type2); //[hack] patches/0207 りゅうのいわお（src/hack_dragon_boulder.c・特別なガブリアスZ は 2 つ目のタイプが いわ）
+
 u8 GetMonType(struct Pokemon* mon, u8 typeId)
 {
 	u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
@@ -381,7 +386,7 @@ u8 GetMonType(struct Pokemon* mon, u8 typeId)
 	if (typeId == 0)
 		return (ShouldReplaceTypesWithCamomons()) ? GetCamomonsTypeByMon(mon, 0) : gBaseStats[species].type1;
 	else
-		return (ShouldReplaceTypesWithCamomons()) ? GetCamomonsTypeByMon(mon, 1) : gBaseStats[species].type2;
+		return (ShouldReplaceTypesWithCamomons()) ? GetCamomonsTypeByMon(mon, 1) : HackDragonBoulder_Type2(mon, species, gBaseStats[species].type2); //[hack] patches/0207 りゅうのいわお
 }
 
 bool8 IsMonOfType(struct Pokemon* mon, u8 type)

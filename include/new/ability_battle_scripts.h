@@ -63,6 +63,7 @@ extern const u8 BattleScript_CuteCharmActivates[];
 extern const u8 BattleScript_TargetAbilityStatRaise[];
 extern const u8 BattleScript_WeakArmorActivates[];
 extern const u8 BattleScript_CursedBodyActivates[];
+extern const u8 BattleScript_UrameshiyaActivates[];
 extern const u8 BattleScript_MummyActivates[];
 extern const u8 BattleScript_LingeringAromaActivates[];
 extern const u8 BattleScript_WanderingSpiritActivates[];

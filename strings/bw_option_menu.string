@@ -1,0 +1,128 @@
+#org @gText_BwOpt_Title
+せってい
+
+#org @gText_BwOpt_Save
+ほぞん
+
+#org @gText_BwOpt_Back
+もどる
+
+#org @gText_BwOpt_TextSpeed
+はなしのはやさ
+
+#org @gText_BwOpt_BattleScene
+せんとうアニメ
+
+#org @gText_BwOpt_BattleStyle
+せんとうルール
+
+#org @gText_BwOpt_Sound
+おと
+
+#org @gText_BwOpt_FieldSpeed
+いどうそくど
+
+#org @gText_BwOpt_Difficulty
+なんいど
+
+#org @gText_BwOpt_BattleSpeed
+たいせんそくど
+
+#org @gText_BwOpt_Moemon
+Moemon
+
+#org @gText_BwOpt_MoemonOn
+だす
+
+#org @gText_BwOpt_MoemonOff
+ださない
+
+#org @gText_BwOpt_Habitat
+せいそくち
+
+#org @gText_BwOpt_HabitatOrig
+もとのまま
+
+#org @gText_BwOpt_WonderTrade
+ミラクルこうかん
+
+#org @gText_BwOpt_Slow
+おそい
+
+#org @gText_BwOpt_Mid
+ふつう
+
+#org @gText_BwOpt_Fast
+はやい
+
+#org @gText_BwOpt_On
+みる
+
+#org @gText_BwOpt_Off
+みない
+
+#org @gText_BwOpt_Shift
+いれかえ
+
+#org @gText_BwOpt_Set
+かちぬき
+
+#org @gText_BwOpt_Mono
+モノラル
+
+#org @gText_BwOpt_Stereo
+ステレオ
+
+#org @gText_BwOpt_Speed1
+1ばい
+
+#org @gText_BwOpt_Speed2
+2ばい
+
+#org @gText_BwOpt_Speed3
+3ばい
+
+#org @gText_BwOpt_Speed4
+4ばい
+
+#org @gText_BwOpt_Easy
+やさしい
+
+#org @gText_BwOpt_Medium
+ほどほど
+
+#org @gText_BwOpt_DescTextSpeed
+メッセージの はやさを\n3だんかいから えらびます
+
+#org @gText_BwOpt_DescBattleScene
+せんとうちゅうの アニメを\nみるか みないかを えらびます
+
+#org @gText_BwOpt_DescBattleStyle
+あいてが ポケモンを だすときに\nいれかえるか きめます
+
+#org @gText_BwOpt_DescSound
+おとを モノラルか ステレオに\nきりかえます
+
+#org @gText_BwOpt_DescFieldSpeed
+フィールドの うごきの はやさを\n1ばいから 4ばいまで えらびます
+
+#org @gText_BwOpt_DescDifficulty
+トレーナーの つよさを えらびます\nバトルしせつは かわりません
+
+#org @gText_BwOpt_DescBattleSpeed
+せんとうの はやさを\n1ばいから 4ばいまで えらびます
+
+#org @gText_BwOpt_DescMoemon
+Moemonの べつの みための えを\nだすか きめます
+
+#org @gText_BwOpt_DescHabitat
+カントーと ホウエンの やせいを\nべつの ちほうの ポケモンにするか きめます
+
+#org @gText_BwOpt_DescWonderTrade
+ミラクルこうかんの つうしんの\nばめんを みるか きめます
+
+#org @gText_BwOpt_DescSave
+へんこうを ほぞんしています
+
+#org @gText_BwOpt_DescCancel
+へんこうを とりけしています

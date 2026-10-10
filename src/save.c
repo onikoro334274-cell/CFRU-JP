@@ -18,10 +18,17 @@ save.c
 extern struct SaveSection gSaveDataBuffer;
 #define SECTOR_DATA_SIZE 0xFF0
 #define SECTOR_FOOTER_SIZE 128
-#define NUM_SECTORS_PER_SAVE_SLOT 14
+#undef NUM_SECTORS_PER_SAVE_SLOT
+#define NUM_SECTORS_PER_SAVE_SLOT 5 //[hack] patches/0195 ボックスの仮想化: 本体の組は SaveBlock2・SaveBlock1 だけ（ボックスは棚・src/hack_box_shelf.c）
 #define FILE_SIGNATURE 0x08012025
 #define SAVE_BLOCK_PARASITE 0x0203B0E8
 #define PARASITE_SIZE 0xEC4
+
+#include "hack_box_shelf.h" //[hack] patches/0195 ボックスの仮想化（棚・区画 10〜29）
+#ifdef HACK_BOX_PROTO //試験のビルドだけ: 区画を書く処理を包んで電源断をまねる（tools/boxvirt/shelf_test.py）
+u8 BoxShelf_TryWriteSector(u8 sector, u8 *data);
+#define TryWriteSector BoxShelf_TryWriteSector
+#endif
 
 // old 0x080DA23C table changes
 const struct SaveSectionOffsets gSaveSectionOffsets[] =
@@ -60,8 +67,8 @@ void __attribute__((long_call)) PrintSaveErrorStatus(u8 taskId, const u8 *str);
 
 //This file's functions:
 static bool8 IsValidFileSignature(u32 signature);
-static void LoadSector30And31(void);
-static u8 SaveSector30And31(void);
+static __attribute__((unused)) void LoadSector30And31(void); //[hack] patches/0195 もう呼ばない（中身は棚のページ 15・16）
+static __attribute__((unused)) u8 SaveSector30And31(void); //[hack] patches/0195 もう呼ばない（中身は棚のページ 15・16）
 static void LoadParasite(void);
 extern bool8 TryPreventIncompleteSaves(u8 taskId);
 
@@ -203,7 +210,7 @@ u8 HandleLoadSector(unusedArg u16 a1, const struct SaveBlockChunk* location)
 
 	//Start of the game don't load jibberish into block
 	if (checksumStatus)
-		LoadSector30And31();
+		BoxShelf_OnLoad(); //[hack] patches/0195 棚（ページ 0・ボックス・もとの区画 30／31 の中身）。区画 30・31 はもう直に読まない
 
 	return 1;
 }
@@ -395,12 +402,14 @@ u8 HandleWriteSector(u16 chunkId, const struct SaveBlockChunk* location)
 
 // If chunkId is 0xFFFF, this function will write all of the chunks pointed to by 'chunks'.
 // Otherwise, it will write a single chunk with the given 'chunkId'.
+void HackSaveVersion_OnSave(void); //[hack] patches/0265 src/hack_save_version.c
 u8 SaveWriteToFlash(u16 chunkId, const struct SaveBlockChunk *chunks)
 {
     u32 retVal;
     u16 i;
 
     gFastSaveSection = &gSaveDataBuffer;
+	HackSaveVersion_OnSave(); //[hack] patches/0265 最後にレポートを書いた版（src/hack_save_version.c）
 
     if (chunkId != 0xFFFF)  // write single chunk
     {
@@ -414,11 +423,12 @@ u8 SaveWriteToFlash(u16 chunkId, const struct SaveBlockChunk *chunks)
         gFirstSaveSector %= NUM_SECTORS_PER_SAVE_SLOT; // array count save sector locations
         gSaveCounter++;
         retVal = SAVE_STATUS_OK;
+		BoxShelf_Commit(); //[hack] patches/0195 本体の組を書く前に、棚の変えたページを空いた区画へ
 
         for (i = 0; i < NUM_SECTORS_PER_SAVE_SLOT; i++)
             HandleWriteSector(i, chunks);
 	
-		SaveSector30And31();
+		//[hack] patches/0195 区画 30・31 の中身は棚のページ 15・16（付け替え方式・BoxShelf_Commit）
 
         //Check for any bad sectors
         if (gDamagedSaveSectors != 0) //Skip the damaged sector.
@@ -427,6 +437,7 @@ u8 SaveWriteToFlash(u16 chunkId, const struct SaveBlockChunk *chunks)
             gFirstSaveSector = gLastKnownGoodSector;
             gSaveCounter = gPrevSaveCounter;
         }
+		BoxShelf_AfterSave(retVal == SAVE_STATUS_OK); //[hack] patches/0195 書き終えた対応表を「今」に
     }
 
     return retVal;
@@ -463,8 +474,7 @@ u8 HandleSavingData(u8 saveType)
 				IncrementGameStat(GAME_STAT_ENTERED_HOF);
 			SaveSerializedGame();
 			SaveWriteToFlash(0xFFFF, gRamSaveSectionLocations);
-			HandleWriteSectorNBytes(SECTOR_ID_HOF_1, gDecompressionBuffer, 0xF80);
-			HandleWriteSectorNBytes(SECTOR_ID_HOF_2, gDecompressionBuffer + 0xF80, 0xF80);
+			//[hack] patches/0195 区画 28・29 は棚（殿堂入りの記録は書かない）
 			break;
 
 		case SAVE_OVERWRITE_DIFFERENT_FILE:
@@ -501,9 +511,14 @@ u8 SaveDataAfterLinkTrade(void)
 	return 4; //New state in switch statement
 }
 
+void HackDifficulty_SetNewGameDefault(void); //[hack] patches/0146 src/hack_difficulty.c
+void HackSaveVersion_NewGame(void); //[hack] patches/0265 src/hack_save_version.c
 void NewGameWipeNewSaveData(void)
 {
 	Memset((void*) SAVE_BLOCK_PARASITE, 0, 0x2EA4);
+	BoxShelf_NewGame(); //[hack] patches/0195 棚は空から
+	HackDifficulty_SetNewGameDefault(); //[hack] patches/0146 はじめからは なんいど やさしい
+	HackSaveVersion_NewGame(); //[hack] patches/0265 はじめからを始めた版（src/hack_save_version.c）
 }
 
 static void Task_SaveErrorStatus_RunPrinter(unusedArg u8 taskId)
@@ -519,11 +534,13 @@ void PrintChangeSaveTypeErrorStatus(u8 taskId, const u8* str)
 }
 
 extern const u8 gText_MainMenuEnableRTC[];
+bool8 PlayClock_IsOn(void);    //[hack] src/play_clock.c
 extern bool8 sPrintedRTCWarning;
 bool8 TryDisplayMainMenuRTCWarning(unusedArg u8 taskId)
 {
 	#ifdef TIME_ENABLED
-	if (RtcGetErrorStatus() & RTC_ERR_FLAG_MASK && !sPrintedRTCWarning)
+	if (RtcGetErrorStatus() & RTC_ERR_FLAG_MASK && !sPrintedRTCWarning
+	&& !PlayClock_IsOn()) //[hack] 2026-10-01 プレイ時間の時計（src/play_clock.c）のときは RTC が無くても困らない
 	{
 		sPrintedRTCWarning = TRUE;
 		PrintSaveErrorStatus(taskId, gText_MainMenuEnableRTC);

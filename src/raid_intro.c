@@ -293,12 +293,23 @@ static bool8 GetRaidBattleData(void)
 */
 }
 
+//[hack] patches/0205: 縁の書き込みが作業場所（2048 バイト）の外へはみ出していた（下の行は + 0xE4・右の列は + 0x1D）。
+//  作業場所はスタック（約 2.5KB しかない）にも置かない。範囲の外は書かない
+#define OUTLINE_BUF_SIZE ((64 * 64) / 2)
+#define OUTLINE_SET(idx, val) do { u32 _o = (idx); if (_o < OUTLINE_BUF_SIZE) buffer[_o] |= (val); } while (0)
+
 static void OutlineMonSprite(u8 spriteId)
 {
 	u32 i = 0;
-	u8 buffer[(64 * 64) / 2] = {0};
+	u8* buffer = Calloc(OUTLINE_BUF_SIZE);
 	u8* offset = (void*)(OBJ_VRAM0) + (gSprites[spriteId].oam.tileNum * 32);
 	u8* originalOffset = offset;
+
+	if (buffer == NULL)
+	{
+		++sRaidBattleIntroPtr->outlinedSprite;
+		return;
+	}
 
 	for (i = 0; i < (64 * 64) / 2; ++i)
 	{
@@ -358,10 +369,10 @@ static void OutlineMonSprite(u8 spriteId)
 				buffer[i + 0] |= 0xF0; //Set upper bit
 
 			if (pixel4 == 0)
-				buffer[i + nextByteRow] |= 0xF; //Set lower bit
+				OUTLINE_SET(i + nextByteRow, 0xF); //Set lower bit
 
 			if (i >= previousByteRow && pixel6 == 0)
-				buffer[i - previousByteRow] |= 0xF; //Set lower bit*/
+				OUTLINE_SET(i - previousByteRow, 0xF); //Set lower bit*/
 		}
 
 		if (pixel2 != 0)
@@ -375,13 +386,13 @@ static void OutlineMonSprite(u8 spriteId)
 				buffer[i + 0] |= 0xF; //Set lower bit
 
 			if (pixel3 == 0 && (i % 0x100 < 0xE0 || i % 4 != 3))
-				buffer[i + nextByteColumn] |= 0xF; //Set lower bit
+				OUTLINE_SET(i + nextByteColumn, 0xF); //Set lower bit
 
 			if (pixel5 == 0)
-				buffer[i + nextByteRow] |= 0xF0; //Set upper bit
+				OUTLINE_SET(i + nextByteRow, 0xF0); //Set upper bit
 
 			if (i >= previousByteRow && pixel7 == 0)
-				buffer[i - previousByteRow] |= 0xF0; //Set upper bit
+				OUTLINE_SET(i - previousByteRow, 0xF0); //Set upper bit
 		}
 
 		if (pixel3 != 0 && !isRightBorder)
@@ -392,6 +403,7 @@ static void OutlineMonSprite(u8 spriteId)
 	}
 
 	CpuCopy32(buffer, originalOffset, (64 * 64) / 2);
+	Free(buffer);
 	++sRaidBattleIntroPtr->outlinedSprite;
 }
 

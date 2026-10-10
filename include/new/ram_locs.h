@@ -207,7 +207,12 @@ extern u16 gLastDexNavSpecies; //0x203E086
 //extern struct ListMenuItem[7] gMultiChoice; //0x203E088 - up to 7 pointers, 8 bytes each
 //extern u8 gPartyPresetTeamIndices[PARTY_SIZE]; //0x203E0C0
 extern u8 gScored3CritsInBattle;
-//FREE: 0x203E03E
+//0x203E03F / 0x203E040 … スタートメニューの時計（patches/0012）
+//  src/start_menu.c の sClockWindowId / sClockLastMinute
+//FREE: 0x203E041
+//  ※ 上にあった「//FREE: 0x203B6EC」「//FREE: 0x203E03E」は**どちらも古い**。
+//    BPRJ.ld で gLastUsedBall(0x203B6EC) / gScored3CritsInBattle(0x203E03E) に
+//    割り当て済み。空きを探すときは BPRJ.ld の実際の割り当てを見ること
 
 //DON'T GO PAST 0x203E0D4 for BTS!
 //extern struct CompressedPokemon gTempTeamBackup[6] //0x203E1A4

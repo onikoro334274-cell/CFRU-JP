@@ -20,6 +20,9 @@
 #include "../include/new/terastal.h"
 #include "../include/new/util.h"
 
+bool8 HackDragonBoulder_Bank(u8 bank); //[hack] patches/0207 りゅうのいわお（src/hack_dragon_boulder.c）
+bool8 HackDragonBoulder_Mon(struct Pokemon* mon);
+
 
 /*
 battle_util.c
@@ -304,7 +307,8 @@ bool8 CheckGrounding(u8 bank)
 
 	else if ((gStatuses3[bank] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS | STATUS3_IN_AIR))
 		   || ITEM_EFFECT(bank) == ITEM_EFFECT_AIR_BALLOON
-		   || ABILITY(bank) == ABILITY_LEVITATE
+		   || (ABILITY(bank) == ABILITY_LEVITATE || ABILITY(bank) == ABILITY_EELEVATE)
+		   || HackDragonBoulder_Bank(bank) //[hack] patches/0207 りゅうのいわお ふゆう
 		   || IsOfType(bank, TYPE_FLYING))
 				return IN_AIR;
 
@@ -323,7 +327,8 @@ bool8 NonInvasiveCheckGrounding(u8 bank, u16 defAbility, u8 defType1, u8 defType
 
 	else if ((gStatuses3[bank] & (STATUS3_LEVITATING | STATUS3_TELEKINESIS | STATUS3_IN_AIR))
 	|| GetRecordedItemEffect(bank) == ITEM_EFFECT_AIR_BALLOON
-	|| defAbility == ABILITY_LEVITATE
+	|| defAbility == ABILITY_LEVITATE || defAbility == ABILITY_EELEVATE
+	|| HackDragonBoulder_Bank(bank) //[hack] patches/0207 りゅうのいわお ふゆう
    	|| defType1 == TYPE_FLYING
    	|| defType2 == TYPE_FLYING
    	|| defType3 == TYPE_FLYING)
@@ -341,7 +346,8 @@ bool8 CheckMonGrounding(struct Pokemon* mon)
 	|| (ItemId_GetHoldEffect(item) == ITEM_EFFECT_IRON_BALL && GetMonAbility(mon) != ABILITY_KLUTZ))
 		return GROUNDED;
 
-	else if  (GetMonAbility(mon) == ABILITY_LEVITATE
+	else if  ((GetMonAbility(mon) == ABILITY_LEVITATE || GetMonAbility(mon) == ABILITY_EELEVATE)
+		|| HackDragonBoulder_Mon(mon) //[hack] patches/0207 りゅうのいわお ふゆう
 		|| gBaseStats[species].type1 == TYPE_FLYING
 		|| gBaseStats[species].type2 == TYPE_FLYING)
 			return IN_AIR;
@@ -353,7 +359,7 @@ bool8 CheckGroundingByDetails(u16 species, u16 item, u16 ability)
 {
 	if (ability != ABILITY_KLUTZ && ItemId_GetHoldEffect(item) == ITEM_EFFECT_IRON_BALL)
 		return GROUNDED;
-	else if (ability == ABILITY_LEVITATE
+	else if (ability == ABILITY_LEVITATE || ability == ABILITY_EELEVATE
 	|| gBaseStats[species].type1 == TYPE_FLYING
 	|| gBaseStats[species].type2 == TYPE_FLYING)
 		return IN_AIR;
@@ -367,7 +373,7 @@ bool8 IsDamageHalvedDueToFullHP(u8 bank, u16 defAbility, u16 move, u16 atkAbilit
 	{
 		if (defAbility == ABILITY_SHADOWSHIELD)
 			return TRUE;
-		else if (defAbility == ABILITY_MULTISCALE && NO_MOLD_BREAKERS(atkAbility, move))
+		else if ((defAbility == ABILITY_MULTISCALE || defAbility == ABILITY_DRAGONARMOR) && NO_MOLD_BREAKERS(atkAbility, move)) //[hack] 2026-10-03 りゅうのよろい（ABILITY_DRAGONARMOR・patches/0150）
 			return TRUE;
 	}
 
@@ -463,7 +469,9 @@ bool8 CheckSoundMove(move_t move)
 
 bool8 SheerForceCheck(void)
 {
-	return ABILITY(gBankAttacker) == ABILITY_SHEERFORCE && CheckTableForMove(gCurrentMove, gSheerForceBoostedMoves);
+	return (ABILITY(gBankAttacker) == ABILITY_SHEERFORCE
+	     || ABILITY(gBankAttacker) == ABILITY_DRAGONARMOR) //[hack] 2026-10-07 りゅうのよろいに ちからずく（patches/0206）
+	    && CheckTableForMove(gCurrentMove, gSheerForceBoostedMoves);
 }
 
 bool8 IsOfType(u8 bank, u8 type)
@@ -1193,6 +1201,7 @@ bool8 CanTransferItem(u16 species, u16 item)
 
 	switch (effect) {
 		case ITEM_EFFECT_Z_CRYSTAL:
+		case ITEM_EFFECT_MOMO_ICE: //[hack] patches/0175 ももアイスは どろぼう・はたきおとす・トリックなどで動かない
 			return FALSE;
 
 		#ifdef NATIONAL_DEX_GIRATINA
@@ -1405,7 +1414,8 @@ bool8 IsMonAffectedByFocusSash(struct Pokemon* mon)
 
 bool8 CanBeTrapped(u8 bank)
 {
-	return !IsOfType(bank, TYPE_GHOST) && ITEM_EFFECT(bank) != ITEM_EFFECT_SHED_SHELL;
+	return !IsOfType(bank, TYPE_GHOST) && ITEM_EFFECT(bank) != ITEM_EFFECT_SHED_SHELL
+		&& ABILITY(bank) != ABILITY_RUNAWAY; //★ Champions（patches/0070） にげあし
 }
 
 bool8 IsAffectedByPowder(u8 bank)
@@ -1567,7 +1577,7 @@ u8 AttacksThisTurn(u8 bank, u16 move) // Note: returns 1 if it's a charging turn
 	if (ITEM_EFFECT(bank) == ITEM_EFFECT_POWER_HERB)
 		return 2;
 
-	if (moveEffect == EFFECT_SOLARBEAM && (gBattleWeather & WEATHER_SUN_ANY) && WEATHER_HAS_EFFECT)
+	if (moveEffect == EFFECT_SOLARBEAM && (((gBattleWeather & WEATHER_SUN_ANY) && WEATHER_HAS_EFFECT) || ABILITY(bank) == ABILITY_MEGA_SOL)) //★ ZA メガ（patches/0069）
 		return 2;
 
 	if (move == MOVE_ELECTROSHOT && (gBattleWeather & WEATHER_RAIN_ANY) && WEATHER_HAS_EFFECT)
@@ -1932,6 +1942,9 @@ bool8 DoesSleepClausePrevent(u8 bank)
 
 bool8 CanBeGeneralStatused(u8 bankDef, u16 defAbility, u16 atkAbility, bool8 checkFlowerVeil)
 {
+	if (ITEM_EFFECT(bankDef) == ITEM_EFFECT_MOMO_ICE) //[hack] patches/0175 ももアイスは状態異常にならない
+		return FALSE;
+
 	if (!IsTargetAbilityIgnoredNoMove(defAbility, atkAbility)) //Target's Ability is not ignored
 	{
 		switch (defAbility) {
@@ -2190,6 +2203,9 @@ bool8 CanBeFrozen(u8 bankDef, u8 bankAtk, bool8 checkFlowerVeil)
 bool8 CanBeConfused(u8 bankDef, u8 bankAtk, u8 checkSafeguard)
 {
 	if (IsConfused(bankDef))
+		return FALSE;
+
+	if (ITEM_EFFECT(bankDef) == ITEM_EFFECT_MOMO_ICE) //[hack] patches/0182 ももアイスは こんらんしない（2026-10-06）
 		return FALSE;
 
 	if (gTerrainType == MISTY_TERRAIN && CheckGrounding(bankDef))

@@ -1,0 +1,26 @@
+#org @gText_HackSlot_Title
+ぼうけんのしょを えらんでください
+
+#org @gText_HackSlot_Slot1
+ぼうけんのしょ 1
+
+#org @gText_HackSlot_Slot2
+ぼうけんのしょ 2
+
+#org @gText_HackSlot_Empty
+まだ ありません
+
+#org @gText_HackSlot_Broken
+よみこめません
+
+#org @gText_HackSlot_NoTitle
+ぼうけんのしょを えらべません
+
+#org @gText_HackSlot_NoLine1
+ぼうけんのしょ 2を つかうには
+
+#org @gText_HackSlot_NoLine2
+さいしんの mGBAを つかってください
+
+#org @gText_HackSlot_NoPressA
+Aボタンで つづける

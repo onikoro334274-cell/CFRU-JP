@@ -51,11 +51,25 @@
 #include "../include/new/frontier.h"
 #include "../include/new/util.h"
 #include "../include/new/multi.h"
+#include "../include/new/achievements.h"
 #include "../include/new/overworld.h"
 #include "../include/new/overworld_data.h"
 #include "../include/new/party_menu.h"
 #include "../include/new/read_keys.h"
 #include "../include/new/wild_encounter.h"
+
+u16 HoennTrainerFlag(u16 trainerId);   /* src/hoenn_trainer_flags.c（#2 ジム・0x500+id の置き換え）*/
+//[hack] patches/0130 バトルピラミッド（src/hoenn_pyramid.c）
+bool8 HoennPyramid_OnFloor(void);
+void HoennPyramid_ResolveOpponent(void);
+u8 HoennPyramid_EncounterMusicId(u16 trainerId);
+void HoennPyramid_CB2_EndTrainerBattle(void);
+//[hack] patches/0143 トレーナーヒル（src/hoenn_trainer_hill.c）
+bool8 HoennHill_OnFloor(void);
+bool8 HackKanto_IsGymLeaderBattle(void); //[hack] patches/0144 src/hack_kanto_dynamax.c
+void HoennHill_ResolveOpponent(void);
+void HoennHill_ResolveOpponentB(void);
+void HoennHill_CB2_EndTrainerBattle(void);
 
 /*
 overworld.c
@@ -680,7 +694,8 @@ u8 CheckForTrainersWantingBattle(void)
 	if (ExtensionState.spotted.count > 0)
 	{
 		if (ExtensionState.spotted.trainers[0].script[1] == TRAINER_BATTLE_TWO_OPPONENTS
-		||  ExtensionState.spotted.trainers[1].script[1] == TRAINER_BATTLE_TWO_OPPONENTS)
+		||  ExtensionState.spotted.trainers[1].script[1] == TRAINER_BATTLE_TWO_OPPONENTS
+		||  HoennPyramid_OnFloor()) //[hack] patches/0130 ピラミッドは 1 人ずつ（相手 2 人の戦いにしない）
 			ExtensionState.spotted.count = 1;
 	}
 
@@ -710,7 +725,7 @@ static bool8 CheckTrainerSpotting(u8 eventObjId) //Or just CheckTrainer
 	u8 battleType = scriptPtr[1];
 
 	if (battleType == TRAINER_BATTLE_TWO_OPPONENTS
-	&& (FlagGet(FLAG_TRAINER_FLAG_START + T1_READ_16(scriptPtr + 2)) /*|| FlagGet(FLAG_TRAINER_FLAG_START + T1_READ_16(scriptPtr + 4))*/))
+	&& (FlagGet(HoennTrainerFlag(T1_READ_16(scriptPtr + 2))) /*|| FlagGet(HoennTrainerFlag(T1_READ_16(scriptPtr + 4)))*/))
 		return FALSE; //If either trainer flag is set
 
 	if (GetTrainerFlagFromScriptPointer(scriptPtr)) //Trainer has already been beaten
@@ -750,7 +765,7 @@ static bool8 GetTrainerFlagFromScriptPointer(const u8* data)
 		return TRUE;							 			 //who's not a trainer
 
 	u16 flag = TrainerBattleLoadArg16(data + 2);
-	return FlagGet(FLAG_TRAINER_FLAG_START + flag);
+	return FlagGet(HoennTrainerFlag(flag));
 }
 
 static u8 CheckNPCSpotting(u8 eventObjId)
@@ -801,6 +816,19 @@ static void Task_OverworldMultiTrainers(u8 id)
 			break;
 
 		case 3:
+		{
+			//[hack] patches/0200 2026-10-07 ユーザー「きのみ名人のところでフリーズ ダブルバトルすると」（123 ばんどうろのダイスケ＋ジャスミン）:
+			//  2 人目が歩いている途中に見つかると、1 人目の場面の lock で歩きかけのまま凍結され、
+			//  2 人目の場面の lock（2 人目が歩き終わるのを待つ）が永遠に終わらなかった。2 人目だけ凍結を解いて 1 歩を終わらせる
+			//  （素の UnfreezeObjectEvent と同じ中身・BPRJ.ld に番地が無いのでここに書く）
+			struct EventObject* second = &gEventObjects[ExtensionState.spotted.trainers[1].id];
+			if (second->active && second->frozen)
+			{
+				second->frozen = FALSE;
+				gSprites[second->spriteId].animPaused = second->spriteAnimPausedBackup;
+				gSprites[second->spriteId].affineAnimPaused = second->spriteAffineAnimPausedBackup;
+			}
+		}
 			ExtensionState.multiTaskStateHelper = 0;
 			gApproachingTrainerId = 1;
 			SetUpTwoTrainersBattle();
@@ -859,11 +887,14 @@ const u8* BattleSetup_ConfigureTrainerBattle(const u8* data)
 			{
 				TrainerBattleLoadArgs(sContinueScriptBattleParams, data); //0x8080168
 				SetMapVarsToTrainer(); //0x80801F0
+				HoennPyramid_ResolveOpponent(); //[hack] patches/0130 ピラミッドの 0x7F0 + n → フロンティアの 300 人
+				HoennHill_ResolveOpponent(); //[hack] patches/0143 トレーナーヒルの 0x7F8 + n → 特別なトレーナーの 300 番から
 			}
 			else
 			{
 				TrainerBattleLoadArgs(sTrainerBContinueScriptBattleParams, data);
 				VarSet(VAR_SECOND_OPPONENT, gTrainerBattleOpponent_B);
+				HoennHill_ResolveOpponentB(); //[hack] patches/0143 トレーナーヒルで 2 人同時に見つかったときの 2 人目
 			}
 			return EventScript_TryDoNormalTrainerBattle;
 
@@ -1011,6 +1042,8 @@ static void InitTrainerBattleVariables(void)
 	sTrainerBattleEndScript = 0;
 }
 
+bool8 HoennPike_IsTwoOpponentBattle(void); //[hack] patches/0126 src/hoenn_pike.c
+
 void ClearTwoOpponentFlag(void)
 {
 	FlagClear(FLAG_TWO_OPPONENTS);
@@ -1066,6 +1099,12 @@ void BattleSetup_StartTrainerBattle(void)
 					gBattleTypeFlags |= (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_MULTI | BATTLE_TYPE_LINK);
 				break;
 		}
+
+		if (HoennPike_IsTwoOpponentBattle()) //[hack] patches/0126 バトルチューブのダブルの部屋: 相手 2 人（味方なし・src/hoenn_pike.c）
+		{
+			gBattleTypeFlags |= (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS);
+			gTrainerBattleOpponent_B = VarGet(VAR_SECOND_OPPONENT);
+		}
 	}
 	else
 	{
@@ -1116,11 +1155,13 @@ void BattleSetup_StartTrainerBattle(void)
 	}
 
 	#ifdef FLAG_DYNAMAX_BATTLE
-	if (FlagGet(FLAG_DYNAMAX_BATTLE))
+	if (FlagGet(FLAG_DYNAMAX_BATTLE) || HackKanto_IsGymLeaderBattle()) //[hack] patches/0144 カントーのジムリーダーは 1 回目から
 		gBattleTypeFlags |= BATTLE_TYPE_DYNAMAX;
 	#endif
 
-	gMain.savedCallback = CB2_EndTrainerBattle;
+	gMain.savedCallback = HoennPyramid_OnFloor() ? HoennPyramid_CB2_EndTrainerBattle : CB2_EndTrainerBattle; //[hack] patches/0130 ピラミッドは負けても全滅にしない
+	if (HoennHill_OnFloor()) //[hack] patches/0143 トレーナーヒルも負けても全滅にしない（受付へ戻る）
+		gMain.savedCallback = HoennHill_CB2_EndTrainerBattle;
 	StartTheBattle();
 	ScriptContext1_Stop();
 }
@@ -1128,6 +1169,18 @@ void BattleSetup_StartTrainerBattle(void)
 //Special 0x34
 const u8* GetIntroSpeechOfApproachingTrainer(void)
 {
+	if (HoennHill_OnFloor() && gTrainerBattleOpponent_A == BATTLE_TOWER_SPECIAL_TID) //[hack] patches/0143 トレーナーヒルのセリフ（2 人目は 1）
+	{
+		CopyFrontierTrainerText(FRONTIER_BEFORE_TEXT, BATTLE_TOWER_SPECIAL_TID, gApproachingTrainerId == 0 ? 0 : 1);
+		return ReturnEmptyStringIfNull((const u8*) gStringVar4);
+	}
+
+	if (HoennPyramid_OnFloor() && gTrainerBattleOpponent_A == BATTLE_TOWER_SPECIAL_TID) //[hack] patches/0130 ピラミッドのトレーナーのセリフ
+	{
+		CopyFrontierTrainerText(FRONTIER_BEFORE_TEXT, BATTLE_TOWER_SPECIAL_TID, 0);
+		return ReturnEmptyStringIfNull((const u8*) gStringVar4);
+	}
+
 	if (FlagGet(FLAG_BATTLE_FACILITY))
 	{
 		switch (Var8000) {
@@ -1182,7 +1235,7 @@ void SetUpTrainerEncounterMusic(void)
 	&&  sTrainerBattleMode != TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC)
 	{
 		#ifndef ENCOUNTER_MUSIC_BY_CLASS
-		switch (GetTrainerEncounterMusicId(trainerId)) {
+		switch (HoennPyramid_EncounterMusicId(trainerId)) { //[hack] patches/0130 ピラミッドはトレーナーごとの曲（ほかは素の GetTrainerEncounterMusicId）
 			case TRAINER_ENCOUNTER_MUSIC_MALE: //0
 			case TRAINER_ENCOUNTER_MUSIC_INTENSE: //4
 			case TRAINER_ENCOUNTER_MUSIC_COOL: //5
@@ -1217,8 +1270,8 @@ void SetUpTrainerEncounterMusic(void)
 void SetTrainerFlags(void)
 {
 	if (IsTwoOpponentBattle()) //Prevent bugs from happening when the second Trainer wasn't actually fought
-		FlagSet(FLAG_TRAINER_FLAG_START + SECOND_OPPONENT);
-	FlagSet(FLAG_TRAINER_FLAG_START + gTrainerBattleOpponent_A);
+		FlagSet(HoennTrainerFlag(SECOND_OPPONENT));
+	FlagSet(HoennTrainerFlag(gTrainerBattleOpponent_A));
 }
 
 //Script Callasms
@@ -1321,7 +1374,7 @@ void PrepTrainerB(void)
 
 void HasOneTrainerBeenDefeated(void)
 {
-	gSpecialVar_LastResult = FlagGet(FLAG_TRAINER_FLAG_START + gTrainerBattleOpponent_A) || FlagGet(FLAG_TRAINER_FLAG_START + gTrainerBattleOpponent_B);
+	gSpecialVar_LastResult = FlagGet(HoennTrainerFlag(gTrainerBattleOpponent_A)) || FlagGet(HoennTrainerFlag(gTrainerBattleOpponent_B));
 }
 
 void MoveCameraToTrainerB(void)
@@ -1598,6 +1651,10 @@ static const u8* GetCustomWalkingScript(void)
 
 static bool8 SafariZoneTakeStep(void)
 {
+	//[hack] 2026-10-10 ユーザー「サファリゾーンの歩数制限なくして」: 歩数では終わらない（ボールが無くなるか やめる で終わる）
+	if (TRUE)
+		return FALSE;
+
 	// check in safari zone
 	if (GetSafariZoneFlag() && gSafariSteps != 0)
 	{
@@ -1667,7 +1724,11 @@ bool8 TryRunOnFrameMapScript(void)
 		}
 	}
 
+	#ifndef DISABLE_ACHIEVEMENTS
+	return Achievements_FieldFrameUpdate(); //Achievement checks and unlock messages
+	#else
 	return FALSE;
+	#endif
 }
 
 // Whiteout Hack
@@ -1871,12 +1932,18 @@ void MoveOnBike(u8 direction)
 			&& ((!FlagGet(FLAG_BIKE_TURBO_BOOST) && JOY_HELD(B_BUTTON))
 			  || (FlagGet(FLAG_BIKE_TURBO_BOOST) && !JOY_HELD(B_BUTTON))))
 	{
-		PlayerGoSpeed4(direction);
+		//[hack] patches/0158 マッハ（ターボの旗が立っている＝src/hoenn_bike.c のマッハのモード）は 1 マス 2 コマ
+		//  （素の「すべる」MOVEMENT_ACTION_SLIDE_* 0x39〜0x3C = MOVE_SPEED_FASTEST・向き 1〜4）。
+		//  2026-10-04 ユーザー「感覚的に今のマッハはエメラルドのマッハより遅い」→「1」（今の 2 倍）。B を押したときのターボは今までどおり
+		if (FlagGet(FLAG_BIKE_TURBO_BOOST))
+			PlayerSetAnimId(0xE1 + direction, 2); //★ 同日「走る描画がないのが悲しい」: 速さは同じで、こぐ絵のある自前の動き 0xE2〜0xE5（src/sideways_stairs.c）
+		else
+			PlayerGoSpeed4(direction);
 		gPlayerAvatar->bikeSpeed = 4;
 	}
 	#endif
 	else
-		PlayerRideWaterCurrent(direction);
+		PlayerGoSpeed4(direction); //[hack] patches/0158 2026-10-04 ユーザー「ダートとつうじょうがなぜか遅くなっている」「4コマで」: 素は PlayerRideWaterCurrent（1 マス 6 コマ）
 }
 
 void MovePlayerWhileSurfing(u8 direction)
@@ -2683,9 +2750,20 @@ bool8 MetatileBehavior_IsDiveable(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsUnableToEmerge(u8 metatileBehavior)
 {
-	//In vanilla EM, tiles by default are emergable (it's stupid).
-	//I changed this so now it just compares for the dive tile.
-	return metatileBehavior != MB_DIVEABLE;
+	//★ 2026-09-23（#2 ホウエンのダイビング）: エメラルドと同じ判定に戻した。
+	//   上流は「足元が MB_DIVEABLE(0x12) のときだけ浮上できる」だったが、
+	//   エメラルドの海底 7 枚（Underwater_Route105/124〜129）は 0x12 が 1 マスも無く、
+	//   ほぼ全面が MB_NORMAL なので**一度潜ると浮上できなかった**（ユーザー実機「現在浮上不可」）。
+	//   エメラルドは MB_NO_SURFACING / MB_SEAWEED_NO_SURFACING だけを弾く
+	//   （こちらでは 0x2A を 0x19 に変換済み）。本家の BUGFIX と同じく水の扉も弾く:
+	//   0x60 = 海底の扉（EM MB_NON_ANIMATED_DOOR・EM 0x6C もここ）/
+	//   0xED = 水の南向き矢印ワープ（EM 0x6D・src/hoenn_warps.c の HOENN_MB_WATER_SOUTH_ARROW_WARP）。
+	//   ★ 2026-09-23: 0x6D の寄せ先を 0x67 から 0xED に変えたので、弾く値もそちらへ
+	//   ★ この判定は gMapHeader.mapType == MAP_TYPE_UNDERWATER のときしか呼ばれない。
+	//     カントーに水中の地図は無いので、カントーには効かない。
+	return metatileBehavior == MB_UNDERWATER_BLOCKED_ABOVE
+		|| metatileBehavior == 0x60
+		|| metatileBehavior == 0xED;
 }
 
 void PlayerAvatarTransition_Underwater(void)
@@ -2728,6 +2806,12 @@ u8 GetAdjustedInitialTransitionFlags(struct InitialPlayerAvatarState *playerStru
 		return PLAYER_AVATAR_FLAG_ON_FOOT;
 	#endif
 	else if (MetatileBehavior_IsSurfableWaterOrUnderwater(metatileBehavior))
+		return PLAYER_AVATAR_FLAG_SURFING;
+	//[hack] patches/0161 2026-10-04 ユーザー「アクア団アジトからでると歩き状態になる」: エメラルドの水の入口（MB_WATER_DOOR・なみのりの印つき）は
+	//  FRLG に無いので洞窟の入口 MB_CAVE_DOOR（0x60・印なし）に寄せてある（tools/rom/build_emerald_tileset.py）。
+	//  着いたのが洞窟の入口で水の高さ（1）なら、なみのりで出す（陸の洞窟の入口は高さ 3 や 0）
+	else if (metatileBehavior == 0x60 /*MB_CAVE_DOOR*/
+	&& MapGridGetZCoordAt(gSaveBlock1->pos.x + 7, gSaveBlock1->pos.y + 7) == 1)
 		return PLAYER_AVATAR_FLAG_SURFING;
 	else if (!Overworld_IsBikingAllowed())
 		return PLAYER_AVATAR_FLAG_ON_FOOT;

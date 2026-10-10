@@ -153,6 +153,9 @@ u16 MonTryLearningNewMoveAfterEvolution(struct Pokemon* mon, bool8 firstMove)
 	return retVal;
 }
 
+bool8 HackFullTutor_IsActive(void); //[hack] patches/0171 src/hack_full_tutor.c
+u8 HackFullTutor_GetMoves(struct Pokemon* mon, u16* moves);
+
 u8 GetMoveRelearnerMoves(struct Pokemon* mon, u16* moves)
 {
 	u16 learnedMoves[4];
@@ -160,6 +163,9 @@ u8 GetMoveRelearnerMoves(struct Pokemon* mon, u16* moves)
 	u16 species = mon->species;
 	u8 level = mon->level;
 	int i, j, k;
+
+	if (HackFullTutor_IsActive()) //[hack] patches/0171: the Battle Frontier tutor teaches every learnable move (level-up, egg, TM, tutor)
+		return HackFullTutor_GetMoves(mon, moves);
 
 #ifdef FLAG_MOVE_RELEARNER_IGNORE_LEVEL
 	if (FlagGet(FLAG_MOVE_RELEARNER_IGNORE_LEVEL))
@@ -312,7 +318,12 @@ u16 BuildLearnableMoveset(struct Pokemon* mon, u16* moves)
 			++numTotalMoves;
 			++moves; //Increase Ptr
 		}
+	}
 
+	//[hack] patches/0172: the tutors were checked inside the TM loop (only 0..NUM_TMSHMS-1 = 0..127),
+	//so tutors 128..151 and the special tutors 152..LAST_TOTAL_TUTOR_NUM were never listed
+	for (int i = 0; i <= LAST_TOTAL_TUTOR_NUM; ++i)
+	{
 		#ifdef EXPANDED_MOVE_TUTORS
 		u8 tutRet = CanMonLearnTutorMove(mon, i);
 		#else

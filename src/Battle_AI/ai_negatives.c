@@ -330,6 +330,14 @@ u8 AIScript_Negatives(const u8 bankAtk, const u8 bankDef, const u16 originalMove
 				}
 				break;
 
+			case ABILITY_SHINOBIASHI:
+				if (SPLIT(move) != SPLIT_STATUS && PriorityCalc(bankAtk, ACTION_USE_MOVE, move) > 0)
+				{
+					DECREASE_VIABILITY(10);
+					return viability;
+				}
+				break;
+
 			case ABILITY_DAZZLING:
 			case ABILITY_QUEENLYMAJESTY:
 			case ABILITY_ARMORTAIL:
@@ -2860,6 +2868,19 @@ static void AI_Watch(void)
 u8 AIScript_Safari(const unusedArg u8 bankAtk, const unusedArg u8 bankDef, const unusedArg u16 move, const u8 originalViability, unusedArg struct AIScript* data)
 {
 	u8 safariFleeRate = gBattleStruct->safariEscapeFactor * 5; // Safari flee rate, from 0-20.
+
+	//本家（特に日本語版 FRLG）は えさ・いし を投げても捕獲係数しか動かさず、
+	//逃走係数 safariEscapeFactor には一切触れていない。
+	//そのため「えさ＝捕獲率が下がるだけの損」「いし＝ノーリスク強化」になっていた。
+	//えさ・いしのカウンタは排他なので、ここで逃走率に本来の増減を掛ける。
+	//（patches/0016）
+	if (gBattleStruct->safariPkblThrowCounter > 0)
+		safariFleeRate /= 2;		//えさ: 逃げにくくなる
+	else if (gBattleStruct->safariGoNearCounter > 0)
+		safariFleeRate *= 2;		//いし: 逃げやすくなる
+
+	if (safariFleeRate > 100)
+		safariFleeRate = 100;
 
 	if ((u8) (Random() % 100) < safariFleeRate)
 	{

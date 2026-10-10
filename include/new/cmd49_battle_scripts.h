@@ -21,6 +21,8 @@ extern const u8 BattleScript_RageIsBuilding[];
 extern const u8 BattleScript_BeakBlastBurn[];
 extern const u8 BattleScript_Magician[];
 extern const u8 BattleScript_Moxie[];
+extern const u8 BattleScript_BattleBondBoost[]; //★ Champions（patches/0070）
+extern const u8 BattleScript_BattleBondTransformBoost[];
 extern const u8 BattleScript_MindBlownDamage[];
 extern const u8 BattleScript_Pickpocket[];
 extern const u8 BattleScript_DancerActivated[];

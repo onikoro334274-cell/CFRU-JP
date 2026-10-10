@@ -44,7 +44,7 @@
 [SCRIPTING_BANK]は [EFFECT_BANK]の\n[LAST_ITEM]を おみとおしだ！
 
 #org @gText_ItIsHailing
-あられが ふっている
+ゆきが ふっている
 
 #org @gText_FogIsDeep
 きりが ふかい

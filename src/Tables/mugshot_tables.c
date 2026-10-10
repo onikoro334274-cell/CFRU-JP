@@ -1,6 +1,7 @@
 #include "../defines.h"
 
 #include "../../include/new/battle_transition_data.h"
+#include "bw_mugshot_gfx.h" //#20 BW protagonist (tools/bwplayer/build_bw_mugshot.py)
 /*
 mugshot_tables.c
 	set up image/palette tables for trainer battle transition mugshots
@@ -22,6 +23,9 @@ const struct MugshotTable sPreBattleMugshotSprites[147] =
 {
 	//[106] = {Silver_MugshotTiles, Silver_MugshotPal, 64 * 64 / 2, 0, -32}, //Example: Replaces Blue's sprite with Silver's mugshot
 	//[124] = {Silver_MugshotTiles, Silver_MugshotPal, 64 * 64 / 2, 0, -32}, //Example: Replaces Player's sprite with Silver's mugshot
+	//#20: BW protagonist for the VS screen (135 = male / 136 = female front pic ids)
+	[135] = {gBwMugshotMale, gBwMugshotMalePal, BW_MUGSHOT_SIZE, 0, 0},
+	[136] = {gBwMugshotFemale, gBwMugshotFemalePal, BW_MUGSHOT_SIZE, 0, 0},
 };
 #endif
 

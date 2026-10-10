@@ -1,0 +1,23 @@
+#org @gText_KantoBall_Intro
+ポケモンが はいっている ボールって\nきになるよね！\pきみの ボールを ひとつ くれたら\nその ボールに いれかえて あげるよ\pやって みる？
+
+#org @gText_KantoBall_WhichMon
+どの ポケモンの ボールを\nいれかえる？
+
+#org @gText_KantoBall_WhichBall
+どの ボールに いれかえる？
+
+#org @gText_KantoBall_Done
+[BUFFER1]を\n[BUFFER2]に いれかえたよ！\pうん よく にあってる！
+
+#org @gText_KantoBall_NotBall
+それは ボールじゃ ないよ
+
+#org @gText_KantoBall_Same
+もう その ボールに はいってるよ
+
+#org @gText_KantoBall_Egg
+タマゴは いれかえられないよ
+
+#org @gText_KantoBall_Cancel
+また いつでも きてね！

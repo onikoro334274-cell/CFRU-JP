@@ -62,6 +62,7 @@ bool8 AbilityPreventsLoweringStat(u16 ability, u8 statId)
 			return statId == STAT_STAGE_DEF;
 		case ABILITY_KEENEYE:
 		case ABILITY_MINDSEYE:
+		case ABILITY_ILLUMINATE: //★ Champions（patches/0070） はっこう
 			return statId == STAT_STAGE_ACC;
 		default:
 			return FALSE;

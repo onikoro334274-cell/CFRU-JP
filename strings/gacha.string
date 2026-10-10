@@ -1,0 +1,26 @@
+#org @gText_Gacha_NewOdds
+しんポケモン: [BUFFER1]
+
+#org @gText_Gacha_YouGot
+[BUFFER1]を てにいれた！
+
+#org @gText_Gacha_SentToPC
+[BUFFER1]は てもちが いっぱいなので\nボックスに てんそうされた！
+
+#org @gText_Gacha_Ask1
+ガチャガチャが おいてある\n1かい コイン50まいから　みたい\pまわして　みますか？
+
+#org @gText_Gacha_Ask2
+ガチャガチャだよ！ グレート！\nコイン250まいから あそべるよ。あそぶ？
+
+#org @gText_Gacha_Ask3
+ガチャガチャだよ！ ウルトラ！\nコイン1000まいから あそべるよ。あそぶ？
+
+#org @gText_Gacha_Ask4
+ガチャガチャだよ！ マスター！\nコイン3000まいから あそべるよ。あそぶ？
+
+#org @gText_Gacha_NoCoinCase
+ガチャガチャだよ！\pでも コインケースを\nもっていないみたい…
+
+#org @gText_Gacha_NotEnoughCoins
+コインが たりないみたい…

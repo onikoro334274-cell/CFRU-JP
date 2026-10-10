@@ -88,6 +88,8 @@ struct TrainersWithEvs
 	u8 ball; //0FE = Class-Based Ball, 0xFF = Random Ball
 	u8 ability; //0 = Hidden, 1 = Ability_1, 2 = Ability_2, 3 = Random Ability 1 & 2, 4 = Random Any Ability
 	u8 teraType;
+	//参考「CFRU-JP_変更ファイル」機能4 より（patches/0011）
+	bool8 shiny; //TRUE でそのトレーナーのポケモンが色違いになる
 };
 
 enum

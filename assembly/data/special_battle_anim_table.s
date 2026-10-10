@@ -929,7 +929,7 @@ ANIM_LOAD_ABILITY_POP_UP:
 	pokespritetoBG side_attacker
 	launchtask AnimTask_LoadAbilityPopUp 0x5 0x0
 	waitanimation
-	pause 0x20
+	pause 0x10 @;Hack (patches/0167): was 0x20
 	pokespritefromBG side_attacker
 	endanimation
 
@@ -937,7 +937,7 @@ ANIM_LOAD_ABILITY_POP_UP:
 .pool
 ANIM_REMOVE_ABILITY_POP_UP:
 	launchtask AnimTask_DestroyAbilityPopUp 0x5 0x0
-	pause 0x20
+	pause 0x10 @;Hack (patches/0167): was 0x20
 	endanimation
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

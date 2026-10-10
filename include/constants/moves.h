@@ -1009,13 +1009,27 @@
 #define MOVE_TEMPERFLARE 0x3DD
 #define MOVE_SUPERCELLSLAM 0x3DE
 #define MOVE_PSYCHICNOISE 0x3DF
+//★ Let's Go! の相棒ピカチュウの技（2026-09-28 ユーザー「お母さんからもらえるピカチュウのわざ…バチバチアクセルとザブザブサーフ」「goのほうで」（Let's Go! の値・pokeemerald-expansion の B_UPDATED_MOVE_DATA < GEN_8 の値と同じ））
+#define MOVE_ZIPPYZAP 0x3E0
+#define MOVE_SPLISHYSPLASH 0x3E1
+//★ りゅうのいかりの くさ版・みず版（2026-10-03 ユーザー「固定技40のりゅうのいかりの他タイプを作ってフシギダネ系とゼニガメ系に」）
+#define MOVE_GRASSRAGE 0x3E2
+#define MOVE_WATERRAGE 0x3E3
+//★ しんそく（PP 15 固定）: ライバルのお姉さんのジグザグマだけが持つ（2026-10-03・src/hack_daisy_zigzagoon.c）
+#define MOVE_EXTREMESPEED_15 0x3E4
+//★ りゅうのちかい（2026-10-03）: 優先度 -3・すべての のうりょくを ぐーんと（ナインエボルブーストと同じ効き目）。クチバのフカマルのタマゴの子が覚えている（src/hack_gible_egg.c）
+#define MOVE_DRAGONSOATH 0x3E5
+//★ Let's Go! の相棒ピカチュウの技のつづき（2026-10-09 ユーザー「ピカピカサンダー と ふわふわフォールをついか」・Let's Go! の値）
+#define MOVE_PIKAPAPOW 0x3E6
+#define MOVE_FLOATYFALL 0x3E7
+#define MOVE_URASHINEN 0x3E8
 
 #define FIRST_MAX_MOVE      MOVE_MAX_GUARD
 #define LAST_MAX_MOVE       MOVE_MAX_STARFALL_S
 #define FIRST_G_MAX_MOVE    MOVE_G_MAX_VINE_LASH_P
 #define LAST_G_MAX_MOVE     MOVE_G_MAX_RAPID_FLOW_S
 
-#define LAST_MOVE_INDEX     MOVE_PSYCHICNOISE
-#define MOVES_COUNT        (MOVE_PSYCHICNOISE + 1)
+#define LAST_MOVE_INDEX     MOVE_URASHINEN
+#define MOVES_COUNT        (MOVE_URASHINEN + 1)
 #define NON_Z_MOVE_COUNT   (MOVE_GLACIALLANCE + 1)
 

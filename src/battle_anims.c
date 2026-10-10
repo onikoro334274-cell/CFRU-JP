@@ -6517,8 +6517,9 @@ void HandleSpeciesGfxDataChange(u8 bankAtk, u8 bankDef, u8 transformType)
 		gSprites[gBattlerSpriteIds[bankAtk]].pos1.y = GetBattlerSpriteDefault_Y(bankAtk);
         StartSpriteAnim(&gSprites[gBattlerSpriteIds[bankAtk]], gBattleMonForms[bankAtk]);
         SetMonData(monAtk, MON_DATA_NICKNAME, gSpeciesNames[targetSpecies]);
-        UpdateNickInHealthbox(gHealthboxSpriteIds[bankAtk], monAtk);
-        TryAddPokeballIconToHealthbox(gHealthboxSpriteIds[bankAtk], 1);
+        //[hack] patches/0148 BW 風 HP バー（src/bw_hpbar.c）: 素の名前・ボールの印は素の枠の並びで描くので、BW の枠に重なった
+        //（2026-10-03 ユーザー「幽霊の名前がガラガラと重なって表示される」）。枠ごと描き直す（BW は UpdateHealthboxAttribute を差し替えてある）
+        UpdateHealthboxAttribute(gHealthboxSpriteIds[bankAtk], monAtk, 0);
     }
 	else if (transformType == 0xFE) //Transforming animation for form change
 	{

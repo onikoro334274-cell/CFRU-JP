@@ -324,4 +324,19 @@
 #define ABILITY_TERAFORMZERO 309
 #define ABILITY_POISONPUPPETEER 310
 
-#define ABILITIES_COUNT (ABILITY_POISONPUPPETEER + 1)
+// ZAMEGA BEGIN (tools/megas/build_za_megas.py) 新しい特性
+#define ABILITY_MEGA_SOL 311
+#define ABILITY_DRAGONIZE 312
+#define ABILITY_PIERCING_DRILL 313
+#define ABILITY_EELEVATE 314
+#define ABILITY_FIRE_MANE 315
+#define ABILITY_SPICY_SPRAY 316
+#define ABILITY_AURA_GUARD 317
+// ZAMEGA END
+// 2026-10-01 自作の特性（tools/megas/build_za_megas.HACK_ABILITIES に書く・ZAMEGA の後ろ）
+#define ABILITY_SCARE 318          // おどかし: 場に出ると あいての とくこうを 1 さげる（いかくの とくこう版・src/second_ability.c）
+#define ABILITY_DRAGONARMOR 319    // りゅうのよろい: ちからもち＋マルチスケイル＋さめはだ＋ちからずく（2026-10-07）（クチバのフカマルのタマゴの子だけ・src/hack_gible_egg.c）
+#define ABILITY_SHINOBIASHI 321
+#define ABILITY_URAMESHIYA 322
+#define ABILITY_DRAGONBOULDER 320  // りゅうのいわお: ふゆう＋技の威力 2 倍＋ハードロック（特別なガブリアスZの 2 つ目の特性だけ・src/hack_dragon_boulder.c・2026-10-07）
+#define ABILITIES_COUNT (ABILITY_URAMESHIYA + 1)

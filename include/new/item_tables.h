@@ -117,6 +117,14 @@ extern const u8 gItemIcon_Old_GateauTiles[];
 extern const u8 gItemIcon_Old_GateauPal[];
 extern const u8 gItemIcon_CasteliaconeTiles[];
 extern const u8 gItemIcon_CasteliaconePal[];
+extern const u8 gItemIcon_Momo_IceTiles[]; // 2026-10-05 ももアイス
+extern const u8 gItemIcon_Momo_IcePal[];
+extern const u8 gItemIcon_Gene_BondTiles[]; // 2026-10-10 いでんしのきずな（tools/items/kizuna/build_kizuna_icon.py）
+extern const u8 gItemIcon_Gene_BondPal[];
+extern const u8 gItemIcon_MildTiles[]; // 2026-10-10 マイルド（tools/items/mild/build_mild_icon.py）
+extern const u8 gItemIcon_MildPal[];
+extern const u8 gItemIcon_Gold_CapsuleTiles[]; // 2026-10-10 おうごんのカプセル（tools/items/gold_capsule/build_gold_capsule_icon.py）
+extern const u8 gItemIcon_Gold_CapsulePal[];
 extern const u8 gItemIcon_Lumiose_GaletteTiles[];
 extern const u8 gItemIcon_Lumiose_GalettePal[];
 extern const u8 gItemIcon_Shalour_SableTiles[];
@@ -1318,11 +1326,19 @@ extern const u8 gItemIcon_Pink_MintTiles[];
 extern const u8 gItemIcon_Pink_MintPal[];
 extern const u8 gItemIcon_Green_MintTiles[];
 extern const u8 gItemIcon_Green_MintPal[];
+// 参考「CFRU-JP_変更ファイル」機能3 より（patches/0008）
+extern const u8 gItemIcon_Hisui_RockTiles[];
+extern const u8 gItemIcon_Hisui_RockPal[];
+extern const u8 gItemIcon_Rotom_CatalogTiles[];
+extern const u8 gItemIcon_Rotom_CatalogPal[];
 extern const u8 gItemIcon_Yellow_MintTiles[];
 extern const u8 gItemIcon_Yellow_MintPal[];
 
 //Funcs
 #define gFieldFunc_Item_None ((void*)0x080A34F9)
+// きのみプランター（patches/0018）。本体は bytereplacement で 0x08EE5E10 に置く。
+// 参考/パッチ/きのみプランター（配布物）を tools/rom/build_berry_planter.py で変換したもの。
+#define gFieldFunc_BerryPlanter ((void*)0x08EE5E11)
 #define gFieldFunc_Pokeballs ((void*)0x080A30DD)
 #define gBattleFunc_Medicine ((void*)0x080A327D)
 #define gFieldFunc_Medicine ((void*)0x080A29B5)
@@ -1552,7 +1568,8 @@ extern const u8 DESC_CHOICE_BAND[];
 #define DESC_METAL_COAT ((void*)0x0839ED66)
 #define DESC_LEFTOVERS ((void*)0x0839ED93)
 #define DESC_DRAGON_SCALE ((void*)0x0839EDBC)
-#define DESC_LIGHT_BALL ((void*)0x0839EDE8)
+//★ 2026-09-24（patches/0066）: 効果を変えたので説明文も自前に（素は 0x0839EDE8「とくこうが あがる たま」）
+extern const u8 DESC_LIGHT_BALL[];
 #define DESC_SOFT_SAND ((void*)0x0839EE13)
 #define DESC_HARD_STONE ((void*)0x0839EE40)
 #define DESC_MIRACLE_SEED ((void*)0x0839EE6B)
@@ -2123,4 +2140,199 @@ extern const u8 DESC_HASTY_MINT[];
 extern const u8 DESC_JOLLY_MINT[];
 extern const u8 DESC_NAIVE_MINT[];
 extern const u8 DESC_SERIOUS_MINT[];
+// 参考「CFRU-JP_変更ファイル」機能3 より（patches/0008）
+extern const u8 DESC_HISUI_ROCK[];
+extern const u8 DESC_ROTOM_CATALOG[];
+// きのみプランター（patches/0018）
+extern const u8 DESC_BERRY_PLANTER[];
+// ZAMEGA BEGIN (tools/megas/build_za_megas.py) 新しいメガストーン・道具
+extern const u8 DESC_ZA_ABSOLITE_Z[];
+extern const u8 gItemIcon_ZaAbsoliteZTiles[];
+extern const u8 gItemIcon_ZaAbsoliteZPal[];
+extern const u8 DESC_ZA_BARBARACITE[];
+extern const u8 gItemIcon_ZaBarbaraciteTiles[];
+extern const u8 gItemIcon_ZaBarbaracitePal[];
+extern const u8 DESC_ZA_BAXCALIBRITE[];
+extern const u8 gItemIcon_ZaBaxcalibriteTiles[];
+extern const u8 gItemIcon_ZaBaxcalibritePal[];
+extern const u8 DESC_ZA_CHANDELURITE[];
+extern const u8 gItemIcon_ZaChandeluriteTiles[];
+extern const u8 gItemIcon_ZaChandeluritePal[];
+extern const u8 DESC_ZA_CHESNAUGHTITE[];
+extern const u8 gItemIcon_ZaChesnaughtiteTiles[];
+extern const u8 gItemIcon_ZaChesnaughtitePal[];
+extern const u8 DESC_ZA_CHIMECHITE[];
+extern const u8 gItemIcon_ZaChimechiteTiles[];
+extern const u8 gItemIcon_ZaChimechitePal[];
+extern const u8 DESC_ZA_CLEFABLITE[];
+extern const u8 gItemIcon_ZaClefabliteTiles[];
+extern const u8 gItemIcon_ZaClefablitePal[];
+extern const u8 DESC_ZA_CRABOMINITE[];
+extern const u8 gItemIcon_ZaCrabominiteTiles[];
+extern const u8 gItemIcon_ZaCrabominitePal[];
+extern const u8 DESC_ZA_DARKRANITE[];
+extern const u8 gItemIcon_ZaDarkraniteTiles[];
+extern const u8 gItemIcon_ZaDarkranitePal[];
+extern const u8 DESC_ZA_DELPHOXITE[];
+extern const u8 gItemIcon_ZaDelphoxiteTiles[];
+extern const u8 gItemIcon_ZaDelphoxitePal[];
+extern const u8 DESC_ZA_DRAGALGITE[];
+extern const u8 gItemIcon_ZaDragalgiteTiles[];
+extern const u8 gItemIcon_ZaDragalgitePal[];
+extern const u8 DESC_ZA_DRAGONINITE[];
+extern const u8 gItemIcon_ZaDragoniniteTiles[];
+extern const u8 gItemIcon_ZaDragoninitePal[];
+extern const u8 DESC_ZA_DRAMPANITE[];
+extern const u8 gItemIcon_ZaDrampaniteTiles[];
+extern const u8 gItemIcon_ZaDrampanitePal[];
+extern const u8 DESC_ZA_EELEKTROSSITE[];
+extern const u8 gItemIcon_ZaEelektrossiteTiles[];
+extern const u8 gItemIcon_ZaEelektrossitePal[];
+extern const u8 DESC_ZA_EMBOARITE[];
+extern const u8 gItemIcon_ZaEmboariteTiles[];
+extern const u8 gItemIcon_ZaEmboaritePal[];
+extern const u8 DESC_ZA_EXCADRITE[];
+extern const u8 gItemIcon_ZaExcadriteTiles[];
+extern const u8 gItemIcon_ZaExcadritePal[];
+extern const u8 DESC_ZA_FALINKSITE[];
+extern const u8 gItemIcon_ZaFalinksiteTiles[];
+extern const u8 gItemIcon_ZaFalinksitePal[];
+extern const u8 DESC_ZA_FERALIGITE[];
+extern const u8 gItemIcon_ZaFeraligiteTiles[];
+extern const u8 gItemIcon_ZaFeraligitePal[];
+extern const u8 DESC_ZA_FLOETTITE[];
+extern const u8 gItemIcon_ZaFloettiteTiles[];
+extern const u8 gItemIcon_ZaFloettitePal[];
+extern const u8 DESC_ZA_FROSLASSITE[];
+extern const u8 gItemIcon_ZaFroslassiteTiles[];
+extern const u8 gItemIcon_ZaFroslassitePal[];
+extern const u8 DESC_ZA_GARCHOMPITE_Z[];
+extern const u8 gItemIcon_ZaGarchompiteZTiles[];
+extern const u8 gItemIcon_ZaGarchompiteZPal[];
+extern const u8 DESC_ZA_GLIMMORANITE[];
+extern const u8 gItemIcon_ZaGlimmoraniteTiles[];
+extern const u8 gItemIcon_ZaGlimmoranitePal[];
+extern const u8 DESC_ZA_GOLISOPITE[];
+extern const u8 gItemIcon_ZaGolisopiteTiles[];
+extern const u8 gItemIcon_ZaGolisopitePal[];
+extern const u8 DESC_ZA_GOLURKITE[];
+extern const u8 gItemIcon_ZaGolurkiteTiles[];
+extern const u8 gItemIcon_ZaGolurkitePal[];
+extern const u8 DESC_ZA_GRENINJITE[];
+extern const u8 gItemIcon_ZaGreninjiteTiles[];
+extern const u8 gItemIcon_ZaGreninjitePal[];
+extern const u8 DESC_ZA_HAWLUCHANITE[];
+extern const u8 gItemIcon_ZaHawluchaniteTiles[];
+extern const u8 gItemIcon_ZaHawluchanitePal[];
+extern const u8 DESC_ZA_HEATRANITE[];
+extern const u8 gItemIcon_ZaHeatraniteTiles[];
+extern const u8 gItemIcon_ZaHeatranitePal[];
+extern const u8 DESC_ZA_LUCARIONITE_Z[];
+extern const u8 gItemIcon_ZaLucarioniteZTiles[];
+extern const u8 gItemIcon_ZaLucarioniteZPal[];
+extern const u8 DESC_ZA_MAGEARNITE[];
+extern const u8 gItemIcon_ZaMagearniteTiles[];
+extern const u8 gItemIcon_ZaMagearnitePal[];
+extern const u8 DESC_ZA_MALAMARITE[];
+extern const u8 gItemIcon_ZaMalamariteTiles[];
+extern const u8 gItemIcon_ZaMalamaritePal[];
+extern const u8 DESC_ZA_MEGANIUMITE[];
+extern const u8 gItemIcon_ZaMeganiumiteTiles[];
+extern const u8 gItemIcon_ZaMeganiumitePal[];
+extern const u8 DESC_ZA_MEOWSTICITE[];
+extern const u8 gItemIcon_ZaMeowsticiteTiles[];
+extern const u8 gItemIcon_ZaMeowsticitePal[];
+extern const u8 DESC_ZA_PYROARITE[];
+extern const u8 gItemIcon_ZaPyroariteTiles[];
+extern const u8 gItemIcon_ZaPyroaritePal[];
+extern const u8 DESC_ZA_RAICHUNITE_X[];
+extern const u8 gItemIcon_ZaRaichuniteXTiles[];
+extern const u8 gItemIcon_ZaRaichuniteXPal[];
+extern const u8 DESC_ZA_RAICHUNITE_Y[];
+extern const u8 gItemIcon_ZaRaichuniteYTiles[];
+extern const u8 gItemIcon_ZaRaichuniteYPal[];
+extern const u8 DESC_ZA_SCOLIPITE[];
+extern const u8 gItemIcon_ZaScolipiteTiles[];
+extern const u8 gItemIcon_ZaScolipitePal[];
+extern const u8 DESC_ZA_SCOVILLAINITE[];
+extern const u8 gItemIcon_ZaScovillainiteTiles[];
+extern const u8 gItemIcon_ZaScovillainitePal[];
+extern const u8 DESC_ZA_SCRAFTINITE[];
+extern const u8 gItemIcon_ZaScraftiniteTiles[];
+extern const u8 gItemIcon_ZaScraftinitePal[];
+extern const u8 DESC_ZA_SKARMORITE[];
+extern const u8 gItemIcon_ZaSkarmoriteTiles[];
+extern const u8 gItemIcon_ZaSkarmoritePal[];
+extern const u8 DESC_ZA_STARAPTITE[];
+extern const u8 gItemIcon_ZaStaraptiteTiles[];
+extern const u8 gItemIcon_ZaStaraptitePal[];
+extern const u8 DESC_ZA_STARMINITE[];
+extern const u8 gItemIcon_ZaStarminiteTiles[];
+extern const u8 gItemIcon_ZaStarminitePal[];
+extern const u8 DESC_ZA_TATSUGIRINITE[];
+extern const u8 gItemIcon_ZaTatsugiriniteTiles[];
+extern const u8 gItemIcon_ZaTatsugirinitePal[];
+extern const u8 DESC_ZA_VICTREEBELITE[];
+extern const u8 gItemIcon_ZaVictreebeliteTiles[];
+extern const u8 gItemIcon_ZaVictreebelitePal[];
+extern const u8 DESC_ZA_ZERAORITE[];
+extern const u8 gItemIcon_ZaZeraoriteTiles[];
+extern const u8 gItemIcon_ZaZeraoritePal[];
+extern const u8 DESC_ZA_ZYGARDITE[];
+extern const u8 gItemIcon_ZaZygarditeTiles[];
+extern const u8 gItemIcon_ZaZygarditePal[];
+extern const u8 DESC_ZA_FAIRY_FEATHER[];
+extern const u8 gItemIcon_ZaFairyFeatherTiles[];
+extern const u8 gItemIcon_ZaFairyFeatherPal[];
+// ZAMEGA END
+// #28 ミュージックプレイヤー（自作）
+extern const u8 DESC_MUSIC_PLAYER[];
+void FieldUseFunc_MusicPlayer(u8 taskId);
+// 2026-10-01 けいけんアメ（自作・src/exp_candy.c）
+void FieldUseFunc_ExpCandy(u8 taskId);
+// 2026-10-01 タイムテレビ（自作・src/play_clock.c）
+void FieldUseFunc_TimeTV(u8 taskId);
+void FieldUseFunc_MoveNote(u8 taskId);
+void FieldUseFunc_EVReset(u8 taskId);
+void FieldUseFunc_ShiningCharm(u8 taskId);
+void FieldUseFunc_BoxLink(u8 taskId);
+extern const u8 DESC_TIME_TV[];
+extern const u8 DESC_MOVE_NOTE[];
+extern const u8 DESC_PP_MINI[];
+extern const u8 DESC_EV_RESET[];
+extern const u8 DESC_SHINING_CHARM[];
+extern const u8 DESC_BOX_LINK[];
+extern const u8 DESC_MOMO_ICE[];
+extern const u8 DESC_LEVEL_DOWN[];
+void FieldUseFunc_LevelDown(u8 taskId);
+extern const u8 DESC_TRAINING_POUCH[];
+void FieldUseFunc_TrainingPouch(u8 taskId);
+extern const u8 DESC_GENDER_TOOL[];
+void FieldUseFunc_GenderTool(u8 taskId);
+extern const u8 DESC_MOEMON_SWITCH[];
+void FieldUseFunc_MoemonSwitch(u8 taskId);
+extern const u8 DESC_DANGER_LEAF[];
+extern const u8 DESC_DANGER_SUGAR[];
+extern const u8 DESC_HABITAT_SWITCH[];
+extern const u8 DESC_MOEMON_FOSSIL[];
+extern const u8 DESC_GENE_BOND[];
+extern const u8 DESC_MILD[];
+extern const u8 DESC_GOLD_CAPSULE[];
+void FieldUseFunc_HabitatSwitch(u8 taskId);
+void FieldUseFunc_DangerSugar(u8 taskId);
+extern const u8 DESC_EXP_CANDY_XS[];
+extern const u8 gItemIcon_ExpCandyXSTiles[];
+extern const u8 gItemIcon_ExpCandyXSPal[];
+extern const u8 DESC_EXP_CANDY_S[];
+extern const u8 gItemIcon_ExpCandySTiles[];
+extern const u8 gItemIcon_ExpCandySPal[];
+extern const u8 DESC_EXP_CANDY_M[];
+extern const u8 gItemIcon_ExpCandyMTiles[];
+extern const u8 gItemIcon_ExpCandyMPal[];
+extern const u8 DESC_EXP_CANDY_L[];
+extern const u8 gItemIcon_ExpCandyLTiles[];
+extern const u8 gItemIcon_ExpCandyLPal[];
+extern const u8 DESC_EXP_CANDY_XL[];
+extern const u8 gItemIcon_ExpCandyXLTiles[];
+extern const u8 gItemIcon_ExpCandyXLPal[];
 #endif

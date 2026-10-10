@@ -1,0 +1,13 @@
+// タマムシデパートのメガストーン売り場（src/mega_shop.c・2026-10-01）
+
+#org @gText_MegaShopTitle
+メガストーン うりば
+
+#org @gText_MegaShopConfirm
+[BUFFER][02]ですね\n[BUFFER][03]$に なりますが？
+
+#org @gText_ZCrystalShopTitle
+Zクリスタル うりば
+
+#org @gText_DangerLeafShopTitle
+あぶない しなもの

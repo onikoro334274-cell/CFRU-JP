@@ -64,6 +64,17 @@ static const struct SpecialZMove sSpecialZMoveTable[] =
 	{SPECIES_NECROZMA_ULTRA,		ITEM_ULTRANECROZIUM_Z, 		MOVE_PHOTONGEYSER, 		MOVE_LIGHT_THAT_BURNS_THE_SKY},
 };
 
+//★ Champions（patches/0070） Z パワーで能力が 1 つ変わったときの演出と文章。あまのじゃくなら「さがった」
+static void ZStatChangeScript(u8 statId)
+{
+	bool8 down = ABILITY(gBankAttacker) == ABILITY_CONTRARY;
+
+	gBattleScripting.animArg1 = (down ? 0x15 : 0xE) + statId; //STAT_ANIM_MINUS1 / STAT_ANIM_PLUS1 の 1 つ手前
+	gBattleScripting.animArg2 = 0;
+	BattleScriptPush(gBattlescriptCurrInstr + 5);
+	gBattlescriptCurrInstr = (down ? BattleScript_StatDownZMove : BattleScript_StatUpZMove) - 5;
+}
+
 void SetZEffect(void)
 {
 	int i;
@@ -90,19 +101,36 @@ void SetZEffect(void)
 			gBattlescriptCurrInstr = BattleScript_StatsResetZMove - 5;
 			break;
 
-		case Z_EFFECT_ALL_STATS_UP_1:
-			if (!MainStatsMaxed(gBankAttacker))
-			{
-				for (i = 0; i < STAT_ACC-1; ++i) //Doesn't increase Acc or Evsn
-				{
-					if (gBattleMons[gBankAttacker].statStages[i] < STAT_STAGE_MAX)
-						++gBattleMons[gBankAttacker].statStages[i];
-				}
+		case Z_EFFECT_ALL_STATS_UP_1: //★ Champions（patches/0070） あまのじゃくは下がる・たんじゅんは 2 段階（ユーザー判断）
+		{
+			s8 step = (ABILITY(gBankAttacker) == ABILITY_SIMPLE) ? 2 : 1;
+			bool8 contrary = ABILITY(gBankAttacker) == ABILITY_CONTRARY;
+			bool8 changed = FALSE;
 
+			for (i = 0; i < STAT_ACC-1; ++i) //Doesn't change Acc or Evsn
+			{
+				s8 stage = gBattleMons[gBankAttacker].statStages[i];
+				s8 next = contrary ? stage - step : stage + step;
+
+				if (next < 0)
+					next = 0;
+				else if (next > STAT_STAGE_MAX)
+					next = STAT_STAGE_MAX;
+
+				if (next != stage)
+				{
+					gBattleMons[gBankAttacker].statStages[i] = next;
+					changed = TRUE;
+				}
+			}
+
+			if (changed)
+			{
 				BattleScriptPush(gBattlescriptCurrInstr + 5);
-				gBattlescriptCurrInstr = BattleScript_AllStatsUpZMove - 5;
+				gBattlescriptCurrInstr = (contrary ? BattleScript_AllStatsDownZMove : BattleScript_AllStatsUpZMove) - 5;
 			}
 			break;
+		}
 
 		case Z_EFFECT_BOOST_CRITS:
 			if (!(gBattleMons[gBankAttacker].status2 & STATUS2_FOCUS_ENERGY))
@@ -144,10 +172,7 @@ void SetZEffect(void)
 		case Z_EFFECT_EVSN_UP_1:
 			if (!ChangeStatBuffs(SET_STAT_BUFF_VALUE(1), gNewBS->zMoveData.effect - Z_EFFECT_ATK_UP_1 + 1, MOVE_EFFECT_AFFECTS_USER, 0))
 			{
-				gBattleScripting.animArg1 = 0xE + (gNewBS->zMoveData.effect - Z_EFFECT_ATK_UP_1 + 1);
-				gBattleScripting.animArg2 = 0;
-				BattleScriptPush(gBattlescriptCurrInstr + 5);
-				gBattlescriptCurrInstr = BattleScript_StatUpZMove - 5;
+				ZStatChangeScript(gNewBS->zMoveData.effect - Z_EFFECT_ATK_UP_1 + 1); //★ Champions（patches/0070）
 			}
 			break;
 
@@ -160,10 +185,7 @@ void SetZEffect(void)
 		case Z_EFFECT_EVSN_UP_2:
 			if (!ChangeStatBuffs(SET_STAT_BUFF_VALUE(2), gNewBS->zMoveData.effect - Z_EFFECT_ATK_UP_2 + 1, MOVE_EFFECT_AFFECTS_USER, 0))
 			{
-				gBattleScripting.animArg1 = 0xE + (gNewBS->zMoveData.effect - Z_EFFECT_ATK_UP_2 + 1);
-				gBattleScripting.animArg2 = 0;
-				BattleScriptPush(gBattlescriptCurrInstr + 5);
-				gBattlescriptCurrInstr = BattleScript_StatUpZMove - 5;
+				ZStatChangeScript(gNewBS->zMoveData.effect - Z_EFFECT_ATK_UP_2 + 1); //★ Champions（patches/0070）
 			}
 			break;
 
@@ -176,10 +198,7 @@ void SetZEffect(void)
 		case Z_EFFECT_EVSN_UP_3:
 			if (!ChangeStatBuffs(SET_STAT_BUFF_VALUE(3), gNewBS->zMoveData.effect - Z_EFFECT_ATK_UP_3 + 1, MOVE_EFFECT_AFFECTS_USER, 0))
 			{
-				gBattleScripting.animArg1 = 0xE + (gNewBS->zMoveData.effect - Z_EFFECT_ATK_UP_3 + 1);
-				gBattleScripting.animArg2 = 0;
-				BattleScriptPush(gBattlescriptCurrInstr + 5);
-				gBattlescriptCurrInstr = BattleScript_StatUpZMove - 5;
+				ZStatChangeScript(gNewBS->zMoveData.effect - Z_EFFECT_ATK_UP_3 + 1); //★ Champions（patches/0070）
 			}
 			break;
 	}

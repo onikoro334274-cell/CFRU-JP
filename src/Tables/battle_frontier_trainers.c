@@ -2287,13 +2287,11 @@ const u8 gNumFrontierMultiTrainers = NELEMS(gFrontierMultiBattleTrainers);
 		},
 	};
 
-	const struct SpecialBattleFrontierTrainer gSpecialTowerTrainers[] =
-	{
-	};
+	//★ エメラルドのバトルフロンティアのトレーナー 300 人（tools/frontier/build_frontier_trainers.py が生成・patches/0078）
+	#include "hoenn_frontier_trainers.h"
 
-	const struct SpecialBattleFrontierTrainer gFrontierBrains[] =
-	{
-	};
+	//★ ホウエンのフロンティアブレーン（tools/frontier/build_frontier_brains.py が生成・patches/0087）。CFRU のままでは空の表
+	#include "hoenn_frontier_brains.h"
 
 	const struct MultiBattleTowerTrainer gFrontierMultiBattleTrainers[] =
 	{
@@ -2303,4 +2301,8 @@ const u8 gNumFrontierMultiTrainers = NELEMS(gFrontierMultiBattleTrainers);
 #endif
 
 const u16 gNumTowerTrainers = NELEMS(gTowerTrainers);
+#ifdef HOENN_SPECIAL_TOWER_RANDOM_COUNT
+const u16 gNumSpecialTowerTrainers = HOENN_SPECIAL_TOWER_RANDOM_COUNT; //[hack] patches/0143 後ろのトレーナーヒルの人はランダムに選ばない（tools/frontier/build_frontier_trainers.py）
+#else
 const u16 gNumSpecialTowerTrainers = NELEMS(gSpecialTowerTrainers);
+#endif

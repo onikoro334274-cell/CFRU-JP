@@ -344,7 +344,7 @@ GetMonAbility 804042C 1
 RandomlyGivePartyPokerus 8043124 1
 UpdatePartyPokerusTime 80431F4 1
 PartySpreadPokerus 80431FC 1
-SetMonExpWithMaxLevelCheck 8043204 2
+HackTryIncrementMonLevel 8043204 2
 GiveRandomFrontierMonByTier 8028014 3
 RandomizerShowPokepicHook 809CD34 3
 GetMegaSpecies 801CFA4 3
@@ -454,6 +454,10 @@ LoadCloudOrSandstormPalette 0807A320 1
 
 ##Whiteout Hack
 DynamicWhiteoutMap 080C0F14 0
+##Region whiteout (2026-09-30): the vanilla heal index lookup (080C0E20) only knows the 20 Kanto
+##  entries. When it returns 0, respawn at the Hoenn/Johto/Sinnoh Pokemon Center instead (src/region_fly.c).
+##  Overwrites 080C0F08-080C0F0F; 080C0F14 (DynamicWhiteoutMap) is reached from the hook with r6 = index.
+RegionWhiteoutHook 080C0F08 2
 WhiteoutScreenFix 0807EC6A 0
 FieldCB_RushInjuredPokemonToCenter 0807ED18 0
 
@@ -553,7 +557,8 @@ CreateBoxMonHook 803D23E 0
 
 ##TM/HM/Tutor Expansion
 CanMonLearnTMHM 08043278 2
-CanMonLearnTMTutor 08121310 3
+#[hack] patches/0185: 素の技教えの番号（0〜17）を読み替えてから CanMonLearnTMTutor（src/hack_vanilla_tutor.c）
+HackVanillaTutor_CanMonLearnTMTutor 08121310 3
 ItemIdToBattleMoveId 081263C4 1
 RemoveTMPPRestoreHook 08126910 2
 LoadTMNameWithNo 08132548 2
@@ -568,7 +573,8 @@ FixMartTmListing 0809AE94 0
 #TmMartDescriptionFix 0809AD54 1
 
 #ifdef EXPANDED_MOVE_TUTORS
-GetExpandedTutorMove 08121398 1
+#[hack] patches/0185: 素の技教えの番号（0〜17）は素の技（src/hack_vanilla_tutor.c）
+HackVanillaTutor_GetMove 08121398 1
 DracoMeteorMoveTutorHook 81277A4 0
 DracoMeteorMoveTutorHook2 81277AC 0
 #endif
@@ -728,3 +734,293 @@ AutoScrollBattleLevelUpBoxHook1 8025B18 0
 AutoScrollBattleLevelUpBoxHook2 8025B38 0
 
 PrepMiningWarp 0801D01C 0
+
+##Hoenn town map: let the player switch to the 5th map
+##  See assembly/hoenn/townmap_hook.s
+##  ★ That file needs `.arch armv4t` - CFRU assembles with -mthumb only,
+##    so `ldr rX,=small` becomes Thumb-2 MOVW and crashes on hardware.
+HoennTownMapUnlockHook 080C20B8 0
+## REMOVED 2026-09-16: 080C47C0 is GetMapsecType (0=none 1=route
+##   2=visited 3=not visited), NOT "which map page". Returning 4
+##   made every Hoenn mapsec an unknown type and killed its fly
+##   points. Hoenn now falls through to the vanilla default (1).
+
+##Hoenn town map: give the 5th map its own picture buffer
+##  080C1370 = pick the slot (4 and up use the new one at +0x47C0)
+##  080C1594 = load the picture into that slot
+##  Needs the two bytereplacement lines that enlarge AllocZeroed 47C0 -> 4C70.
+HoennTownMapSlotHook 080C1370 2
+HoennTownMapLoadHook 080C1594 0
+##  The 1200*n slot arithmetic exists in THREE places, not one.
+##  080C27AC / 080C27F8 are the switch-map menu redraw (temp reg r1).
+HoennTownMapSwitchSlotHookA 080C27AC 1
+HoennTownMapSwitchSlotHookB 080C27F8 1
+##  080C1240 picks which map to show when the town map opens. Hoenn mapsecs
+##  are 0x00-0x57, which vanilla treats as "<= 0x8E" => Kanto.
+HoennTownMapInitialPageHook 080C1240 2
+##  080C14E8 is where vanilla queues its own 320 town map tiles. Put the
+##  Hoenn tiles and palettes there too, so state 4's
+##  FreeTempTileDataBuffersIfPossible waits for both.
+HoennTownMapTilesHook 080C14E8 2
+
+##Hoenn town map stage 2: widen the grid to 28 columns.
+##  The cursor origin becomes page-dependent (Kanto tile 4 / Hoenn tile 1),
+##  because 28 columns do not fit on a 30-tile screen at origin 4.
+##  HoennTownMapOriginX also subtracts a scroll amount kept at +0x4C70,
+##  so a future region wider than the screen only needs follow logic.
+##  DO NOT widen 080C59AC / 080C5A6E - they fill a fixed 330-entry array.
+HoennTownMapOriginHook1 080C41D8 3
+HoennTownMapOriginHook2 080C4222 2
+HoennTownMapOriginHook3 080C46B0 3
+HoennTownMapOriginHook4 080C30C0 2
+HoennTownMapRightHook 080C43F6 3
+##  The button hook is gone: the icon is drawn in BG coordinates and
+##  therefore scrolls together with the cursor.
+HoennTownMapFollowHook 080C457E 3
+##Johto town map (2026-09-29): the Kanto page scrolls west to show Johto once flag
+##  0x13E2 is set (or JOHTO_TOWNMAP_DEBUG). Cursor x goes negative (-30..-1).
+##  080C440C = the left-button bound "CMP r0,#0 / BLE" -> HoennTownMapMinCursorX.
+##  080C5C70 = the end of FreeMapIcons: destroy our own Johto dungeon icons too.
+##  See docs/research/2026-09-29_johto-town-map.md
+HoennTownMapLeftHook 080C440C 3
+JohtoTownMapFreeIconsHook 080C5C70 1
+##  080C4A5C = GetDungeonMapsecType: Johto dungeon mapsecs return 3 (not visited);
+##    vanilla returns 1 and the name color table is read at [type - 2] = out of range.
+JohtoDungeonTypeHook 080C4A5C 1
+##Sinnoh town map (2026-09-29): 6th page chosen from the switch menu, 28 x 23 cells.
+##  Vertical scroll (window 15 rows): every place that turns the cursor y into pixels
+##  or compares it with the button rows. The cursor-y getter 080C46F8 has 8 callers;
+##  080C1600 / 080C540C use the cell number and are left alone.
+##  Sinnoh mapsec numbers are page-local (only 4 free global numbers): the two name
+##  table lookups are hooked. See docs/research/2026-09-29_sinnoh-town-map.md
+HoennTownMapOriginYHook 080C41E0 0
+HoennTownMapDownHook 080C43D8 3
+HoennTownMapRectYHook 080C30B6 1
+HoennTownMapBtnYHook1 080C1684 3
+HoennTownMapBtnYHook2 080C16B2 3
+HoennTownMapBtnYHook3 080C1898 3
+HoennTownMapBtnYHook4 080C18CC 3
+HoennTownMapBtnYHook5 080C628A 3
+HoennTownMapNameHook 080C5F88 0
+HoennTownMapDungeonNameHook 080C1DE8 0
+##Region-aware map names (2026-09-29): the player's position on the town map reads
+##  the mapsec size/position tables; in Sinnoh maps (page-local numbers) use Sinnoh's.
+##  See docs/research/2026-09-29_mapsec-regions.md
+HoennTownMapSizeTableHook 080C4E88 0
+HoennTownMapPosTableHook 080C4EEA 1
+
+##Hoenn fly: GetMapsecType must return 2 for a flyable city.
+##  ALWAYS return 0-3. Returning 4 broke the fly list on 2026-09-16.
+HoennMapsecTypeHook 080C47C0 3
+
+##Hoenn town map: give the player icon the scroll offset when it is created.
+##  The vanilla icon x is computed once at 080C54A0 as
+##  (x << 19 + 0x240000) >> 16 = x * 8 + 36 - a different instruction shape
+##  from the cursor's LSL #3 / ADD #0x24 - and never updated afterwards
+##  (its sprite callback at 0x08007188 is just BX lr). Without this the icon
+##  lands outside the map frame when the town map opens already scrolled.
+HoennPlayerIconXHook 080C54A0 3
+
+##Hoenn fly map: show the fly destination icons on the 5th map.
+##  The vanilla loop at 080C5934 only walks maps 0-3 and columns 0-21.
+##  bytereplacement widens both bounds; these hooks keep the icon array
+##  (only 25 entries, see 080C5C28) from overflowing by building icons
+##  for the displayed map alone, and place them with the scroll offset.
+HoennFlyIconMapHook 080C5950 3
+HoennFlyIconDoneHook 080C59CC 3
+##  080C5980 skips a cell whose mapsec already has an icon, so a
+##  two-tile Hoenn city gets one icon (Ever Grande keeps two:
+##  its upper tile is the Pokemon League side).
+HoennFlyIconCellHook 080C5980 3
+##  080C5940 destroys every existing icon before building, so icons
+##  never pile up when the page is rebuilt (they did: 8 -> 22).
+HoennFlyIconClearHook 080C5940 3
+
+##Hoenn switch-map menu: 5 entries in TWO columns (left 3, right 2).
+##  Vanilla stacks them in one column: 24 + 32*5 = 184px > 160px screen.
+##  ★ The start row is DATA, not a constant: [state+0x1CCE], written as
+##    3 / 6 / 4 depending on how many entries there are (080C2138 /
+##    080C20F0 / 080C2122). Every y - the highlight window (080C2678)
+##    and the arrow sprites (080C29DC) - comes from the SAME expression
+##    (sel * 4 + startRow) * 8, so swapping that one value moves them all.
+##  ★ Only x is baked in, at FOUR sites in TWO functions. They were found
+##    by scanning the literals 0x1CD4 / 0x1CD8 over the whole ROM, not by
+##    matching an instruction shape (CLAUDE.md 6.12).
+##  ★ 080C25B2 and 080C26A2 are NOT 4-byte aligned, so Hook() overwrites
+##    TEN bytes there - the 5th instruction has to be redone as well.
+HoennSwitchMenuInitHook 080C2130 0
+HoennSwitchMenuLeftHookA 080C257C 0
+HoennSwitchMenuRightHookA 080C25B2 0
+HoennSwitchMenuLeftHookB 080C266C 0
+HoennSwitchMenuRightHookB 080C26A2 0
+##  Replaces vanilla's up/down block (080C26C8-080C2724) with up/down
+##  inside a column plus left/right between columns.
+HoennSwitchMenuMoveHook 080C26C8 0
+##  The arrow sprite callback gets its sprite in r0, so the hook must
+##  clobber some OTHER register - hence 3, not 0.
+HoennSwitchMenuArrowHook 080C289C 3
+
+##Hoenn town map: pin the switch / exit buttons to the screen.
+##  The artwork sits at screen column 24; the HIT CELL moves to the right
+##  edge of the window (21 + scroll) instead.
+##  ★★ There are NINE tests in THREE different shapes. Miss one and the
+##    button half-works. 2026-09-18: missing the 32-bit pair compare gave
+##    "the button follows but A does nothing" (CLAUDE.md 6.12).
+##      BL 080C46EC + CMP r0,#0x15 : 080C1678 080C16A6 080C188C 080C18C0
+##                                   080C627E
+##      LDR r1,[cursor,#0] compared against 0x000B0015 / 0x000D0015 :
+##                                   080C4428 080C443A
+##      writes the cell number 21    : 080C465C 080C469C
+##  ★ 080C16A6 / 080C627E / 080C443A are NOT 4-byte aligned -> TEN bytes.
+##  ★ 080C469C, NOT 080C46A0: 080C4664 branches to 080C46A4, which would
+##    land inside the hook's pointer word.
+HoennTownMapBtnXHook1 080C1678 3
+HoennTownMapBtnXHook2 080C16A6 3
+HoennTownMapBtnXHook3 080C188C 3
+HoennTownMapBtnXHook4 080C18C0 3
+HoennTownMapBtnXHook5 080C627E 3
+HoennTownMapBtnExitHook 080C4428 1
+HoennTownMapBtnSwitchHook 080C443A 1
+HoennTownMapBtnSnapHook1 080C465C 0
+HoennTownMapBtnSnapHook2 080C469C 0
+
+## Hoenn: step effects (ash grass / Fortree bridge / Pacifidlog logs)
+##   tools/rom/build_hoenn_steps.py + src/hoenn_steps.c
+HoennStepHook 0806E004 3
+
+## Hoenn: Fortree rotating gates (tools/fortree + src/hoenn_gates.c)
+##   GetCollisionAtCoords (08062F6C) + 0x0C: gate arms block / push rotates
+HoennGateCollisionHook 08062F78 5
+
+## Hoenn: gym sliding doors (tools/rom/build_hoenn_gym_puzzles.py)
+##   MetatileBehavior_IsWarpDoor_2 (08059498): also accept HOENN_MB_GYM_DOOR
+##   (door animation + step out on arrival, but NOT walk-in warp)
+HoennIsWarpDoorAnim 08059498 1
+
+## Hoenn: Mossdeep Gym warps keep the moved objects (assembly/hoenn/mossdeep_gym_warp_hook.s)
+##   LoadObjEventTemplatesFromHeader (08054828): skip reloading templates on a Mossdeep Gym -> Mossdeep Gym warp
+HoennMossdeepGym_LoadObjTemplates 08054828 0
+
+##BW HP bars (tools/bwhp, docs/research/2026-09-19_bw-hpbars-port.md)
+##  UpdateHealthboxAttribute (08049674) + 0x0C: replace the whole body, return to its epilogue 080498A2
+##  UpdateHpTextInHealthbox (08047B08): replace at entry
+BwHpbarDrawHook 08049680 3
+BwHpbarHpNumHook 08047B08 3
+BwSwapHpBarsWithHpText 0804804C 3
+BwBagSpritePalHook 08108E44 0
+## BW party menu: switch slide end check (both slots offscreen, either direction). assembly/bwparty/bw_party_hooks.s
+BwPmSlotsOffscreenHook 08123A94 3
+
+## BEGIN BWSUMMARY (generated by tools/bwsummary/build_bw_summary.py)
+BwShowPokemonSummaryScreen 08134CE4 4
+BwShowSelectMovePokemonSummaryScreen 08134F1C 4
+## END BWSUMMARY
+
+## BEGIN BWFOLLOW (generated by tools/bwfollow/build_bw_follower.py)
+BwFollowerTemplateHook 0805F61C 3
+BwFollowerFindOwPalIndex 0805EE60 3
+## END BWFOLLOW
+
+## Hoenn: league hall of fame -> Pallet Town (src/hoenn_league.c, 2026-09-28)
+##   SetWarpsToRollCredits (hall_of_fame.c, 0x3C bytes, 4-aligned, called by BL only).
+##   Replaced whole: Hoenn HoF (flag 0x13EA) -> in front of the Pallet house, no credits; Kanto HoF -> same as vanilla.
+HoennLeague_SetWarpsAfterHallOfFame 080F3894 3
+
+## Hoenn: Petalburg Woods north entrance (src/hoenn_warps.c)
+##   MetatileBehavior_IsNonAnimDoor only accepts MB_CAVE_DOOR (0x60) and
+##   that is what gives a plain fade warp plus the step-out on arrival.
+##   Emerald MB_DEEP_SOUTH_WARP needs the same, but facing north, so it
+##   gets its own value 0xEC. Kanto never uses 0xEC, and 0x60 stays true,
+##   so nothing in Kanto changes. The 8 bytes we overwrite have no branch
+##   target inside them (CLAUDE.md 6.22; verify_hoenn_behaviors.py).
+HoennIsNonAnimDoor 08059548 1
+
+## Hoenn: water south arrow warp (src/hoenn_warps.c)
+##   Emerald MB_WATER_SOUTH_ARROW_WARP (0x6D) gets its own value 0xED
+##   (surfable, see bytereplacement 083170ED). MetatileBehavior_IsSouthArrowWarp
+##   (20 bytes) is replaced at its entry so its 4 BL callers and the 2 pointer
+##   tables (0831F8EC / 0831F918) all see it. 0x65 stays true, so Kanto is unchanged.
+HoennIsSouthArrowWarp 080595D4 1
+
+##Trainer card: blit the unshrunk BW protagonist (64x80) into window 2 (72x80)
+##   The BL to CreateTrainerCardSprite (0810CB98) inside CreateTrainerCardTrainerPicSprite.
+##   r4 is only restored by the POP after this, so it is free. src/bw_card_pic.c.
+##   (functionrewrites on 0810CE08 would clobber PlayerGenderToFrontTrainerPicId at 0810CE4C.)
+BwCardPicHook 0810CE3C 4
+
+##Hall of Fame: show the unshrunk BW protagonist as two sprites (64x64 + 64x32)
+##   Right after CreateTrainerPicSprite inside Task_Hof_SpawnPlayerPic.
+##   r1 is reloaded at 080F367C, so it is free. src/bw_hof_pic.c.
+BwHofPicHook 080F367C 1
+
+##Player avatar gfx switch (walk -> surf etc.): keep the palette slot given by the dynamic OW palettes
+##   Vanilla ObjectEventSetGraphicsId forces oam.paletteNum = 0 for player graphics.
+##   r4 = sprite / r5 = graphics info; r1 is reloaded at 0805EA48. src/bw_player_pal.c.
+##   Pairs with the bytereplacement at 0805E952 (skip PatchObjectPalette to slot 0).
+BwPlayerPalHook 0805EA40 1
+
+##Badge count = Kanto + Hoenn (2026-09-29, src/badge_count.c, assembly/hoenn/badges_hook.s)
+##   Report window (SaveStatToString, SAVE_STAT_BADGES): r5 = dest, r4 is set right here -> free
+HoennSaveBadgesHook 080F9114 4
+##   Continue window (PrintBadgeCount 0800C9E4): no arguments, r0 free. Pairs with the bytereplacement at 0800CA18
+HoennMainMenuBadgesHook 0800C9E8 0
+
+##Hall of Fame ball placement: Emerald's first ball y is 52, FRLG's 60 (2026-09-29, src/hoenn_league.c, assembly/hoenn/hof_hook.s)
+##   FldEff_HallOfFameRecord 080838F4: movs r0,#60 / strh / movs r0,#0 / pop {r4}; r0 is overwritten right here -> free
+HoennHofBallsHook 080838F4 0
+
+##Mega stone shop on the Celadon Dept. Store floor (2026-10-01, src/mega_shop.c, assembly/kanto/mega_shop_hooks.s)
+##   BuyMenuDecompressBgGraphics: frame tilemap (0809AAC0, r0 is reloaded at 0809AAE6 -> free)
+MegaShop_FrameHook 0809AAC0 0
+##   BuyMenuBuildListMenuTemplate: visible rows (0809ACFC, r1 is loaded right here -> free)
+MegaShop_ListTemplateHook 0809ACFC 1
+##   BuyMenuBuildListMenuTemplate: item names 16 bytes each instead of 9 (all marts; 9-char names ran into the next one) (0809ABE8, r0 free)
+Shop_BuildListStringsHook 0809ABE8 0
+
+##Title screen cry: Charizard -> Garchomp (2026-10-05, #45, assembly/hack_title/title_hooks.s)
+##   08078982 movs r0,#6 / 08078984 movs r1,#0 / bl PlayCry1 / 0807898A ldrb r0,[r4,#12] -> 0807898C. r1 is set right here -> free
+HackTitleCryHook 08078984 1
+##Title screen: show BG2 (PUSH START BUTTON) when the slide restores pal 15 (2026-10-05, #45, assembly/hack_title/title_hooks.s)
+##   Task_TitleScreen_SlideWin0 case 3: 08078B30 movs r2,#0 / bl BlendPalettes(0x8000,0,0) / 08078B36 movs r1,#240 -> 08078B38. r3 free
+HackTitleShowTextHook 08078B30 3
+
+#[hack] patches/0188: いくせいポーチの間はバッグのポケットを左右で切り替えない（assembly/hack_pouch/pouch_hooks.s）
+##HackTrainingPouch_SwitchHook 08109C68 1   [hack] 2026-10-10 バッグのページ（ProcessPocketSwitchInput を functionrewrites）に置き換えた
+
+#[hack] patches/0193: 縮めた地図のレイアウト（src/hack_packed_layout.c・tools/rom/layout_pack.py・容量対策 3 番）
+##   InitBackupMapLayoutData(map, width, height) の入口（呼び元は InitMapLayoutData 08058304 だけ）。r3 は引数でない
+HackLayout_InitBackupMapLayoutData 08058330 3
+##   InitBackupMapLayoutConnections(mapHeader) の入口（呼び元は 0805830A だけ）。r1 は引数でない
+HackLayout_InitBackupMapLayoutConnections 08058388 1
+
+#[hack] patches/0196: ボックスの仮想化（src/hack_box_shelf.c）。素の「少しずつのレポート」は組を 14 区画と決め打ちで棚を壊すので、普通のレポートに置き換える
+HackLinkSave_Init 080DB394 0
+HackLinkSave_WriteSector 080DB3C0 0
+HackLinkSave_NoOp 080DB3F4 0
+HackLinkSave_NoOp 080DB41C 0
+
+#[hack] patches/0196: ボックスの仮想化 M2。次のレポートで書くページが予備に収まらない操作を止める（assembly/hack_box_shelf/box_shelf_hooks.s）
+BoxShelf_PssInputHook 0808CD48 0
+BoxShelf_DepositHook 0808D858 0
+BoxShelf_IsPokemonStorageFull 08040694 0
+
+#[hack] 2026-10-07 ミラクル交換（src/hack_wonder_trade.c・元は pkhk_BeGiNNeR さんのもの）: 交換の場面の文字（素の BufferTradeSceneStrings のゲーム内交換側 08050770）
+WonderTradeSceneStringsHook 08050770 0
+
+##Oak's intro mon: Nidoran F -> Gible (2026-10-08, src/hack_oak_intro.c / assembly/hack_oak_intro/oak_intro_hooks.s)
+##   CreateNidoranFSprite 08131740 (whole function, r0 = taskId, r1 free). Cry: 0813034C movs r0,#29 / movs r1,#0 / bl PlayCry1 -> 08130354
+HackOakIntro_CreateMonSprite 08131740 1
+HackOakIntroCryHook 0813034C 1
+
+#[hack] 2026-10-09 ももアイスを持った子を通信交換に出せない（src/hack_momo_ice.c・assembly/hack_momo_ice/momo_ice_hooks.s）: CanTradeSelectedMon の入口
+HackMomoIceTradeHook 0804F1E4 3
+
+#[hack] 2026-10-09 ぼうけんのしょ 2 つ（src/hack_save_slot.c）: 素の SwitchFlashBank（081C27DC・28 バイト・r1 は呼ばれ方で空く＝引数は r0 だけ）を丸ごと置き換え。2 のとき 48 バンク後ろ
+HackSaveSlot_SwitchFlashBank 081C27DC 1
+
+#[hack] 2026-10-10 捕まえたときの図鑑の画面がコラッタになる（src/hack_dex_habitat.c・assembly/hack_dex/dex_hooks.s）: DexScreen_RegisterMonToPokedex の入口
+#   081076B8 push {r4,r5,lr} / lsls / lsrs / adds -> 081076C0 movs r1,#2。r1 は 081076C0 で入れ直される -> 空く
+HackDex_RegisterHook 081076B8 1
+
+## 2026-10-10 タイトルのあとのメニューを BW に（src/bw_main_menu.c・bw-reloaded の main_menu）。素の 0800C1A0 の中・CFRU の時計の注意のフック（0800C1A4）の戻り先 0800C1AC
+BwMainMenuHook 0800C1AC 0

@@ -52,8 +52,12 @@ const u8 * const gStatusConditionStringsTable[11][2] =
 static u8* GetOpenWorldTrainerName(bool8 female);
 #endif
 
+extern void HoennArena_OnPrepareString(u16 stringId, u8 bank); //★ src/hoenn_arena.c（patches/0096）
+
 void PrepareStringBattle(u16 stringId, u8 bank)
 {
+	HoennArena_OnPrepareString(stringId, bank); //★ バトルアリーナ: 特性などで技を防がれた文でわざの点 −3
+
 	gActiveBattler = bank;
 	EmitPrintString(0, stringId);
 	MarkBufferBankForExecution(gActiveBattler);

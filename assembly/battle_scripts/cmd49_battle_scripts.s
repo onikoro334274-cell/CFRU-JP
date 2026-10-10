@@ -173,6 +173,40 @@ BattleScript_Magician:
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+@ ★ Champions（patches/0070）: きずなへんげ（第 9 世代）— こうげき・とくこう・すばやさ +1
+.global BattleScript_BattleBondTransformBoost
+BattleScript_BattleBondTransformBoost: @ サトシゲッコウガになってから 3 能力 +1（ユーザー判断）
+	call BattleScript_AbilityTransformed
+	goto BattleScript_BattleBondBoost
+
+.global BattleScript_BattleBondBoost
+BattleScript_BattleBondBoost:
+	call BattleScript_AbilityPopUp
+	setbyte STAT_ANIM_PLAYED 0x0
+	playstatchangeanimation BANK_ATTACKER, STAT_ANIM_ATK | STAT_ANIM_SPATK | STAT_ANIM_SPD, STAT_ANIM_UP | STAT_ANIM_IGNORE_ABILITIES
+	setstatchanger STAT_ATK | INCREASE_1
+	statbuffchange STAT_ATTACKER | STAT_BS_PTR | STAT_CERTAIN BattleBond_SpAtk
+	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 BattleBond_SpAtk
+	printfromtable gStatUpStringIds
+	waitmessage DELAY_1SECOND
+BattleBond_SpAtk:
+	setstatchanger STAT_SPATK | INCREASE_1
+	statbuffchange STAT_ATTACKER | STAT_BS_PTR | STAT_CERTAIN BattleBond_Spd
+	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 BattleBond_Spd
+	printfromtable gStatUpStringIds
+	waitmessage DELAY_1SECOND
+BattleBond_Spd:
+	setstatchanger STAT_SPD | INCREASE_1
+	statbuffchange STAT_ATTACKER | STAT_BS_PTR | STAT_CERTAIN BattleBond_End
+	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 BattleBond_End
+	printfromtable gStatUpStringIds
+	waitmessage DELAY_1SECOND
+BattleBond_End:
+	call BattleScript_AbilityPopUpRevert
+	return
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 BattleScript_Moxie:
 	statbuffchange STAT_ATTACKER | STAT_BS_PTR MoxieReturnPostBuff
 	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 MoxieReturnPostBuff

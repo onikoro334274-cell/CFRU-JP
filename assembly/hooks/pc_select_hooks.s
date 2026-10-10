@@ -483,6 +483,7 @@ pcSelect_newBrmTable:
 .word 0x083DF15D
 .word 0x083DF161
 .word select_str	@0x26
+.word gText_HackBoxWall_Peach	@0x27 [hack] patches/0242 壁紙「もも」（壁紙 17 = 0x27 - 0x16・src/hack_box_wallpaper.c）
 
 select_str: .byte S_, e_, l_, e_, c_, t_, 0xff
 

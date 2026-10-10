@@ -19,6 +19,7 @@
 #include "../include/new/switching.h"
 #include "../include/new/terastal.h"
 #include "../include/new/util.h"
+#include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
 
 /*
 end_turn.c
@@ -538,6 +539,8 @@ u8 TurnBasedEffects(void)
 									if (AbilityBattleEffects(ABILITYEFFECT_ENDTURN, gActiveBattler, 0, 0, 0))
 										effect++;
 							}
+							if (effect == 0 && HackAffection_TryCureStatus(gActiveBattler)) //[hack] patches/0240 なつき度で状態異常を治す
+								effect++;
 						}
 						break;
 				}
@@ -1558,7 +1561,7 @@ u8 TurnBasedEffects(void)
 						#if (defined SPECIES_WISHIWASHI && defined SPECIES_WISHIWASHI_S)
 						case ABILITY_SCHOOLING:
 							if (species == SPECIES_WISHIWASHI && gBattleMons[gActiveBattler].level >= 20
-							&& gBattleMons[gActiveBattler].hp > gBattleMons[gActiveBattler].maxHP / 4)
+							&& gBattleMons[gActiveBattler].hp >= gBattleMons[gActiveBattler].maxHP / 4) //★ Champions（patches/0070） ぎょぐん 1/4 以上
 							{
 								newSpecies = SPECIES_WISHIWASHI_S;
 								changedForm = TRUE;
@@ -1568,7 +1571,7 @@ u8 TurnBasedEffects(void)
 							}
 							else if (species == SPECIES_WISHIWASHI_S
 								&&  (gBattleMons[gActiveBattler].level < 20
-								  || gBattleMons[gActiveBattler].hp <= gBattleMons[gActiveBattler].maxHP / 4))
+								  || gBattleMons[gActiveBattler].hp < gBattleMons[gActiveBattler].maxHP / 4)) //★ Champions（patches/0070）
 							{
 								newSpecies = SPECIES_WISHIWASHI;
 								changedForm = TRUE;
@@ -1873,10 +1876,10 @@ u32 GetSaltcureDamage(u8 bank)
 	if (gNewBS->SaltcureBits & gBitTable[bank]
 	&& ABILITY(bank) != ABILITY_MAGICGUARD)
 	{
-		if ((IsOfType(bank, TYPE_WATER) || IsOfType(bank, TYPE_STEEL)))
-			damage = MathMax(1, GetBaseMaxHP(bank) / 4);
-		else
+		if ((IsOfType(bank, TYPE_WATER) || IsOfType(bank, TYPE_STEEL))) //★ Champions（patches/0070） しおづけは半分に
 			damage = MathMax(1, GetBaseMaxHP(bank) / 8);
+		else
+			damage = MathMax(1, GetBaseMaxHP(bank) / 16);
 	}
 
 	return damage;
@@ -2211,9 +2214,14 @@ bool8 IsInMiddleOfEndTurnSwitchIn(u8 bank)
 	return FALSE;
 }
 
+extern bool8 HoennArena_TryJudgment(void); //★ src/hoenn_arena.c（patches/0096）
+
 bool8 HandleDynamaxOnTurnEnd(void)
 {
 	u8 bank;
+
+	if (HoennArena_TryJudgment()) //★ バトルアリーナ: 3 ターンたって両方立っていれば審判の判定（倒れた子の入れ替えのあと・エメラルドと同じ順）
+		return TRUE;
 
 	if (IsRaidBattle()
 	#ifdef FLAG_RAID_BATTLE_NO_FORCE_END

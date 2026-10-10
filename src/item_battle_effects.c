@@ -5,6 +5,7 @@
 #include "../include/random.h"
 #include "../include/string_util.h"
 #include "../include/constants/items.h"
+#include "hack_danger_leaf.h"
 
 #include "../include/new/battle_util.h"
 #include "../include/new/util.h"
@@ -27,6 +28,8 @@ extern u8 gStatusConditionString_DisableProblem[];
 extern u8 gStatusConditionString_EncoreProblem[];
 extern u8 gStatusConditionString_MentalState[];
 extern u8 gStatusConditionString_TauntProblem[];
+extern u8 gStatusConditionString_TormentProblem[]; //★ Champions（patches/0071）
+extern u8 gStatusConditionString_HealBlockProblem[];
 
 enum
 {
@@ -106,6 +109,9 @@ u8 ItemBattleEffects(u8 caseID, u8 bank, bool8 moveTurn, bool8 doPluck)
 				{
 					gNewBS->usedAmuletCoin = TRUE;
 	
+					if (gBattleMons[bank].item == ITEM_GOLD_CAPSULE) //[hack] patches/0290 2026-10-10 おうごんのカプセル は 4 倍（おまもりこばん と重ねない＝先に出た方）
+						gBattleStruct->moneyMultiplier *= 4;
+					else
 					#ifdef VAR_AMULET_COIN_LEVEL
 					gBattleStruct->moneyMultiplier *= max(2, VarGet(VAR_AMULET_COIN_LEVEL));
 					#else
@@ -195,6 +201,20 @@ u8 ItemBattleEffects(u8 caseID, u8 bank, bool8 moveTurn, bool8 doPluck)
 					}
 					else
 						BattleScriptExecute(BattleScript_EjectPackEnd2);
+				}
+				break;
+
+			case ITEM_EFFECT_DANGER_LEAF: //[hack] patches/0237 あぶないはっぱ: 5 つの能力 +3 と こんらん（src/hack_danger_leaf.c）
+				if (HackDangerLeaf_SwitchIn(bank))
+				{
+					effect = ITEM_STATS_CHANGE;
+					if (moveTurn)
+					{
+						BattleScriptPushCursor();
+						gBattlescriptCurrInstr = BattleScript_DangerLeafRet;
+					}
+					else
+						BattleScriptExecute(BattleScript_DangerLeafEnd2);
 				}
 				break;
 
@@ -634,6 +654,18 @@ u8 ItemBattleEffects(u8 caseID, u8 bank, bool8 moveTurn, bool8 doPluck)
 					StringCopy(gBattleTextBuff1, gStatusConditionString_TauntProblem);
 					++i;
 				}
+				if (gBattleMons[bank].status2 & STATUS2_TORMENT) //★ Champions（patches/0071） メンタルハーブ: いちゃもん も治す
+				{
+					gBattleMons[bank].status2 &= ~(STATUS2_TORMENT);
+					StringCopy(gBattleTextBuff1, gStatusConditionString_TormentProblem);
+					++i;
+				}
+				if (gNewBS->HealBlockTimers[bank] > 0) //★ Champions（patches/0071） メンタルハーブ: かいふくふうじ も治す
+				{
+					gNewBS->HealBlockTimers[bank] = 0;
+					StringCopy(gBattleTextBuff1, gStatusConditionString_HealBlockProblem);
+					++i;
+				}
 				if (i == 0)
 					break;
 
@@ -722,6 +754,22 @@ u8 ItemBattleEffects(u8 caseID, u8 bank, bool8 moveTurn, bool8 doPluck)
 					}
 					break;
 					
+				case ITEM_EFFECT_MOMO_ICE: //[hack] patches/0175 ももアイスは毎ターン最大 HP の 1/3 回復（たべのこしと同じ流れ）
+					if (!moveTurn && !BATTLER_MAX_HP(bank)
+					&&  !IsHealBlocked(bank)
+					&&  !gNewBS->leftoverHealingDone[bank])
+					{
+						gBattleMoveDamage = MathMax(1, GetBaseMaxHP(bank) / 3);
+						if (gBattleMons[bank].hp + gBattleMoveDamage > gBattleMons[bank].maxHP)
+							gBattleMoveDamage = gBattleMons[bank].maxHP - gBattleMons[bank].hp;
+						gBattleMoveDamage *= -1;
+						BattleScriptExecute(BattleScript_ItemHealHP_End2);
+						effect = ITEM_HP_CHANGE;
+						RecordItemEffectBattle(bank, bankHoldEffect);
+						gNewBS->leftoverHealingDone[bank] = TRUE;
+					}
+					break;
+
 				case ITEM_EFFECT_BLACK_SLUDGE:
 					if (!moveTurn)
 					{
@@ -944,7 +992,7 @@ u8 ItemBattleEffects(u8 caseID, u8 bank, bool8 moveTurn, bool8 doPluck)
 					&& TOOK_DAMAGE(gBankTarget)
 					&& MOVE_HAD_EFFECT
 					&& (umodsi(Random(), 100)) < bankQuality
-					&& !CheckTableForMove(gCurrentMove, gFlinchChanceMoves)
+					//★ Champions（patches/0071） ひるみ技にも別の判定で重ねる（ユーザー判断）: 元は && !CheckTableForMove(gCurrentMove, gFlinchChanceMoves)
 					&& BATTLER_ALIVE(gBankTarget))
 					{
 						gBattleMons[gBankTarget].status2 |= STATUS2_FLINCHED;

@@ -24,6 +24,7 @@
 #include "../include/new/mega.h"
 #include "../include/new/multi.h"
 #include "../include/new/terastal.h"
+#include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
 /*
 end_battle.c
 	handles all battle termination logic and data resetting/saving
@@ -579,6 +580,8 @@ void BattleUseFunc_PokeDoll(u8 taskId)
 		PrintNotTheTimeToUseThat(taskId, 0);
 }
 
+void HackMomSavings_WildWin(void); //[hack] patches/0224
+
 void EndOfBattleThings(void)
 {
 	if (gNewBS != NULL) //Hasn't been cleared yet
@@ -596,6 +599,8 @@ void EndOfBattleThings(void)
 		EndSkyBattlePartyRestore();
 		RecalcAllStats();
 		BringBackTheDead();
+		HackMomSavings_WildWin(); //[hack] patches/0224 野生に勝ったらお母さんの貯金（src/hack_mom_savings.c）
+		HackAffection_BattleEnd(); //[hack] patches/0240 勝ったら技を出した子を 30% で なつき度 +2（src/hack_affection.c）
 		EndBattleFlagClear();
 		HealPokemonInFrontier();
 		gTerrainType = 0; //Reset now b/c normal reset is after BG is loaded
@@ -638,10 +643,13 @@ static void NaturalCureHeal(void)
 	}
 }
 
+extern bool8 HoennPike_KeepDamageAfterBattle(void); //src/hoenn_pike.c（patches/0099）
+
 static void RestoreNonConsumableItems(void)
 {
 	u16 none = ITEM_NONE;
 	u16* items = gNewBS->itemBackup;
+	bool8 frontierRestore = (gBattleTypeFlags & BATTLE_TYPE_FRONTIER) && !HoennPike_KeepDamageAfterBattle(); //★ バトルチューブは使った持ち物を戻さない
 	#ifdef FLAG_KEEP_CONSUMABLE_ITEMS
 	bool8 keepConsumables = FlagGet(FLAG_KEEP_CONSUMABLE_ITEMS);
 	#else
@@ -652,7 +660,7 @@ static void RestoreNonConsumableItems(void)
 	{
 		for (int i = 0; i < PARTY_SIZE; ++i)
 		{
-			if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER
+			if (frontierRestore
 			||  keepConsumables
 			||  items[i] == ITEM_NONE
 			||  !IsConsumable(items[i]))
@@ -848,8 +856,7 @@ static void EndBattleFlagClear(void)
 			gCurrentDexNavChain = 2; //Next battle would be battle 2
 		else if (gCurrentDexNavChain < 100)
 			++gCurrentDexNavChain;
-		else
-			gCurrentDexNavChain = 1; //Restart from 1 (101 % 100 = 1)
+		//Hack (patches/0170, 2026-10-04 user): stay at 100 instead of restarting from 1, so the 100-chain level and shiny bonuses keep applying
 	}
 	else
 		gCurrentDexNavChain = 0;
@@ -865,7 +872,7 @@ static void EndBattleFlagClear(void)
 static void HealPokemonInFrontier(void)
 {
 	//This helps with the issue of multi battle teams in the Battle Tower are not healed
-	if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
+	if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER && !HoennPike_KeepDamageAfterBattle()) //★ バトルチューブは回復しない（patches/0099）
 	{
 		for (int i = 0; i < PARTY_SIZE; ++i)
 		{

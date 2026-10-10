@@ -1034,6 +1034,16 @@ gMoveAnimations:
 .word ANIM_TEMPERFLARE
 .word ANIM_SUPERCELLSLAM
 .word ANIM_PSYCHICNOISE
+.word 0x81AD5FF		@MOVE_ZIPPYZAP（素の MOVE_SPARK のアニメを借りる）
+.word 0x81B39BD		@MOVE_SPLISHYSPLASH（素の MOVE_SURF のアニメを借りる）
+.word 0x81B4548		@MOVE_GRASSRAGE（素の MOVE_RAZORLEAF のアニメを借りる）
+.word 0x81B8862		@MOVE_WATERRAGE（素の MOVE_WATERPULSE のアニメを借りる）
+.word 0x81AF59A		@MOVE_EXTREMESPEED_15（素の MOVE_EXTREMESPEED のアニメ）
+.word ANIM_DRAGONDANCE		@MOVE_DRAGONSOATH（りゅうのまいのアニメ・2026-10-03）
+.word 0x81ABF66		@MOVE_PIKAPAPOW（素の MOVE_THUNDERBOLT のアニメ・2026-10-09）
+.word 0x81B0BF5		@MOVE_FLOATYFALL（素の MOVE_AERIALACE のアニメ）
+
+.word ANIM_SHADOWSNEAK	@MOVE_URASHINEN
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .pool

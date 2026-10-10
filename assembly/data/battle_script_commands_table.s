@@ -75,7 +75,7 @@ gBattleScriptingCommandsTable:
 .word 0x8022449					@waitstateatk
 .word 0x8022469					@healthbarupdate
 .word 0x80224C1					@return
-.word 0x80224CD					@end
+.word HoennArena_AtkEnd			@end（★ バトルアリーナのわざの点を足してから素の 0x80224CD へ・src/hoenn_arena.c・patches/0096）
 .word 0x80224ED					@end2
 .word 0x8022505					@end3
 .word atk40_jumpifaffectedbyprotect
@@ -107,7 +107,7 @@ gBattleScriptingCommandsTable:
 .word 0x8024B71					@yesnoboxlearnmove
 .word 0x8024ED5					@yesnoboxstoplearningmove
 .word atk5C_hitanimation		@flash
-.word 0x80250A1					@getmoneyreward
+.word HackMomSavings_GetMoneyReward	@getmoneyreward ★[hack] patches/0190 お母さんの貯金（素の 080250A0 を呼んでから一部を貯金へ・src/hack_mom_savings.c）
 .word 0x8025259					@atk5e
 .word 0x802530D					@atk5f
 .word 0x802535D					@incrementgamestat

@@ -4,13 +4,13 @@
 #include "pokemon.h"
 
 #define ORIGINAL_TOTAL_BOXES_COUNT 	14
-#define TOTAL_BOXES_COUNT       	25
+#define TOTAL_BOXES_COUNT       	50 //[hack] patches/0196 ボックスの仮想化（src/hack_box_shelf.c）: 25 → 39・patches/0232 40〜50 箱は追加のセーブ領域
 #define IN_BOX_ROWS             	5
 #define IN_BOX_COLUMNS          	6
 #define IN_BOX_COUNT            	(IN_BOX_ROWS * IN_BOX_COLUMNS)
 
 //So bytereplacement can call a constant
-#define TOTAL_BOXES_COUNT_1_LESS	24
+#define TOTAL_BOXES_COUNT_1_LESS	49
 
 /*
             ROWS

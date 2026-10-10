@@ -67,8 +67,10 @@ static s8 CompareItemsByType(struct ItemSlot* itemSlot1, struct ItemSlot* itemSl
 static s8 CompareItemsByMost(struct ItemSlot* itemSlot1, struct ItemSlot* itemSlot2);
 static s8 CompareItemsByLeast(struct ItemSlot* itemSlot1, struct ItemSlot* itemSlot2);
 static s8 CompareItemsByHavingValue(struct ItemSlot* itemSlot1, struct ItemSlot* itemSlot2);
-void MergeSort(struct ItemSlot* array, u32 low, u32 high, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*));
-void Merge(struct ItemSlot* arr, u32 l, u32 m, u32 r, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*));
+static s8 CompareItemsByPrice(struct ItemSlot* itemSlot1, struct ItemSlot* itemSlot2);
+void MergeSort(struct ItemSlot* array, u32 low, u32 high, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*), struct ItemSlot* aux);
+void Merge(struct ItemSlot* arr, u32 l, u32 m, u32 r, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*), struct ItemSlot* aux);
+static bool8 SortItemSlots(struct ItemSlot* array, u32 count, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*));
 static void BagMenu_SortByName(u8 taskId);
 static void BagMenu_SortByType(u8 taskId);
 static void BagMenu_SortByMost(u8 taskId);
@@ -416,49 +418,15 @@ u32 CanMonLearnTMHM(struct Pokemon* mon, u8 tm)
 
 bool8 CanMonLearnTutorMove(struct Pokemon* mon, u8 tutorId)
 {
-	u32 mask;
 	u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
 
+	//[hack] patches/0172: DPE-JP writes the compatibility table with (NUM_MOVE_TUTORS + 7) / 8 = 19 bytes per species
+	//(DPE-JP scripts/tm_tutor.py), but the u32[5] rows below are 20 bytes, so every species after the first was read
+	//with an offset (species N was N bytes off). Read the bit from the byte rows instead.
 	if (tutorId < NUM_MOVE_TUTORS)
 	{
-		if (tutorId < 32)
-		{
-			mask = 1 << tutorId;
-			return (gTutorLearnsets[species][0] & mask) != 0 ? TRUE : FALSE;
-		}
-		else if (tutorId >= 32 && tutorId < 64)
-		{
-			mask = 1 << (tutorId - 32);
-			return (gTutorLearnsets[species][1] & mask) != 0 ? TRUE : FALSE;
-		}
-	#if (NUM_MOVE_TUTORS > 64)
-		else if (tutorId >= 64 && tutorId < 96)
-		{
-			mask = 1 << (tutorId - 64);
-			return (gTutorLearnsets[species][2] & mask) != 0 ? TRUE : FALSE;
-		}
-	#endif
-	#if (NUM_MOVE_TUTORS > 96)
-		else if (tutorId >= 96 && tutorId < 128)
-		{
-			mask = 1 << (tutorId - 96);
-			return (gTutorLearnsets[species][3] & mask) != 0 ? TRUE : FALSE;
-		}
-	#endif
-	#if (NUM_MOVE_TUTORS > 128)
-		else if (tutorId >= 128 && tutorId < 160)
-		{
-			mask = 1 << (tutorId - 128);
-			return (gTutorLearnsets[species][4] & mask) != 0 ? TRUE : FALSE;
-		}
-	#endif
-	#if (NUM_MOVE_TUTORS > 160)
-		else if (tutorId >= 160 && tutorId < 192)
-		{
-			mask = 1 << (tutorId - 160);
-			return (gTutorLearnsets[species][5] & mask) != 0 ? TRUE : FALSE;
-		}
-	#endif
+		const u8* row = ((const u8*) gTutorLearnsets) + species * ((NUM_MOVE_TUTORS + 7) / 8);
+		return (row[tutorId / 8] & (1 << (tutorId % 8))) != 0 ? TRUE : FALSE;
 	}
 
 	//Special move tutors not stored in a table
@@ -804,7 +772,7 @@ u8 TmHMDiscPosition(unusedArg struct Sprite* disc, u8 tmId)
 bool8 CheckReusableTMs(u16 item)
 {
 	#ifdef REUSABLE_TMS
-		if (TMIdFromItemId(item) != 0)
+		if (TMIdFromItemId(item) != 255) //TM01 is index 0 (was != 0: TM01 got consumed)
 			return TRUE;
 		else
 			return FALSE;
@@ -866,8 +834,15 @@ bool8 CheckSellTmHm(u16 item)
 }
 
 extern const u8 gText_SingleTmBuy[];
+bool8 MegaShop_CheckPurchase(u16 item, u8 taskId); //[hack] src/mega_shop.c
+u32 MegaShop_Price(u16 item);
+bool8 MegaShop_PrintPrice(u8 windowId, u16 item, u8 y);
+bool8 MegaShop_IsOpen(void);
 void CheckTmPurchase(u16 item, u8 taskId)
 {
+	if (MegaShop_CheckPurchase(item, taskId)) //[hack] 2026-10-01 メガストーン売り場は 1 個ずつ・自前の値段
+		return;
+
 	CopyItemName(item, &gStringVar1[0]);
 	#ifdef REUSABLE_TMS
 		if (GetPocketByItemId(item) == POCKET_TM_HM)
@@ -895,7 +870,7 @@ bool8 CheckBuyableTm(u16 item, u8 taskId)
 		}
 		else
 		{
-			u32 price = ItemId_GetPrice(item);
+			u32 price = MegaShop_Price(item); //[hack] メガストーン売り場は自前の値段（ほかは ItemId_GetPrice）
 			gShopData.itemPrice = price;
 			if (IsEnoughMoney(&gSaveBlock1->money, price))
 				return FALSE;
@@ -906,7 +881,7 @@ bool8 CheckBuyableTm(u16 item, u8 taskId)
 			}
 		}
 	#else
-		u32 price = ItemId_GetPrice(item);
+		u32 price = MegaShop_Price(item); //[hack] 〃
 		gShopData.itemPrice = price;
 		if (IsEnoughMoney(&gSaveBlock1->money, price))
 			return FALSE;
@@ -923,6 +898,9 @@ void PrintTmPriceOrPurchased(u8 windowId, u16 item, u8 y)
 {
 	s32 x;
 	u8 *loc;
+
+	if (MegaShop_PrintPrice(windowId, item, y)) //[hack] 2026-10-01 メガストーン売り場は 7 桁
+		return;
 	
 	#ifdef REUSABLE_TMS
 		if (GetPocketByItemId(item) == POCKET_TM_CASE && CheckBagHasItem(item, 1))
@@ -944,6 +922,9 @@ void PrintTmPriceOrPurchased(u8 windowId, u16 item, u8 y)
 
 u8 CheckSingleBagTm(unusedArg u16 item)
 {
+	if (MegaShop_IsOpen()) //[hack] 2026-10-01 メガストーン売り場は 1 個ずつ（src/mega_shop.c）
+		return 1;
+
 	#ifdef REUSABLE_TMS
 		if (GetPocketByItemId(item) == POCKET_TM_HM)
 			return 1;
@@ -1041,8 +1022,11 @@ void Task_ReturnToSellListAfterTmPurchase(u8 taskId)
 	}
 }
 
+bool8 MegaShop_AfterPurchase(u16 item); //[hack] src/mega_shop.c
 void ReloadMartListForTmPurchase(u8 taskId)
 {	
+	if (MegaShop_AfterPurchase(gTasks[taskId].tItemId)) //[hack] patches/0238 2026-10-09 あぶないはっぱは買うたびに値段が上がる（数えて一覧の値段を書き直す）
+		RedrawListMenu(gTasks[taskId].data[7]);
 	#ifdef REUSABLE_TMS
 	s16 *data = gTasks[taskId].data;
 
@@ -1147,25 +1131,72 @@ void HandleItemRegistration(u16 item)
 //Bag Expansion////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define gBagPockets ((struct BagPockets*) 0x20397D8)
 
+/*★★★ [hack] patches/0043 — どうぐ欄を 450 → 700 枠に広げた（2026-09-22）
+
+  ユーザー要望「バッグの道具欄の収納数を増やしたい」「DexNav の枠を道具に
+  割り当てて」。
+
+  ## なぜ要ったか
+
+  `gItemData` を数えると **どうぐポケットの道具は 482 種類**あるのに、
+  枠は 450 しか無かった（全種類を 1 個ずつ持つと 32 種類ぶん入らない）。
+
+  ## どこから持って来たか
+
+  ★ **増やせるのはセーブされる RAM の中だけ。**
+    セーブ窓は `0x203B0E8`〜`0x203DF8C` の 11,940 バイト固定で、
+    フラッシュ（殿堂入りで空けた 7,472 バイト）を足しても
+    **載せる空き EWRAM が無い**（詳細は docs/research/2026-09-22_bag-capacity.md）。
+
+  そこで **`gDexNavSearchLevels[999]`（`0x203C6D4`・999 バイト）**をやめた。
+  ずかんナビのサーチレベルは `patches/0042` で**常に 100** になったので、
+  種族ごとに貯める配列が要らない。
+
+  ## 新しい RAM の地図（実測値。**足し算が合うことを検算が毎回見る**）
+
+    0x203BA98  どうぐ          700 枠 × 4 = 2,800 B
+    0x203C588  たいせつなもの   75 枠 × 4 =   300 B
+    0x203C6B4  （12 B の空き。下の変数を守る緩衝）
+    0x203C6C0  gLastUsedRepel / sBagItemAmounts / gSelectedOrderFromParty
+               gDontFadeWhite / gWindowsLitUp / gWildDataSwitch  ← 20 B・動かさない
+    0x203C6D4  モンスターボール 50 枠 × 4 =   200 B   ← 元 gDexNavSearchLevels
+    0x203C79C  わざマシン      128 枠 × 4 =   512 B
+    0x203C99C  きのみ           72 枠 × 4 =   288 B
+    0x203CABC  ボックス 20〜22（ここから先は触らない）
+
+  ★★ **ポケットは 1 つずつ別のポインタを持つ**ので、
+    途中に CFRU の変数 20 バイトを挟んだまま飛び越えられる。
+    だから変数を 1 つも動かさずに済んだ。
+  ★ きのみだけ 75 → 72（実在 67 種なので余裕は残る）。
+    後ろの枠がちょうど 250 枠ぶんしか無いための調整。
+  ★ わざマシンの 128 は `NUM_TMS 120 + NUM_HMS 8` と一致していて削れない。
+*/
 #define sBagRegularItems ((struct ItemSlot*) 0x203BA98)
 #define sBagKeyItems (sBagRegularItems + NUM_REGULAR_ITEMS)
-#define sBagPokeBalls (sBagKeyItems + NUM_KEY_ITEMS)
+//★ ここで 20 バイトの CFRU 変数（0x203C6C0〜0x203C6D4）を飛び越える
+#define sBagPokeBalls ((struct ItemSlot*) 0x203C6D4)
 #define sBagTMHM (sBagPokeBalls + NUM_POKE_BALLS)
 #define sBagBerries (sBagTMHM + NUM_TMSHMS)
 
 #define sBagItemAmounts ((u16*) 0x203C6C2)
 
-#define NUM_REGULAR_ITEMS 450
+#define NUM_REGULAR_ITEMS 700
 #define NUM_KEY_ITEMS 75
 #define NUM_POKE_BALLS 50
-#define NUM_BERRIES 75
+#define NUM_BERRIES 72
 
 #define LARGEST_POCKET_NUM NUM_REGULAR_ITEMS
-#define TOTAL_POSSIBLE_BAG_ITEMS (450 + 75 + 50 + 75 + 128) //Do not change this line!
 
-//Throw an error if the player tried to add too many items.
-#if (NUM_REGULAR_ITEMS + NUM_KEY_ITEMS + NUM_POKE_BALLS + NUM_BERRIES + NUM_TMSHMS) > TOTAL_POSSIBLE_BAG_ITEMS
-#error "The total number of bag items has exceeded 650! Please reduce the possible number of items in the bag."
+//★ 前半（0x203BA98〜0x203C6C0）と後半（0x203C6D4〜0x203CABC）の枠数。
+//  どちらも**その塊に収まるか**を別々に見る（合計だけでは足りない）。
+#define BAG_SLOTS_BEFORE_VARS ((0x203C6C0 - 0x203BA98) / 4)  //778
+#define BAG_SLOTS_AFTER_VARS  ((0x203CABC - 0x203C6D4) / 4)  //250
+
+#if (NUM_REGULAR_ITEMS + NUM_KEY_ITEMS) > BAG_SLOTS_BEFORE_VARS
+#error "Items + Key Items overflow into gLastUsedRepel! Shrink one of them."
+#endif
+#if (NUM_POKE_BALLS + NUM_TMSHMS + NUM_BERRIES) > BAG_SLOTS_AFTER_VARS
+#error "Balls + TMs + Berries overflow into PC boxes 20-22! Shrink one."
 #endif
 
 struct BagSlots
@@ -1207,9 +1238,12 @@ static const struct BagPockets sBagPocketArrangement =
 	.berryAmount = NUM_BERRIES,
 };
 
+void HoennPyramid_ApplyBag(void); //[hack] patches/0131 src/hoenn_pyramid.c
+
 void SetMemoryForBagStorage(void)
 {
 	*gBagPockets = sBagPocketArrangement;
+	HoennPyramid_ApplyBag(); //[hack] patches/0131 バトルピラミッドの中は「どうぐ」をバトルバッグ（10 枠）に・ほかのポケットは 0 枠
 }
 
 extern void* sBagBgTilemapBuffer;
@@ -1388,6 +1422,8 @@ void PokeDudeRestoreKeyItemsTMs(void)
 	Free(ptr);
 }
 
+u16 HackTrainingPouch_Arrange(struct ItemSlot* slots, u16 capacity); //[hack] patches/0187 いくせいポーチ（src/hack_training_pouch.c）
+
 void StoreBagItemCount(void)
 {
 	struct ItemSlot* itemMem;
@@ -1410,6 +1446,12 @@ void StoreBagItemCount(void)
 			default:
 				itemMem = sBagPocketArrangement.pokeBallRam;
 				itemAmount = sBagPocketArrangement.pokeBallAmount;
+		}
+
+		if (pocket == 0) //[hack] patches/0187: どうぐは育成の道具を分ける（ふだんは後ろへ・いくせいポーチでは前へ）。見せる数だけ数える
+		{
+			sBagItemAmounts[0] = HackTrainingPouch_Arrange(itemMem, itemAmount);
+			continue;
 		}
 
 		for (checkLength = 0; itemMem[checkLength].itemId != ITEM_NONE; ++checkLength);
@@ -1474,7 +1516,6 @@ bool8 DoesBagHaveBerry(void)
 
 void CompactItemsInBagPocket(struct ItemSlot* itemSlots, u16 amount)
 {
-	u16 sortAmount = amount - 1;
 	s8 (*func)(struct ItemSlot*, struct ItemSlot*) = CompareItemsByHavingValue;
 
 	#ifdef VAR_AUTO_SORT_BAG_ITEMS
@@ -1491,7 +1532,7 @@ void CompactItemsInBagPocket(struct ItemSlot* itemSlots, u16 amount)
 	}
 	#endif
 
-	MergeSort(itemSlots, 0, sortAmount, func); //Sort all the null items to the back
+	SortItemSlots(itemSlots, amount, func); //Sort all the null items to the back
 }
 
 #ifdef ANTI_MAX_ITEM_CHEAT
@@ -1673,7 +1714,7 @@ void SortBerriesOrTMHMs(struct BagPocket* bagPocket)
 	else
 		func = CompareBerries;
 
-	MergeSort(bagPocket->itemSlots, 0, itemAmount - 1, func);
+	SortItemSlots(bagPocket->itemSlots, itemAmount, func);
 }
 
 static s8 CompareItemsAlphabetically(struct ItemSlot* itemSlot1, struct ItemSlot* itemSlot2)
@@ -1757,6 +1798,26 @@ static s8 CompareItemsByLeast(struct ItemSlot* itemSlot1, struct ItemSlot* itemS
 	return CompareItemsAlphabetically(itemSlot1, itemSlot2); //Items have same quantity so sort alphabetically
 }
 
+//★ 2026-10-10 [hack] 「ねだん」じゅん: 値段の高い順・同じ値段は名前順・空き枠は最後
+static s8 CompareItemsByPrice(struct ItemSlot* itemSlot1, struct ItemSlot* itemSlot2)
+{
+	u16 price1, price2;
+
+	if (itemSlot1->itemId == ITEM_NONE)
+		return 1;
+	else if (itemSlot2->itemId == ITEM_NONE)
+		return -1;
+
+	price1 = ItemId_GetPrice(itemSlot1->itemId);
+	price2 = ItemId_GetPrice(itemSlot2->itemId);
+	if (price1 < price2)
+		return 1;
+	else if (price1 > price2)
+		return -1;
+
+	return CompareItemsAlphabetically(itemSlot1, itemSlot2);
+}
+
 static s8 CompareItemsByHavingValue(struct ItemSlot* itemSlot1, struct ItemSlot* itemSlot2)
 {
 	if (itemSlot1->itemId == ITEM_NONE)
@@ -1810,33 +1871,90 @@ void SortItemsInBag(u8 pocket, u8 type)
 			func = CompareItemsByLeast;
 			break;
 		case SORT_BY_MOST:
-		case SORT_BY_AMOUNT:
 			func = CompareItemsByMost;
+			break;
+		case SORT_BY_AMOUNT: //★ 2026-10-10 [hack] 日本語版は「ねだん」なので値段の高い順（上流は個数の多い順のまま＝「ねだん」で個数順になっていた）
+			func = CompareItemsByPrice;
 			break;
 		default:
 			func = CompareItemsByType;
 	}
 
-	MergeSort(itemMem, 0, itemAmount - 1, func);
+	SortItemSlots(itemMem, itemAmount, func);
+
+	//★ 2026-10-08 [hack] いくせいポーチ（src/hack_training_pouch.c）: 並べ替えは置き場を全部並べ直すので、後ろに寄せて隠していた
+	//  育成の道具が前に混ざって一覧に出た（ユーザー「育成ポーチように印つけたやつが道具いれかえると表示される」・SELECT → しゅるい）。
+	//  寄せ直す（それぞれの中の並びは保つ＝並べた順のまま・見せる数は変わらない）
+	if (pocket == 0)
+		HackTrainingPouch_Arrange(itemMem, itemAmount);
 }
 
-void MergeSort(struct ItemSlot* array, u32 low, u32 high, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*))
+/*★★★ [hack] patches/0049 — 併合用の作業場をスタックからヒープへ移した
+     （2026-09-23。どうぐ欄 700 枠の前提条件）
+
+  ## 何が起きていたか
+
+  もとの `Merge()` は `struct ItemSlot aux[high + 1];` という
+  **可変長配列（VLA）＝スタック**に作業場を取っていた
+  （上流自身が「Can't be declared static or blows the stack」と書いている）。
+
+  バッグを開くと `CompactItemsInBagPocket()` が空き枠を後ろへ寄せるために
+  `MergeSort(0, 枠数 - 1)` を必ず呼ぶので、**枠数 × 4 バイト**が積まれる。
+
+    450 枠 → 1,800 B → 先頭は約 03007730（安全）
+    700 枠 → 2,800 B → 先頭は約 03007310（★音楽プレイヤーのまっただ中）
+
+  **GBA のスタックは 0x03007F00 から下へ伸び、
+    0x030074F0 の音楽プレイヤーまで 2,576 バイトしかない。**
+  700 枠にした 2026-09-22 のビルドは、バッグを開いた瞬間に
+  `gPokemonCrySong` / `gMPlayInfo_BGM` / `SE1` / `SE2` / `gMPlayMemAccArea` /
+  `SE3` / `gMPlayJumpTable` を 0 で塗り潰していた（実機のメモリダンプで確認）。
+  → 「ツー」と鳴り続け、次に音を鳴らすマップ移動で**番地 0 へ飛んで固まる**。
+
+  ## 直し方
+
+  `aux` を**呼び元で 1 回だけ確保して引数で渡す**。スタック消費は 0 になる。
+  ★ `static struct ItemSlot* sAux;` のような持ち方は**使えない**
+    （CLAUDE.md 6.13 — CFRU の書き換え可能な static は ROM に置かれて
+      書き込みが黙って捨てられる）。**引数で渡すしかない。**
+  ★ 確保に失敗したら**並べ替えないで帰る**（枠が詰まらないだけで壊れない）。
+
+  ★★ `-fstack-usage` はこれを教えてくれない。`.su` は VLA を
+    `item.c:1835:6:Merge  64  dynamic` と**固定部分だけ**出す。詳細は
+    CLAUDE.md 6.35 と docs/research/2026-09-22_bag-and-ivs.md。
+*/
+static bool8 SortItemSlots(struct ItemSlot* array, u32 count, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*))
+{
+	struct ItemSlot* aux;
+
+	if (count < 2)
+		return TRUE; //並べ替えるまでもない
+
+	aux = Malloc(count * sizeof(struct ItemSlot));
+	if (aux == NULL)
+		return FALSE; //ヒープが足りない。触らずに帰る
+
+	MergeSort(array, 0, count - 1, comparator, aux);
+	Free(aux);
+	return TRUE;
+}
+
+void MergeSort(struct ItemSlot* array, u32 low, u32 high, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*), struct ItemSlot* aux)
 {
 	if (high <= low)
 		return;
 
 	u32 mid = low + (high - low) / 2;
-	MergeSort(array, low, mid, comparator); //Sort left half.
-	MergeSort(array, mid + 1, high, comparator); //Sort right half.
-	Merge(array, low, mid, high, comparator); //Merge results.
+	MergeSort(array, low, mid, comparator, aux); //Sort left half.
+	MergeSort(array, mid + 1, high, comparator, aux); //Sort right half.
+	Merge(array, low, mid, high, comparator, aux); //Merge results.
 }
 
-//Can't be declared static or blows the stack
-void Merge(struct ItemSlot* array, u32 low, u32 mid, u32 high, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*))
+//★ `aux` は呼び元が用意する（もとは VLA でスタックに取っていた。上の注記）
+void Merge(struct ItemSlot* array, u32 low, u32 mid, u32 high, s8 (*comparator)(struct ItemSlot*, struct ItemSlot*), struct ItemSlot* aux)
 {
 	u32 i = low;
 	u32 j = mid + 1;
-	struct ItemSlot aux[high + 1];
 
 	for (u32 k = low; k <= high; ++k)
 		aux[k] = array[k];

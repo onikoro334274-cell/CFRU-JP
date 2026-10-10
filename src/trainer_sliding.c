@@ -242,12 +242,16 @@ void TryDoDynamaxTrainerSlide(void)
 }
 
 //Hook in Battle Main
+extern void HoennPalace_TryFlavorText(void); //★ src/hoenn_palace.c（patches/0085）
+extern bool8 HoennArena_OnTurnPassed(void); //★ src/hoenn_arena.c（patches/0096）
 void CheckLastMonLowHPSlide(void)
 {
 	if (ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), gTrainerBattleOpponent_A, TRAINER_SLIDE_LAST_LOW_HP)
 	|| (IsTwoOpponentBattle() && ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT), gTrainerBattleOpponent_B, TRAINER_SLIDE_LAST_LOW_HP))
 	|| (IS_DOUBLE_BATTLE && ShouldDoTrainerSlide(GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT), gTrainerBattleOpponent_A, TRAINER_SLIDE_LAST_LOW_HP)))
 		BattleScriptExecute(BattleScript_TrainerSlideMsgEnd2);
+	else if (!HoennArena_OnTurnPassed()) //★ バトルアリーナ: ターンを数え、組の頭なら「しょうぶ！ はじめ」（patches/0096）
+		HoennPalace_TryFlavorText(); //★ バトルパレス: ターンの頭に HP 半分のセリフ（素の BattleTurnPassed の最後から毎ターン・patches/0085）
 }
 
 //handletrainerslidemsg BANK CASE
