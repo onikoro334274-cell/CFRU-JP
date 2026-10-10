@@ -1,0 +1,13 @@
+{
+  "scope": "Arithmetic and cluster-setting validation in HackScsd_Mount, src/hack_scsd.c",
+  "finding": "Partition-loaded FAT sectors bypassed the initial power-of-two cluster check. exFAT cluster shifts and partition-relative additions were unchecked; FAT area multiplication/addition could wrap before root/data addressing.",
+  "change": "Validate FAT cluster size, nonzero FAT count/reserved area, FAT16 root allocation and minimum FAT32/exFAT root cluster. Enforce the exFAT 32 MiB cluster limit for 512-byte sectors. Check additions and multiplication against u32 capacity before publishing root/data addresses.",
+  "verification": [
+    "check_scsd_mount_geometry.py: all 256 cluster-setting bytes, three formats and direct/partition boot paths (1536 cases)",
+    "Independent 64-bit oracle checks 3072 partition/area/count/root/reserved arithmetic boundaries and resulting accepted filesystem fields",
+    "Zero FAT16 root allocation and both boot-sector read failures rejected",
+    "Baseline 49038c3 fails the same fixture; current source passes",
+    "Existing FAT directory and file-read-bound fixtures pass; GNU ARM compilation passes without diagnostics"
+  ],
+  "limitations": "Controlled boot sectors and SD reads. This validates selected arithmetic/invariants, not full filesystem conformance. Volume lengths, device capacity, region ordering/overlap, maximum root/chain cluster ranges, boot checksums/signatures and physical hardware remain unverified."
+}

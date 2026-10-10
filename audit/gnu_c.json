@@ -749,8 +749,8 @@
     {
       "path": "src/hack_scsd.c",
       "exit_code": 0,
-      "source_sha256": "165f5ab1ae920912908f51c552a5eec26e3e18d36bd4ad7a7965ec64b80a3a08",
-      "object_bytes": 4244,
+      "source_sha256": "3adc6ca77291e57d25e9c20e74af0c05f9e2f59d7b9891664864d138d7c83d52",
+      "object_bytes": 4432,
       "diagnostics": ""
     },
     {

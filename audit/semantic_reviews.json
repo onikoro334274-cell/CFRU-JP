@@ -557,18 +557,20 @@
     },
     {
       "path": "src/hack_scsd.c",
-      "source_sha256": "165f5ab1ae920912908f51c552a5eec26e3e18d36bd4ad7a7965ec64b80a3a08",
+      "source_sha256": "3adc6ca77291e57d25e9c20e74af0c05f9e2f59d7b9891664864d138d7c83d52",
       "sections": [
         "Rd16",
         "Rd32",
         "ScanFat",
-        "HackScsd_ReadOpened"
+        "HackScsd_ReadOpened",
+        "HackScsd_Mount arithmetic and cluster settings"
       ],
       "verification_records": [
         "scsd_fat_directory_review.json",
-        "scsd_file_read_bounds_review.json"
+        "scsd_file_read_bounds_review.json",
+        "scsd_mount_geometry_review.json"
       ],
-      "remaining": "Mount validation, physical LBA bounds, cluster-chain integrity, caller buffer capacity, SD transport, writes and actual hardware remain unverified."
+      "remaining": "Volume/device geometry, region overlap, cluster-chain/root range integrity, boot signatures/checksums, SD transport and real hardware remain unverified."
     }
   ]
 }

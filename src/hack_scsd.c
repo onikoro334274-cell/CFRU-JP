@@ -128,7 +128,11 @@ static bool8 HackScsd_Mount(struct ScsdFs *fs)
 	fs->fatCached = 0xFFFFFFFF;
 	if (b[3] == 'E' && b[4] == 'X' && b[5] == 'F' && b[6] == 'A' && b[7] == 'T')
 	{
-		if (b[0x6C] != 9)
+		/* exFAT clusters are at most 32 MiB: 2^16 sectors at 512 bytes. */
+		if (b[0x6C] != 9 || b[0x6D] > 16
+		 || Rd32(b + 0x50) > 0xFFFFFFFFu - part
+		 || Rd32(b + 0x58) > 0xFFFFFFFFu - part
+		 || Rd32(b + 0x60) < 2)
 			return FALSE;
 		fs->type = 0xEF;
 		fs->fat = part + Rd32(b + 0x50);
@@ -137,14 +141,21 @@ static bool8 HackScsd_Mount(struct ScsdFs *fs)
 		fs->rootClus = Rd32(b + 0x60);
 		return TRUE;
 	}
-	if (Rd16(b + 0x0B) != 512)
+	if (Rd16(b + 0x0B) != 512 || b[0x0D] == 0
+	 || (b[0x0D] & (b[0x0D] - 1)) != 0
+	 || b[0x10] == 0 || Rd16(b + 0x0E) == 0
+	 || Rd16(b + 0x0E) > 0xFFFFFFFFu - part)
 		return FALSE;
 	if (Rd16(b + 0x16) != 0) //FAT16
 	{
 		fs->type = 16;
 		fs->fat = part + Rd16(b + 0x0E);
+		if (Rd16(b + 0x16) > (0xFFFFFFFFu - fs->fat) / b[0x10])
+			return FALSE;
 		fs->rootLba = fs->fat + b[0x10] * Rd16(b + 0x16);
 		fs->rootSecs = (Rd16(b + 0x11) * 32 + 511) / 512;
+		if (fs->rootSecs == 0 || fs->rootSecs > 0xFFFFFFFFu - fs->rootLba)
+			return FALSE;
 		fs->data = fs->rootLba + fs->rootSecs;
 		fs->spcShift = Log2(b[0x0D]);
 		return TRUE;
@@ -153,6 +164,9 @@ static bool8 HackScsd_Mount(struct ScsdFs *fs)
 	{
 		fs->type = 32;
 		fs->fat = part + Rd16(b + 0x0E);
+		if (Rd32(b + 0x24) > (0xFFFFFFFFu - fs->fat) / b[0x10]
+		 || Rd32(b + 0x2C) < 2)
+			return FALSE;
 		fs->data = fs->fat + b[0x10] * Rd32(b + 0x24);
 		fs->spcShift = Log2(b[0x0D]);
 		fs->rootClus = Rd32(b + 0x2C);
