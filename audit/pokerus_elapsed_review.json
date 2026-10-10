@@ -2,7 +2,7 @@
   "result": "pass",
   "sources": {
     "src/wild_encounter.c": "d40891cf94440ebdf389e7fb15169eae3f90f94feadc89f966bf269c0edb7ddb",
-    "src/build_pokemon.c": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941"
+    "src/build_pokemon.c": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c"
   },
   "verification": [
     "check_pokerus_time.py: 16777216 byte/day cases",
@@ -11,5 +11,6 @@
   ],
   "fix": "Saturate u32 daily elapsed count at 65535 before u16 Pokerus consumer to prevent wrap to zero.",
   "limitations": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified.",
-  "regression_suite": "python -m unittest discover -s scripts -p test_*.py: 72 total, 69 passed, 3 skipped"
+  "regression_suite": "python -m unittest discover -s scripts -p test_*.py: 72 total, 69 passed, 3 skipped",
+  "current_time_revalidation": "check_pokerus_time.py passed after empty-slot spread fix"
 }

@@ -1,8 +1,9 @@
 {
-  "source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
+  "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
   "result": "pass",
   "baseline": "Empty party triggers repeated target selection beyond controlled 64 RNG calls.",
   "fix": "After winning the initial probability roll, return if no nonempty nonegg target exists. Existing target and strain RNG selection retained.",
   "verification": "1458 party-shape/immunity cases, 65536 initial RNG rolls; actual ARM object compile.",
-  "limitations": "Controlled cyclic RNG and accessor mocks; strain distribution, arbitrary RNG termination and runtime are not certified."
+  "limitations": "Controlled cyclic RNG and accessor mocks; strain distribution, arbitrary RNG termination and runtime are not certified.",
+  "current_revalidation": "check_pokerus_target.py passed after empty-slot spread fix"
 }

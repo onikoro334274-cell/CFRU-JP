@@ -604,7 +604,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+      "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
       "sections": [
         "GenerateWildMonHeldItem"
       ],
@@ -624,7 +624,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+      "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
       "sections": [
         "GiveMonNatureAndAbility shiny PID shift",
         "ForceMonShiny shiny PID shift"
@@ -635,7 +635,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+      "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
       "sections": [
         "GiveMonXPerfectIVs"
       ],
@@ -645,7 +645,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+      "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
       "sections": [
         "SetWildMonHeldItem"
       ],
@@ -655,7 +655,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
+      "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
       "sections": [
         "RandomlyGivePartyPokerus"
       ],
@@ -665,7 +665,7 @@
     },
     {
       "path": "src/build_pokemon.c",
-      "source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
+      "source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
       "sections": [
         "UpdatePartyPokerusTime"
       ],

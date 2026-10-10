@@ -6,8 +6,8 @@
     "files_with_indexed_scopes": 33,
     "indexed_scopes": 54,
     "scope_states": {
-      "source_changed": 20,
-      "current": 33,
+      "source_changed": 14,
+      "current": 39,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -4805,62 +4805,62 @@
       "gnu_c_object": "object_compiled",
       "scoped_reviews": [
         {
-          "state": "source_changed",
+          "state": "current",
           "sections": [
             "GenerateWildMonHeldItem"
           ],
-          "recorded_source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+          "recorded_source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
           "evidence": [],
           "verification": "check_wild_held_item.py",
           "remaining": "Mocked party, abilities, base items and RNG for selector; actual stone table used for lookup. Species validity is a caller precondition; actual encounter construction, table generation provenance, linking and runtime remain unverified."
         },
         {
-          "state": "source_changed",
+          "state": "current",
           "sections": [
             "GiveMonNatureAndAbility shiny PID shift",
             "ForceMonShiny shiny PID shift"
           ],
-          "recorded_source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+          "recorded_source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
           "evidence": [],
           "verification": "check_shiny_pid_shift.py baseline trap and current unsigned oracle; ARM object compile",
           "remaining": "Expression scope only; personality reroll termination, nature/gender preservation, full functions, linked ROM and runtime are not certified."
         },
         {
-          "state": "source_changed",
+          "state": "current",
           "sections": [
             "GiveMonXPerfectIVs"
           ],
-          "recorded_source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+          "recorded_source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
           "evidence": [],
           "verification": "check_perfect_iv_bounds.py baseline reproduction/current 16384 cases and ARM object compile",
           "remaining": "Cyclic fixture RNG does not prove arbitrary RNG sequence termination. Callers, actual Pokemon storage integration and GBA runtime remain unverified."
         },
         {
-          "state": "source_changed",
+          "state": "current",
           "sections": [
             "SetWildMonHeldItem"
           ],
-          "recorded_source_sha256": "58adce202b4ee060cab4418a1c430b17fd166f5a746d1a64701e6c6e2c3da082",
+          "recorded_source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
           "evidence": [],
           "verification": "check_wild_item_dispatch.py: 256 combinations of five battle bits, DexNav state and two item outcomes. Exact reads/generator calls/writes and all six party slots checked.",
           "remaining": "Controlled Pokemon accessor/generator mocks; actual battle startup, stale held items, encounters and GBA execution remain unverified."
         },
         {
-          "state": "source_changed",
+          "state": "current",
           "sections": [
             "RandomlyGivePartyPokerus"
           ],
-          "recorded_source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
+          "recorded_source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
           "evidence": [],
           "verification": "check_pokerus_target.py baseline reproduction and current cases; ARM compile",
           "remaining": "Controlled cyclic RNG and accessor mocks; strain distribution, arbitrary RNG termination and runtime are not certified."
         },
         {
-          "state": "source_changed",
+          "state": "current",
           "sections": [
             "UpdatePartyPokerusTime"
           ],
-          "recorded_source_sha256": "9727756c3802d8e8abe11b9ba59b75a6f5293c1314b8ab5614dcfc5ea3cb2941",
+          "recorded_source_sha256": "bf54039f13b96fe12b70822c8460156bd718e50ed59021a867048f7b7cc4f54c",
           "evidence": [],
           "verification": "check_pokerus_time.py: 16777216 byte/day cases; check_swarm_timestamp_backup.py: 1572864 task cases with 65536 elapsed days and actual u16 consumer signature; ARM wild_encounter.c object compile",
           "remaining": "Controlled native calendar/task and party accessor fixtures; actual RTC, save continuity and runtime unverified."

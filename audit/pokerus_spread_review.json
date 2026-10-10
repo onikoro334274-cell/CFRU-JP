@@ -9,5 +9,6 @@
     "check_pokerus_time.py rerun",
     "Actual ARM object compile"
   ],
-  "limitations": "Native accessor mocks and chosen strain; eggs retained as eligible occupied slots, encoded corrupt states and GBA runtime unverified."
+  "limitations": "Native accessor mocks and chosen strain; eggs retained as eligible occupied slots, encoded corrupt states and GBA runtime unverified.",
+  "current_revalidation": "check_pokerus_spread.py passed after empty-slot spread fix"
 }
