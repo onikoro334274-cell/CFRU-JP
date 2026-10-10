@@ -33,7 +33,7 @@ static void ItemUseCB_EVReset(u8 taskId, TaskFunc func)
 	for (i = 0; i < NUM_STATS; ++i)
 		total |= GetMonData(mon, MON_DATA_HP_EV + i, NULL);
 
-	if (total == 0)
+	if (total == 0 || !RemoveBagItem(item, 1))
 	{
 		gPartyMenuUseExitCallback = FALSE;
 		DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
@@ -59,7 +59,6 @@ static void ItemUseCB_EVReset(u8 taskId, TaskFunc func)
 
 	GetMonNickname(mon, gStringVar1);
 	StringExpandPlaceholders(gStringVar4, gText_EVReset_Done);
-	RemoveBagItem(item, 1);
 	DisplayPartyMenuMessage(gStringVar4, TRUE);
 	ScheduleBgCopyTilemapToVram(2);
 	gTasks[taskId].func = func;

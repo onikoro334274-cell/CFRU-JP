@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "cases": 5040,
+  "scope": "Production EV reset callback with controlled inventory/stat APIs; no effect, failed consumption, successful reset, fainted HP and zero/excess/valid recalculated HP.",
+  "limitations": "Does not verify actual stat calculations, menu slot validation, encrypted Pokemon APIs, or GBA runtime."
+}
