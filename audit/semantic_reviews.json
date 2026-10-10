@@ -399,6 +399,67 @@
       "verification_records": [],
       "verification": "Scoped native fixtures; current GNU ARM compilation",
       "remaining": "check_slot_screen.py passes controlled allocation/cleanup/window scenarios. CreateTask failure is not exercised; state zero calls ResetTasks first. Flash probe, hardware and linked runtime remain unverified."
+    },
+    {
+      "path": "src/bw_option_menu.c",
+      "source_sha256": "b0abc1219ccb939450f153ba4927448fd7c89c794727d2a7ff8c9c943eaa3a4c",
+      "sections": [
+        "Task_ProcessInput",
+        "CycleInput",
+        "ProcessInputFor",
+        "LoadFrameGfx",
+        "Text speed load section",
+        "Task_Cancel",
+        "CB2_BwOptionMenu InitWindows failure branch"
+      ],
+      "verification_records": [
+        "option_navigation_review.json",
+        "option_cancel_review.json",
+        "option_window_failure_review.json",
+        "rom_window_frames.json"
+      ],
+      "remaining": "Coverage and limitations are detailed in the referenced scoped records; no entire-file or linked runtime certification."
+    },
+    {
+      "path": "src/hack_wonder_trade.c",
+      "source_sha256": "b49dcc99c377b864cd5900ff55bbc8e8567655ae27a40a840bc8a6906bca0a52",
+      "sections": [
+        "GetMonDisplayName",
+        "GetRandomWonderTradeSpecies",
+        "WonderTrade_TrySkipScene"
+      ],
+      "verification_records": [
+        "wonder_trade_names_review.json",
+        "wonder_trade_species_review.json",
+        "wonder_trade_skip_review.json"
+      ],
+      "remaining": "Coverage and limitations are detailed in the referenced scoped records; no entire-file or linked runtime certification."
+    },
+    {
+      "path": "src/sinnoh_eterna_gym.c",
+      "source_sha256": "6f8db26a124fd6acdb18acf20867e935478f2bd9a85461a9b69844c7ac25d84a",
+      "sections": [
+        "EternaClockState",
+        "PlaceClock",
+        "SinnohEternaGym_FountainOpened"
+      ],
+      "verification_records": [
+        "eterna_clock_review.json"
+      ],
+      "remaining": "Coverage and limitations are detailed in the referenced scoped records; no entire-file or linked runtime certification."
+    },
+    {
+      "path": "scripts/recover_hoenn_flags.py",
+      "source_sha256": "76955f0280e3287e08dde066abb110d2186f01186c3f616f1e7345c7b7339b32",
+      "sections": [
+        "Literal recovery",
+        "Definition and ID validation",
+        "Atomic output replacement"
+      ],
+      "verification_records": [
+        "hoenn_flag_recovery_validation.json"
+      ],
+      "remaining": "Coverage and limitations are detailed in the referenced scoped records; no entire-file or linked runtime certification."
     }
   ]
 }

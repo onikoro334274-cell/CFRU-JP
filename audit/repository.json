@@ -900,8 +900,8 @@
     },
     {
       "path": "assembly/hooks/general_hooks.s",
-      "bytes": 29573,
-      "sha256": "0315f864ce42aaa00ef4ed638683a4b1c489952dfd8ee415bb0191f37638663e",
+      "bytes": 29607,
+      "sha256": "9d13e63dd714e21898c36d00c18d13ded2814327aca376dd22117f2b8ad3cd46",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1150,8 +1150,8 @@
     },
     {
       "path": "assembly/kanto/mega_shop_hooks.s",
-      "bytes": 2029,
-      "sha256": "1f6755ae1f1ba27b1bb89eb2c399da7334edd7b852a84c017738e5f55fc4e764",
+      "bytes": 2007,
+      "sha256": "4206cd3dc568c8f4c7aadea1f06d61e1c60d1f6362b8083532321e837858f0e5",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1333,7 +1333,7 @@
     {
       "path": "audit/assembly.json",
       "bytes": 23646,
-      "sha256": "66150e2c79c21ec69894b4ec4a2bb959ee7b12734857915560a44b69d5654f27",
+      "sha256": "7ef0ab2a20a7330fc37b58361f6885ebb7baf861a9d9fc68c038639c8c9e3d98",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1414,6 +1414,16 @@
       "path": "audit/data_patches.json",
       "bytes": 132257,
       "sha256": "9ee2fb1a15c6e44a0273a10a10878f186aa65d83f0ac41a591d0b0639f2026aa",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/eterna_clock_review.json",
+      "bytes": 1411,
+      "sha256": "600eb1d1dc3e830a8ce7a280f0107ee2e289cefffd7a12ea0460a1c0314dcb8a",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1552,8 +1562,58 @@
     },
     {
       "path": "audit/gnu_c.json",
-      "bytes": 127347,
-      "sha256": "c9dc1a70109a66b0ca625267a73e39ab7d5762bfa5096ffb28d27dd95c4803fb",
+      "bytes": 125820,
+      "sha256": "be35ada3b74cd284f7bffe6f7dec5ccbc768b0dc7ca460402ba1d247f8467094",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/hoenn_flag_recovery_validation.json",
+      "bytes": 1740,
+      "sha256": "220797e2bb819aae2c3a4db2657e66571d7b934125ee0cf2ed014d5fbee53568",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/mega_shop_escalation_review.json",
+      "bytes": 803,
+      "sha256": "9548f9103d9278579f07509b6beacc75d2393063b974157692cdaed21e134580",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/mega_shop_header_recovery.json",
+      "bytes": 2322,
+      "sha256": "5316430c93ffe4223abc5abf6fc4e69fa61048154e42bb5b8cee11261f34d409",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/mega_shop_layout_review.json",
+      "bytes": 963,
+      "sha256": "c3d873bc033772979b2060bf7085d65672e5902b37d7c4c9b0fa175197caafa5",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/mega_shop_price_review.json",
+      "bytes": 853,
+      "sha256": "ea8205633515cee5b2c778d5c7773bd7aeb8a4ef532a9a5c5043b8e99384a2f2",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1564,6 +1624,36 @@
       "path": "audit/month_difference_review.json",
       "bytes": 1176,
       "sha256": "97a5243c7a7b7dc9eec0cb53e5e76bb231e9e2b8e6e1c5b3081ee1e89bf6cca7",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/option_cancel_review.json",
+      "bytes": 767,
+      "sha256": "058614c374a52b28cffc3b1eff51cd72f89be5402bbd6be4b709472478ae5335",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/option_navigation_review.json",
+      "bytes": 1769,
+      "sha256": "81a25d62fe357bf3ed3e595baca3194f317362f1e56633f076362d66f2b48aff",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/option_window_failure_review.json",
+      "bytes": 854,
+      "sha256": "e88fc5c7b1009a6c1ff7f9c669e8f8dffcb99a88706be7faba57a1fe63eb3033",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1591,6 +1681,16 @@
       "findings": []
     },
     {
+      "path": "audit/premier_ball_bonus_review.json",
+      "bytes": 1051,
+      "sha256": "33fa0e8af29030452670de77585b00eed38c3715226a79443133e35257b0e339",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/preprocessing.json",
       "bytes": 2391,
       "sha256": "031936c8f07e78d899f29ec1d2c805fb0c910dc91391cb8baeedbf4026b3b5ad",
@@ -1602,8 +1702,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 31899,
-      "sha256": "4ac95344730dfab451967057d2cd394a7680168f5812096fc5a898d91c2871cd",
+      "bytes": 33793,
+      "sha256": "365c4745d9a3bac6d127deb72e351e0890e4f127d72888becd51a55fccc3dc1b",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1612,8 +1712,8 @@
     },
     {
       "path": "audit/python_regressions.json",
-      "bytes": 1291,
-      "sha256": "af672590709d23d70997af4190e2e8a1581e669f7e0fee61440fb87dfab5cfbf",
+      "bytes": 1361,
+      "sha256": "5fe0fc583d2adc8b74c68509e55938210cc46edec6dd032d6b426c339a25aee3",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1644,6 +1744,36 @@
       "path": "audit/rom_input.json",
       "bytes": 544,
       "sha256": "bf77ed75d048aeea3f177096190c613fed729e7b4dc6e5a065a8b6066ec9fa8a",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/rom_window_frames.json",
+      "bytes": 1750,
+      "sha256": "c3b75b213c3d02d9ec09ae06bfc1a128194dc8ac65c1b7b209132cff7ad2e1ec",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/rtc_frame_counter_review.json",
+      "bytes": 1155,
+      "sha256": "70591cf2edf49f786c915d859e2debe058fae549d3df482ce4bf11128371dd11",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/rtc_initialization_review.json",
+      "bytes": 1353,
+      "sha256": "8b52fe3a9c4e7d04152c47c03e115a25cc2c89a77a1375e691c9ac6f086a4bdc",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1692,8 +1822,18 @@
     },
     {
       "path": "audit/semantic_reviews.json",
-      "bytes": 18570,
-      "sha256": "2290d98fd68b3ca363fe43248b6718bc45e6212132c563633e22400175737083",
+      "bytes": 22936,
+      "sha256": "85a2a3af3a216e78b72a9f970711140e073126fd698391186dcbf514212be8c2",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/shop_name_storage_review.json",
+      "bytes": 947,
+      "sha256": "7566cef814a62476256e0b5197c79da393e40d68b72caff01373d59e34ba4b56",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1724,6 +1864,66 @@
       "path": "audit/toolchain.json",
       "bytes": 4286,
       "sha256": "b27b8fa97a20bb9000dd05cf7a8c2b119ff4d47897f30f7174684ada002e9dd9",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/wild_mega_stone_header_recovery.json",
+      "bytes": 1617,
+      "sha256": "0115408fc65b217d16b5f0a449114acb94bfd32301f4ed1734ed1cca8f90fe0a",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/wild_mega_stone_lookup_review.json",
+      "bytes": 736,
+      "sha256": "879b2b5faf6bdb3cf6bdf836e2fec5eeac6c5346c363a5eb56058e9d4a0c68d2",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/wonder_skip_flag_recovery.json",
+      "bytes": 913,
+      "sha256": "67b654f04529e00f88b72953107473a48bea1c67a3670806924200dd441c93a7",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/wonder_trade_names_review.json",
+      "bytes": 905,
+      "sha256": "790380ce7f08a1e710df65be15f857a17752412ef651cce54dc2ac15aeecd4d9",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/wonder_trade_skip_review.json",
+      "bytes": 891,
+      "sha256": "f2f32ccf69acd7258ac7739c39d46e986b3fd61d7394475ed96f1264dbf6b2f3",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/wonder_trade_species_review.json",
+      "bytes": 988,
+      "sha256": "60274493811c1afe466c56709ca8a84e0d3973a00679cea2b5911690488dea15",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -11756,8 +11956,8 @@
     },
     {
       "path": "include/rtc.h",
-      "bytes": 1027,
-      "sha256": "478234fa9bcaa2b3410a681e7809230bd583cf5bb2435c548806623f5b2af8f9",
+      "bytes": 1104,
+      "sha256": "be04245b89f0736064595f7eb2364c4f77f6e969e34cf458bc998a7946aa61de",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12729,6 +12929,17 @@
       "findings": []
     },
     {
+      "path": "scripts/check_eterna_clock.py",
+      "bytes": 3141,
+      "sha256": "dd3057cb82a98334580f574d95da25826f7932a6f4f2e370e21ce1e9828cc11f",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_ext_save.py",
       "bytes": 5317,
       "sha256": "15de3bdcbb4e591d9eafbffb0258d261136790c251ed3853cccbab65a805da0d",
@@ -12894,6 +13105,83 @@
       "findings": []
     },
     {
+      "path": "scripts/check_mega_shop_escalation.py",
+      "bytes": 3404,
+      "sha256": "02b03e8ed3011af678aa35d2f58012b12ce09b8e0f88d01575db674e92ac4fa7",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_mega_shop_layout.py",
+      "bytes": 3005,
+      "sha256": "f5411f9c423702de3c8234da186466149c17e27a0d582a1a62e765fd52da3e36",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_mega_shop_prices.py",
+      "bytes": 3773,
+      "sha256": "cfcc382e5267f96a754de2a8ca2ad9ad8568e1967a53b088d60c407b996dd03b",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_mega_shop_stock.py",
+      "bytes": 2324,
+      "sha256": "33b914bc66caba39083eddc503677a216205d0e6e0d3b705417c24f639d3059e",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_option_cancel.py",
+      "bytes": 2779,
+      "sha256": "515c7ccf35d26b094e1f01ae7dca8f8f77440f9231e8f750ca6bb60a21777f3b",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_option_navigation.py",
+      "bytes": 6839,
+      "sha256": "4e51daa2983eb43f922522eff38a76c6979ebd1cb92592431993df0264e80b99",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_option_window_failure.py",
+      "bytes": 2284,
+      "sha256": "ad7b77db054d0c24168243fc2480f25e545762e95131f17028a1d0aa5afb77b2",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_play_clock_adjustment.py",
       "bytes": 3904,
       "sha256": "660878a71306977c64325ee9d1df5b01bec0043030b8b321c79c286493c12800",
@@ -12916,9 +13204,53 @@
       "findings": []
     },
     {
+      "path": "scripts/check_premier_ball_bonus.py",
+      "bytes": 3356,
+      "sha256": "4dec3c1cdc84f8751c686dbf6a6d026ec13eb29fb85a4dacfb681bd4ab04e7db",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_roamer_movement.py",
       "bytes": 3335,
       "sha256": "938fcde28d2587ebc89b3b00157a27ebcd440cee2b68127c8555f4cb8ea2b524",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_rom_window_frames.py",
+      "bytes": 2939,
+      "sha256": "1c0d9a930eeb54111b0cf04d2f9223e7f1e51076be16c5de63c56cdd506c76d6",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_rtc_frame_counter.py",
+      "bytes": 4540,
+      "sha256": "91e8aa1c8ddd09c0f484a081e8d42fb5f15fd82c5c95d1c737940b37005ff17d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_rtc_initialization.py",
+      "bytes": 3336,
+      "sha256": "cc2d4c69c7a314268af3e47b6ae1893a60503cb4eca670bcc4196e1a51ea383d",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12952,6 +13284,17 @@
       "path": "scripts/check_second_ability_lookup.py",
       "bytes": 1878,
       "sha256": "26d774486b8b4a9abe46872974e34ce50a62a72a8a3b5cf8113589a8e3fcfe4c",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_shop_name_storage.py",
+      "bytes": 3132,
+      "sha256": "5f56aca4b6108e7cbc4445604d16eebd00c4f954fcc9395766a9061923ac68a2",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -12996,6 +13339,50 @@
       "path": "scripts/check_tutor_bounds.py",
       "bytes": 3833,
       "sha256": "bcdf1e52df25b146632c9904d40f3e1dc793eed78a056ad560892eace21f4550",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_wild_mega_stone_lookup.py",
+      "bytes": 1837,
+      "sha256": "5e8ec0567c4efdf22e6d1a7aa93517ea1d940d0c583706edd3538f52c5ac0e07",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_wonder_trade_names.py",
+      "bytes": 2635,
+      "sha256": "6898b2574c4155664ab14b440386500bfd4b4909c1b399904014b0ac1570ce1f",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_wonder_trade_skip.py",
+      "bytes": 4305,
+      "sha256": "b5f8df508a657fc6984d5d4456214b350a19cf4aa014e189055739a9b15f5e1b",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_wonder_trade_species.py",
+      "bytes": 3101,
+      "sha256": "37da9adf2349b5c0e016f579bb3902d26c5a29ce66cd41723dcf464789de0d82",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13050,6 +13437,17 @@
       "path": "scripts/generate_hoenn_roamers.py",
       "bytes": 5683,
       "sha256": "14d1f9cfbb87177f54690ec1bd2630a28fd2f5c9c2645945417289df4c50fc1d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/generate_mega_shop.py",
+      "bytes": 4132,
+      "sha256": "6a7748dc914c3495c78d95e124446b122b36cf703ab6ab9c6ac00235d1dcd00b",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13113,6 +13511,17 @@
       "findings": []
     },
     {
+      "path": "scripts/generate_wild_mega_stones.py",
+      "bytes": 3419,
+      "sha256": "e99a0fd63a377bc5b046882a5b704dd720b752330f4fe7f889f5a294c58b57a5",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/indexed_png.py",
       "bytes": 2611,
       "sha256": "050c4f40d4d7ec074eccfeeda391993e3ddcc0a10858839644c865092157eb81",
@@ -13158,8 +13567,8 @@
     },
     {
       "path": "scripts/recover_hoenn_flags.py",
-      "bytes": 3037,
-      "sha256": "8f76686cc9c981a1dcebec3e0326421842aa37298108b36e4602c19104e6565c",
+      "bytes": 4129,
+      "sha256": "76955f0280e3287e08dde066abb110d2186f01186c3f616f1e7345c7b7339b32",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13270,6 +13679,17 @@
       "path": "scripts/test_preprocess.py",
       "bytes": 2566,
       "sha256": "db803ac9aca3233efe5198cd3a166d516faba83bfdf5fc1a0bd05af6e1e1f720",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/test_recover_hoenn_flags.py",
+      "bytes": 6861,
+      "sha256": "c8487921468462d576cddac5d61c87e80e111b2fa31fc1f0e93e08659eb272aa",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13606,8 +14026,8 @@
     },
     {
       "path": "src/Tables/hoenn_script_flags.h",
-      "bytes": 5970,
-      "sha256": "392b0312b011d78b02cb386ef62620439b6c052d94a40a88b7f25fb4680a6a74",
+      "bytes": 6008,
+      "sha256": "666b4230a983ce09f93f5d21a8ffc457773984f3d0fe86bec4c4189cec2def5a",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13641,6 +14061,17 @@
       "path": "src/Tables/level_up_learnsets.c",
       "bytes": 696335,
       "sha256": "c619fcc8e907f1efd018f69768ba917f67ea079b5151c8790d8283c9c1385432",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/Tables/mega_shop_items.h",
+      "bytes": 9207,
+      "sha256": "d5bcde0b46e8499bd786471d7bba725ec2b94bb1befc8ec38732a4db817188ab",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13790,6 +14221,17 @@
       "path": "src/Tables/wild_encounter_tables.c",
       "bytes": 3453925,
       "sha256": "b952ab5da315d27fedd9dc989850bb87a3b4c3b65997151f1e6ed44357df20c7",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/Tables/wild_mega_stones.h",
+      "bytes": 2971,
+      "sha256": "792b67a0e2b033906a2ea23da5e6acce1342e87588c7d2cd2ae2f42161454f7e",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -14125,8 +14567,8 @@
     },
     {
       "path": "src/bw_option_menu.c",
-      "bytes": 25636,
-      "sha256": "ab998996499f993e539a3c255bbb4391d5358d15c0701c0d97e11b1588fe74bf",
+      "bytes": 25999,
+      "sha256": "b0abc1219ccb939450f153ba4927448fd7c89c794727d2a7ff8c9c943eaa3a4c",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15171,8 +15613,8 @@
     },
     {
       "path": "src/hack_wonder_trade.c",
-      "bytes": 23600,
-      "sha256": "8677a1b3e214ea690cfb346331e32a5e477738c1e96db0e46861bc9aa16b0fd0",
+      "bytes": 23643,
+      "sha256": "b49dcc99c377b864cd5900ff55bbc8e8567655ae27a40a840bc8a6906bca0a52",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15648,8 +16090,8 @@
     },
     {
       "path": "src/item.c",
-      "bytes": 65735,
-      "sha256": "c181b4bd64dd8f76922c73fa647b6952f6c76be8ddec4edc97e7501311266de3",
+      "bytes": 65760,
+      "sha256": "73192b00096e8e613676f7d4bed2965123364deb726ccb590ff37ab87020abda",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15758,20 +16200,14 @@
     },
     {
       "path": "src/mega_shop.c",
-      "bytes": 15836,
-      "sha256": "7eb401026e73f7a11417ad7467da95b09bd3e6953a51326a83a7bf9452627fa4",
+      "bytes": 15924,
+      "sha256": "4a2d896bc68209a382e248b0582c09fa7399b591fb59ce06d5efe0a6d3072c99",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 13,
-          "kind": "missing_local_include",
-          "target": "Tables/mega_shop_items.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/mgba.c",
@@ -15962,8 +16398,8 @@
     },
     {
       "path": "src/rtc.c",
-      "bytes": 6205,
-      "sha256": "e7a01b8bd480bbfcf2067a6de6f685010c98cd5120543fa555644f33e8070361",
+      "bytes": 6228,
+      "sha256": "089a5ec62285882656f57ac2591283d5197383e144e3ba09b72a2ef3c1ea8b7b",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -16179,13 +16615,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 3,
-          "kind": "missing_local_include",
-          "target": "Tables/wild_mega_stones.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/wild_shuffle.c",
