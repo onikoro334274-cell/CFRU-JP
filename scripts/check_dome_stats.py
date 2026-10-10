@@ -49,11 +49,11 @@ int main(void) {
     return lostEvs && truncatedStats ? 1 : 2;
 #else
     for (int species=1; species<4; species++)
-    for (int levelId=0; levelId<3; levelId++)
+    for (int levelId=0; levelId<4; levelId++)
     for (int ivId=0; ivId<2; ivId++)
     for (int mask=0; mask<256; mask++)
     for (int nature=0; nature<25; nature++) {
-        int level = levelId == 0 ? 1 : levelId == 1 ? 50 : 100;
+        int level = levelId == 0 ? 1 : levelId == 1 ? 50 : levelId == 2 ? 100 : 200;
         int ivs = ivId ? 31 : 0;
         int count = 0;
         for (int bit=0; bit<6; bit++) if (mask & (1 << bit)) count++;
@@ -92,7 +92,7 @@ int main(void) {
             print('Original Dome stats omit EV bonuses and truncate nature-adjusted stats to 8 bits.')
         else:
             result.check_returncode()
-            print('Dome stats pass 115200 inputs / 691200 stat comparisons: all masks and natures, level/IV extremes, Shedinja, and values above 255.')
+            print('Dome stats pass 153600 inputs / 921600 stat comparisons: all masks and natures, levels through 200, IV extremes, Shedinja, and values above 255.')
 
 
 if __name__ == '__main__':
