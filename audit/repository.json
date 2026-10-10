@@ -1351,6 +1351,26 @@
       "findings": []
     },
     {
+      "path": "audit/battle_speed_review.json",
+      "bytes": 1221,
+      "sha256": "4a0517c25998c4aeea831e0e1caf28359edc74e77b3533418aeaa167614f55aa",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/box_speed_review.json",
+      "bytes": 1310,
+      "sha256": "3e0461a822196bfdabc9ddec88d2c863231c1609aa9bbcc3b50c3f087cdf1aaa",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/c_syntax.json",
       "bytes": 50936,
       "sha256": "3ea8dcac158696f6fb36438ebee54147ac9df0991395f70281053317b9dc469c",
@@ -1541,6 +1561,16 @@
       "findings": []
     },
     {
+      "path": "audit/friend_ot_review.json",
+      "bytes": 362,
+      "sha256": "9531b7cbe4f3e5b6639b91681b3658d9a9d207562be7df21517245d812efdabb",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/gate_header_recovery.json",
       "bytes": 1089,
       "sha256": "1741b7a3d8798b63806be25ec243018b03936979846dd397d21e597bf41f7c9b",
@@ -1563,7 +1593,7 @@
     {
       "path": "audit/gnu_c.json",
       "bytes": 125820,
-      "sha256": "be35ada3b74cd284f7bffe6f7dec5ccbc768b0dc7ca460402ba1d247f8467094",
+      "sha256": "9b30e5fd29de00e6d859ff1fdb610f6706cf0e3ff2bec6438b4072bd3919d52c",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1621,6 +1651,26 @@
       "findings": []
     },
     {
+      "path": "audit/mon_id_layout_review.json",
+      "bytes": 602,
+      "sha256": "a4deb7bc3dedc55debc301b96ec69bd0f8c1229d40f8902f31a37b6b35adcc8d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/mon_id_packing_review.json",
+      "bytes": 478,
+      "sha256": "4a1b44f3b6b57d974bdd707c0b50fea9f2d5b1c56b4dde82293f169c7b64ea39",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/month_difference_review.json",
       "bytes": 1176,
       "sha256": "97a5243c7a7b7dc9eec0cb53e5e76bb231e9e2b8e6e1c5b3081ee1e89bf6cca7",
@@ -1654,6 +1704,56 @@
       "path": "audit/option_window_failure_review.json",
       "bytes": 854,
       "sha256": "e88fc5c7b1009a6c1ff7f9c669e8f8dffcb99a88706be7faba57a1fe63eb3033",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/overworld_callback_review.json",
+      "bytes": 1044,
+      "sha256": "0c9a5c08f2cae4f1de9912b74e9085e247612d4a20ca5fc559dd0afe8fd7aa8f",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/overworld_ice_review.json",
+      "bytes": 929,
+      "sha256": "a7b2eafb42991e75abe4bbd6492144f71f86927b9d1b40f686dd0ba8ad1e76ec",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/overworld_profile_arm.json",
+      "bytes": 861,
+      "sha256": "3828d6c49b2b6eb992e1a30a01b5f3dbd398ce5459677808af8ffa6cfb8a4be4",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/overworld_profile_review.json",
+      "bytes": 2117,
+      "sha256": "ef38599033fa69d009434369ad0735221774b159477f91804937ac4ac5b9a5f9",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/overworld_speed_review.json",
+      "bytes": 792,
+      "sha256": "08479ccf5879f2dedd9b00379e513a66f83953b2c6778dea8f8704f44b9c875e",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1701,6 +1801,16 @@
       "findings": []
     },
     {
+      "path": "audit/profile_task_routing_review.json",
+      "bytes": 1417,
+      "sha256": "dfdd429e8e19cddbcc5a0772e9a424883cfbc0bb4423a23b0159cd94f6336b42",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/progress.json",
       "bytes": 33793,
       "sha256": "365c4745d9a3bac6d127deb72e351e0890e4f127d72888becd51a55fccc3dc1b",
@@ -1734,6 +1844,16 @@
       "path": "audit/repoint_sources.json",
       "bytes": 2777,
       "sha256": "126ff6ae2b5c3cc2dd096f809fab6d91f9d10197465c9d470f6aa59234e11900",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/rom_battle_callback.json",
+      "bytes": 1283,
+      "sha256": "182716fd04e273f614665d820e0cfd4b1578d2aa4849d55d72dbe17348843eec",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -1784,6 +1904,16 @@
       "path": "audit/rtc_validation_review.json",
       "bytes": 1179,
       "sha256": "72d286db984f7b4159fc0af7a039b13cdb368fb84f85f44709a6c6d5a3447954",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "audit/save_crypt_review.json",
+      "bytes": 564,
+      "sha256": "45a711438d27293c286e1c275fd5cd5c98b6e35897fbfcc0d3c4b4148e6e7408",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12808,6 +12938,28 @@
       "findings": []
     },
     {
+      "path": "scripts/check_battle_speed.py",
+      "bytes": 5194,
+      "sha256": "1fd75cfa95125687bbf623e9a426dfeef7fb86c10c1bd84b4c01265b63b092ae",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_box_speed.py",
+      "bytes": 3001,
+      "sha256": "f0818970e3b5cec6145c9c485c9b9aa345e5f119165784c59d3c5d968fc131d2",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_calendar_differences.py",
       "bytes": 8253,
       "sha256": "a5e34b33ec8665a99e204136df5a7d206f2fe7d42b5b83f32041ae00999df565",
@@ -13061,6 +13213,17 @@
       "findings": []
     },
     {
+      "path": "scripts/check_friend_ot.py",
+      "bytes": 5068,
+      "sha256": "ec5fa33367b5072b23b741e2a37f4e9a506676d2eb2da7ddf201528182d7cc85",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_full_tutor.py",
       "bytes": 6241,
       "sha256": "3287b775234b70c7249515e06efac361fed0b430d74f123e42757a76cad2f727",
@@ -13149,6 +13312,28 @@
       "findings": []
     },
     {
+      "path": "scripts/check_mon_id_layout.py",
+      "bytes": 2839,
+      "sha256": "8466cbc7e276146a72cd2ce3870bbf8c1ba6195dd50d2607c7ff0b4ab5af0c27",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_mon_id_packing.py",
+      "bytes": 3401,
+      "sha256": "b2da6228cc17623890fee024d5f1277bc40cdf8c783b52f000fa16ac70ee10d3",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_option_cancel.py",
       "bytes": 2779,
       "sha256": "515c7ccf35d26b094e1f01ae7dca8f8f77440f9231e8f750ca6bb60a21777f3b",
@@ -13174,6 +13359,50 @@
       "path": "scripts/check_option_window_failure.py",
       "bytes": 2284,
       "sha256": "ad7b77db054d0c24168243fc2480f25e545762e95131f17028a1d0aa5afb77b2",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_overworld_callback.py",
+      "bytes": 3264,
+      "sha256": "ef7e047b8ca168276c47ec261f2b0ca6d6252195ceda39bc63a4aa33db339606",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_overworld_ice.py",
+      "bytes": 3002,
+      "sha256": "f86733495565c5a83324fc4c41da5dfc1d774064161b1f8c82372c15f2bfc237",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_overworld_profile.py",
+      "bytes": 3889,
+      "sha256": "88dc10c65d6df27a5d52d5e36c0a2c42d04fd63c2fa571d5ce23f0af99680bc3",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_overworld_speed.py",
+      "bytes": 2259,
+      "sha256": "52064cd9924ac7d412bc027306913b6eb0c80fa3cb63b3f9d0bcea4b97e31e6d",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13215,9 +13444,31 @@
       "findings": []
     },
     {
+      "path": "scripts/check_profile_tasks.py",
+      "bytes": 3329,
+      "sha256": "165b9ee99b91d0d4b9f419c8978c54bf1c9f6f53087d7ef11f4c49c32d913338",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_roamer_movement.py",
       "bytes": 3335,
       "sha256": "938fcde28d2587ebc89b3b00157a27ebcd440cee2b68127c8555f4cb8ea2b524",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_rom_battle_callback.py",
+      "bytes": 3004,
+      "sha256": "d0c0808abbf6e9315afb0a792a37ed5cee8f28dce09c3b620f7aaecbddaa4bbd",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13262,6 +13513,17 @@
       "path": "scripts/check_rtc_validation.py",
       "bytes": 4352,
       "sha256": "046fedff3f01fddd0dfb3d040138f11638409cd31356ede72fa11fed33b247f6",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/check_save_crypt.py",
+      "bytes": 4978,
+      "sha256": "09858c8f9317cf7ae3b3fa6dab8e3297af9f37f1cd01687b11d42c180b263f0a",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -15068,8 +15330,8 @@
     },
     {
       "path": "src/hack_box_speed.c",
-      "bytes": 2211,
-      "sha256": "aa61fc73ac4c113351b1f74c8f985d9b123778e93b4de6dcaa9155cc9683184a",
+      "bytes": 2587,
+      "sha256": "df9b9d8f1bbedc28bab20d91f17c25936d19e75bc4a460a1e6a8651d22d01ec9",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -16277,8 +16539,8 @@
     },
     {
       "path": "src/overworld_speedup.c",
-      "bytes": 14885,
-      "sha256": "8fc992559ec84c482fde7a3660f41a8fe2adade95930e0be90490aad7226581f",
+      "bytes": 15257,
+      "sha256": "4dce5afb3f3da3cedd916646e328bba5507bb2f7b5dae831f957e76319378acb",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",

@@ -87,7 +87,8 @@
     "DNS colour production regression passes after date-arithmetic changes; native channel/packed-colour checks do not prove rendering",
     "Scoped current-source semantic ledger now includes compressed stream limits/dispatch, Factory exit/selection/copies, RTC input bounds, play clock calendar/adjustment, elapsed calendar arithmetic and daily timestamp alignment; none certifies entire files",
     "Current shop checks cover 3932160 price-routing cases, 196608 escalation cases, name slot counts 0..256, seven window tile allocations and 2048 frame cells. Premier bonus checks cover 32000 cases in both configuration branches. Existing slot-screen helper check rerun and passed. Scope-specific records preserve runtime limitations.",
-    "Latest state: 178/203 GNU ARM C objects pass; 25 stop at omitted generated includes. Python tool regressions: 72 pass with GNU ARM tools. Wonder Trade, Eterna clock and option-menu checks are scoped records; full linking and game runtime remain incomplete."
+    "Latest state: 178/203 GNU ARM C objects pass; 25 stop at omitted generated includes. Python tool regressions: 72 pass with GNU ARM tools. Wonder Trade, Eterna clock and option-menu checks are scoped records; full linking and game runtime remain incomplete.",
+    "Current GNU ARM C audit: 178/203 object compilations passed; 25 stopped at missing generated headers. Extended-save boundary/failure and save-screen regressions rerun successfully."
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -159,15 +160,14 @@
     "Daily timestamp struct preserves four-byte format with two-byte alignment; ARM writes use halfwords"
   ],
   "limitations": [
-    "36 quoted C include references are absent from this checkout; see repository.json for locations",
     "C sprite cleanup has been inspected but has not been run in the game",
     "Integer macro execution tests run on Windows x64 with 32-bit unsigned int, not on the GBA",
     "Semantic review of all C, headers, assembly, strings, tables and binary files is incomplete",
     "The adjacent PokemonStart-src is also a source-only snapshot; its AGENTS.md confirms omitted ROMs, generated assets, devkitARM and build orchestration tools",
     "Other adjacent project ROM candidates were found but are not verified as the required original/full PokemonStart build inputs",
     "Definition imports intentionally retain legacy first-token macro extraction; this helper is not a full C preprocessor",
-    "Full linking and game runtime are not verified; GNU C object compilation is verified for the 174 of 203 C files with available headers; remaining 29 sources fail due to missing generated inputs or definitions",
-    "Factory summary production function was executed in a Windows native fixture; the complete factory file remains blocked by omitted generated headers and GBA runtime is unverified"
+    "Factory summary production function was executed in a Windows native fixture; the complete factory file remains blocked by omitted generated headers and GBA runtime is unverified",
+    "Current compilation/inventory counts are recorded in current_compilation/current_inventory; earlier verified entries are historical. Full linking and GBA runtime remain unverified."
   ],
   "next": [
     "Review clock-mode reset semantics, RTC probe/frame synchronization/play-time counter, and packed timestamp variable-pair bounds; completed arithmetic/storage scopes are recorded in semantic_reviews.json",
@@ -187,7 +187,7 @@
     "Resolve the currently inventoried missing include references and obtain remaining generated assets/tools for GNU linking/runtime validation; use repository.json for current scope and counts."
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T20:17:51.560376+00:00",
+  "updated_utc": "2026-10-10T20:38:32.020519+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete.",
   "current_compilation": {
@@ -225,9 +225,16 @@
     "limitations": "Object compilation only; full linking and runtime remain incomplete."
   },
   "current_inventory": {
-    "files": 1828,
+    "files": 1853,
     "findings": 34,
     "evidence": "repository.json",
     "limitations": "Static inventory and include checks; semantic review remains incomplete."
-  }
+  },
+  "current_scoped_reviews": {
+    "friendship_ot": "friend_ot_review.json",
+    "individual_id_packing": "mon_id_packing_review.json",
+    "individual_id_arm_layout": "mon_id_layout_review.json",
+    "save_scrambling": "save_crypt_review.json"
+  },
+  "current_scoped_reviews_limitation": "These reports verify named functions and controlled scenarios only. They do not certify entire files, all callers, save migration, linking, or GBA runtime."
 }
