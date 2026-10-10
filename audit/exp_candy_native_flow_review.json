@@ -1,0 +1,32 @@
+{
+  "result": "incomplete",
+  "source": "src/exp_candy.c",
+  "confirmed_findings": [
+    {
+      "function": "ItemUseCB_ExpCandy",
+      "condition": "newLevel > level and CheckBagHasSpace(ITEM_RARE_CANDY, 1) returns false after consuming the experience candy",
+      "behavior": "Directly writes final experience, recalculates stats and exits through the experience message. Intermediate move learning and normal final evolution dispatch are bypassed.",
+      "status": "unfixed"
+    },
+    {
+      "function": "ExpCandyNextLevel",
+      "behavior": "Ignores AddBagItem result before invoking native rare candy step. Native step removes a rare candy without checking removal success.",
+      "status": "requires replacement of synthetic inventory dependency"
+    }
+  ],
+  "bprj_rev0_native_evidence": {
+    "ItemUseCB_RareCandyStep": "0x08126C94",
+    "GetMonLevelUpWindowStats": "0x0811D960",
+    "stats_buffer_offset_from_party_menu_internal": "0x218",
+    "second_stats_buffer_offset": "0x224",
+    "ExecuteTableBasedItemEffect_call": "0x08126CCA -> 0x08125BCC",
+    "quest_log_call": "0x08126CE8 -> 0x080A3554, arguments 4, 0, item, 0xFFFF",
+    "fanfare_call": "0x08126CEE -> 0x08071368, argument 0",
+    "UpdateMonDisplayInfoAfterRareCandy": "0x08126D84",
+    "RemoveBagItem_call": "0x08126CFE -> 0x08099BE0",
+    "level_up_text": "0x083DE267",
+    "next_task_callback_literal": "0x08126D80 contains 0x08126E0D"
+  },
+  "next_work": "Implement an experience-candy level step retaining native before/after stats, effect application, level-up text, task continuation and per-level move learning, while eliminating synthetic bag insertion/removal. Verify full-bag and existing rare-candy inventories, final experience remainder, task transitions and evolution.",
+  "limitations": "Native ROM disassembly and source control flow inspection only. End-to-end patched ROM execution and complete move/evolution chain not yet verified. No production fix made in this review."
+}
