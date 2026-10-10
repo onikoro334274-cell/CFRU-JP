@@ -10,9 +10,11 @@ ROOT = Path(__file__).resolve().parent.parent
 def main():
     source = (ROOT / 'src/overworld_speedup.c').read_text(encoding='utf-8')
     production = '\n'.join(function(source, signature) for signature in (
-        'static u32 ProfNow(void)', 'static void ProfAdd(u32 k, u32 lines)'))
+        'static u32 ProfSampleTime(u32* frameBase)', 'static u32 ProfNow(void)',
+        'static void ProfAdd(u32 k, u32 lines)'))
     fixture = r'''
 typedef unsigned int u32;
+#define NULL ((void*)0)
 typedef volatile u32 vu32;
 static struct {u32 vblankCounter2;} gMain;
 static u32 scanline;static int retries,reads;
@@ -45,6 +47,15 @@ int main(void) {
     }
     gMain.vblankCounter2=0xFFFFFFFF;scanline=159;retries=reads=0;
     if(ProfNow()!=0xFFFFFFFFu*228u+227u) return 7;
+    for(u32 frame=0;frame<4;frame++) for(u32 line=0;line<228;line++) {
+        if(line==160) continue;
+        gMain.vblankCounter2=frame==3 ? 0xFFFFFFFF : frame;
+        scanline=line;retries=2;reads=0;u32 base=77;
+        u32 stamp=ProfSampleTime(&base);
+        u32 wantedBase=gMain.vblankCounter2*228u;
+        u32 phase=line>160 ? line-160 : line+68;
+        if(base!=wantedBase || stamp-base!=phase || reads!=3) return 8;
+    }
     const u32 values[]={0,1,228,0xFFFFFFFF};
     for(u32 k=0;k<28;k++) for(u32 choice=0;choice<4;choice++) {
         for(u32 i=0;i<PROF_WORDS+2;i++) storage[i]=0xDEADBEEF;
@@ -72,7 +83,7 @@ int main(void) {
         subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
-    print('Field profile: 112 storage cases and 233 scanline/race/wrap cases passed.')
+    print('Field profile: 112 storage, 233 scanline/race/wrap and 908 coherent frame-base cases passed.')
 
 
 if __name__ == '__main__':

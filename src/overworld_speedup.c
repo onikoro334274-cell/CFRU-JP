@@ -89,7 +89,7 @@ void HackFriendOt_FieldTick(void);
 #define PROF_VCOUNT (*(vu16*) 0x04000006)
 /* 区間 11〜16 は CB1 の中（ProfCB1 が素の DoCB1_Overworld 08055D0C と同じ順に呼ぶ）・17 は CB1 に入るまで（VBlank の割り込みなど）・
    18〜26 は素の OverworldBasic 08055E38 の 9 つ（ProfOverworldBasic が同じ順に呼ぶ）。番地は日本語版の ROM を逆アセンブルして確かめた */
-static u32 ProfNow(void)
+static u32 ProfSampleTime(u32* frameBase)
 {
     /* VCOUNT とコマの数の間に VBlank が入ると 1 コマ（228 本）飛ぶので、コマの数が前後で同じになるまで読み直す */
     u32 c, v;
@@ -99,7 +99,14 @@ static u32 ProfNow(void)
         c = *counter;
         v = PROF_VCOUNT;
     } while (c != *counter || v == 160);   /* 160 は割り込みが来る線（コマの数が増える前か後か分からない） */
-    return c * 228u + (v > 160 ? v - 160 : v + 68);
+    u32 base = c * 228u;
+    if (frameBase != NULL)
+        *frameBase = base;
+    return base + (v > 160 ? v - 160 : v + 68);
+}
+static u32 ProfNow(void)
+{
+    return ProfSampleTime(NULL);
 }
 static void ProfAdd(u32 k, u32 lines)
 {
@@ -236,8 +243,8 @@ void OverworldSpeedup_CB2Overworld(void)
     u8 extra, i;
 #ifdef HACK_PROFILE
     u32 profT;
-    u32 start = ProfNow();
-    u32 frameStart = gMain.vblankCounter2 * 228u;
+    u32 frameStart;
+    u32 start = ProfSampleTime(&frameStart);
     ProfAdd(0, start - frameStart);
     PROF_BASE[1]++;
     if (gMain.vblankCounter2 - PROF_BASE[4 + 2 * PROF_SECTIONS] > 1 && PROF_BASE[4 + 2 * PROF_SECTIONS] != 0)
