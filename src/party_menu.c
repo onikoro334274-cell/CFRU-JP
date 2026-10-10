@@ -2818,7 +2818,9 @@ void ItemUseCB_RareCandy(u8 taskId, TaskFunc func)
 
 	PlaySE(SE_SELECT);
 
-	if (level >= 100 //[hack] patches/0236 2026-10-09 レベル上限 200 にしたが、ふしぎなアメは Lv100 まで（ユーザー「100からはふしぎなアメつかえないように」）
+	if (!CheckBagHasItem(item, 1))
+		noEffect = TRUE;
+	else if (level >= 100 //[hack] patches/0236 2026-10-09 レベル上限 200 にしたが、ふしぎなアメは Lv100 まで（ユーザー「100からはふしぎなアメつかえないように」）
 	#ifdef FLAG_HARD_LEVEL_CAP
 	|| (FlagGet(FLAG_HARD_LEVEL_CAP) && level >= GetCurrentLevelCap())
 	#endif
@@ -2828,9 +2830,12 @@ void ItemUseCB_RareCandy(u8 taskId, TaskFunc func)
 			noEffect = TRUE;
 		else
 		{
-			RemoveBagItem(item, 1);
-			PartyMenuTryEvolution(taskId);
-			return;
+			if (RemoveBagItem(item, 1))
+			{
+				PartyMenuTryEvolution(taskId);
+				return;
+			}
+			noEffect = TRUE;
 		}
 	}
 	else

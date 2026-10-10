@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "entry_cases": 16384,
+  "scope": "Production ordinary rare-candy entry with/without hard-cap compile option, all byte levels, inventory existence/removal failures, eligibility and evolution branches. Cap remains 100; optional lower cap routes to evolution only. Missing item never dispatches effect/evolution; evolution requires successful consumption.",
+  "limitations": "Native RareCandyStep and evolution scenes simulated. Native level-up inventory removal remains synchronous after the entry inventory check."
+}
