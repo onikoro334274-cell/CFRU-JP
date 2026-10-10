@@ -1,0 +1,28 @@
+{
+  "scope": "Actual overworld_speedup.c ARM object with HACK_PROFILE enabled",
+  "source_sha256": "1435069958ef53c1da47c6fb77ace283d4459e1f669d35e87e7fd97f7898ad82",
+  "command": [
+    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\bin\\arm-none-eabi-gcc.exe",
+    "-mthumb",
+    "-mno-thumb-interwork",
+    "-mcpu=arm7tdmi",
+    "-mtune=arm7tdmi",
+    "-mno-long-calls",
+    "-march=armv4t",
+    "-Wall",
+    "-Wextra",
+    "-O2",
+    "-fira-loop-pressure",
+    "-fipa-pta",
+    "-DHACK_PROFILE",
+    "-isystem",
+    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\arm-none-eabi\\include",
+    "-c",
+    "src/overworld_speedup.c",
+    "-o",
+    "<temporary object>"
+  ],
+  "exit_code": 0,
+  "diagnostics": "",
+  "limitations": "Object generation only; no full link or runtime claim."
+}

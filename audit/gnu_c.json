@@ -1134,7 +1134,7 @@
     {
       "path": "src/overworld_speedup.c",
       "exit_code": 0,
-      "source_sha256": "0b38a92bb3c10b728931581cbdf7ee965ab0d2abcea28d2adcff685fd2fd6a10",
+      "source_sha256": "1435069958ef53c1da47c6fb77ace283d4459e1f669d35e87e7fd97f7898ad82",
       "object_bytes": 1952,
       "diagnostics": ""
     },

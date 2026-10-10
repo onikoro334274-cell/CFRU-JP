@@ -85,6 +85,7 @@ void HackFriendOt_FieldTick(void);
 #ifdef HACK_PROFILE
 #define PROF_BASE ((u32*) 0x0203F800)
 #define PROF_SECTIONS 28
+#define PROF_WORDS (330 + PROF_SECTIONS)
 #define PROF_VCOUNT (*(vu16*) 0x04000006)
 /* 区間 11〜16 は CB1 の中（ProfCB1 が素の DoCB1_Overworld 08055D0C と同じ順に呼ぶ）・17 は CB1 に入るまで（VBlank の割り込みなど）・
    18〜26 は素の OverworldBasic 08055E38 の 9 つ（ProfOverworldBasic が同じ順に呼ぶ）。番地は日本語版の ROM を逆アセンブルして確かめた */
@@ -104,7 +105,7 @@ static void ProfAdd(u32 k, u32 lines)
     u32* p = PROF_BASE;
     if (p[0] != 0x464F5250)   /* 'PROF' */
     {
-        Memset(p, 0, (4 + 2 * PROF_SECTIONS + 1) * 4);
+        Memset(p, 0, PROF_WORDS * sizeof(*p));
         p[0] = 0x464F5250;
         p[3] = PROF_SECTIONS;
     }
