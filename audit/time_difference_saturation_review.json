@@ -1,0 +1,16 @@
+{
+  "scope": "GetHourDifference and GetMinuteDifference u32 saturation boundaries",
+  "defect": "Threshold checks used days >= floor(UINT32_MAX/units), saturating representable results prematurely and ignoring within-day start/end offsets.",
+  "fix": "Compute full elapsed hours/minutes in u64 and saturate only values exceeding UINT32_MAX. Minute calculation no longer computes the date difference twice through GetHourDifference.",
+  "baseline": "76c813bef6b90059985c2b250a103d3e1292e08e",
+  "checks": {
+    "scripts/check_calendar_differences.py": "Existing 262144 date/time cases plus 5007 large year spans; 13824 hour/minute boundary cases at day counts immediately around both u32 thresholds",
+    "scripts/check_calendar_differences.py --baseline HEAD --check-saturation (before commit)": "Return 13 reproduces premature minute saturation",
+    "audit/gnu_c.json": "174/203 ARM C source compilations pass including dns.c"
+  },
+  "limitations": [
+    "Boundary endpoint dates derived with Python arbitrary-integer Gregorian ordinals and calendar month lengths; no real-time hardware execution",
+    "GBA runtime instruction costs and final 64-bit helper linking remain unverified",
+    "GetMonthDifference overflow and packed daily event storage remain separate pending review scopes"
+  ]
+}

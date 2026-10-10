@@ -1,6 +1,7 @@
 """Check production date/time differences against Python Gregorian dates."""
 import argparse
 import datetime
+import calendar
 import subprocess
 import tempfile
 import random
@@ -13,6 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--baseline')
+    parser.add_argument('--check-saturation', action='store_true', help='Also test large time boundaries on a baseline with optimized day counting')
     args = parser.parse_args()
     source = (ROOT / 'src/dns.c').read_text(encoding='utf-8')
     if args.baseline:
@@ -51,10 +53,38 @@ def main():
         expected = min(0xFFFFFFFF, ordinal(end) - ordinal(start))
         spans.append('{%du,%du,%du}' % (start, end, expected))
     arrays.append('static const u32 spans[][3]={' + ','.join(spans) + '};')
+    boundary_dates = []
+    for days in [0xFFFFFFFF // 1440 + delta for delta in (-1, 0, 1)] + [0xFFFFFFFF // 24 + delta for delta in (-1, 0, 1)]:
+        target = ordinal(1) + days
+        lo, hi = 1, 0xFFFFFFFF
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if ordinal(mid) <= target:
+                lo = mid
+            else:
+                hi = mid - 1
+        left, month = target - ordinal(lo), 1
+        while left >= calendar.monthrange(lo, month)[1]:
+            left -= calendar.monthrange(lo, month)[1]
+            month += 1
+        boundary_dates.append('{%du,%du,%du,%du}' % (days, lo, month, left + 1))
+    arrays.append('static const u32 boundaries[][4]={' + ','.join(boundary_dates) + '};')
     # Prior loop-based implementations are tested only on the bounded calendar cases.
     large_test = '' if args.baseline else '''
     for(u32 i=0;i<sizeof(spans)/sizeof(spans[0]);i++)
         if(GetDayDifference(spans[i][0],1,1,spans[i][1],1,1)!=spans[i][2]) return 11;
+'''
+    if not args.baseline or args.check_saturation:
+        large_test += '''
+    for(u32 i=0;i<6;i++) for(u32 sh=0;sh<24;sh++) for(u32 eh=0;eh<24;eh++)
+    for(u32 sm=0;sm<60;sm+=59) for(u32 em=0;em<60;em+=59) {
+        u64 hours=(u64)boundaries[i][0]*24+eh-sh;
+        u64 minutes=hours*60+em-sm;
+        u32 expectedHours=hours>0xFFFFFFFFu ? 0xFFFFFFFFu : hours;
+        u32 expectedMinutes=minutes>0xFFFFFFFFu ? 0xFFFFFFFFu : minutes;
+        if(GetHourDifference(1,1,1,sh,boundaries[i][1],boundaries[i][2],boundaries[i][3],eh)!=expectedHours) return 12;
+        if(GetMinuteDifference(1,1,1,sh,sm,boundaries[i][1],boundaries[i][2],boundaries[i][3],eh,em)!=expectedMinutes) return 13;
+    }
 '''
     fixture = r'''
 typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typedef unsigned long long u64;typedef u8 bool8;
@@ -96,6 +126,8 @@ int main(void) {
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
     print('Calendar differences: 196608 date cases, 65536 time cases and %d large year spans pass.' % (0 if args.baseline else len(spans)))
+    if not args.baseline or args.check_saturation:
+        print('Time saturation: 13824 hour/minute boundary combinations pass.')
 
 
 if __name__ == '__main__':

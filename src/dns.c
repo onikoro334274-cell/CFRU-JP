@@ -403,17 +403,9 @@ u32 GetMinuteDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour,
 
 	u32 days = GetDayDifference(startYear, startMonth, startDay, endYear, endMonth, endDay);
 
-	if (days >= 0xFFFFFFFF / 24 / 60)
-		return 0xFFFFFFFF; //Max minutes
-	else
-	{
-		u32 hours = GetHourDifference(startYear, startMonth, startDay, startHour, endYear, endMonth, endDay, endHour);
-
-		if (startMin > endMin)
-			return (MathMax(1, hours) - 1) * 60 + ((endMin + 60) - startMin);
-		else
-			return hours * 60 + (endMin - startMin);
-	}
+	u64 minutes = (u64) days * 1440 + endHour * 60 + endMin;
+	minutes -= startHour * 60 + startMin;
+	return minutes > 0xFFFFFFFFu ? 0xFFFFFFFFu : (u32) minutes;
 }
 
 u32 GetHourDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour, u32 endYear, u8 endMonth, u8 endDay, u8 endHour)
@@ -431,13 +423,9 @@ u32 GetHourDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour, u
 
 	u32 days = GetDayDifference(startYear, startMonth, startDay, endYear, endMonth, endDay);
 
-	if (days >= 0xFFFFFFFF / 24)
-		return 0xFFFFFFFF; //Max hours
-
-	if (startHour > endHour)
-		return (days - 1) * 24 + ((endHour + 24) - startHour);
-	else //startHour <= endHour
-		return days * 24 + (endHour - startHour);
+	u64 hours = (u64) days * 24 + endHour;
+	hours -= startHour;
+	return hours > 0xFFFFFFFFu ? 0xFFFFFFFFu : (u32) hours;
 }
 
 u32 GetDayDifference(u32 startYear, u8 startMonth, u8 startDay, u32 endYear, u8 endMonth, u8 endDay)
