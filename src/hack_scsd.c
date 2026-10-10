@@ -242,6 +242,8 @@ static bool8 HackScsd_FindFile(struct ScsdFs *fs)
 	u32 clus, s, guard;
 	u32 pend = 0, nameLen = 0, namePos = 0, pendClus = 0, pendSize = 0, pendNoChain = 0;
 	bool8 match = FALSE;
+	if (fs->type != 16 && fs->type != 32 && name == NULL)
+		return FALSE;
 
 	if (fs->type == 16)
 	{
@@ -299,7 +301,7 @@ static bool8 HackScsd_FindFile(struct ScsdFs *fs)
 				{
 					u32 i;
 					for (i = 0; i < 15 && namePos < nameLen; i++, namePos++)
-						if (name[namePos] == 0 || Upper(Rd16(d + 2 + i * 2)) != Upper((u8) name[namePos]))
+					if (match && (name[namePos] == 0 || Upper(Rd16(d + 2 + i * 2)) != Upper((u8) name[namePos])))
 							match = FALSE;
 					pend--;
 					if (pend == 0 && match && namePos == nameLen && name[nameLen] == 0)

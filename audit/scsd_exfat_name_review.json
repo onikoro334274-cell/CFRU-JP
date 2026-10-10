@@ -1,0 +1,13 @@
+{
+  "scope": "Caller-string access during exFAT matching in HackScsd_FindFile, src/hack_scsd.c",
+  "finding": "The comparison kept indexing the requested name after detecting its terminator or an earlier mismatch, potentially reading beyond its allocation when the on-disk name was longer.",
+  "change": "Stop reading requested-name characters after mismatch while still consuming directory fragments. Reject NULL names before exFAT traversal; FAT short-name paths retain their existing behavior.",
+  "verification": [
+    "check_scsd_exfat_names.py executes the production lookup with only requested-name reads instrumented to check the exact NUL-terminated extent",
+    "All 0..255 on-disk/requested lengths, matching/case-folded, first-character mismatch and non-ASCII UTF16 mismatch (196608 cases)",
+    "Cross-sector filename fragments, final length equality, unchanged failed-match metadata and NULL early rejection verified",
+    "Baseline b381a97 fails the same fixture; current source passes",
+    "Existing FAT-directory and cluster-address checks pass; GNU ARM compilation passes without diagnostics"
+  ],
+  "limitations": "Controlled directory sectors and string-access instrumentation, not a physical-memory sanitizer or SD hardware. Entry checksums/sequence validity, directory attributes, 64-bit file lengths, Unicode filename support and full native transport remain unverified."
+}
