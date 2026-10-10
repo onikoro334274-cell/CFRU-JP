@@ -1,0 +1,15 @@
+{
+  "scope": "Factory Select_Task_Exit allocation cleanup",
+  "defect": "Normal exit freed the root while selectMonPicBgTilesetBuffer remained allocated. Summary transition already freed the same buffer.",
+  "fix": "Release selectMonPicBgTilesetBuffer with the other child buffers before freeing the root.",
+  "baseline": "0631628f9d0f681df42194c2536e5ba8ebc8fddf",
+  "checks": {
+    "scripts/check_factory_select_cleanup.py": "16 animation/task-state/fade/optional-party combinations pass; child ownership and final callback checked",
+    "scripts/check_factory_select_cleanup.py --baseline HEAD (before commit)": "Return 1 detects live child when root is freed"
+  },
+  "limitations": [
+    "Native production exit-task fixture; mocks cover cleanup ordering, not GBA rendering",
+    "Complete hoenn_factory_screen.c remains blocked by missing generated graphics header",
+    "Initial root/buffer/window/task allocation failure paths still require stage-specific handling"
+  ]
+}
