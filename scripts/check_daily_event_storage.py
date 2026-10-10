@@ -21,10 +21,17 @@ def main():
     production = '\n'.join(function(source, signature) for signature in
                            ('void UpdateTimeInVars(u16 eventVar)',
                             'bool8 CheckAndSetDailyEvent(u16 eventVar, bool8 setDailyEventVar)'))
+    if 'GetDailyEventVarPointer' in source:
+        production = function(source, 'static struct DailyEventVar *GetDailyEventVarPointer(u16 var)') + '\n' + production
     fixture = r'''
 typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typedef u8 bool8;
 #define TRUE 1
 #define FALSE 0
+#define NULL ((void*)0)
+#define VARS_START 1
+#define VARS_END 7
+#define SPECIAL_VARS_START 0x8000
+#define SPECIAL_VARS_END 0x8014
 STRUCTURE
 _Static_assert(sizeof(struct DailyEventVar)==4,"timestamp occupies two variables");
 _Static_assert(_Alignof(struct DailyEventVar)==2,"variable pairs may be halfword aligned");

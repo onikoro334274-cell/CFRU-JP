@@ -1,0 +1,20 @@
+{
+  "scope": "Six variable-backed timestamp consumers in src/scripting.c",
+  "finding": "The first variable pointer was treated as a four-byte timestamp without validating either variable. Invalid IDs could dereference NULL, bank-end IDs crossed the allocation, and noncontiguous special variables overwrote unrelated memory.",
+  "change": "Resolve a timestamp only when both IDs belong to the same supported bank and GetVarPointer returns adjacent non-NULL u16 pointers. Invalid writers and daily events do nothing; future checks return false, buffered dates are empty, and time differences return zero.",
+  "covered_functions": [
+    "IsTimeInVarInFuture",
+    "IsDayInVarInFuture",
+    "BufferYearMonthDayFromVar",
+    "CheckAndSetDailyEvent",
+    "UpdateTimeInVars",
+    "sp0A2_GetTimeDifference"
+  ],
+  "verification": [
+    "check_daily_event_bounds.py: all 65536 IDs with valid, first-NULL, second-NULL and noncontiguous resolver states; all six APIs; expansion enabled and disabled",
+    "Boundary fixture uses repository variable-bank constants and asserts no invalid resolver calls, no bank canary damage, no writes through noncontiguous pointers and no difference calculation on invalid data",
+    "check_daily_event_storage.py: 4285440 production bit-layout writes and 4032 event comparisons still pass at both u16 alignments",
+    "GNU ARM compilation of src/scripting.c passes without diagnostics"
+  ],
+  "limitations": "Resolver behavior is controlled in the native fixture. Actual BPRJ variable-pointer hook execution and complete daily-event gameplay remain unverified. This review does not cover every function in scripting.c."
+}

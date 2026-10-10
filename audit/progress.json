@@ -188,7 +188,7 @@
     "Resolve the currently inventoried missing include references and obtain remaining generated assets/tools for GNU linking/runtime validation; use repository.json for current scope and counts."
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T21:53:35.287485+00:00",
+  "updated_utc": "2026-10-10T21:56:24.535057+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete.",
   "current_compilation": {
@@ -260,7 +260,8 @@
     "pc_box_direction": "pc_box_direction_review.json",
     "pc_mon_search": "pc_mon_search_review.json",
     "player_birthday": "audit/birthday_review.json",
-    "play_clock_mode": "audit/play_clock_mode_review.json"
+    "play_clock_mode": "audit/play_clock_mode_review.json",
+    "daily_event_bounds": "audit/daily_event_bounds_review.json"
   },
   "current_scoped_reviews_limitation": "These reports verify named functions and controlled scenarios only. They do not certify entire files, all callers, save migration, linking, or GBA runtime.",
   "latest_verification": {

@@ -1736,9 +1736,30 @@ struct __attribute__((packed, aligned(2))) DailyEventVar
 	u32 century : 5; //31 centuries max - starts at 0
 };
 
+/* Both halves must be valid variables in the same bank. Special variables
+ * are resolved separately because their pointer table need not be contiguous. */
+static struct DailyEventVar *GetDailyEventVarPointer(u16 var)
+{
+	u16 *first, *second;
+	bool8 valid = (var >= VARS_START && var < VARS_END)
+		|| (var >= SPECIAL_VARS_START && var < SPECIAL_VARS_END);
+#ifdef SAVE_BLOCK_EXPANSION
+	valid |= var >= 0x5000 && var < 0x51FF;
+#endif
+	if (!valid)
+		return NULL;
+	first = GetVarPointer(var);
+	second = GetVarPointer(var + 1);
+	if (first == NULL || second == NULL || second != first + 1)
+		return NULL;
+	return (struct DailyEventVar *)first;
+}
+
 bool8 IsTimeInVarInFuture(u16 var)
 {
-	struct DailyEventVar* timeData = (struct DailyEventVar*) GetVarPointer(var);
+	struct DailyEventVar* timeData = GetDailyEventVarPointer(var);
+	if (timeData == NULL)
+		return FALSE;
 
 	//u8 hour = timeData->hour;
 	//u8 minute = timeData->minute; //Changing time within day is acceptable
@@ -1755,7 +1776,9 @@ bool8 IsTimeInVarInFuture(u16 var)
 
 bool8 IsDayInVarInFuture(u16 var)
 {
-	struct DailyEventVar* timeData = (struct DailyEventVar*) GetVarPointer(var);
+	struct DailyEventVar* timeData = GetDailyEventVarPointer(var);
+	if (timeData == NULL)
+		return FALSE;
 
 	u8 day = timeData->day;
 	u8 month = timeData->month;
@@ -1768,7 +1791,14 @@ bool8 IsDayInVarInFuture(u16 var)
 
 void BufferYearMonthDayFromVar(u16 var)
 {
-	struct DailyEventVar* timeData = (struct DailyEventVar*) GetVarPointer(var);
+	struct DailyEventVar* timeData = GetDailyEventVarPointer(var);
+	if (timeData == NULL)
+	{
+		gStringVar1[0] = EOS;
+		gStringVar2[0] = EOS;
+		gStringVar3[0] = EOS;
+		return;
+	}
 
 	u32 year = timeData->year + timeData->century * 100;
 	u8 month = timeData->month;
@@ -1792,7 +1822,9 @@ bool8 sp0A0_CheckAndSetDailyEvent(void)
 bool8 CheckAndSetDailyEvent(u16 eventVar, bool8 setDailyEventVar)
 {
 	bool8 toReturn = FALSE;
-	struct DailyEventVar* dailyData = (struct DailyEventVar*) GetVarPointer(eventVar);
+	struct DailyEventVar* dailyData = GetDailyEventVarPointer(eventVar);
+	if (dailyData == NULL)
+		return FALSE;
 
 	u8 dailyDay = dailyData->day;
 	u8 dailyMonth = dailyData->month;
@@ -1835,7 +1867,9 @@ u32 GetDaysSinceTimeInValue(u32 value)
 
 void UpdateTimeInVars(u16 eventVar)
 {
-	struct DailyEventVar* data = (struct DailyEventVar*) GetVarPointer(eventVar);
+	struct DailyEventVar* data = GetDailyEventVarPointer(eventVar);
+	if (data == NULL)
+		return;
 
 	data->minute = gClock.minute;
 	data->hour = gClock.hour;
@@ -1866,7 +1900,9 @@ u16 sp0A2_GetTimeDifference(void)
 {
 	u32 difference = 0;
 	u16 eventVar = Var8000; //Var contained in Var8000
-	struct DailyEventVar* startTime = (struct DailyEventVar*) GetVarPointer(eventVar);
+	struct DailyEventVar* startTime = GetDailyEventVarPointer(eventVar);
+	if (startTime == NULL)
+		return 0;
 
 	u8 startMinute = startTime->minute;
 	u8 startHour = startTime->hour;
