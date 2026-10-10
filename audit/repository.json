@@ -12567,6 +12567,17 @@
       "findings": []
     },
     {
+      "path": "scripts/recover_hoenn_flags.py",
+      "bytes": 3037,
+      "sha256": "8f76686cc9c981a1dcebec3e0326421842aa37298108b36e4602c19104e6565c",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/rom_bounds.py",
       "bytes": 287,
       "sha256": "43768f6dacd338d8d2c3788cfd8ae9271bdb7071a4510520b07ce7628fa12701",
@@ -12938,6 +12949,17 @@
       "findings": []
     },
     {
+      "path": "src/Tables/hoenn_script_flags.h",
+      "bytes": 5970,
+      "sha256": "392b0312b011d78b02cb386ef62620439b6c052d94a40a88b7f25fb4680a6a74",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
       "path": "src/Tables/item_tables.c",
       "bytes": 459624,
       "sha256": "ebaa822e546822c0d10c93c5da02b43f6511d72e89a90fe0d692fbf27689d4f9",
@@ -13191,11 +13213,6 @@
       ],
       "findings": [
         {
-          "line": 6,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        },
-        {
           "line": 7,
           "kind": "missing_local_include",
           "target": "Tables/johto_flags.h"
@@ -13366,11 +13383,6 @@
           "target": "Tables/bw_frontier_pass_bg.h"
         },
         {
-          "line": 21,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        },
-        {
           "line": 22,
           "kind": "missing_local_include",
           "target": "Tables/johto_flags.h"
@@ -13447,13 +13459,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 17,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/bw_party_menu.c",
@@ -13486,13 +13492,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 26,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/bw_summary_screen.c",
@@ -14027,13 +14027,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 10,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hack_difficulty.h",
@@ -14165,13 +14159,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 10,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hack_hoenn_battle_music.c",
@@ -14529,13 +14517,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 14,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hack_xram.c",
@@ -14570,11 +14552,6 @@
       ],
       "findings": [
         {
-          "line": 4,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        },
-        {
           "line": 5,
           "kind": "missing_local_include",
           "target": "Tables/hoenn_abnormal_weather.h"
@@ -14590,13 +14567,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 7,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hoenn_bike.c",
@@ -14607,13 +14578,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 8,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hoenn_cable_car.c",
@@ -14636,11 +14601,6 @@
         "quoted_include_exists"
       ],
       "findings": [
-        {
-          "line": 33,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        },
         {
           "line": 34,
           "kind": "missing_local_include",
@@ -14678,11 +14638,6 @@
           "line": 8,
           "kind": "missing_local_include",
           "target": "hoenn_factory_data.h"
-        },
-        {
-          "line": 9,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
         }
       ]
     },
@@ -14738,11 +14693,6 @@
           "line": 10,
           "kind": "missing_local_include",
           "target": "hoenn_frontier_brain_mons.h"
-        },
-        {
-          "line": 11,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
         }
       ]
     },
@@ -14808,11 +14758,6 @@
       ],
       "findings": [
         {
-          "line": 6,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        },
-        {
           "line": 7,
           "kind": "missing_local_include",
           "target": "Tables/sinnoh_flags.h"
@@ -14845,13 +14790,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 10,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hoenn_pc_monitor.c",
@@ -14881,11 +14820,6 @@
       ],
       "findings": [
         {
-          "line": 16,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        },
-        {
           "line": 82,
           "kind": "missing_local_include",
           "target": "hoenn_pike_data.h"
@@ -14902,11 +14836,6 @@
         "quoted_include_exists"
       ],
       "findings": [
-        {
-          "line": 22,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        },
         {
           "line": 110,
           "kind": "missing_local_include",
@@ -14951,13 +14880,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 13,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hoenn_tileset_anim.c",
@@ -14990,13 +14913,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 16,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hoenn_townmap.c",
@@ -15012,11 +14929,6 @@
           "line": 7,
           "kind": "missing_local_include",
           "target": "Tables/hoenn_fly.h"
-        },
-        {
-          "line": 8,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
         },
         {
           "line": 9,
@@ -15298,13 +15210,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 12,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/party_menu.c",
@@ -15326,13 +15232,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 6,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/pokemon_storage_system.c",
@@ -15675,13 +15575,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 7,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_script_flags.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "strings/ability_descriptions.string",

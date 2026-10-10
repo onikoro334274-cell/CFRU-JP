@@ -60,7 +60,8 @@
     "Production CreateInfoCardScrollArrow passes 2048 byte-ID/animation/direction/visibility cases; failed creation performs neither animation nor sprite writes; card image sprite verification still passes",
     "Production DomeRoot/FreeDomeRootIfEmpty/PrepareDomeInfoCard fixture passes root and card allocation failures, successful reuse, empty-root cleanup and retained tree tilemap ownership; arrow and card-sprite checks remain passing. All three card task entry sites were reviewed for preallocation.",
     "Generated sideways_stairs_table.h from supplied BPRJ revision 0 ROM using 3 table reference checks, player movement dispatch check and all 170 pointer-chain range/Thumb checks; src/sideways_stairs.c now compiles with GNU ARM GCC -Wall -Wextra -O2 without diagnostics. Full GNU audit counts have not yet been refreshed.",
-    "NPC text-color header regenerated with preserved adjacent hoenn_ow.json table/gfx metadata; 150 slots, validated table 7, unique in-range IDs and complete known-name classification; regeneration --check passes and hack_npc_text_color.c compiles using real GNU ARM GCC without diagnostics. Matching final graphics assets and GBA text rendering remain unverified."
+    "NPC text-color header regenerated with preserved adjacent hoenn_ow.json table/gfx metadata; 150 slots, validated table 7, unique in-range IDs and complete known-name classification; regeneration --check passes and hack_npc_text_color.c compiles using real GNU ARM GCC without diagnostics. Matching final graphics assets and GBA text rendering remain unverified.",
+    "Recovered Hoenn C header from preserved 482 flag/42 variable/438 trainer allocation mappings plus generator reserved constants: 141 definitions and 5 rematch pairs. GNU audit now 164/203 compiled, 39 failures; hack_difficulty.c compiles without diagnostics. Two files expose HACK_FLAG_WONDER_SKIP missing from preserved generator snapshot, so recovered header is not yet complete for this branch."
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -122,6 +123,7 @@
     "Factory summary production function was executed in a Windows native fixture; the complete factory file remains blocked by omitted generated headers and GBA runtime is unverified"
   ],
   "next": [
+    "Resolve HACK_FLAG_WONDER_SKIP using authoritative allocation data: adjacent generator snapshot lacks this newer branch flag; do not choose an arbitrary ID",
     "Dome card root preallocation is checked; still review task creation and InitWindows failure handling and tree root/tilemap allocation failures, plus real GBA screen-return behavior",
     "Continue Dome info-card root allocation, task creation and scroll-arrow failure handling; card image sprite property writes are now guarded but other creation paths remain",
     "Review Dome info-card sprite creation failure sentinels across creation, movement callbacks and cleanup: DisplayTrainerInfoOnCard/DisplayMatchInfoOnCard immediately index gSprites with unchecked creation results",
@@ -136,7 +138,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:39:11.463121+00:00",
+  "updated_utc": "2026-10-10T18:40:51.554694+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }

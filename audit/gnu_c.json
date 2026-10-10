@@ -65,7 +65,7 @@
       "exit_code": 1,
       "source_sha256": "c530fc25a7193f0e792cc951d7a2efd0916e3adaaf350fa7ae90acad91542d4e",
       "object_bytes": 0,
-      "diagnostics": "src/badge_count.c:6:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    6 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "diagnostics": "src/badge_count.c:7:10: fatal error: Tables/johto_flags.h: No such file or directory\n    7 | #include \"Tables/johto_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
     {
       "path": "src/Battle_AI/ai_advanced.c",
@@ -233,7 +233,7 @@
       "exit_code": 1,
       "source_sha256": "ab998996499f993e539a3c255bbb4391d5358d15c0701c0d97e11b1588fe74bf",
       "object_bytes": 0,
-      "diagnostics": "src/bw_option_menu.c:17:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   17 | #include \"Tables/hoenn_script_flags.h\"   /* HOENN_VAR_OVERWORLD_SPEED */\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "diagnostics": "src/bw_option_menu.c: In function 'CB2_BwOptionMenu':\nsrc/bw_option_menu.c:554:40: error: 'HACK_FLAG_WONDER_SKIP' undeclared (first use in this function)\n  554 |         data[TD_WONDERTRADE] = FlagGet(HACK_FLAG_WONDER_SKIP) ? 1 : 0;    /* 0 みる / 1 みない */\n      |                                        ^~~~~~~~~~~~~~~~~~~~~\nsrc/bw_option_menu.c:554:40: note: each undeclared identifier is reported only once for each function it appears in\nsrc/bw_option_menu.c: In function 'Task_Save':\nsrc/bw_option_menu.c:650:17: error: 'HACK_FLAG_WONDER_SKIP' undeclared (first use in this function)\n  650 |         FlagSet(HACK_FLAG_WONDER_SKIP);\n      |                 ^~~~~~~~~~~~~~~~~~~~~\n"
     },
     {
       "path": "src/bw_party_menu.c",
@@ -251,10 +251,10 @@
     },
     {
       "path": "src/bw_start_menu.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "0f6a0f0af010886aafde24984871d3b5aedc48674fe436ea038c5c1bc5f53156",
-      "object_bytes": 0,
-      "diagnostics": "src/bw_start_menu.c:26:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   26 | #include \"Tables/hoenn_script_flags.h\"   /* HOENN_FLAG_CAN_GO_HOENN */\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 14356,
+      "diagnostics": ""
     },
     {
       "path": "src/bw_summary_screen.c",
@@ -531,10 +531,10 @@
     },
     {
       "path": "src/hack_difficulty.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "2872fe26e65f8135e168b9470c9af643dd0c89d1d795d5b136d55477f01f037c",
-      "object_bytes": 0,
-      "diagnostics": "src/hack_difficulty.c:10:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   10 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 4036,
+      "diagnostics": ""
     },
     {
       "path": "src/hack_dragon_boulder.c",
@@ -601,10 +601,10 @@
     },
     {
       "path": "src/hack_habitat_switch.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "865fbf0dccd9326a4b6322106b8e656acd0005d0f94ca90b7e9bebe7699745d9",
-      "object_bytes": 0,
-      "diagnostics": "src/hack_habitat_switch.c:10:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   10 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 1688,
+      "diagnostics": ""
     },
     {
       "path": "src/hack_hoenn_battle_music.c",
@@ -699,10 +699,10 @@
     },
     {
       "path": "src/hack_npc_text_color.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "cd449ec74307c96db1ec5bce70a9dfdf44650e5c234c168c7306d998a29eb14d",
-      "object_bytes": 0,
-      "diagnostics": "src/hack_npc_text_color.c:5:10: fatal error: Tables/npc_text_colors.h: No such file or directory\n    5 | #include \"Tables/npc_text_colors.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 1276,
+      "diagnostics": ""
     },
     {
       "path": "src/hack_oak_intro.c",
@@ -807,7 +807,7 @@
       "exit_code": 1,
       "source_sha256": "8677a1b3e214ea690cfb346331e32a5e477738c1e96db0e46861bc9aa16b0fd0",
       "object_bytes": 0,
-      "diagnostics": "src/hack_wonder_trade.c:14:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   14 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "diagnostics": "src/hack_wonder_trade.c: In function 'WonderTrade_TrySkipScene':\nsrc/hack_wonder_trade.c:510:22: error: 'HACK_FLAG_WONDER_SKIP' undeclared (first use in this function)\n  510 |         if (!FlagGet(HACK_FLAG_WONDER_SKIP) || Var8005 >= PARTY_SIZE)\n      |                      ^~~~~~~~~~~~~~~~~~~~~\nsrc/hack_wonder_trade.c:510:22: note: each undeclared identifier is reported only once for each function it appears in\n"
     },
     {
       "path": "src/hack_xram.c",
@@ -828,21 +828,21 @@
       "exit_code": 1,
       "source_sha256": "75952ff35228a9e5cf26de91989382b3e3f4522080bf1c409fcc90235c80ff7f",
       "object_bytes": 0,
-      "diagnostics": "src/hoenn_abnormal_weather.c:4:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    4 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "diagnostics": "src/hoenn_abnormal_weather.c:5:10: fatal error: Tables/hoenn_abnormal_weather.h: No such file or directory\n    5 | #include \"Tables/hoenn_abnormal_weather.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
     {
       "path": "src/hoenn_arena.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "84d457ad81e6ac38a8d72250c7ff5bce01e7770f3f11aef22bed9a0dda6654e8",
-      "object_bytes": 0,
-      "diagnostics": "src/hoenn_arena.c:7:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    7 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 7076,
+      "diagnostics": "src/hoenn_arena.c: In function 'HoennArena_JudgmentResult':\nsrc/hoenn_arena.c:356:85: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  356 |                         gBattlescriptCurrInstr = HoennArena_BattleScript_PlayerLost - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/hoenn_arena.c:77:17: note: at offset -5 into object 'HoennArena_BattleScript_PlayerLost' of size [0, 2147483647]\n   77 | extern const u8 HoennArena_BattleScript_PlayerLost[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/hoenn_arena.c:352:84: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  352 |                         gBattlescriptCurrInstr = HoennArena_BattleScript_PlayerWon - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/hoenn_arena.c:76:17: note: at offset -5 into object 'HoennArena_BattleScript_PlayerWon' of size [0, 2147483647]\n   76 | extern const u8 HoennArena_BattleScript_PlayerWon[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nsrc/hoenn_arena.c:360:79: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  360 |                         gBattlescriptCurrInstr = HoennArena_BattleScript_Draw - 5;\n      |                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/hoenn_arena.c:78:17: note: at offset -5 into object 'HoennArena_BattleScript_Draw' of size [0, 2147483647]\n   78 | extern const u8 HoennArena_BattleScript_Draw[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
     },
     {
       "path": "src/hoenn_bike.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "4395c81f3b96a4182cff2587f15c8b6ac8c52bb82a583be411619a2d2f327c26",
-      "object_bytes": 0,
-      "diagnostics": "src/hoenn_bike.c:8:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    8 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 7044,
+      "diagnostics": ""
     },
     {
       "path": "src/hoenn_cable_car.c",
@@ -854,9 +854,9 @@
     {
       "path": "src/hoenn_dome.c",
       "exit_code": 1,
-      "source_sha256": "fb0efed8d13b58216ea8daa13b8d394fb2d33ea2fe81947df87c1e9e32a6a012",
+      "source_sha256": "b1bab5c78c40de763d83106dba951f22a53757bde6878207eeb97104c97e609b",
       "object_bytes": 0,
-      "diagnostics": "src/hoenn_dome.c:33:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   33 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "diagnostics": "src/hoenn_dome.c:34:10: fatal error: hoenn_dome_gfx.h: No such file or directory\n   34 | #include \"hoenn_dome_gfx.h\"     /* 絵と文字（tools/frontier/build_frontier_dome.py の生成物） */\n      |          ^~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
     {
       "path": "src/hoenn_dome_anim.c",
@@ -919,7 +919,7 @@
       "exit_code": 1,
       "source_sha256": "7e36a8622916dbe963e647f617aa106605f49b512aec226029e00885b8a31987",
       "object_bytes": 0,
-      "diagnostics": "src/hoenn_league.c:6:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    6 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "diagnostics": "src/hoenn_league.c:7:10: fatal error: Tables/sinnoh_flags.h: No such file or directory\n    7 | #include \"Tables/sinnoh_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
     {
       "path": "src/hoenn_music.c",
@@ -930,10 +930,10 @@
     },
     {
       "path": "src/hoenn_palace.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "2643e8708b41dd4493650ff47c7de3772b9f63decd30407a4e83bc05080f01a1",
-      "object_bytes": 0,
-      "diagnostics": "src/hoenn_palace.c:10:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   10 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 5556,
+      "diagnostics": "src/hoenn_palace.c: In function 'HoennPalace_FlavorNext':\nsrc/hoenn_palace.c:464:69: warning: array subscript -5 is outside array bounds of 'const u8[2147483647]' {aka 'const unsigned char[2147483647]'} [-Warray-bounds=]\n  464 |         gBattlescriptCurrInstr = HoennPalace_BattleScript_FlavorEnd - 5; //callasm が 5 足す\n      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nsrc/hoenn_palace.c:60:17: note: at offset -5 into object 'HoennPalace_BattleScript_FlavorEnd' of size [0, 2147483647]\n   60 | extern const u8 HoennPalace_BattleScript_FlavorEnd[];\n      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
     },
     {
       "path": "src/hoenn_pc_monitor.c",
@@ -947,14 +947,14 @@
       "exit_code": 1,
       "source_sha256": "aa37efb94dbc5a59f9e44614332bfe756d29d8f93d3752464ce14096d3a256fd",
       "object_bytes": 0,
-      "diagnostics": "src/hoenn_pike.c:16:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   16 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "diagnostics": "src/hoenn_pike.c:82:10: fatal error: hoenn_pike_data.h: No such file or directory\n   82 | #include \"hoenn_pike_data.h\"\n      |          ^~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
     {
       "path": "src/hoenn_pyramid.c",
       "exit_code": 1,
       "source_sha256": "1c3c4f129dda7619b86758c73072e60e97fafa00275c30715d87fdfaef60e657",
       "object_bytes": 0,
-      "diagnostics": "src/hoenn_pyramid.c:22:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   22 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "diagnostics": "src/hoenn_pyramid.c:110:10: fatal error: hoenn_pyramid_data.h: No such file or directory\n  110 | #include \"hoenn_pyramid_data.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
     {
       "path": "src/hoenn_safari.c",
@@ -972,10 +972,10 @@
     },
     {
       "path": "src/hoenn_steps.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "8146b64648c203d0c8670fdd1c874793803c760e5efeeb0a3c40ba3b366a52f0",
-      "object_bytes": 0,
-      "diagnostics": "src/hoenn_steps.c:13:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   13 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 3868,
+      "diagnostics": ""
     },
     {
       "path": "src/hoenn_tileset_anim.c",
@@ -986,10 +986,10 @@
     },
     {
       "path": "src/hoenn_tower.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "ed2203335a35522e2b7fad8dd0ccc15522d74cf0be14efb5584eddcf1f699d80",
-      "object_bytes": 0,
-      "diagnostics": "src/hoenn_tower.c:16:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   16 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 11432,
+      "diagnostics": ""
     },
     {
       "path": "src/hoenn_townmap.c",
@@ -1133,10 +1133,10 @@
     },
     {
       "path": "src/overworld_speedup.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "8fc992559ec84c482fde7a3660f41a8fe2adade95930e0be90490aad7226581f",
-      "object_bytes": 0,
-      "diagnostics": "src/overworld_speedup.c:12:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n   12 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 1876,
+      "diagnostics": ""
     },
     {
       "path": "src/party_menu.c",
@@ -1147,10 +1147,10 @@
     },
     {
       "path": "src/play_clock.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "f918165d451f80c62eeb8c7ebaae93a0f979f4757415fb7690489a774bd41f69",
-      "object_bytes": 0,
-      "diagnostics": "src/play_clock.c:6:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    6 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 2932,
+      "diagnostics": ""
     },
     {
       "path": "src/pokemon_storage_system.c",
@@ -1245,10 +1245,10 @@
     },
     {
       "path": "src/sideways_stairs.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "91da0fd16e7a82493232b7c9aca138fd84f61591ccb7229cc83a768e201c3c2b",
-      "object_bytes": 0,
-      "diagnostics": "src/sideways_stairs.c:7:10: fatal error: Tables/sideways_stairs_table.h: No such file or directory\n    7 | #include \"Tables/sideways_stairs_table.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 7876,
+      "diagnostics": ""
     },
     {
       "path": "src/siirtc.c",
@@ -1434,10 +1434,10 @@
     },
     {
       "path": "src/wild_shuffle.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "2e29b39595a2eb8ddbfd2ea3310553f21f8289aae885850688478d9e4ca86ec6",
-      "object_bytes": 0,
-      "diagnostics": "src/wild_shuffle.c:7:10: fatal error: Tables/hoenn_script_flags.h: No such file or directory\n    7 | #include \"Tables/hoenn_script_flags.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 1684,
+      "diagnostics": ""
     }
   ]
 }
