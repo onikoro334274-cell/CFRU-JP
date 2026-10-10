@@ -1,0 +1,13 @@
+{
+  "scope": "EternaClockState, PlaceClock and SinnohEternaGym_FountainOpened",
+  "verification": "python scripts/check_eterna_clock.py",
+  "coverage": "All 16 badge/three-trainer combinations, fountain result overwritten in each state, and 1696 controlled tile writes across draw/no-draw modes. Verifies badge override to state 4, trainer count states 0..3, coordinate offset 7, state-specific tile selection and write-before-redraw ordering.",
+  "findings": "No state/update defect found with the documented three-trainer/five-state/53-cell shape.",
+  "header_recovery": {
+    "generator": "../PokemonStart-src/tools/sinnoh/garden_repaint.py make_data()",
+    "dependencies": "Five rendered states are combined then build_ds_tileset.py assigns deduplicated tile IDs. write_clock_header uses those final IDs and sinnoh_gym_ids.json trainer mappings.",
+    "missing_input_confirmed": "../PokemonStart-src/参考/pokemonHnS/include/fieldmap.h does not exist. hns_import imports it before reading NationalPark_Normal layouts, tiles, metatiles, attributes and palettes.",
+    "decision": "Do not substitute source metatile IDs or emit a dummy header; final tileset/layout correspondence is required."
+  },
+  "limitations": "Controlled cell/tile/trainer data, not actual omitted generated header. Art recovery, actual trainer IDs, final tile mapping, full ARM compilation and game map/runtime remain incomplete."
+}
