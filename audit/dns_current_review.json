@@ -1,0 +1,14 @@
+{
+  "source": "src/dns.c",
+  "source_sha256": "ec578a1773ee18c25ab300babd0bcc7f6386dea23a76e5794428c06e7d632cb6",
+  "checks": [
+    "python scripts/check_dns_colour.py",
+    "python scripts/check_dns_palette_writes.py",
+    "python scripts/check_calendar_differences.py"
+  ],
+  "palette_cases": 17408,
+  "battle_background_cases": 368640,
+  "battle_fixture": "Controlled 0x1c mask and valid 24x6 profiles; all map bytes and valid hour/minute pairs. Checks both software buffers and hardware canary.",
+  "result": "pass",
+  "limitations": "Controlled native fixture, not actual configured profiles, hardware rendering or whole-file validation. GetYearDifference is not executed by the calendar fixture."
+}
