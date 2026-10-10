@@ -1,0 +1,15 @@
+{
+  "result": "passed",
+  "pair_entries": 6008,
+  "encounter_slots": 56396,
+  "table_slot_counts": {
+    "12": 2708,
+    "10": 1480,
+    "5": 1820
+  },
+  "species_limit": 1491,
+  "source_sha256": "b952ab5da315d27fedd9dc989850bb87a3b4c3b65997151f1e6ed44357df20c7",
+  "scope": "All generated shuffle targets resolve; encounter rate, slot counts and per-slot level ranges match current original tables; species IDs valid/nonempty/nonegg and levels in 1..200.",
+  "rom_sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "limitations": "Named originals use checkout sources; numeric originals use supplied BPRJ rev0 ROM. Numeric original slot counts are inferred from targets. Form validity, encounter balance, linked data layout and GBA runtime unverified."
+}
