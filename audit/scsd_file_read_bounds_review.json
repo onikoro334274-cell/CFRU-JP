@@ -1,0 +1,13 @@
+{
+  "scope": "HackScsd_ReadOpened in src/hack_scsd.c",
+  "finding": "The EOF comparison used (sector + n) * 512 in u32, allowing overflow to admit requests beyond the file. Unchecked cluster shifts could be undefined, and nonempty NULL output could reach SD I/O.",
+  "change": "Use complete-sector count and subtraction-based bounds. Reject shift counts >=32 and nonempty NULL output before calculating cluster size or touching I/O. Preserve legal zero-length requests and existing cluster/contiguous-run behavior.",
+  "verification": [
+    "check_scsd_file_read_bounds.py: independent 64-bit EOF oracle across 27000 size/position/count/cluster/layout/NULL combinations, plus large overflow and shift boundaries",
+    "Controlled mapping/SD I/O verifies source sectors, cluster split lengths, destination offsets, output data and canaries",
+    "Mid-read mapping and I/O failures stop subsequent operations, preserving the unwritten suffix",
+    "Baseline e2ce7b1 fails both the full fixture and isolated overflow cases; current source passes both",
+    "Existing FAT directory fixture still passes; GNU ARM compilation of src/hack_scsd.c passes without diagnostics"
+  ],
+  "limitations": "Controlled mapping and SD I/O. Accepted reads larger than the fixture output buffer are not executed. Caller buffer capacity, mount validation, physical LBA bounds, cluster-chain integrity and real hardware remain unverified. Failed multi-run reads may retain the successfully read prefix, as before."
+}

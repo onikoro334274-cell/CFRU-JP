@@ -337,10 +337,13 @@ static struct ScsdFs *HackScsd_Open(const char *name83, const char *longName, u3
 //ファイルの sector 区画目から n 区画を out へ（区切りをまたぐときは分けて読む）
 static bool8 HackScsd_ReadOpened(struct ScsdFs *fs, u32 sector, u32 n, u8 *out)
 {
-	u32 per = 1u << fs->spcShift;
+	u32 sectors = fs->fileSize / 512;
+	u32 per;
 
-	if ((sector + n) * 512 > fs->fileSize)
+	if (sector > sectors || n > sectors - sector
+	 || fs->spcShift >= 32 || (n != 0 && out == NULL))
 		return FALSE;
+	per = 1u << fs->spcShift;
 	while (n != 0)
 	{
 		u32 run = per - sector % per;
