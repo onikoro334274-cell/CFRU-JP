@@ -1,0 +1,15 @@
+{
+  "scope": "HACK_FLAG_WONDER_SKIP definition recovery",
+  "value": "0x12CB",
+  "method": "AST literal extraction from preserved source; original recovery script validated all reserved allocations into temporary output. Only this required flag imported; unrelated newer variable definitions omitted.",
+  "checks": [
+    "Within reserved flag range",
+    "Unique among source reserved flags",
+    "Does not overlap preserved allocated event flags"
+  ],
+  "inputs": {
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\PokemonStart-src\\tools\\rom\\build_hoenn_scripts.py": "6fcb8d44d24c814afd2de484bbe3d52283760f4ca3a0724603d2785318ebf4b8",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\PokemonStart-src\\tools\\rom\\hoenn_scripts.json": "f5997507f36749c2c2ae424f06913fd34ab13730b158813530d7cedd065cded0"
+  },
+  "limitations": "Source/metadata correspondence; no linked ROM or game verification."
+}

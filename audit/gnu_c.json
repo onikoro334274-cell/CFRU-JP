@@ -230,10 +230,10 @@
     },
     {
       "path": "src/bw_option_menu.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "ab998996499f993e539a3c255bbb4391d5358d15c0701c0d97e11b1588fe74bf",
-      "object_bytes": 0,
-      "diagnostics": "src/bw_option_menu.c: In function 'CB2_BwOptionMenu':\nsrc/bw_option_menu.c:554:40: error: 'HACK_FLAG_WONDER_SKIP' undeclared (first use in this function)\n  554 |         data[TD_WONDERTRADE] = FlagGet(HACK_FLAG_WONDER_SKIP) ? 1 : 0;    /* 0 みる / 1 みない */\n      |                                        ^~~~~~~~~~~~~~~~~~~~~\nsrc/bw_option_menu.c:554:40: note: each undeclared identifier is reported only once for each function it appears in\nsrc/bw_option_menu.c: In function 'Task_Save':\nsrc/bw_option_menu.c:650:17: error: 'HACK_FLAG_WONDER_SKIP' undeclared (first use in this function)\n  650 |         FlagSet(HACK_FLAG_WONDER_SKIP);\n      |                 ^~~~~~~~~~~~~~~~~~~~~\n"
+      "object_bytes": 10576,
+      "diagnostics": ""
     },
     {
       "path": "src/bw_party_menu.c",
@@ -804,10 +804,10 @@
     },
     {
       "path": "src/hack_wonder_trade.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "8677a1b3e214ea690cfb346331e32a5e477738c1e96db0e46861bc9aa16b0fd0",
-      "object_bytes": 0,
-      "diagnostics": "src/hack_wonder_trade.c: In function 'WonderTrade_TrySkipScene':\nsrc/hack_wonder_trade.c:510:22: error: 'HACK_FLAG_WONDER_SKIP' undeclared (first use in this function)\n  510 |         if (!FlagGet(HACK_FLAG_WONDER_SKIP) || Var8005 >= PARTY_SIZE)\n      |                      ^~~~~~~~~~~~~~~~~~~~~\nsrc/hack_wonder_trade.c:510:22: note: each undeclared identifier is reported only once for each function it appears in\n"
+      "object_bytes": 10432,
+      "diagnostics": ""
     },
     {
       "path": "src/hack_xram.c",
