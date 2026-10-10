@@ -14,7 +14,7 @@ badge_count.c
     素 FRLG はレポートの画面（SaveStatToString の SAVE_STAT_BADGES・080F9114）と
     「つづきから」の画面（PrintBadgeCount・0800C9E4）で、カントーの旗 0x820〜0x827 の 8 つだけを数える。
     ホウエンのバッジは別の旗（HOENN_FLAG_BADGE1〜8・移植したジムのスクリプトが立てる）なので増えなかった。
-    → カントー＋ホウエン＋ジョウトの合計（いまは最大 24）。シンオウのバッジができたらここに足す。
+    → カントー＋ホウエン＋ジョウト＋シンオウの合計（最大 32）。
     フックは assembly/hoenn/badges_hook.s・hooks（080F9114 / 0800C9E8）。
 */
 
