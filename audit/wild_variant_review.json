@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "date_cases": 146097,
+  "hour_cases": 3506328,
+  "scope": "Actual time predicates, previous-date helper and final KantoVariant hash against independent Gregorian/32-bit Python oracle for every hour of 2000..2399.",
+  "limitations": "Valid clock fields only. RTC acquisition, linked ROM layout and GBA runtime unverified."
+}
