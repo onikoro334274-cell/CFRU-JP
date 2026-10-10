@@ -1,0 +1,9 @@
+{
+  "source_sha256": "d4aa2754a0cdfdd5dbcda4403f719ae0ac42ee025d32a8c028e21e5557787d73",
+  "result": "passed",
+  "count_lookup_cases": 262144,
+  "filter_and_duplicate_cases": 196608,
+  "full_count_cases": 65152,
+  "scope": "Production legacy exclusion lookup/add functions: all u16 counts, three supported magic values, unknown magic lookup, PID filtering, duplicates, full/damaged count rejection and final writable slot.",
+  "limitations": "Does not verify scan sequencing, DPE consumer parity, save memory ownership, migration, or GBA runtime."
+}

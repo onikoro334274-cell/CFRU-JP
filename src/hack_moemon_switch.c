@@ -51,6 +51,9 @@ struct MoemonOldList   //SaveBlock1 + 0x2680（DPE の src/hack_moemon.c と同�
 	u32 personality[MOEMON_OLD_MAX];
 };
 
+/* The legacy quest-log tail reserved for this list ends at SaveBlock1 + 0x2CA0. */
+_Static_assert(sizeof(struct MoemonOldList) <= 0x2CA0 - 0x2680,
+               "Moemon exclusion list exceeds its reserved save region");
 #define MOEMON_OLD_LIST ((struct MoemonOldList*) ((u8*) gSaveBlock1 + 0x2680))
 
 #define MOEMON_LINK_BIT 0x08   //BoxPokemon +0x13（DPE の src/hack_moemon.c と同じ）
