@@ -1,0 +1,9 @@
+{
+  "scope": "GetMonDisplayName in src/hack_wonder_trade.c",
+  "finding": "The documented five-character Japanese species-name truncation recovery also expanded intentionally longer 6..9-character nicknames matching the species prefix.",
+  "fix": "Restrict species-prefix recovery to exactly five nickname characters.",
+  "verification": "python scripts/check_wonder_trade_names.py",
+  "cases": 726,
+  "coverage": "Species-name and nickname lengths 0..10, exact prefixes and mismatch at every nickname character; copied bytes, terminator and output guards checked.",
+  "limitations": "Controlled species/name arrays and mocked GetMonData/StringCopy. Invalid species IDs, selected party indices, malformed mon data, actual Japanese font behavior and game runtime remain unverified. A five-character custom nickname equal to a species prefix remains inherently indistinguishable from vanilla truncation."
+}

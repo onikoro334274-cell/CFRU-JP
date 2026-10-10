@@ -464,7 +464,7 @@ static void GetMonDisplayName(u8* dest, struct Pokemon* mon)
 	}
 
 	//ニックネームが 種族名の先頭と一致している(=種族名が5文字で切れているだけ)
-	if (nickname[i] == 0xFF && i >= 5 && speciesName[i] != 0xFF)
+	if (nickname[i] == 0xFF && i == 5 && speciesName[i] != 0xFF)
 		StringCopy(dest, speciesName);
 	else
 		StringCopy(dest, nickname);   //★ 2026-10-09 元の作者さんの直し（wonder_trade_fix）: JP版の StringCopy10 (0x8008870) は 5 文字までしかコピーしない
