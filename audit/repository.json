@@ -1402,8 +1402,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 21138,
-      "sha256": "4aee7667ee64e8922c1890632461b8df909e08cea788bfdab653d9e78684c173",
+      "bytes": 21662,
+      "sha256": "3395360bdbf6a53039f7ba8c947329f1afd16355537fe6ab0df080be1a7cf8c8",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12502,6 +12502,27 @@
       "findings": []
     },
     {
+      "path": "scripts/data/npc_graphics_ids.json",
+      "bytes": 3671,
+      "sha256": "3f2924f7b4f6eb6335635dfa0aa71458fda583f916015cc32e5bb48d89e11abe",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/generate_npc_text_colors.py",
+      "bytes": 6584,
+      "sha256": "ad2635c50b3136165d87486a1a32f8f831f961aec1c38d968740087659de9978",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/generate_sideways_stairs.py",
       "bytes": 3601,
       "sha256": "5f80be8d91e3837805061db197c31f999e201cef1025e98b1f65b6177672e140",
@@ -12959,6 +12980,17 @@
       "path": "src/Tables/music_tables.c",
       "bytes": 14844,
       "sha256": "461a6b803e828cc66ee7f5f4bc543503823e363d961fbed6cf912f1224ed9cc4",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/Tables/npc_text_colors.h",
+      "bytes": 4028,
+      "sha256": "1279c0b3072bc276cc54a88551957fa6747ce0831922797b34b7a638e1331078",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -14310,13 +14342,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 5,
-          "kind": "missing_local_include",
-          "target": "Tables/npc_text_colors.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hack_oak_intro.c",
