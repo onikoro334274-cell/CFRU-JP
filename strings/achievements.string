@@ -1,0 +1,704 @@
+// 自動生成: python scripts/achievements_gen.py (直接編集しないでください)
+
+#org @gText_MenuAchievements
+じっせき
+
+#org @gText_AchievementsDescription
+あつめた じっせきを\nかくにんする
+
+#org @gText_Ach_Title
+じっせき
+
+#org @gText_Ach_Unlocked
+じっせき『[BUFFER1]』を\nかいじょした！
+
+#org @gText_Ach_UnlockedMany
+[BUFFER1]この じっせきを\nかいじょした！
+
+#org @gText_Ach_TierBronze
+ブロンズ
+
+#org @gText_Ach_TierSilver
+シルバー
+
+#org @gText_Ach_TierGold
+ゴールド
+
+#org @gText_Ach_TierPlatinum
+プラチナ
+
+#org @gText_Ach_Done
+かいじょずみ
+
+#org @gText_Ach_Slash
+/
+
+#org @gText_Ach_StatusDone
+クリア
+
+#org @gText_Ach_StatusLocked
+ロック
+
+#org @gText_Ach_Cursor
+[EF]
+
+#org @gText_Ach_Back
+もどる
+
+#org @gText_AchNpc_Greeting
+おお！ きみの じっせきは\nいま [BUFFER1]こ かいじょ されているね！
+
+#org @gText_AchNpc_Next
+つぎの ほうしゅうは\n[BUFFER2]こ かいじょで もらえるよ！
+
+#org @gText_AchNpc_AllDone
+ぜんぶの ほうしゅうを\nうけとったようだね！ すばらしい！
+
+#org @gText_AchNpc_BagFull
+おっと！ バッグが いっぱいだ！\nあけてから また はなしかけておくれ
+
+#org @gText_Ach_GiftParty
+ほうしゅうとして\nピカチュウを もらった！
+
+#org @gText_Ach_GiftPC
+ほうしゅうの ピカチュウは\nパソコンに おくられた！
+
+#org @gText_Ach_GiftFail
+ほうしゅうの ピカチュウを\nうけとれなかった…
+
+#org @gText_Ach_Reward
+ほうしゅうとして\n[BUFFER1]を [BUFFER2]こ もらった！
+
+#org @gText_Ach_PopupTitle
+じっせき かいじょ！
+
+#org @gText_Ach_PopupMany
+この じっせきを かいじょ
+
+#org @gText_Ach_StatusClaim
+うけとる
+
+#org @gText_Ach_RewardLabel
+ほうしゅう:
+
+#org @gText_Ach_RewardTimes
+x
+
+#org @gText_Ach_RewardLv
+Lv
+
+#org @gText_Ach_ClaimItem
+[BUFFER1]を [BUFFER2]こ もらった！
+
+#org @gText_Ach_ClaimMonParty
+[BUFFER1]を もらった！
+
+#org @gText_Ach_ClaimMonPC
+[BUFFER1]は\nパソコンに おくられた！
+
+#org @gText_Ach_ClaimBagFull
+バッグが いっぱいで\nうけとれない！
+
+#org @gText_Ach_ClaimMonFull
+てもちも パソコンも いっぱいで\nうけとれない！
+
+#org @gText_Ach_Name_PARTNER
+ともに あゆむ
+
+#org @gText_Ach_Desc_PARTNER
+さいしょの ポケモンを もらう
+
+#org @gText_Ach_Name_POKEDEX
+ずかんの はじまり
+
+#org @gText_Ach_Desc_POKEDEX
+ポケモンずかんを てにいれる
+
+#org @gText_Ach_Name_BADGE1
+いわを うちくだけ
+
+#org @gText_Ach_Desc_BADGE1
+タケシに かって\nグレーバッジを てにいれる
+
+#org @gText_Ach_Name_BADGE2
+みずを のりこえろ
+
+#org @gText_Ach_Desc_BADGE2
+カスミに かって\nブルーバッジを てにいれる
+
+#org @gText_Ach_Name_BADGE3
+でんげきの しゅんかん
+
+#org @gText_Ach_Desc_BADGE3
+マチスに かって\nオレンジバッジを てにいれる
+
+#org @gText_Ach_Name_BADGE4
+はなの ちから
+
+#org @gText_Ach_Desc_BADGE4
+エリカに かって\nレインボーバッジを てにいれる
+
+#org @gText_Ach_Name_BADGE5
+どくを こえて
+
+#org @gText_Ach_Desc_BADGE5
+キョウに かって\nピンクバッジを てにいれる
+
+#org @gText_Ach_Name_BADGE6
+みらいを みぬく
+
+#org @gText_Ach_Desc_BADGE6
+ナツメに かって\nゴールドバッジを てにいれる
+
+#org @gText_Ach_Name_BADGE7
+ほのおの ちょうせん
+
+#org @gText_Ach_Desc_BADGE7
+カツラに かって\nクリムゾンバッジを てにいれる
+
+#org @gText_Ach_Name_BADGE8
+さいごの ジムリーダー
+
+#org @gText_Ach_Desc_BADGE8
+サカキに かって\nグリーンバッジを てにいれる
+
+#org @gText_Ach_Name_HALL_OF_FAME
+あたらしい チャンピオン
+
+#org @gText_Ach_Desc_HALL_OF_FAME
+ポケモンリーグを せいはして\nでんどういりを はたす
+
+#org @gText_Ach_Name_CAPTURE_1
+はじめての ゲット
+
+#org @gText_Ach_Desc_CAPTURE_1
+ポケモンを はじめて つかまえる
+
+#org @gText_Ach_Name_CAPTURE_50
+ポケモン コレクター
+
+#org @gText_Ach_Desc_CAPTURE_50
+ポケモンを 50ひき つかまえる
+
+#org @gText_Ach_Name_CAPTURE_200
+つかまえの めいじん
+
+#org @gText_Ach_Desc_CAPTURE_200
+ポケモンを 200ひき つかまえる
+
+#org @gText_Ach_Name_DEX_30
+ずかんづくり
+
+#org @gText_Ach_Desc_DEX_30
+ポケモンを 30しゅるい つかまえる
+
+#org @gText_Ach_Name_DEX_80
+ずかんの たびびと
+
+#org @gText_Ach_Desc_DEX_80
+ポケモンを 80しゅるい つかまえる
+
+#org @gText_Ach_Name_DEX_151
+ずかん ハンター
+
+#org @gText_Ach_Desc_DEX_151
+ポケモンを 151しゅるい つかまえる
+
+#org @gText_Ach_Name_DEX_250
+ずかんの たつじん
+
+#org @gText_Ach_Desc_DEX_250
+ポケモンを 250しゅるい つかまえる
+
+#org @gText_Ach_Name_KANTO_DEX
+カントーはかせ
+
+#org @gText_Ach_Desc_KANTO_DEX
+カントーの ポケモン151ひきを\nすべて つかまえる
+
+#org @gText_Ach_Name_NICKNAME
+なまえを つけた
+
+#org @gText_Ach_Desc_NICKNAME
+てもちの ポケモンに\nニックネームを つける
+
+#org @gText_Ach_Name_SHINY
+きらきらの であい
+
+#org @gText_Ach_Desc_SHINY
+ひかる ポケモンを\nてもちに くわえる
+
+#org @gText_Ach_Name_HATCH_1
+うまれたよ！
+
+#org @gText_Ach_Desc_HATCH_1
+たまごを はじめて かえす
+
+#org @gText_Ach_Name_HATCH_30
+ふかの プロ
+
+#org @gText_Ach_Desc_HATCH_30
+たまごを 30こ かえす
+
+#org @gText_Ach_Name_EVOLVE_1
+しんかの ひかり
+
+#org @gText_Ach_Desc_EVOLVE_1
+ポケモンを しんかさせる
+
+#org @gText_Ach_Name_EVOLVE_30
+しんかの けんきゅう
+
+#org @gText_Ach_Desc_EVOLVE_30
+ポケモンを 30かい しんかさせる
+
+#org @gText_Ach_Name_FISHING_10
+つりびとの いちにち
+
+#org @gText_Ach_Desc_FISHING_10
+つりで ポケモンを\n10ひき つかまえる
+
+#org @gText_Ach_Name_TRAINER_50
+かけだし トレーナー
+
+#org @gText_Ach_Desc_TRAINER_50
+トレーナーと 50かい たたかう
+
+#org @gText_Ach_Name_TRAINER_200
+ベテラン トレーナー
+
+#org @gText_Ach_Desc_TRAINER_200
+トレーナーと 200かい たたかう
+
+#org @gText_Ach_Name_TRAINER_500
+バトルの たつじん
+
+#org @gText_Ach_Desc_TRAINER_500
+トレーナーと 500かい たたかう
+
+#org @gText_Ach_Name_PARTY_LV100
+さいきょうの パーティ
+
+#org @gText_Ach_Desc_PARTY_LV100
+6ひき ぜんいんが\nレベル100の パーティを つくる
+
+#org @gText_Ach_Name_PARTY_SAME_TYPE
+タイプ いっしょく
+
+#org @gText_Ach_Desc_PARTY_SAME_TYPE
+6ひき ぜんいんが おなじ タイプの\nパーティを つくる
+
+#org @gText_Ach_Name_STEPS_10K
+さんぽ びより
+
+#org @gText_Ach_Desc_STEPS_10K
+10000ぽ あるく
+
+#org @gText_Ach_Name_STEPS_100K
+たびの とちゅう
+
+#org @gText_Ach_Desc_STEPS_100K
+100000ぽ あるく
+
+#org @gText_Ach_Name_STEPS_500K
+せかいを あるく
+
+#org @gText_Ach_Desc_STEPS_500K
+500000ぽ あるく
+
+#org @gText_Ach_Name_POKECENTER
+ポケセンの じょうれん
+
+#org @gText_Ach_Desc_POKECENTER
+ポケモンセンターを\n30かい つかう
+
+#org @gText_Ach_Name_SAFARI
+サファリ デビュー
+
+#org @gText_Ach_Desc_SAFARI
+サファリゾーンに はいる
+
+#org @gText_Ach_Name_SLOT
+ジャックポット！
+
+#org @gText_Ach_Desc_SLOT
+スロットで ジャックポットを だす
+
+#org @gText_Ach_Name_TRADE
+つながる ポケモン
+
+#org @gText_Ach_Desc_TRADE
+ポケモンを こうかんする
+
+#org @gText_Ach_Name_LEVEL_100
+レベル100の きずな
+
+#org @gText_Ach_Desc_LEVEL_100
+レベル100の ポケモンを\nてもちに くわえる
+
+#org @gText_Ach_Name_FACILITY_7
+れんしょうの はじまり
+
+#org @gText_Ach_Desc_FACILITY_7
+バトルしせつで 7れんしょうする
+
+#org @gText_Ach_Name_FACILITY_21
+フロンティアの はしゃ
+
+#org @gText_Ach_Desc_FACILITY_21
+バトルしせつで 21れんしょうする
+
+#org @gText_Ach_Name_BIRDS
+でんせつの とり
+
+#org @gText_Ach_Desc_BIRDS
+フリーザー・サンダー・ファイヤーを\nつかまえる
+
+#org @gText_Ach_Name_BEASTS
+でんせつの けもの
+
+#org @gText_Ach_Desc_BEASTS
+ライコウ・エンテイ・スイクンを\nつかまえる
+
+#org @gText_Ach_Name_MEWTWO
+さいきょうの いでんし
+
+#org @gText_Ach_Desc_MEWTWO
+ミュウツーを つかまえる
+
+#org @gText_Ach_Name_MEW
+まぼろしの ポケモン
+
+#org @gText_Ach_Desc_MEW
+ミュウを てにいれる
+
+#org @gText_Ach_Name_LUGIA
+うみの まもりがみ
+
+#org @gText_Ach_Desc_LUGIA
+ルギアを つかまえる
+
+#org @gText_Ach_Name_HO_OH
+にじいろの まもりがみ
+
+#org @gText_Ach_Desc_HO_OH
+ホウオウを つかまえる
+
+#org @gText_Ach_Name_CELEBI
+ときを こえる もの
+
+#org @gText_Ach_Desc_CELEBI
+セレビィを てにいれる
+
+#org @gText_Ach_Name_DEOXYS
+うちゅうの きょうい
+
+#org @gText_Ach_Desc_DEOXYS
+デオキシスを つかまえる
+
+#org @gText_Ach_Name_SURF_PIKACHU
+なみのり ピカチュウ
+
+#org @gText_Ach_Desc_SURF_PIKACHU
+なみのりを おぼえた ピカチュウを\nてもちに くわえる
+
+#org @gText_Ach_Name_TM_10
+わざマシン ガクセイ
+
+#org @gText_Ach_Desc_TM_10
+わざマシンを 10こ あつめる
+
+#org @gText_Ach_Name_TM_30
+わざマシン けんきゅうか
+
+#org @gText_Ach_Desc_TM_30
+わざマシンを 30こ あつめる
+
+#org @gText_Ach_Name_TM_50
+わざマシン マスター
+
+#org @gText_Ach_Desc_TM_50
+わざマシンを 50こ すべて あつめる
+
+#org @gText_Ach_Name_MASTER
+カントーの でんせつ
+
+#org @gText_Ach_Desc_MASTER
+ほかの すべての じっせきを\nかいじょする
+
+#org @gText_Ach_Name_MEGA_RING
+キーストーンの ちから
+
+#org @gText_Ach_Desc_MEGA_RING
+メガリングを てにいれる
+
+#org @gText_Ach_Name_MEGA_STONE
+メガシンカの いぶき
+
+#org @gText_Ach_Desc_MEGA_STONE
+メガストーンを もたせた ポケモンを\nてもちに くわえる
+
+#org @gText_Ach_Name_Z_RING
+ぜんりょくの きずな
+
+#org @gText_Ach_Desc_Z_RING
+Zリングを てにいれる
+
+#org @gText_Ach_Name_Z_CRYSTAL
+ぜんりょく じゅんび
+
+#org @gText_Ach_Desc_Z_CRYSTAL
+Zクリスタルを もたせた ポケモンを\nてもちに くわえる
+
+#org @gText_Ach_Name_DYNAMAX_BAND
+ダイマックス！
+
+#org @gText_Ach_Desc_DYNAMAX_BAND
+ダイマックスバンドを てにいれる
+
+#org @gText_Ach_Name_GIGANTAMAX
+キョダイな ちから
+
+#org @gText_Ach_Desc_GIGANTAMAX
+キョダイマックスできる ポケモンを\nてもちに くわえる
+
+#org @gText_Ach_Name_TERA_ORB
+テラスタル！
+
+#org @gText_Ach_Desc_TERA_ORB
+テラスタルオーブを てにいれる
+
+#org @gText_Ach_Name_RAID_1
+レイド デビュー
+
+#org @gText_Ach_Desc_RAID_1
+マックスレイドバトルに\nちょうせんする
+
+#org @gText_Ach_Name_RAID_10
+レイドの なかま
+
+#org @gText_Ach_Desc_RAID_10
+マックスレイドバトルに\n10かい ちょうせんする
+
+#org @gText_Ach_Name_RAID_50
+ダイマックス ハンター
+
+#org @gText_Ach_Desc_RAID_50
+マックスレイドバトルに\n50かい ちょうせんする
+
+#org @gText_Ach_Name_DEXNAV_10
+ずかんナビ デビュー
+
+#org @gText_Ach_Desc_DEXNAV_10
+ずかんナビで 10かい サーチする
+
+#org @gText_Ach_Name_DEXNAV_100
+サーチの たつじん
+
+#org @gText_Ach_Desc_DEXNAV_100
+ずかんナビで 100かい サーチする
+
+#org @gText_Ach_Name_HIDDEN_ABILITY
+かくれた ちから
+
+#org @gText_Ach_Desc_HIDDEN_ABILITY
+かくれとくせいの ポケモンを\nてもちに くわえる
+
+#org @gText_Ach_Name_CAUGHT_TODAY_10
+きょうは たいりょう
+
+#org @gText_Ach_Desc_CAUGHT_TODAY_10
+1にちで ポケモンを\n10ぴき つかまえる
+
+#org @gText_Ach_Name_PICKUP_10
+ものひろい じょうず
+
+#org @gText_Ach_Desc_PICKUP_10
+とくせい ものひろいで\nどうぐを 10こ ひろう
+
+#org @gText_Ach_Name_HIDDEN_ITEM_30
+おとしもの たんてい
+
+#org @gText_Ach_Desc_HIDDEN_ITEM_30
+かくれた どうぐを 30こ みつける
+
+#org @gText_Ach_Name_SHOPPED_50
+おとくいさま
+
+#org @gText_Ach_Desc_SHOPPED_50
+おみせで 50かい かいものをする
+
+#org @gText_Ach_Name_WILD_500
+くさむらの ぼうけんしゃ
+
+#org @gText_Ach_Desc_WILD_500
+やせいの ポケモンと\n500かい たたかう
+
+#org @gText_Ach_Name_BATTLES_1000
+ひゃくせん れんま
+
+#org @gText_Ach_Desc_BATTLES_1000
+ポケモンバトルを 1000かい する
+
+#org @gText_Ach_Name_STEPS_1M
+ちきゅう いっしゅう
+
+#org @gText_Ach_Desc_STEPS_1M
+1000000ぽ あるく
+
+#org @gText_Ach_Name_CAPTURE_500
+ゲットの でんせつ
+
+#org @gText_Ach_Desc_CAPTURE_500
+ポケモンを 500ぴき つかまえる
+
+#org @gText_Ach_Name_EVOLVE_100
+しんかの はかせ
+
+#org @gText_Ach_Desc_EVOLVE_100
+ポケモンを 100かい しんかさせる
+
+#org @gText_Ach_Name_FRIENDSHIP
+こころの きずな
+
+#org @gText_Ach_Desc_FRIENDSHIP
+なつきどが さいだいの ポケモンを\nてもちに くわえる
+
+#org @gText_Ach_Name_POKERUS
+ラッキーな びょうき
+
+#org @gText_Ach_Desc_POKERUS
+ポケルスに かかった ポケモンを\nてもちに くわえる
+
+#org @gText_Ach_Name_PERFECT_IV
+さいこうの こたい
+
+#org @gText_Ach_Desc_PERFECT_IV
+こたいちが すべて さいこうの\nポケモンを てもちに くわえる
+
+#org @gText_Ach_Name_MAX_EV
+どりょくの けっしょう
+
+#org @gText_Ach_Desc_MAX_EV
+きそポイントを 510 ためた\nポケモンを てもちに くわえる
+
+#org @gText_Ach_Name_HATCH_100
+そだての たつじん
+
+#org @gText_Ach_Desc_HATCH_100
+たまごを 100こ かえす
+
+#org @gText_Ach_Name_OVAL_CHARM
+まるい おまもり
+
+#org @gText_Ach_Desc_OVAL_CHARM
+まるいおまもりを てにいれる
+
+#org @gText_Ach_Name_SHINY_CHARM
+ひかる おまもり
+
+#org @gText_Ach_Desc_SHINY_CHARM
+ひかるおまもりを てにいれる
+
+#org @gText_Ach_Name_ALL_REGIONS
+せかいを めぐる
+
+#org @gText_Ach_Desc_ALL_REGIONS
+8つの ちほう それぞれの ポケモンを\n1ぴき いじょう つかまえる
+
+#org @gText_Ach_Name_DEX_400
+ずかんの けんきゅういん
+
+#org @gText_Ach_Desc_DEX_400
+ポケモンを 400しゅるい つかまえる
+
+#org @gText_Ach_Name_DEX_600
+ずかんの はかせ
+
+#org @gText_Ach_Desc_DEX_600
+ポケモンを 600しゅるい つかまえる
+
+#org @gText_Ach_Name_EEVEELUTIONS
+イーブイ マスター
+
+#org @gText_Ach_Desc_EEVEELUTIONS
+イーブイの しんかけい 8しゅるいを\nすべて つかまえる
+
+#org @gText_Ach_Name_ALL_STARTERS
+ごさんけ コンプリート
+
+#org @gText_Ach_Desc_ALL_STARTERS
+8ちほうの さいしょの ポケモン\n24しゅるいを すべて つかまえる
+
+#org @gText_Ach_Name_PSEUDO_LEGENDS
+さいきょうの いちぞく
+
+#org @gText_Ach_Desc_PSEUDO_LEGENDS
+カイリューや バンギラスなど\n600ぞく 9しゅるいを つかまえる
+
+#org @gText_Ach_Name_WEATHER_TRIO
+てんきの かみがみ
+
+#org @gText_Ach_Desc_WEATHER_TRIO
+グラードン・カイオーガ・\nレックウザを つかまえる
+
+#org @gText_Ach_Name_REGI_TRIO
+きょじんの いせき
+
+#org @gText_Ach_Desc_REGI_TRIO
+レジロック・レジアイス・\nレジスチルを つかまえる
+
+#org @gText_Ach_Name_LAKE_TRIO
+みずうみの せいれい
+
+#org @gText_Ach_Desc_LAKE_TRIO
+ユクシー・エムリット・アグノムを\nつかまえる
+
+#org @gText_Ach_Name_CREATION_TRIO
+じくうの はざま
+
+#org @gText_Ach_Desc_CREATION_TRIO
+ディアルガ・パルキア・ギラティナを\nつかまえる
+
+#org @gText_Ach_Name_TAO_TRIO
+しんじつと りそう
+
+#org @gText_Ach_Desc_TAO_TRIO
+レシラム・ゼクロム・キュレムを\nつかまえる
+
+#org @gText_Ach_Name_XY_DUO
+いのちと はかい
+
+#org @gText_Ach_Desc_XY_DUO
+ゼルネアスと イベルタルを\nつかまえる
+
+#org @gText_Ach_Name_SUN_MOON_DUO
+たいようと つき
+
+#org @gText_Ach_Desc_SUN_MOON_DUO
+ソルガレオと ルナアーラを\nつかまえる
+
+#org @gText_Ach_Name_HERO_DUO
+けんと たて
+
+#org @gText_Ach_Desc_HERO_DUO
+ザシアンと ザマゼンタを\nつかまえる
+
+#org @gText_Ach_Name_ULTRA_BEAST
+いせかいの らいほうしゃ
+
+#org @gText_Ach_Desc_ULTRA_BEAST
+ウルトラビーストを つかまえる
+
+#org @gText_Ach_Name_ETERNATUS
+ムゲンの ちから
+
+#org @gText_Ach_Desc_ETERNATUS
+ムゲンダイナを つかまえる
+
+#org @gText_Ach_Name_ARCEUS
+そうぞうの かみ
+
+#org @gText_Ach_Desc_ARCEUS
+アルセウスを てにいれる
+

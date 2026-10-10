@@ -74,6 +74,12 @@
 #define FLAG_SYS_SAVE_HIDE 0x91D	//Toggle save off
 #define FLAG_SYS_DEXNAV 0x91E		//Flag to turn dexnav on/off in start menu (if undefined, this will eliminate dexnav from the start menu)
 
+//Achievements system (see Achievements.md). Adds "Achievements" to the tools side of the start menu (right key).
+//The unlock state is stored in 512 expanded flags starting at ACH_FLAG_START (include/new/achievements.h, default 0x1600-0x17FF).
+//#define DISABLE_ACHIEVEMENTS //Uncomment to remove the whole Achievements system
+//#define ACH_UNLOCK_MESSAGEBOX //Uncomment to announce unlocks with a message box instead of the SoulGold-style popup (top right)
+#define ACH_REWARDS_VIA_NPC //Uncomment to stop giving milestone rewards automatically; they are then given by an NPC calling EventScript_AchievementNPC
+
 /*===== Pedometer Flags as in JPAN Engine =====*/
 #define FLAG_LONG_PEDOMETER 0x920		//32 bit / 4 bytes / Max 4 294 967 295 steps
 #define FLAG_MED_PEDOMETER 0x921		//16 bit / 2 bytes / Max 65 535 steps

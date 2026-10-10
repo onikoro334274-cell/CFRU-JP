@@ -10,6 +10,7 @@
 #include "../include/constants/flags.h"
 #include "../include/constants/songs.h"
 
+#include "../include/new/achievements.h"
 #include "../include/new/dexnav.h"
 
 /*
@@ -30,6 +31,7 @@ enum
 	STARTMENU_RETIRE_SAFARI,
 	STARTMENU_PLAYER_LINK,
 	STARTMENU_DEXNAV,
+	STARTMENU_ACHIEVEMENTS,
 	STARTMENU_EXIT_RIGHT,
 	STARTMENU_EXIT_LEFT,
 	MAX_STARTMENU_ITEMS
@@ -67,6 +69,8 @@ extern const u8 gText_ExitDescription[];
 extern const u8 gText_RetireDescription[];
 extern const u8 gText_PlayerDescription[];
 extern const u8 gText_DexNavDescription[];
+extern const u8 gText_MenuAchievements[];
+extern const u8 gText_AchievementsDescription[];
 
 extern bool8 (*sStartMenuCallback)(void);
 extern u8 sStartMenuCursorPos;
@@ -121,6 +125,7 @@ const struct MenuAction sStartMenuActionTable[] =
 	[STARTMENU_RETIRE_SAFARI] = {gText_MenuRetire, {.u8_void = StartMenuSafariZoneRetireCallback}},
 	[STARTMENU_PLAYER_LINK] = {gText_MenuPlayer, {.u8_void = StartMenuLinkModePlayerCallback}},
 	[STARTMENU_DEXNAV] = {gText_MenuDexNav, {.u8_void = StartMenuDexNavCallback}},
+	[STARTMENU_ACHIEVEMENTS] = {gText_MenuAchievements, {.u8_void = StartMenuAchievementsCallback}},
 	[STARTMENU_EXIT_RIGHT] = {gText_MenuExitRight, {.u8_void = StartMenuExitCallback}},
 	[STARTMENU_EXIT_LEFT] = {gText_MenuExitLeft, {.u8_void = StartMenuExitCallback}},
 };
@@ -137,12 +142,17 @@ const u8* const sStartMenuDescPointers[] =
 	gText_RetireDescription,
 	gText_PlayerDescription,
 	gText_DexNavDescription,
+	gText_AchievementsDescription,
 	gText_ExitDescription,
 	gText_ExitDescription,
 };
 
 static bool8 CanSetUpSecondaryStartMenu(void)
 {
+	#ifndef DISABLE_ACHIEVEMENTS
+	return TRUE; //The Achievements entry is always shown in the tools menu
+	#endif
+
 	#ifdef FLAG_SYS_DEXNAV
 	if (FlagGet(FLAG_SYS_DEXNAV) && FlagGet(FLAG_SYS_POKEDEX_GET))
 		return TRUE;
@@ -226,6 +236,10 @@ static void BuildPokeToolsMenu(void)
 	if (FlagGet(FLAG_SYS_DEXNAV) && FlagGet(FLAG_SYS_POKEDEX_GET))
 	#endif
 		AppendToStartMenuItems(STARTMENU_DEXNAV);
+
+	#ifndef DISABLE_ACHIEVEMENTS
+	AppendToStartMenuItems(STARTMENU_ACHIEVEMENTS);
+	#endif
 
 	#ifdef FLAG_SYS_QUEST_LOG
 	if (FlagGet(FLAG_SYS_QUEST_LOG))

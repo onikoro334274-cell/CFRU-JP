@@ -51,6 +51,7 @@
 #include "../include/new/frontier.h"
 #include "../include/new/util.h"
 #include "../include/new/multi.h"
+#include "../include/new/achievements.h"
 #include "../include/new/overworld.h"
 #include "../include/new/overworld_data.h"
 #include "../include/new/party_menu.h"
@@ -1667,7 +1668,11 @@ bool8 TryRunOnFrameMapScript(void)
 		}
 	}
 
+	#ifndef DISABLE_ACHIEVEMENTS
+	return Achievements_FieldFrameUpdate(); //Achievement checks and unlock messages
+	#else
 	return FALSE;
+	#endif
 }
 
 // Whiteout Hack
