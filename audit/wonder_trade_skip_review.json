@@ -1,0 +1,8 @@
+{
+  "scope": "WonderTrade_TrySkipScene",
+  "verification": "python scripts/check_wonder_trade_skip.py",
+  "cases": 1572864,
+  "coverage": "All u16 selected-slot values, enabled/disabled skip flag, evolution/no evolution, egg/non-egg and held item NONE/first mail/last mail. Valid swaps preserve complete controlled mon payloads, adjust non-egg friendship to 70, set seen/caught with incoming species/personality, buffer incoming nickname and leave other party slots unchanged. Rejected swaps leave parties, text and dex unchanged and clear LASTRESULT.",
+  "findings": "No swap or rejection defect found in this controlled scope.",
+  "limitations": "Controlled surrogate Pokemon layout and mocked GetMonData/SetMonData, evolution, flag and dex APIs. Actual encrypted mon data, all interior mail IDs, evolution API behavior, script sequencing and linked GBA scene parity remain unverified."
+}
