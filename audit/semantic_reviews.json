@@ -321,17 +321,20 @@
     },
     {
       "path": "src/play_clock.c",
-      "source_sha256": "3bc711c2cde5a3ff1f8eeb79f8e6b03ec6e40a71b085484b5e22cc27a6483f6e",
+      "source_sha256": "07829ed2f78408d7581a6fddcef73c04118122d7b5c024ef391f7de35763d8c0",
       "sections": [
         "PlayClock_GameSeconds",
         "PlayClock_Fill",
-        "PlayClock_SetTimeOfDay"
+        "PlayClock_SetTimeOfDay",
+        "PlayClock_SetMode"
       ],
       "verification_records": [
         "play_clock_calendar_review.json",
-        "play_clock_adjustment_review.json"
+        "play_clock_adjustment_review.json",
+        "play_clock_mode_review.json"
       ],
-      "remaining": "Mode switching, daily-event reset and actual clock callbacks/game item flow remain unverified"
+      "remaining": "Mode switching, daily-event reset and actual clock callbacks/game item flow remain unverified",
+      "verification": "Calendar, adjustment and mode fixtures rerun successfully on current source on 2026-10-11"
     },
     {
       "path": "src/dns.c",
