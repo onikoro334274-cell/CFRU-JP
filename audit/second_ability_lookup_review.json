@@ -1,0 +1,9 @@
+{
+  "scope": "SecondAbility_OfSpecies production binary search and recovered header",
+  "checks": {
+    "scripts/check_second_ability_lookup.py": "All 65536 u16 species identifiers match direct table expectations; 950 rows unique, sorted and within NUM_SPECIES",
+    "scripts/generate_second_abilities.py --check": "Regeneration matched",
+    "audit/gnu_c.json": "src/second_ability.c compiles with actual GNU ARM build flags"
+  },
+  "limitations": "Entry triggers, special-mon provenance, ability effects, DPE linked stats and GBA runtime remain unverified."
+}

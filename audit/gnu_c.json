@@ -1224,10 +1224,10 @@
     },
     {
       "path": "src/second_ability.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "bf7f760b95a514194a46a86d6f236eaccd7b090bc0bd75932ed4a19399f33356",
-      "object_bytes": 0,
-      "diagnostics": "src/second_ability.c:7:10: fatal error: Tables/second_abilities.h: No such file or directory\n    7 | #include \"Tables/second_abilities.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 7020,
+      "diagnostics": ""
     },
     {
       "path": "src/set_effect.c",

@@ -1,0 +1,21 @@
+{
+  "method": "Original build() rules with current CFRU constants and read-only DPE input; no patch_base_stats() call.",
+  "rows": 950,
+  "excluded": [],
+  "outside_current_species_table": [
+    "SPECIES_GIGAMINE"
+  ],
+  "verified_form_renames": {
+    "SPECIES_TATSUGIRI_RED": "SPECIES_TATSUGIRI_DROOPY",
+    "SPECIES_TATSUGIRI_YELLOW": "SPECIES_TATSUGIRI_STRETCHY"
+  },
+  "inputs": {
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\PokemonStart-src\\tools\\abilities\\build_second_abilities.py": "5f57e4bbe20613dcb8de9b72a3210aa2749d57ff73fcd21d38376344cf565681",
+    "..\\PokemonStart-src\\CFRU-Builder v1.01\\DPE-JP-main\\src\\Base_Stats.c": "09bcfa75f2f34ce375e3c5d50d89b1cd2a25414b79128818e2487f9073baed58",
+    "..\\PokemonStart-src\\CFRU-Builder v1.01\\DPE-JP-main\\src\\Evolution Table.c": "fe3f7296bb6a61cc3c8fd52bbc1f8bb56da2e3e786e8426770a806bf17e20356",
+    "..\\PokemonStart-src\\CFRU-Builder v1.01\\DPE-JP-main\\include\\species.h": "efe2d326d3b625b504ed3ac54ceb79525f3b6e3e84914cb78c77ce5cd3e8bc98",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\CFRU-JP\\include\\constants\\species.h": "0966a7f1857a8dc30aa48366df8a6c3ed85d5fa4749d73dd3aa7ed64587c9ec0",
+    "C:\\Users\\liru55\\Desktop\\pokemon-start\\CFRU-JP\\include\\constants\\abilities.h": "eaf2d09a7ca7854e446842020ad48416ca69fb052027b5f528b9c35cb4eba4bd"
+  },
+  "limitations": "Does not establish DPE linked ROM data or in-game second ability behavior."
+}
