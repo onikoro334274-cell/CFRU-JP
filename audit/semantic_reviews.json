@@ -528,6 +528,18 @@
         "link_data_transfer_review.json"
       ],
       "remaining": "Destination object/address validity remains a caller contract. Linked transport, peer compatibility and native completion timing remain unverified."
+    },
+    {
+      "path": "src/hack_story_partner.c",
+      "sections": [
+        "HoennNative_StoryPartnerCheck",
+        "HoennNative_StoryMakePartner"
+      ],
+      "verification_records": [
+        "story_partner_registration_review.json"
+      ],
+      "source_sha256": "edc84544852fa5d2395805cd43f43fab82fb7fe69b62f9168174275131fdd32c",
+      "remaining": "Script sequencing, save persistence, identity matching, stat bonus arithmetic and linked GBA behavior remain unverified."
     }
   ]
 }

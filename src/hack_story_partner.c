@@ -61,6 +61,9 @@ void HoennNative_StoryMakePartner(void)
 	if (FlagGet(FLAG_STORY_PARTNER) || Var8004 >= PARTY_SIZE)
 		return;
 	mon = &gPlayerParty[Var8004];
+	if (GetMonData(mon, MON_DATA_SPECIES, NULL) == SPECIES_NONE
+	 || GetMonData(mon, MON_DATA_IS_EGG, NULL))
+		return;
 	VarSet(VAR_PARTNER_PID_LO, mon->personality & 0xFFFF);
 	VarSet(VAR_PARTNER_PID_HI, mon->personality >> 16);
 	VarSet(VAR_PARTNER_OTID_LO, mon->otid & 0xFFFF);

@@ -1,0 +1,13 @@
+{
+  "scope": "HoennNative_StoryPartnerCheck and HoennNative_StoryMakePartner in src/hack_story_partner.c",
+  "finding": "The registration entry point checked only slot bounds and the existing registration flag. Direct invocation could permanently register an empty slot or an egg despite the separate check entry point rejecting them.",
+  "change": "Validate species and egg status inside registration before identity variable writes, flag mutation or stat recalculation.",
+  "verification": [
+    "check_story_partner_registration.py: every u16 slot, registered/unregistered state and empty/normal/egg state (393216 cases)",
+    "Invalid choices preserve all four identity variables, the flag and LASTRESULT; valid choices save exact PID/OTID halves and recalculate only the selected mon",
+    "Repeated registration cannot choose a different partner; separate check remains consistent with species/egg eligibility",
+    "The same fixture against baseline d311585 fails with exit status 1",
+    "GNU ARM compilation of src/hack_story_partner.c passes without diagnostics"
+  ],
+  "limitations": "Controlled mon/flag/variable APIs; actual script sequencing, save persistence, partner identity matching, stat bonus arithmetic and GBA behavior remain unverified. This scope does not establish whole-file verification."
+}
