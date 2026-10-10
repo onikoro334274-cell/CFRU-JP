@@ -1,0 +1,18 @@
+{
+  "scope": [
+    "Select_CopyMonsToPlayerParty",
+    "CopySwappedMonData",
+    "HoennFactory_RentalPacked",
+    "HoennFactory_SetRentalPacked"
+  ],
+  "checks": {
+    "scripts/check_factory_party_copy.py": "120 ordered selections x 64 packed high-bit patterns = 7680; nine legal own/enemy swaps x 64 patterns = 576; full copied mon bytes, all six saved slots and untouched player slots checked"
+  },
+  "findings": "No slot/order mismatch found for valid UI selections. Enemy packed metadata comes from slots 3..5 while enemy party data comes from indices 0..2.",
+  "limitations": [
+    "Opaque 100-byte Pokemon fixture and controlled VarGet/VarSet/Memcpy/count service; no encrypted Pokemon interpretation or actual party-count function",
+    "Only valid unique selections and legal own/enemy indices are covered; incomplete/duplicate UI selections remain unverified",
+    "Packed high-bit patterns exercise u16 preservation, not semantic validity of all IV encodings",
+    "Complete Factory source build remains blocked by missing generated headers; no GBA runtime"
+  ]
+}
