@@ -1,0 +1,12 @@
+{
+  "scope": "Select_HandleMonSelectionChange and read-only tracing of confirmation/decline callers",
+  "checks": {
+    "scripts/check_factory_selection_order.py": "All 37 ordered states with zero/one/two selected candidates x 6 cursors = 222 transitions; all 120 ordered triples cancel the just-selected third candidate; contiguous unique order, count and changed sprite palette checked"
+  },
+  "findings": "No malformed selection reached in tested normal transitions. Decline calls the selection handler with cursor remaining on the third candidate; cancellation preserves the first two.",
+  "limitations": [
+    "Controlled native production selection handler; real input task dispatch and summary restoration not executed",
+    "Arbitrary memory corruption, duplicate selected IDs, cursor corruption and allocation failures are not covered",
+    "No whole Factory semantic approval or GBA runtime claim"
+  ]
+}
