@@ -1,0 +1,48 @@
+{
+  "scope": "Original BPRJ battle callback routing and replacement body order",
+  "rom_sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "calls": [
+    {
+      "address": "0x80109c4",
+      "symbol": "AnimateSprites",
+      "target": "0x80066d8"
+    },
+    {
+      "address": "0x80109c8",
+      "symbol": "BuildOamBuffer",
+      "target": "0x8006724"
+    },
+    {
+      "address": "0x80109cc",
+      "symbol": "RunTextPrinters",
+      "target": "0x8002dd0"
+    },
+    {
+      "address": "0x80109d0",
+      "symbol": "UpdatePaletteFade",
+      "target": "0x806fc74"
+    },
+    {
+      "address": "0x80109d4",
+      "symbol": "RunTasks",
+      "target": "0x8076d10"
+    },
+    {
+      "address": "0x80109fe",
+      "symbol": "ResetPaletteFadeControl",
+      "target": "0x8070228"
+    },
+    {
+      "address": "0x8010a0e",
+      "symbol": "BeginNormalPaletteFade",
+      "target": "0x806fd2c"
+    },
+    {
+      "address": "0x8010a14",
+      "symbol": "SetMainCallback2",
+      "target": "0x8000544"
+    }
+  ],
+  "quit_callback": "0x8010a7d",
+  "limitations": "Original instruction targets and source registration only; emitted rewrite bytes, linked payload, registers and GBA runtime remain unverified."
+}

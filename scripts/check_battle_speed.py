@@ -16,17 +16,14 @@ def main():
     fixture = r'''
 typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typedef u8 bool8;
 typedef void (*MainCallback)(void);
+#include "include/constants/battle.h"
 #define NULL ((void*)0)
 #define TRUE 1
 #define FALSE 0
 #define BATTLE_SPEED_MAX 3
 #define BATTLE_SPEED_TAG 0xBA00
 #define HACK_VAR_BATTLE_SPEED 0x50F7
-#define BATTLE_TYPE_LINK 1
-#define BATTLE_TYPE_TOWER_LINK_MULTI 2
-#define BATTLE_TYPE_POKE_DUDE 4
 #define B_BUTTON 2
-#define B_OUTCOME_DREW 3
 #define RGB_BLACK 0
 #define JOY_HELD(key) (held&(key))
 static u16 stored,gSpecialVar_LastResult;static u8 gBattleOutcome;
@@ -77,7 +74,8 @@ int main(void) {
     }
     for(int speed=0;speed<4;speed++) for(int flags=0;flags<4;flags++)
     for(mode=0;mode<4;mode++) for(threshold=1;threshold<=4;threshold++) {
-        reset(speed);gBattleTypeFlags=flags;
+        reset(speed);gBattleTypeFlags=((flags&1) ? BATTLE_TYPE_LINK : 0) |
+                                      ((flags&2) ? BATTLE_TYPE_TOWER_LINK_MULTI : 0);
         int extra=flags ? 0 : speed,expectedCb=0,expectedBodies=1;
         int active=!(mode==3 && threshold==1);
         for(int i=0;i<extra && active;i++) {
@@ -103,7 +101,7 @@ int main(void) {
         c, obj, exe = (path / ('battle_speed' + suffix) for suffix in ('.c', '.obj', '.exe'))
         c.write_text(fixture, encoding='utf-8')
         subprocess.run(['clang', '--target=x86_64-pc-windows-msvc', '-O2', '-fno-builtin',
-                        '-fno-stack-protector', '-c', str(c), '-o', str(obj)], check=True)
+                        '-fno-stack-protector', '-I', str(ROOT), '-c', str(c), '-o', str(obj)], check=True)
         subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
