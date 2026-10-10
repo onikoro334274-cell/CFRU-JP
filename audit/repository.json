@@ -1381,6 +1381,16 @@
       "findings": []
     },
     {
+      "path": "audit/gate_header_recovery.json",
+      "bytes": 1089,
+      "sha256": "1741b7a3d8798b63806be25ec243018b03936979846dd397d21e597bf41f7c9b",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers"
+      ],
+      "findings": []
+    },
+    {
       "path": "audit/gnu_c.json",
       "bytes": 128838,
       "sha256": "8f540a03c3557d9bd3ac0c865e74685d9b179d8be2b624175e457b0c67a297c8",
@@ -1402,8 +1412,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 27995,
-      "sha256": "192a3ae4eadff21fa7b6c2059295d2dec763d293f90c992e1fb337ea2a9258d3",
+      "bytes": 28645,
+      "sha256": "322540ea334a135a03c0e17349c825b8c04626a4ea46685cebd0b5e61a1838d3",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12611,6 +12621,17 @@
       "findings": []
     },
     {
+      "path": "scripts/generate_rotating_gates.py",
+      "bytes": 16131,
+      "sha256": "a6433556b7d7003874b96a5efb7335489e26e907aef602f65bc53aaff123ba7d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/generate_sideways_stairs.py",
       "bytes": 3601,
       "sha256": "5f80be8d91e3837805061db197c31f999e201cef1025e98b1f65b6177672e140",
@@ -12625,6 +12646,17 @@
       "path": "scripts/generate_vanilla_tutor.py",
       "bytes": 4676,
       "sha256": "db9c50d267df233dfe8b068185d501b96272e5bd63758b32b5326f13f5d6be98",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
+      "path": "scripts/indexed_png.py",
+      "bytes": 2611,
+      "sha256": "050c4f40d4d7ec074eccfeeda391993e3ddcc0a10858839644c865092157eb81",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -13084,6 +13116,17 @@
       "path": "src/Tables/hoenn_abnormal_weather.h",
       "bytes": 1027,
       "sha256": "c36d1f87cdc30bdca97d9f84f82d0417da01a0d9799078580cc778544bc3bf5d",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "quoted_include_exists"
+      ],
+      "findings": []
+    },
+    {
+      "path": "src/Tables/hoenn_gates.h",
+      "bytes": 35886,
+      "sha256": "bf67a4753d176fb62f123f9885e24aa24ae7eef7f09d9e884fc4e3cfac4ea5c1",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",
@@ -14843,13 +14886,7 @@
         "merge_conflict_markers",
         "quoted_include_exists"
       ],
-      "findings": [
-        {
-          "line": 10,
-          "kind": "missing_local_include",
-          "target": "Tables/hoenn_gates.h"
-        }
-      ]
+      "findings": []
     },
     {
       "path": "src/hoenn_gym_puzzles.c",

@@ -25,5 +25,6 @@
     }
   ],
   "required_adapter": "Replace gen3_consts/em_script_link and build_pc_monitor import dependencies with explicit reference/output arguments and standalone indexed-PNG reader; retain exact palette indices and map ordering",
-  "status": "inputs_available_adapter_pending"
+  "status": "generated_and_ARM_compiled",
+  "verification": "8 gates, 3 shapes / 4608 bytes, 20 affine animations; hoenn_gates.c real ARM compilation without diagnostics; indexed pixels and palette compared against Pillow"
 }
