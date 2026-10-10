@@ -1,0 +1,8 @@
+{
+  "source": "../PokemonStart-src/CFRU-Builder v1.01/CFRU-JP-main/src/achievements_gfx.h",
+  "output": "src/achievements_gfx.h",
+  "sha256": "1c9dd88f00ece88168936357b8c361bfb4edcb393d11d2c8e205924f541bd196",
+  "method": "Recovered exact generated header from local source snapshot; no placeholder graphics.",
+  "validation": "Byte-identical source copy; see audit/gnu_c.json for ARM compilation.",
+  "limitations": "Original image inputs not recovered; regeneration and in-game rendering not verified."
+}

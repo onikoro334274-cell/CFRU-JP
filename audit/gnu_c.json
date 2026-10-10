@@ -13,7 +13,7 @@
     "-fira-loop-pressure",
     "-fipa-pta",
     "-isystem",
-    "C:\\Users\\liru55\\AppData\\Local\\Temp\\cfru-jp-arm-tools\\mingw64\\arm-none-eabi\\include",
+    "C:\\Users\\liru55\\AppData\\Local\\Temp/cfru-jp-arm-tools/mingw64/arm-none-eabi/include",
     "-c"
   ],
   "scope": "All src C files with actual build CFLAGS; ARM object generation does not establish linker resolution or runtime correctness.",
@@ -41,10 +41,10 @@
     },
     {
       "path": "src/achievements.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "dc2805e6d46674557974a6dafc916fbdb55244ee234c0ded32254e39dd02c4d4",
-      "object_bytes": 0,
-      "diagnostics": "src/achievements.c:52:10: fatal error: achievements_gfx.h: No such file or directory\n   52 | #include \"achievements_gfx.h\" //Generated (scripts/achievements_gfx.py)\n      |          ^~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 40048,
+      "diagnostics": ""
     },
     {
       "path": "src/ai_hack.c",
@@ -825,10 +825,10 @@
     },
     {
       "path": "src/hoenn_abnormal_weather.c",
-      "exit_code": 1,
-      "source_sha256": "75952ff35228a9e5cf26de91989382b3e3f4522080bf1c409fcc90235c80ff7f",
-      "object_bytes": 0,
-      "diagnostics": "src/hoenn_abnormal_weather.c:5:10: fatal error: Tables/hoenn_abnormal_weather.h: No such file or directory\n    5 | #include \"Tables/hoenn_abnormal_weather.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "exit_code": 0,
+      "source_sha256": "f76ed93496868b2ba6970888890f109b0b499aa698237f8f33c896da2764d0fc",
+      "object_bytes": 1744,
+      "diagnostics": ""
     },
     {
       "path": "src/hoenn_arena.c",
@@ -895,10 +895,10 @@
     },
     {
       "path": "src/hoenn_gates.c",
-      "exit_code": 1,
-      "source_sha256": "d2f1d0ec27ffffe060cefdd16f16fe50c7d208e431d6262d0df2b8fae4b29c0f",
-      "object_bytes": 0,
-      "diagnostics": "src/hoenn_gates.c:10:10: fatal error: Tables/hoenn_gates.h: No such file or directory\n   10 | #include \"Tables/hoenn_gates.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "exit_code": 0,
+      "source_sha256": "20431fba944d6c2c9f858099ea639ef3a322cb715082b83f9961a69e6a190a37",
+      "object_bytes": 10792,
+      "diagnostics": ""
     },
     {
       "path": "src/hoenn_gym_puzzles.c",
@@ -1196,10 +1196,10 @@
     },
     {
       "path": "src/roamer.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "b621d11be7dcfc82945ee1f90fc467c78ba5c4549f2a17128f7bb1fac50315a0",
-      "object_bytes": 0,
-      "diagnostics": "src/roamer.c:19:10: fatal error: Tables/hoenn_roamer_locations.h: No such file or directory\n   19 | #include \"Tables/hoenn_roamer_locations.h\" //[hack] patches/0093: ラティ兄妹のホウエンの徘徊（tools/rom/build_hoenn_roamers.py）\n      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 5992,
+      "diagnostics": ""
     },
     {
       "path": "src/rtc.c",
