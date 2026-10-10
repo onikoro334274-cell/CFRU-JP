@@ -173,6 +173,13 @@
       "diagnostics": ""
     },
     {
+      "path": "src/birthday.c",
+      "exit_code": 0,
+      "source_sha256": "6f2c4cffe6bddfaedefb67d71a68f4dcc169f2d6f1760141bbb710719bbdebbb",
+      "object_bytes": 2352,
+      "diagnostics": ""
+    },
+    {
       "path": "src/build_pokemon.c",
       "exit_code": 0,
       "source_sha256": "228c9c8b2cf6f077e763a0291de2103335206d6ff04fe5f7b1365eb8e1b1c5a5",
@@ -867,10 +874,10 @@
     },
     {
       "path": "src/hoenn_factory.c",
-      "exit_code": 1,
+      "exit_code": 0,
       "source_sha256": "5886277a24d9d870121bc2596e050b280f71e8177e5aa07929df3a8ab81e452c",
-      "object_bytes": 0,
-      "diagnostics": "src/hoenn_factory.c:8:10: fatal error: hoenn_factory_data.h: No such file or directory\n    8 | #include \"hoenn_factory_data.h\"\n      |          ^~~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
+      "object_bytes": 7776,
+      "diagnostics": ""
     },
     {
       "path": "src/hoenn_factory_screen.c",
@@ -1148,8 +1155,8 @@
     {
       "path": "src/play_clock.c",
       "exit_code": 0,
-      "source_sha256": "3bc711c2cde5a3ff1f8eeb79f8e6b03ec6e40a71b085484b5e22cc27a6483f6e",
-      "object_bytes": 2944,
+      "source_sha256": "07829ed2f78408d7581a6fddcef73c04118122d7b5c024ef391f7de35763d8c0",
+      "object_bytes": 2956,
       "diagnostics": ""
     },
     {

@@ -188,13 +188,13 @@
     "Resolve the currently inventoried missing include references and obtain remaining generated assets/tools for GNU linking/runtime validation; use repository.json for current scope and counts."
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T21:42:16.243456+00:00",
+  "updated_utc": "2026-10-10T21:53:35.287485+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete.",
   "current_compilation": {
-    "c_total": 203,
-    "c_passed": 178,
-    "c_failed": 25,
+    "c_total": 204,
+    "c_passed": 180,
+    "c_failed": 24,
     "failed_files": [
       "src/bw_card_pic.c",
       "src/bw_frontier_pass.c",
@@ -203,7 +203,6 @@
       "src/bw_throwball.c",
       "src/hack_hoenn_battle_music.c",
       "src/hoenn_dome.c",
-      "src/hoenn_factory.c",
       "src/hoenn_factory_screen.c",
       "src/hoenn_frontier.c",
       "src/hoenn_gym_puzzles.c",
@@ -259,14 +258,16 @@
     "pc_script_transfers": "pc_script_transfers_review.json",
     "temp_team_ranges": "temp_team_ranges_review.json",
     "pc_box_direction": "pc_box_direction_review.json",
-    "pc_mon_search": "pc_mon_search_review.json"
+    "pc_mon_search": "pc_mon_search_review.json",
+    "player_birthday": "audit/birthday_review.json",
+    "play_clock_mode": "audit/play_clock_mode_review.json"
   },
   "current_scoped_reviews_limitation": "These reports verify named functions and controlled scenarios only. They do not certify entire files, all callers, save migration, linking, or GBA runtime.",
   "latest_verification": {
     "c_objects": {
-      "total": 203,
-      "passed": 178,
-      "missing_generated_header_failures": 25,
+      "total": 204,
+      "passed": 180,
+      "missing_generated_header_failures": 24,
       "evidence": "gnu_c.json"
     },
     "python_unittest": {
@@ -281,6 +282,6 @@
     "status": "skipped_by_user",
     "date": "2026-10-11",
     "scope": "Files requiring unavailable generated headers or assets",
-    "note": "User requested skipping header-missing files. Completed factory data recovery is retained. Full build and runtime remain unverified; prior full audit counts predate factory recovery."
+    "note": "User requested skipping files with unavailable headers. Completed factory recovery is retained. Current full C audit: 204 total, 180 compiled, 24 missing-header failures. Full linking and runtime remain unverified."
   }
 }
