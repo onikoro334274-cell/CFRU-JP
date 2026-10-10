@@ -10,9 +10,12 @@ ROOT = Path(__file__).resolve().parent.parent
 def main():
     source = (ROOT / 'src/hack_box_speed.c').read_text(encoding='utf-8')
     production = '\n'.join(function(source, signature) for signature in (
-        'static void Body(void)', 'void HackBoxSpeed_CB2PokeStorage(void)'))
+        'static void Body(bool8 extra)', 'void HackBoxSpeed_CB2PokeStorage(void)'))
     fixture = r'''
 typedef unsigned short u16;typedef unsigned int u32;typedef void (*MainCallback)(void);
+typedef unsigned char bool8;
+#define FALSE 0
+#define TRUE 1
 #define BOX_SPEED_EXTRA 1
 static void normal(void) {}
 static void other(void) {}
@@ -36,12 +39,12 @@ static void BuildOamBuffer(void) {step(5);}
 PRODUCTION
 int main(void) {
     for(int mask=0;mask<8;mask++) for(int heldMode=0;heldMode<2;heldMode++)
-    for(stage=0;stage<=6;stage++) {
+    for(stage=0;stage<=12;stage++) {
         a=mask&1 ? 65535 : 0;b=mask&2 ? 65535 : 0;c=mask&4 ? 65535 : 0;
         held=heldMode ? 65535 : 0;
         gMain.newKeys=a;gMain.newKeysRaw=b;gMain.newAndRepeatedKeys=c;gMain.heldKeys=held;
         gMain.callback2=normal;calls=errors=0;HackBoxSpeed_CB2PokeStorage();
-        if(errors || calls!=(stage ? 6 : 12)) return 1;
+        if(errors || calls!=(stage>6 ? stage : stage ? 6 : 12)) return 1;
         if(gMain.newKeys!=a || gMain.newKeysRaw!=b || gMain.newAndRepeatedKeys!=c || gMain.heldKeys!=held) return 2;
         if(gMain.callback2!=(stage ? other : normal)) return 3;
     }
@@ -57,7 +60,7 @@ int main(void) {
         subprocess.run(['lld-link', '/entry:main', '/subsystem:console', '/nodefaultlib',
                         '/out:' + str(exe), str(obj)], check=True)
         subprocess.run([str(exe)], check=True)
-    print('Box speed: 112 fresh/repeat/held-input and primary screen-transition cases passed.')
+    print('Box speed: 208 fresh/repeat/held-input and primary/extra screen-transition cases passed.')
 
 
 if __name__ == '__main__':

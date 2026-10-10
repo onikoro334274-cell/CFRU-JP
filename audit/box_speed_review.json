@@ -1,9 +1,9 @@
 {
   "scope": "Body and HackBoxSpeed_CB2PokeStorage",
   "verification": "python scripts/check_box_speed.py; original BPRJ callback disassembly",
-  "cases": 112,
-  "coverage": "Eight zero/all-bit combinations of fresh/raw/repeated input, both held-key states and callback transitions after each of six primary body operations. Checks six-operation order, two bodies normally, one body after primary screen change, zero fresh/repeat keys in extra body, and restoration of inputs without changing held keys.",
+  "cases": 208,
+  "coverage": "Eight zero/all-bit combinations of fresh/raw/repeated input, both held-key states and callback transitions after each of six primary or six extra body operations. Checks original six-operation primary order, two bodies normally, one body after primary screen change, truncation immediately after a screen-changing extra operation, zero fresh/repeat keys in extra body, and restoration of inputs without changing held keys.",
   "rom_correspondence": "Original callback 0x0808C800 calls RunTasks 0x08076D10, scheduled tilemap copies 0x080F7810, scrolling 0x0808EA04, close-box flash 0x0808F3D8, AnimateSprites 0x080066D8 and BuildOamBuffer 0x08006724 in that order. Source body and functionrewrites registration match.",
-  "findings": "No defect found in the checked input-isolation and primary-transition scope.",
-  "limitations": "Mocked body operations and input structure. Callback changes during the extra body, held-input behavior of actual box tasks, disposal of box state, emitted ROM rewrite and linked GBA runtime remain unverified."
+  "findings": "Extra body previously continued box-specific work after callback2 changed mid-body. Extra mode now checks the callback after every operation preceding another operation; primary body preserves vanilla order.",
+  "limitations": "Mocked body operations and input structure. Held-input behavior of actual box tasks, disposal of box state, emitted ROM rewrite and linked GBA runtime remain unverified."
 }

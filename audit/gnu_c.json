@@ -497,8 +497,8 @@
     {
       "path": "src/hack_box_speed.c",
       "exit_code": 0,
-      "source_sha256": "aa61fc73ac4c113351b1f74c8f985d9b123778e93b4de6dcaa9155cc9683184a",
-      "object_bytes": 1148,
+      "source_sha256": "df9b9d8f1bbedc28bab20d91f17c25936d19e75bc4a460a1e6a8651d22d01ec9",
+      "object_bytes": 1184,
       "diagnostics": ""
     },
     {

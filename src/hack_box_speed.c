@@ -20,13 +20,23 @@
 #define UpdateCloseBoxButtonFlash_ ((void (*)(void)) (0x0808F3D8 | 1))
 #define BOX_SPEED_EXTRA 1
 
-static void Body(void)
+static void Body(bool8 extra)
 {
     RunTasks();
+    if (extra && gMain.callback2 != CB2_PokeStorage_)
+        return;
     DoScheduledBgTilemapCopiesToVram_();
+    if (extra && gMain.callback2 != CB2_PokeStorage_)
+        return;
     ScrollBackground_();
+    if (extra && gMain.callback2 != CB2_PokeStorage_)
+        return;
     UpdateCloseBoxButtonFlash_();
+    if (extra && gMain.callback2 != CB2_PokeStorage_)
+        return;
     AnimateSprites();
+    if (extra && gMain.callback2 != CB2_PokeStorage_)
+        return;
     BuildOamBuffer();
 }
 
@@ -35,7 +45,7 @@ void HackBoxSpeed_CB2PokeStorage(void)
     u16 newKeys, newRaw, newRepeat;
     u32 i;
 
-    Body();
+    Body(FALSE);
     newKeys = gMain.newKeys;
     newRaw = gMain.newKeysRaw;
     newRepeat = gMain.newAndRepeatedKeys;
@@ -43,7 +53,7 @@ void HackBoxSpeed_CB2PokeStorage(void)
     gMain.newKeysRaw = 0;
     gMain.newAndRepeatedKeys = 0;
     for (i = 0; i < BOX_SPEED_EXTRA && gMain.callback2 == CB2_PokeStorage_; ++i)
-        Body();
+        Body(TRUE);
     gMain.newKeys = newKeys;
     gMain.newKeysRaw = newRaw;
     gMain.newAndRepeatedKeys = newRepeat;
