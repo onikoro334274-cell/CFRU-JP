@@ -1412,8 +1412,8 @@
     },
     {
       "path": "audit/progress.json",
-      "bytes": 28645,
-      "sha256": "322540ea334a135a03c0e17349c825b8c04626a4ea46685cebd0b5e61a1838d3",
+      "bytes": 29111,
+      "sha256": "ac00383b7899ef4a777e1838d449774fac995165fdd35b48b23f716cf85740c0",
       "review": "pending",
       "checks": [
         "merge_conflict_markers"
@@ -12490,6 +12490,17 @@
       "findings": []
     },
     {
+      "path": "scripts/check_gate_positions.py",
+      "bytes": 2156,
+      "sha256": "a5b2612f5839c8542c2017762cbae6438a82929ef158e9d0522b3e5cc19ba89a",
+      "review": "pending",
+      "checks": [
+        "merge_conflict_markers",
+        "python_ast"
+      ],
+      "findings": []
+    },
+    {
       "path": "scripts/check_integer_macros.py",
       "bytes": 2316,
       "sha256": "ce5d643f0af0311aa2129091753da521231f562b9cdda3eeab40d0df2f52673b",
@@ -14879,8 +14890,8 @@
     },
     {
       "path": "src/hoenn_gates.c",
-      "bytes": 17002,
-      "sha256": "d2f1d0ec27ffffe060cefdd16f16fe50c7d208e431d6262d0df2b8fae4b29c0f",
+      "bytes": 16998,
+      "sha256": "20431fba944d6c2c9f858099ea639ef3a322cb715082b83f9961a69e6a190a37",
       "review": "pending",
       "checks": [
         "merge_conflict_markers",

@@ -75,7 +75,8 @@
     "Production abnormal-weather tick passes 393216 moved/place/u16-step inputs including 65535, all event IDs 17..65535, and legendary-availability event creation; actual ARM compilation passes without diagnostics. Controlled save/flag fixture does not verify map script cleanup or GBA weather rendering.",
     "Weather production tick additionally passes all 16 event routes for end-flag cleanup vs protected cave waiting; event creation stays suppressed on all 16 route entries and 9 protected maps; non-champion state is untouched. Native state-machine checks do not execute map scripts or render weather.",
     "Actual HoennStepTick step-detector/weather-call block passes 20480 controlled frames over padded-map positions 7..70: initial/stationary frames do not count movement, X/Y changes do, timer decrements and coordinates persist, weather is called once per block. Full task entry, map transitions, other field callbacks and GBA hook timing remain unverified.",
-    "Generated complete hoenn_gates.h from public pokeemerald reference: 8 gates, L4/T1/T2 graphics totaling 4608 bytes and 20 affine animations; hoenn_gates.c compiles using real GNU ARM GCC without diagnostics. Indexed-PNG pixel and palette data independently compared with Pillow; GBA rotation/collision/rendering remain unverified."
+    "Generated complete hoenn_gates.h from public pokeemerald reference: 8 gates, L4/T1/T2 graphics totaling 4608 bytes and 20 affine animations; hoenn_gates.c compiles using real GNU ARM GCC without diagnostics. Indexed-PNG pixel and palette data independently compared with Pillow; GBA rotation/collision/rendering remain unverified.",
+    "Production HoennGatePlace passes 917504 signed player-coordinate/camera combinations with controlled gate positions, including negative deltas and s16 output narrowing; real hoenn_gates.c ARM compilation passes without diagnostics. This fixture does not render gates or validate collision/rotation behavior."
   ],
   "changes": [
     "Free-space search checks the first byte and exact EOF, reads in blocks, and fails instead of returning offset zero on exhaustion",
@@ -133,7 +134,8 @@
     "Added explicit-reference/map-bank Hoenn roaming table generator with row and destination validation; recovered actual route data",
     "Added abnormal-weather map header recovery generator and actual route/cave definitions",
     "Weather timer compares before incrementing to prevent u16 wrap at 65535; invalid event location IDs reset location/end/steps before map lookups",
-    "Standalone rotating-gate generator with explicit reference/output paths and indexed PNG decoder restores missing header"
+    "Standalone rotating-gate generator with explicit reference/output paths and indexed PNG decoder restores missing header",
+    "Gate placement replaces negative signed left shifts with multiplication by 16; arithmetic remains within signed int range for s16 coordinates"
   ],
   "limitations": [
     "77 quoted C include references are absent from this checkout; see repository.json for locations",
@@ -163,7 +165,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:57:35.767534+00:00",
+  "updated_utc": "2026-10-10T18:58:37.564782+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }
