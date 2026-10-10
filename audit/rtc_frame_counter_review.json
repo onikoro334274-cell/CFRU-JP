@@ -1,0 +1,16 @@
+{
+  "scope": "RtcCalcLocalTime frame cadence and PlayTimeCounter_Update",
+  "defect": "RTC refresh counter reset after frame value 60, so frames 0..60 produced a 61-call cycle despite once-per-60-frame intent. read_keys.c invokes the routine each frame.",
+  "fix": "Reset at 59, yielding a 0..59 cycle.",
+  "baseline": "997fd84ff3e30db31e62e83f82669183ba096f84",
+  "checks": {
+    "scripts/check_rtc_frame_counter.py": "4800 mocked RTC frames across error/warning/normal and play-clock modes; 442368 play-time cases across active/stopped states, raw frame counters, second changes, RTC flags, modes and 59-second/59-minute/999-hour boundaries",
+    "scripts/check_rtc_frame_counter.py --baseline HEAD (before commit)": "Return 1 reproduces cadence mismatch",
+    "audit/gnu_c.json": "174/203 ARM C source compilations pass"
+  },
+  "limitations": [
+    "RTC read/update and play-clock fill are controlled mocks; not hardware timekeeping",
+    "PlayTimeCounter_SetToMax invocation is checked but its ROM implementation is not executed",
+    "No performance/real-time wall-clock benchmark or full read_keys/script runtime verification"
+  ]
+}

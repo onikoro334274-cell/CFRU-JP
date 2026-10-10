@@ -209,7 +209,7 @@ void RtcCalcLocalTime(void)
 			ScriptContext1_SetupScript(SystemScript_StopZooming);
 		}*/
 	}
-	else if (sRTCFrameCount >= 60) //Update once a second
+	else if (sRTCFrameCount >= 59) //Update once every 60 calls (frames 0..59).
 	{
 		sRTCFrameCount = 0;
 		return;
