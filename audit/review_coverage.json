@@ -2,12 +2,12 @@
   "scope": "Tracked and nonignored source/linker/configuration/insertion files at current worktree state",
   "limitations": "Current hashes establish identity, not semantic completeness. Compilation covers source translation units only, not dependency provenance or linking. Scoped reviews do not establish whole-file or whole-project completion. Files without indexed scopes may have other reports; this inventory does not infer evidence from filenames or incidental text mentions.",
   "summary": {
-    "source_files": 845,
+    "source_files": 846,
     "files_with_indexed_scopes": 29,
     "indexed_scopes": 43,
     "scope_states": {
-      "source_changed": 15,
-      "current": 27,
+      "source_changed": 14,
+      "current": 28,
       "identity_not_recorded": 1
     },
     "gnu_c_states": {
@@ -3121,6 +3121,13 @@
     {
       "path": "scripts/check_calendar_differences.py",
       "source_sha256": "a5e34b33ec8665a99e204136df5a7d206f2fe7d42b5b83f32041ae00999df565",
+      "gnu_c_object": "not_applicable",
+      "scoped_reviews": [],
+      "whole_file_completion": "not_established"
+    },
+    {
+      "path": "scripts/check_daily_event_arm.py",
+      "source_sha256": "0746b7a502114f7fe064abb3a0ac15c809b8d667b89ea90d9bdc093be1f8787f",
       "gnu_c_object": "not_applicable",
       "scoped_reviews": [],
       "whole_file_completion": "not_established"
@@ -6493,25 +6500,34 @@
       "gnu_c_object": "object_compiled",
       "scoped_reviews": [
         {
-          "state": "source_changed",
+          "state": "current",
           "sections": [
             "DailyEventVar four-byte bit layout with halfword alignment",
             "UpdateTimeInVars",
-            "CheckAndSetDailyEvent"
+            "CheckAndSetDailyEvent",
+            "GetDailyEventVarPointer",
+            "IsTimeInVarInFuture",
+            "IsDayInVarInFuture",
+            "BufferYearMonthDayFromVar",
+            "sp0A2_GetTimeDifference"
           ],
-          "recorded_source_sha256": "3dccaa7f630e7085a482fac99dcf30334f0079f23d0fa6cd57993ef95ff18f7e",
+          "recorded_source_sha256": "d03eb00aba73c4bc1ff2506484ff84c4becc8a7d05255d52303de4c240ea2665",
           "evidence": [
             {
-              "path": "audit/daily_event_storage_review.json",
+              "path": "audit/daily_event_current_review.json",
               "exists": true
             },
             {
               "path": "audit/daily_event_arm_disassembly.json",
               "exists": true
+            },
+            {
+              "path": "audit/daily_event_bounds_review.json",
+              "exists": true
             }
           ],
           "verification": null,
-          "remaining": "Controlled timestamp/event fixture and ARM store instructions only; variable-pair bounds, other timestamp callers, script operations and game runtime remain unverified"
+          "remaining": "Actual variable-pointer hooks, script callers, save lifetime, GBA execution and other scripting.c operations remain unverified."
         }
       ],
       "whole_file_completion": "not_established"

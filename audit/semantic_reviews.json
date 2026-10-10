@@ -336,17 +336,23 @@
     },
     {
       "path": "src/scripting.c",
-      "source_sha256": "3dccaa7f630e7085a482fac99dcf30334f0079f23d0fa6cd57993ef95ff18f7e",
+      "source_sha256": "d03eb00aba73c4bc1ff2506484ff84c4becc8a7d05255d52303de4c240ea2665",
       "sections": [
         "DailyEventVar four-byte bit layout with halfword alignment",
         "UpdateTimeInVars",
-        "CheckAndSetDailyEvent"
+        "CheckAndSetDailyEvent",
+        "GetDailyEventVarPointer",
+        "IsTimeInVarInFuture",
+        "IsDayInVarInFuture",
+        "BufferYearMonthDayFromVar",
+        "sp0A2_GetTimeDifference"
       ],
       "verification_records": [
-        "daily_event_storage_review.json",
-        "daily_event_arm_disassembly.json"
+        "daily_event_current_review.json",
+        "daily_event_arm_disassembly.json",
+        "daily_event_bounds_review.json"
       ],
-      "remaining": "Controlled timestamp/event fixture and ARM store instructions only; variable-pair bounds, other timestamp callers, script operations and game runtime remain unverified"
+      "remaining": "Actual variable-pointer hooks, script callers, save lifetime, GBA execution and other scripting.c operations remain unverified."
     },
     {
       "path": "src/mega_shop.c",

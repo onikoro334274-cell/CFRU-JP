@@ -1,0 +1,11 @@
+{
+  "scope": "Current variable-backed timestamp layout, writes and bounds in src/scripting.c",
+  "outcome": "Current production fixtures and actual GNU ARM instructions pass; historical index refreshed without claiming whole-file review.",
+  "verification": [
+    "check_daily_event_storage.py: 4285440 bit-layout writes and 4032 event comparisons at both variable alignments",
+    "check_daily_event_bounds.py: all 65536 IDs, four resolver states, six APIs and both expansion configurations",
+    "check_daily_event_arm.py: actual current scripting.c compiled without diagnostics; both timestamp writers contain halfword stores and no non-stack word stores",
+    "Actual source DailyEventVar compiled with four-byte size/two-byte alignment assertions and initialized .rodata compared against independent packed bytes fbfd3ca6"
+  ],
+  "limitations": "Controlled native fixtures and unlinked ARM objects. Actual native variable-pointer hooks, script callers, save lifetime and GBA execution remain unverified. Other scripting.c operations remain outside this scope."
+}
