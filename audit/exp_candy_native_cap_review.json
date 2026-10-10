@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "native_effect_cases": 1200,
+  "scope": "Unicorn executes supplied BPRJ rare-candy effect instructions with current cap/stride patches for six growth rates and levels 1..200. Checks exp-table addressing, one experience write/stat calculation below cap and no write at cap.",
+  "limitations": "Get/SetMonData and CalculateMonStats intercepted; controlled expanded tables. Whole linked ROM, native friendship/move/evolution chain and emulator gameplay remain unverified."
+}

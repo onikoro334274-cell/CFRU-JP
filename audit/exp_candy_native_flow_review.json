@@ -27,6 +27,7 @@
     "level_up_text": "0x083DE267",
     "next_task_callback_literal": "0x08126D80 contains 0x08126E0D"
   },
-  "next_work": "Verify full-bag and existing rare-candy inventories through entry/continuation integration, final experience remainder, native item effect above level 100, move-selection task transitions and evolution.",
-  "limitations": "ARM compilation and controlled 199 level-step fixtures pass, plus existing arithmetic/failure/packed-state checks. End-to-end patched ROM execution and complete native move/evolution chain not yet verified."
+  "native_level_cap_fix": "bytereplacement 08040F24 changes native effect cmp r0,#100 to cmp r0,#200. Ordinary Rare Candy keeps its source entry cap of 100. check_exp_candy_native_cap.py executes native cap/stride instructions for 1200 growth-rate/level cases.",
+  "next_work": "Verify full-bag and existing rare-candy inventories through entry/continuation integration, final experience remainder, move-selection task transitions and evolution.",
+  "limitations": "ARM compilation, controlled 199 level-step fixtures and 1200 native instruction cap/stride cases pass, plus existing arithmetic/failure/packed-state checks. End-to-end patched ROM execution and complete native move/evolution chain not yet verified."
 }

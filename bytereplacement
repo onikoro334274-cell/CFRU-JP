@@ -345,6 +345,10 @@
 0803DF5E 20 25 6D 01
 0803DFCA 20 25 6D 01
 08040F50 20 20 40 01
+## Native item-effect level increment must support experience-candy steps through Lv200.
+## Ordinary Rare Candy retains its Lv100 entry limit in ItemUseCB_RareCandy.
+## BPRJ 08040F24: cmp r0,#100 -> cmp r0,#200 (config.h MAX_LEVEL).
+08040F24 C8 28
 08042D94 0B
 08042D9C 09
 08042DA4 0A
