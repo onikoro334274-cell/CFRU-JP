@@ -1,0 +1,12 @@
+{
+  "scope": "SiiRtcProbe in src/siirtc.c",
+  "finding": "The time-read result was ignored. A failed read could inspect an uninitialized second byte and return probe success.",
+  "change": "Return a failed probe when SiiRtcGetTime fails; retain accumulated reset warnings in the high nibble.",
+  "verification": [
+    "check_siirtc_probe.py: all 256 status bytes, 256 second bytes, status/time read success/failure and two reset outcomes (1048576 cases)",
+    "The same fixture against baseline f8ae916 fails with exit status 1",
+    "Existing RTC initialization, frame/play-time counter and BCD/date-validation fixtures pass",
+    "GNU ARM compilation of src/siirtc.c passes without diagnostics"
+  ],
+  "limitations": "Controlled transfer mocks do not exercise GPIO signaling, real cartridge RTC behavior or native interrupt/caller integration. Other SII transfer functions and raw-read error propagation still require review."
+}

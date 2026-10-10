@@ -299,15 +299,20 @@
     },
     {
       "path": "src/rtc.c",
-      "source_sha256": "e7a01b8bd480bbfcf2067a6de6f685010c98cd5120543fa555644f33e8070361",
+      "source_sha256": "089a5ec62285882656f57ac2591283d5197383e144e3ba09b72a2ef3c1ea8b7b",
       "sections": [
         "ConvertBcdToBinary",
-        "RtcCheckInfo"
+        "RtcCheckInfo",
+        "RtcInit",
+        "RtcCalcLocalTime",
+        "PlayTimeCounter_Update"
       ],
       "verification_records": [
-        "rtc_validation_review.json"
+        "rtc_validation_review.json",
+        "rtc_initialization_review.json",
+        "rtc_frame_counter_review.json"
       ],
-      "remaining": "RTC GPIO/probe/error propagation, frame synchronization and play-time counter behavior remain unverified"
+      "remaining": "Raw RTC transfer error propagation, actual GPIO/probe execution, native frame/caller ordering and GBA play-time behavior remain unverified; recorded fixtures use controlled transfers and counters."
     },
     {
       "path": "src/play_clock.c",
@@ -460,6 +465,17 @@
         "hoenn_flag_recovery_validation.json"
       ],
       "remaining": "Coverage and limitations are detailed in the referenced scoped records; no entire-file or linked runtime certification."
+    },
+    {
+      "path": "src/siirtc.c",
+      "source_sha256": "88acc23b03a4596fbea5018b216526040b2fe2803b699aa36dcb013b5a0892d6",
+      "sections": [
+        "SiiRtcProbe"
+      ],
+      "verification_records": [
+        "siirtc_probe_review.json"
+      ],
+      "remaining": "Other GPIO transfer functions and actual cartridge behavior remain unverified."
     }
   ]
 }

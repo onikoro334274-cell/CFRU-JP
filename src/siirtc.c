@@ -113,7 +113,8 @@ u8 SiiRtcProbe(void)
 		errorCode++;
 	}
 
-	SiiRtcGetTime(&rtc);
+	if (!SiiRtcGetTime(&rtc))
+		return (errorCode << 4) & 0xF0;
 
 	if (rtc.second & TEST_MODE)
 	{

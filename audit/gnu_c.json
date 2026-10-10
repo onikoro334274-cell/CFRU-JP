@@ -1260,8 +1260,8 @@
     {
       "path": "src/siirtc.c",
       "exit_code": 0,
-      "source_sha256": "90a73c349d6312115f27cda511c830e5d2714063cc7665c496fd9b814e82b8c5",
-      "object_bytes": 2372,
+      "source_sha256": "88acc23b03a4596fbea5018b216526040b2fe2803b699aa36dcb013b5a0892d6",
+      "object_bytes": 2456,
       "diagnostics": ""
     },
     {
