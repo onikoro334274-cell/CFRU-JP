@@ -1,5 +1,6 @@
 """Check complete profile initialization and section accumulator boundaries."""
 import subprocess
+import re
 import tempfile
 from pathlib import Path
 from check_mega_shop_escalation import function
@@ -74,6 +75,8 @@ int main(void) {
     return 0;
 }
 '''.replace('PRODUCTION', production)
+    words_definition = re.search(r'^#define PROF_WORDS[^\n]*', source, re.M)[0]
+    fixture = fixture.replace('#define PROF_WORDS (330 + PROF_SECTIONS)', words_definition)
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory)
         c, obj, exe = (path / ('overworld_profile' + suffix) for suffix in ('.c', '.obj', '.exe'))

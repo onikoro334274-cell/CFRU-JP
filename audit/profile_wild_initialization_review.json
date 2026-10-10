@@ -1,0 +1,8 @@
+{
+  "result": "passed",
+  "initialized_words": 373,
+  "source_sha256": "f2d3d742e69e0d55d0722666ca7596fd8fa95f53685a3f25deac888c7658305f",
+  "evidence": "check_overworld_profile.py passed with actual PROF_WORDS definition; HACK_PROFILE ARM object compiled.",
+  "scope": "Storage initialization covers wild_shuffle.c counters 370..372 and retains adjacent guard words.",
+  "limitations": "Wild timer race semantics and GBA runtime not verified."
+}
