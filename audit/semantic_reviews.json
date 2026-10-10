@@ -40,7 +40,7 @@
         "Heap constant collision; failure-path inspection of CB2_HackSaveSlotSelect"
       ],
       "verification": "GNU ARM compilation without warnings; source inspection",
-      "remaining": "Unchecked AllocZeroed and ignored window-initialization result still require handling"
+      "remaining": "Historical inspection superseded by current-state verification below; flash-bank hardware and game runtime remain unverified."
     },
     {
       "path": "src/hoenn_frontier.c",
@@ -354,6 +354,51 @@
         "daily_event_arm_disassembly.json"
       ],
       "remaining": "Controlled timestamp/event fixture and ARM store instructions only; variable-pair bounds, other timestamp callers, script operations and game runtime remain unverified"
+    },
+    {
+      "path": "src/mega_shop.c",
+      "source_sha256": "4a2d896bc68209a382e248b0582c09fa7399b591fb59ce06d5efe0a6d3072c99",
+      "sections": [
+        "MegaShop_Price",
+        "MegaShop_ItemIdGetPrice",
+        "DangerLeafPrice",
+        "MegaShop_AfterPurchase",
+        "Shop_BuildListStrings",
+        "sMegaShopWindows",
+        "MegaShop_LoadFrameTilemap"
+      ],
+      "verification_records": [
+        "mega_shop_price_review.json",
+        "mega_shop_escalation_review.json",
+        "shop_name_storage_review.json",
+        "mega_shop_layout_review.json"
+      ],
+      "verification": "Scoped native fixtures; current GNU ARM compilation",
+      "remaining": "Purchase hooks, money/bag integration, initialization failure and linked GBA runtime remain unverified."
+    },
+    {
+      "path": "src/item.c",
+      "source_sha256": "73192b00096e8e613676f7d4bed2965123364deb726ccb590ff37ab87020abda",
+      "sections": [
+        "Task_ReturnToItemListAfterItemPurchase"
+      ],
+      "verification_records": [
+        "premier_ball_bonus_review.json"
+      ],
+      "verification": "Scoped native fixtures; current GNU ARM compilation",
+      "remaining": "Controlled purchase-return helper only; actual bag data, other item functions and linked runtime remain unverified."
+    },
+    {
+      "path": "src/hack_save_slot.c",
+      "source_sha256": "05b899bec5b9bd23ac9ce0361b21ed8e328f0e344ea59d5f54a0b55ee2558373",
+      "sections": [
+        "CreateSlotScreen",
+        "SkipSlotScreen",
+        "CB2_HackSaveSlotSelect window failure branch"
+      ],
+      "verification_records": [],
+      "verification": "Scoped native fixtures; current GNU ARM compilation",
+      "remaining": "check_slot_screen.py passes controlled allocation/cleanup/window scenarios. CreateTask failure is not exercised; state zero calls ResetTasks first. Flash probe, hardware and linked runtime remain unverified."
     }
   ]
 }
