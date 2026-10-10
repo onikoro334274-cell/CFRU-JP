@@ -1,0 +1,6 @@
+{
+  "result": "passed",
+  "tutor_inputs": 256,
+  "scope": "Actual GetMove function and move tables; vanilla 0..17, Emerald 64..93, expanded fallback 18..63 and 94..255, original fallback argument preservation.",
+  "limitations": "Does not independently certify generated move content, compatibility learnsets, underlying expanded fallback, ROM hook insertion, or GBA runtime."
+}
