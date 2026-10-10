@@ -145,6 +145,7 @@
     "Factory summary production function was executed in a Windows native fixture; the complete factory file remains blocked by omitted generated headers and GBA runtime is unverified"
   ],
   "next": [
+    "Generate complete hoenn_gates.h from available public reference config/graphics/affine data using explicit-path adapter; input existence verified in gate_header_recovery.json",
     "Resolve HACK_FLAG_WONDER_SKIP using authoritative allocation data: adjacent generator snapshot lacks this newer branch flag; do not choose an arbitrary ID",
     "Dome card root preallocation is checked; still review task creation and InitWindows failure handling and tree root/tilemap allocation failures, plus real GBA screen-return behavior",
     "Continue Dome info-card root allocation, task creation and scroll-arrow failure handling; card image sprite property writes are now guarded but other creation paths remain",
@@ -160,7 +161,7 @@
     "Resolve the 77 absent include references and obtain remaining generated assets/tools for GNU linking/runtime validation; original ROM path is now known"
   ],
   "last_turn_classification": "progress",
-  "updated_utc": "2026-10-10T18:55:06.933967+00:00",
+  "updated_utc": "2026-10-10T18:56:27.437604+00:00",
   "baseline_commit": "61e1b61653c1c87077860400a995ff3a36b81689",
   "commit_policy": "Small feature-specific commits; push only after full objective and verification complete. No push performed; semantic review, full linking and GBA runtime remain incomplete."
 }

@@ -1,0 +1,29 @@
+{
+  "target": "src/Tables/hoenn_gates.h",
+  "generator": "../PokemonStart-src/tools/fortree/build_rotating_gates.py",
+  "reference_commit": "731ad5bfd6e6f265508d0efcca0ba42f9dcf5881",
+  "inputs": [
+    {
+      "path": "src/rotating_gate.c",
+      "available": true
+    },
+    {
+      "path": "graphics/rotating_gates/t1.png",
+      "available": true
+    },
+    {
+      "path": "graphics/rotating_gates/t2.png",
+      "available": true
+    },
+    {
+      "path": "graphics/rotating_gates/l4.png",
+      "available": true
+    },
+    {
+      "path": "data/maps/map_groups.json",
+      "available": true
+    }
+  ],
+  "required_adapter": "Replace gen3_consts/em_script_link and build_pc_monitor import dependencies with explicit reference/output arguments and standalone indexed-PNG reader; retain exact palette indices and map ordering",
+  "status": "inputs_available_adapter_pending"
+}
