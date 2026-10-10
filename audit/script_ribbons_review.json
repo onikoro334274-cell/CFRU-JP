@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "cases": 2097152,
+  "scope": "Production ribbon setter for every u16 command, six valid/two invalid party indices and four ribbon masks. Aggregate bits 0..26 mapped independently to champion/contest ranks/individual ribbons; exactly one read/write on valid input, invalid commands rejected and unrelated fields/slots preserved.",
+  "behavior_change": "Reserved aggregate bits 27..31 have no native MON_DATA_RIBBONS representation and are rejected. Removes direct fixed-address secure-data write; native Get/SetMonData handle substructure order/encryption/checksum.",
+  "limitations": "Native data APIs simulated; native encryption/checksum and linked ROM execution not exercised by this fixture."
+}

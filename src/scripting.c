@@ -404,20 +404,29 @@ void sp011_RibbonSetterCleaner(void)
 {
 	u16 partyId = Var8004;
 	u16 ribbon = Var8005;
-	u32* ribbonArray = (u32*) &(((u8*) 0x2024230)[partyId * sizeof(struct Pokemon)]);
+	bool8 clear = (ribbon & 0x100) != 0;
+	u8 field, bit = 0, value;
 
-	if (partyId >= PARTY_SIZE)
+	ribbon &= ~0x100;
+	/* MON_DATA_RIBBONS exposes bits 0..26, including five 3-bit contest ranks. */
+	if (partyId >= PARTY_SIZE || ribbon > 26)
 		return;
 
-	if (ribbon & 0x100)
+	if (ribbon == 0)
+		field = MON_DATA_CHAMPION_RIBBON;
+	else if (ribbon <= 15)
 	{
-		ribbon ^= 0x100;
-		*ribbonArray &= ~gBitTable[ribbon];
+		field = MON_DATA_COOL_RIBBON + (ribbon - 1) / 3;
+		bit = (ribbon - 1) % 3;
 	}
-	else if (ribbon <= 0x1F)
-	{
-		*ribbonArray |= gBitTable[ribbon];
-	}
+	else
+		field = MON_DATA_WINNING_RIBBON + ribbon - 16;
+	value = GetMonData(&gPlayerParty[partyId], field, NULL);
+	if (clear)
+		value &= ~(1u << bit);
+	else
+		value |= 1u << bit;
+	SetMonData(&gPlayerParty[partyId], field, &value);
 }
 
 void sp012_PokerusSetter(void)
