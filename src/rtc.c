@@ -132,33 +132,31 @@ u16 RtcCheckInfo(struct SiiRtcInfo *rtc)
 
 	value = ConvertBcdToBinary(rtc->day);
 
-	if (value == 0xFF)
+	if (value == 0xFF || value == 0)
 		errorFlags |= RTC_ERR_INVALID_DAY;
 
-	if (month == MONTH_FEB)
+	if (month >= 1 && month <= 12)
 	{
-		if (value > IsLeapYear(year) + sNumDaysInMonths[month - 1])
-			errorFlags |= RTC_ERR_INVALID_DAY;
-	}
-	else
-	{
-		if (value > sNumDaysInMonths[month - 1])
+		s32 maxDay = sNumDaysInMonths[month - 1];
+		if (month == MONTH_FEB)
+			maxDay += IsLeapYear(year + 2000);
+		if (value > maxDay)
 			errorFlags |= RTC_ERR_INVALID_DAY;
 	}
 
 	value = ConvertBcdToBinary(rtc->hour);
 
-	if (value > 24)
+	if (value >= 24)
 		errorFlags |= RTC_ERR_INVALID_HOUR;
 
 	value = ConvertBcdToBinary(rtc->minute);
 
-	if (value > 60)
+	if (value >= 60)
 		errorFlags |= RTC_ERR_INVALID_MINUTE;
 
 	value = ConvertBcdToBinary(rtc->second);
 
-	if (value > 60)
+	if (value >= 60)
 		errorFlags |= RTC_ERR_INVALID_SECOND;
 
 	return errorFlags;

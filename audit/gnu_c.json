@@ -875,7 +875,7 @@
     {
       "path": "src/hoenn_factory_screen.c",
       "exit_code": 1,
-      "source_sha256": "3166e5e42dff89f8449698b169493b3f618a2033fd1ad131c44e108ef21e5de5",
+      "source_sha256": "00f09be7c05a04ecd11134e2ca108034e6da66532dd86e325dfd041360eaeb3b",
       "object_bytes": 0,
       "diagnostics": "src/hoenn_factory_screen.c:25:10: fatal error: hoenn_factory_gfx.h: No such file or directory\n   25 | #include \"hoenn_factory_gfx.h\"   /* 絵と文字（tools/frontier/build_frontier_factory.py の生成物） */\n      |          ^~~~~~~~~~~~~~~~~~~~~\ncompilation terminated.\n"
     },
@@ -1204,8 +1204,8 @@
     {
       "path": "src/rtc.c",
       "exit_code": 0,
-      "source_sha256": "326140a013526e92a4c6ac4ebf8895579662424738e194c5cf40b73975ab1a88",
-      "object_bytes": 4232,
+      "source_sha256": "e7a01b8bd480bbfcf2067a6de6f685010c98cd5120543fa555644f33e8070361",
+      "object_bytes": 4240,
       "diagnostics": ""
     },
     {

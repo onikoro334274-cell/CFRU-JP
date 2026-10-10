@@ -1,0 +1,25 @@
+{
+  "scope": "RtcCheckInfo, ConvertBcdToBinary and Gregorian leap-year use",
+  "defects": [
+    "Invalid month flagged but still used as month-1 array index",
+    "Day zero accepted",
+    "Hour 24 and minute/second 60 accepted"
+  ],
+  "fix": [
+    "Only valid months access month table",
+    "Reject day zero and invalid BCD",
+    "Require hour <24 and minute/second <60",
+    "Pass full year (2000 + RTC year) to leap-year helper"
+  ],
+  "baseline": "a0d14eb9f3126fef4ed9f2ab18b6817802b31adf",
+  "checks": {
+    "scripts/check_rtc_validation.py": "6553600 year/raw-month/raw-day combinations across 2000..2099, all 256 BCD bytes, 1280 year/time/status byte cases",
+    "scripts/check_rtc_validation.py --baseline HEAD (before commit)": "Failed initial day-zero rejection check",
+    "audit/gnu_c.json": "174/203 C sources ARM-compiled including rtc.c"
+  },
+  "limitations": [
+    "Controlled native validation fixture, not RTC GPIO hardware or emulator battery behavior",
+    "RTC probe/error propagation, UpdateClockFromRtc, play-time and daily events remain separate review scopes",
+    "No whole-file semantic completion or game-runtime claim"
+  ]
+}
