@@ -1,0 +1,27 @@
+{
+  "scope": "Player birthday backend, with no automatic callers, menus or events",
+  "api": "include/new/birthday.h",
+  "implementation": "src/birthday.c",
+  "storage": {
+    "location": "SaveBlock2 0xF18..0xF1F, formerly the last eight bytes of filler_B20",
+    "format": "32-bit format signature, month/day packed into 16 bits, and 16-bit complement",
+    "compatibility": "SaveBlock2 stays 0xF24 bytes and encryptionKey stays at 0xF20. Zeroed, unsigned legacy, malformed and inconsistent registrations are treated as unregistered. No event or new-game caller added.",
+    "evidence": "Repository and adjacent tool searches found no uses of filler_B20 or explicit 0xF18/0xF1C save offsets. GNU ARM compilation checks actual SaveBlock2 offsets and size. Existing native save section includes all 0xF24 bytes."
+  },
+  "behavior": [
+    "Set accepts full-width script inputs and rejects invalid month/day without changing an existing registration",
+    "Get returns false for absent or malformed data; optional output pointers are untouched on failure",
+    "February 29 is valid for registration and matches only February 29 of Gregorian leap years",
+    "IsToday uses the currently populated gClock, so existing real-time/play-time mode determines the date",
+    "Script entry points expose set/get/clear/today for later use without wiring any callers"
+  ],
+  "verification": [
+    "check_birthday.py executes production source against a native controlled save/clock fixture",
+    "All 65536 byte month/day pairs, upper 16-bit input ranges and packed save dates checked",
+    "All 65536 u16 years compared against Python calendar.isleap",
+    "All 64 single-bit corruptions rejected; surrounding save bytes and encryption key preserved",
+    "Script set/get/clear/today, unregistered state and null save pointer covered",
+    "Full GNU ARM audit: 204 translation units, 180 compiled and 24 stopped at unavailable generated headers"
+  ],
+  "limitations": "Actual flash persistence, old-save migration and GBA runtime are not exercised. Save-layout assertions and controlled memory tests do not prove full-game runtime compatibility. No birthday rewards were requested or added."
+}

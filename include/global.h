@@ -761,6 +761,13 @@ struct SaveBlock1 //0x202548C
 
 extern struct SaveBlock1* gSaveBlock1;
 
+struct PlayerBirthdaySaveData
+{
+	u32 signature;
+	u16 monthDay;
+	u16 monthDayComplement;
+};
+
 struct SaveBlock2 //0x2024588
 {
 	/*0x000*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
@@ -796,7 +803,8 @@ struct SaveBlock2 //0x2024588
 	/*0xAF0*/ struct BerryCrush berryCrush;
 	/*0xB00*/ struct PokemonJumpResults pokeJump;
 	/*0xB10*/ struct BerryPickingResults berryPick;
-	/*0xB20*/ u8 filler_B20[0x400];
+	/*0xB20*/ u8 filler_B20[0x3F8];
+	/*0xF18*/ struct PlayerBirthdaySaveData playerBirthday;
 	/*0xF20*/ u32 encryptionKey;
 };
 
