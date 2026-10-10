@@ -48,6 +48,30 @@ BLOCK
     }
     return 0;
 }
+int verifyBad(int mask, int natures) {
+    short allocatedArray[18]={0};
+    int i,j,k,count=0;
+    for(i=0;i<6;i++) {
+        allocatedArray[i]=(mask&(1<<i))?0:20;
+        allocatedArray[i+12]=(natures>>(2*i))&3;
+        if(allocatedArray[i]==0) count++;
+    }
+BLOCK
+    if(i!=0 || j!=(count>2?2:count)) return 7;
+    if(count) {
+        int first=allocatedArray[8];
+        if(first<0 || first>=6 || allocatedArray[first]!=0) return 8;
+        if(count==1 && (first+36<36 || first+36>41)) return 9;
+        if(count>=2) {
+            int second=allocatedArray[9];
+            if(second<=first || second>=6 || allocatedArray[second]!=0) return 10;
+            const int offsets[5]={0,5,9,12,14};
+            int text=21+offsets[first]+second-first-1;
+            if(text<21 || text>35) return 11;
+        }
+    }
+    return 0;
+}
 int main(void) {
     int example[6]={35,30,35,0,0,0};
     if(verify(example)) return 3;
@@ -66,6 +90,10 @@ int main(void) {
         values[5]=remaining;
         if(verify(values)) return 6;
     }
+    for(int mask=0;mask<64;mask++) for(int natures=0;natures<4096;natures++) {
+        int result=verifyBad(mask,natures);
+        if(result) return result;
+    }
     return 0;
 }
 '''.replace('BLOCK', block)
@@ -80,7 +108,7 @@ int main(void) {
         result = subprocess.run([str(exe)]).returncode
         assert result == (3 if args.baseline else 0), result
     print('Original wrong strongest-stat labels reproduced.' if args.baseline else
-          'Strongest-stat selection and ordered pair IDs pass 103020 three-stat distributions and 100000 six-stat distributions.')
+          'Strongest-stat labels pass 203020 distributions; weakest-stat selection and text bounds pass 262144 zero-mask/nature-count combinations.')
 
 
 if __name__ == '__main__':
