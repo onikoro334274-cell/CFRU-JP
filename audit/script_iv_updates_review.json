@@ -1,0 +1,8 @@
+{
+  "result": "passed",
+  "value_cases": 11010048,
+  "invalid_input_cases": 1048492,
+  "baseline": "f3bd175 recalculates unrelated party stats for PC selection.",
+  "scope": "Production IV setter with/without PC selection for all u16 values, six party slots, individual/all-IV modes, plus every invalid u16 stat and invalid party inputs. Checks clamp to 31, correct target, unchanged other fields, exact write count and party-only recalculation.",
+  "limitations": "Controlled native data/stats services; box coordinates, native stat calculation and linked GBA runtime unverified."
+}

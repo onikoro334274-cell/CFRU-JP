@@ -363,7 +363,7 @@ void sp010_IVSetter(void)
 	u16 stat = Var8005;
 	u16 amount = Var8006;
 
-	if (partyId >= PARTY_SIZE)
+	if (partyId >= PARTY_SIZE || stat > SetAllIVs)
 		return;
 
 	if (amount > 31)
@@ -394,7 +394,10 @@ void sp010_IVSetter(void)
 				SetMonDataFromVar8003(MON_DATA_HP_IV + i);
 	}
 
-	CalculateMonStats(&gPlayerParty[partyId]);
+	#ifdef SELECT_FROM_PC
+	if (Var8003 != 1)
+	#endif
+		CalculateMonStats(&gPlayerParty[partyId]);
 }
 
 void sp011_RibbonSetterCleaner(void)
