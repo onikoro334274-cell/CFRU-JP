@@ -1,0 +1,7 @@
+{
+  "result": "passed",
+  "search_cases": 50331648,
+  "null_cases": 1,
+  "scope": "Production box search across every byte current/end/direction value and three empty/dense/sparse egg patterns. Valid results match previous production and independent search oracle; start sentinel 255 preserved. Invalid range/flags/null rejected; expansion count matches visited slots.",
+  "limitations": "Compressed decoding controlled. Actual codec, summary-screen navigation and linked GBA runtime unverified."
+}

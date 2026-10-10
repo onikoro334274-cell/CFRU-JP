@@ -494,6 +494,9 @@ s16 sub_808B884(struct CompressedPokemon *boxMons, u8 currIndex, u8 maxIndex, u8
 {
 	s16 i;
 	s16 adder = -1;
+	if (boxMons == NULL || maxIndex >= IN_BOX_COUNT || arg3 > 3
+	|| (currIndex > maxIndex && currIndex != 0xFF))
+		return -1;
 
 	if (arg3 < 2)
 		adder = 1;
