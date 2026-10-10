@@ -1,0 +1,16 @@
+{
+  "scope": "PlayClock_SetTimeOfDay forward adjustment and saved-day offset overflow",
+  "defect": "Day carry masked to 15 bits, wrapping 32767 to zero and moving the calendar backward by 32768 days.",
+  "fix": "Reject unrepresentable day offsets before either VarSet; leave current time intact rather than wrap.",
+  "baseline": "2b7cf8024faeda1f41c30b295fbec34c69abe697",
+  "checks": {
+    "scripts/check_play_clock_adjustment.py": "69120 valid target/minute/day/hour-boundary cases and 131072 u16 target/mode cases; packed mode, both variable writes, callback count and nondecreasing total offset verified",
+    "scripts/check_play_clock_adjustment.py --baseline HEAD (before commit)": "Fails exhausted day-offset check",
+    "audit/gnu_c.json": "174/203 C sources ARM-compiled including play_clock.c"
+  },
+  "limitations": [
+    "Native controlled saved-field/VarSet/update fixture; no game item menu or daily-event script execution",
+    "At exhausted offset capacity an unrepresentable adjustment becomes a no-op; save layout is unchanged",
+    "Mode-switch daily-event reset and actual RTC updates still require review"
+  ]
+}

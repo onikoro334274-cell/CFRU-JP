@@ -114,7 +114,7 @@ void PlayClock_SetMode(void)
 /* callasm: 0x8004 = 0 あさ / 1 ひる / 2 ゆうがた / 3 よる。その時間帯の始まりまで時計を**先へ**進める */
 void PlayClock_SetTimeOfDay(void)
 {
-	u32 target, now, delta, m;
+	u32 target, now, delta, m, dayOffset;
 	u16 days;
 
 	if (Var8004 >= NELEMS(sTimeOfDayStart) || !PlayClock_IsOn())
@@ -124,7 +124,11 @@ void PlayClock_SetTimeOfDay(void)
 	delta = (target + MINUTES_PER_DAY - now) % MINUTES_PER_DAY;
 	m = VarGet(HOENN_VAR_CLOCK_MIN) + delta;
 	days = VarGet(HOENN_VAR_CLOCK_DAYS);
-	days = (days & CLOCK_MODE_BIT) | (((days & CLOCK_DAYS_MASK) + m / MINUTES_PER_DAY) & CLOCK_DAYS_MASK);
+	dayOffset = (days & CLOCK_DAYS_MASK) + m / MINUTES_PER_DAY;
+	/* The saved day offset has 15 bits. Do not wrap it back to day zero. */
+	if (dayOffset > CLOCK_DAYS_MASK)
+		return;
+	days = (days & CLOCK_MODE_BIT) | dayOffset;
 	VarSet(HOENN_VAR_CLOCK_MIN, m % MINUTES_PER_DAY);
 	VarSet(HOENN_VAR_CLOCK_DAYS, days);
 	DirectClockUpdate();
