@@ -30541,7 +30541,7 @@ ELECTRO_COALESCE:
 	return
 
 .align 2
-NEEDLEARM_ELECTRO: objtemplate ANIM_TAG_SPARKLE_1 ANIM_TAG_SPARKLE_1 OAM_OFF_32x32 ANIM_TAG_SPARK 0x0 gDummySpriteAffineAnimTable 0x80A5559
+NEEDLEARM_ELECTRO: objtemplate ANIM_TAG_SPARKLE_1 ANIM_TAG_SPARKLE_1 OAM_OFF_32x32 gDummySpriteAnimTable 0x0 gDummySpriteAffineAnimTable 0x80A5559
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .pool
