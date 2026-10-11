@@ -4,11 +4,11 @@
 
 static const struct WildBossPolicy sPolicies[DIFFICULTY_COUNT] =
 {
-    [DIFFICULTY_EASY] = {10, 10, 90, 1},
-    [DIFFICULTY_MEDIUM] = {30, 30, 60, 20},
-    [DIFFICULTY_NORMAL] = {50, 50, 40, 25},
-    [DIFFICULTY_HARD] = {100, 70, 20, 30},
-    [DIFFICULTY_MOMO_ICE] = {300, 100, 5, 40},
+    [DIFFICULTY_EASY] = {10, 10, 90, 1, 1},
+    [DIFFICULTY_MEDIUM] = {30, 30, 60, 20, 2},
+    [DIFFICULTY_NORMAL] = {50, 50, 40, 25, 2},
+    [DIFFICULTY_HARD] = {100, 70, 20, 30, 3},
+    [DIFFICULTY_MOMO_ICE] = {300, 100, 5, 40, 3},
 };
 
 const struct WildBossPolicy* WildBoss_GetPolicy(u16 difficulty)
@@ -39,4 +39,10 @@ bool8 WildBoss_ShouldCallAlly(u8 roll, u16 difficulty)
 bool8 WildBoss_ShouldSpawn(u8 roll, u16 difficulty)
 {
     return roll < 100 && roll < WildBoss_GetPolicy(difficulty)->spawnPercent;
+}
+
+bool8 WildBoss_CanCallAlly(u8 roll, u8 successfulCalls, u16 difficulty)
+{
+    return successfulCalls < WildBoss_GetPolicy(difficulty)->allyCallLimit
+        && WildBoss_ShouldCallAlly(roll, difficulty);
 }
