@@ -5,7 +5,7 @@ from check_factory_party_copy import function
 ROOT=Path(__file__).resolve().parent.parent
 def main():
  source=(ROOT/'src/hack_difficulty.c').read_text(encoding='utf-8')
- names=['static bool8 OrdinaryTrainerBattle(void)','static bool8 EasyTrainerBattle(void)','static bool8 MediumTrainerBattle(void)','static void LowerTrainerMonLevel(struct Pokemon* mon, u32 down)','static void RaiseTrainerMonLevel(struct Pokemon* mon, u32 up)','void HackDifficulty_AdjustTrainerMon(struct Pokemon* mon, u8 side)']
+ names=['static bool8 OrdinaryTrainerBattle(void)','static bool8 EasyTrainerBattle(void)','static bool8 MediumTrainerBattle(void)','static void LowerTrainerMonLevel(struct Pokemon* mon, u32 down)','static void RaiseTrainerMonLevel(struct Pokemon* mon, u32 up)','static void AdjustTrainerMonCore(struct Pokemon* mon, u8 side)','u16 HackDifficulty_RecoveryItem(u16 currentItem, u8 level, u8 roll, u16 difficulty)','void HackDifficulty_AdjustTrainerMon(struct Pokemon* mon, u8 side)']
  production='\n'.join(function(source,n) for n in names)
  fixture=r"""
 typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typedef u8 bool8;
@@ -17,6 +17,10 @@ typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typ
 #define BATTLE_TYPE_FRONTIER 2
 #define FLAG_BATTLE_FACILITY 0
 #define HOENN_VAR_DIFFICULTY 0
+#define DIFFICULTY_COUNT 5
+#define ITEM_ORAN_BERRY 139
+#define ITEM_SITRUS_BERRY 142
+static unsigned roll;static unsigned Random(void){return roll;}
 #define DIFFICULTY_NORMAL 0
 #define DIFFICULTY_EASY 1
 #define DIFFICULTY_MEDIUM 2
@@ -47,13 +51,13 @@ PRODUCTION
 int main(void){
 for(unsigned i=0;i<=200;i++)gExperienceTables[0][i]=i*i*i;
 for(difficulty=0;difficulty<5;difficulty++)for(unsigned level=1;level<=200;level++)
-for(unsigned side=0;side<2;side++)for(unsigned flags=0;flags<4;flags++)for(facility=0;facility<2;facility++)for(unsigned item=9;item<=11;item++){
+for(unsigned side=0;side<2;side++)for(unsigned flags=0;flags<4;flags++)for(facility=0;facility<2;facility++)for(unsigned item=9;item<=11;item++)for(roll=0;roll<100;roll++){
 struct Pokemon m;m.species=1;m.level=level;m.exp=777;m.item=item;for(unsigned i=0;i<6;i++)m.ev[i]=80;
 gBattleTypeFlags=flags;HackDifficulty_AdjustTrainerMon(&m,side);
 unsigned active=side==1&&(flags&1)&&!(flags&2)&&!facility,target=level;
 if(active){if(difficulty==1&&level>4)target=level-3;if(difficulty==2&&level>3)target=level-2;if(difficulty==3)target=level<200?level+1:200;if(difficulty==4)target=level>195?200:level+5;}
 if(m.level!=target||m.exp!=(target==level?777:target*target*target))return 1;
-u16 held=active&&(difficulty==1||(difficulty==2&&item==9))?0:item;if(m.item!=held)return 2;
+u16 held=active&&(difficulty==1||(difficulty==2&&item==9))?0:item;if(active&&!held){const unsigned chances[]={30,10,20,50,70};if(roll<chances[difficulty])held=target<=20?139:142;}if(m.item!=held)return 2;
 for(unsigned i=0;i<6;i++)if(m.ev[i]!=(active&&difficulty==1?0:80))return 3;
 }return 0;}
 """.replace('PRODUCTION',production)
@@ -62,5 +66,5 @@ for(unsigned i=0;i<6;i++)if(m.ev[i]!=(active&&difficulty==1?0:80))return 3;
   subprocess.run(['clang','--target=x86_64-pc-windows-msvc','-O2','-fno-builtin','-fno-stack-protector','-c',str(c),'-o',str(obj)],check=True)
   subprocess.run(['lld-link','/entry:main','/subsystem:console','/nodefaultlib','/out:'+str(exe),str(obj)],check=True)
   subprocess.run([str(exe)],check=True)
- print('Difficulty levels: 48000 level/difficulty/side/battle/facility/item cases pass.')
+ print('Difficulty levels: 4800000 level/difficulty/side/battle/facility/item/roll cases pass.')
 if __name__=='__main__':main()

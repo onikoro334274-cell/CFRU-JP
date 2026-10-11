@@ -6,6 +6,8 @@
 #include "../include/new/item.h"
 #include "../include/new/util.h"
 #include "../include/new/frontier.h"
+#include "../include/random.h"
+#include "../include/constants/items.h"
 #include "../include/constants/trainer_classes.h"
 #include "Tables/hoenn_script_flags.h"
 
@@ -182,7 +184,7 @@ u32 HackDifficulty_AIFlags(u32 flags)
 }
 
 //B・C. src/build_pokemon.c の CreateNPCTrainerParty（相手側のポケモン・能力を計算する直前）
-void HackDifficulty_AdjustTrainerMon(struct Pokemon* mon, u8 side)
+static void AdjustTrainerMonCore(struct Pokemon* mon, u8 side)
 {
 	u16 none = ITEM_NONE;
 	u8 zero = 0;
@@ -222,6 +224,34 @@ void HackDifficulty_AdjustTrainerMon(struct Pokemon* mon, u8 side)
 /* ★ 2026-10-03 ユーザー「設定の難易度デフォルトやさしいで」: はじめからのとき、なんいどを やさしい にしておく。
    src/save.c の NewGameWipeNewSaveData（拡張のセーブ 0x0203B0E8〜を 0 で消す・拡張変数 0x5000〜も中）の直後に呼ぶ（patches/0146）。
    ★ 値の意味（0 ふつう / 1 やさしい）は変えない（前のセーブで選んだ値はそのまま） */
+u16 HackDifficulty_RecoveryItem(u16 currentItem, u8 level, u8 roll, u16 difficulty)
+{
+	static const u8 chances[DIFFICULTY_COUNT] = {30, 10, 20, 50, 70};
+	if (currentItem != ITEM_NONE)
+		return currentItem;
+	if (difficulty >= DIFFICULTY_COUNT)
+		difficulty = DIFFICULTY_NORMAL;
+	if (roll >= chances[difficulty])
+		return ITEM_NONE;
+	return level <= 20 ? ITEM_ORAN_BERRY : ITEM_SITRUS_BERRY;
+}
+
+void HackDifficulty_AdjustTrainerMon(struct Pokemon* mon, u8 side)
+{
+	AdjustTrainerMonCore(mon, side);
+	if (side == B_SIDE_OPPONENT && OrdinaryTrainerBattle())
+	{
+		u16 item = GetMonData(mon, MON_DATA_HELD_ITEM, NULL);
+		if (item == ITEM_NONE)
+		{
+			u8 level = GetMonData(mon, MON_DATA_LEVEL, NULL);
+			item = HackDifficulty_RecoveryItem(item, level, Random() % 100, VarGet(HOENN_VAR_DIFFICULTY));
+			if (item != ITEM_NONE)
+				SetMonData(mon, MON_DATA_HELD_ITEM, &item);
+		}
+	}
+}
+
 void HackDifficulty_SetNewGameDefault(void)
 {
 	VarSet(HOENN_VAR_DIFFICULTY, DIFFICULTY_EASY);

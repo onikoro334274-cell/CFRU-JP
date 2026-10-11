@@ -539,8 +539,8 @@
     {
       "path": "src/hack_difficulty.c",
       "exit_code": 0,
-      "source_sha256": "1ca473ff06cc9ccfeae6432e5827324374cf02602272e70be345b08092104659",
-      "object_bytes": 4204,
+      "source_sha256": "00159e3b43ada890b33b4f9b78145c71d34864df1beb55cec8aba16c80ba4625",
+      "object_bytes": 4656,
       "diagnostics": ""
     },
     {
@@ -1428,8 +1428,8 @@
     {
       "path": "src/wild_encounter.c",
       "exit_code": 0,
-      "source_sha256": "d40891cf94440ebdf389e7fb15169eae3f90f94feadc89f966bf269c0edb7ddb",
-      "object_bytes": 17640,
+      "source_sha256": "9d7397b1b95d9e2fa13a9d61d45d46f538d15b166a0ce169e5cce1b0786c0bb5",
+      "object_bytes": 17724,
       "diagnostics": ""
     },
     {
