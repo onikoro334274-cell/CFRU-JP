@@ -27,6 +27,8 @@
 
 #define EASY_LEVEL_DOWN 3
 #define MEDIUM_LEVEL_DOWN 2
+#define HARD_LEVEL_UP 1
+#define MOMO_ICE_LEVEL_UP 5
 
 static bool8 OrdinaryTrainerBattle(void)
 {
@@ -59,6 +61,17 @@ static void LowerTrainerMonLevel(struct Pokemon* mon, u32 down)
 }
 
 // Level boundaries and condition weights live in config.h for balancing.
+static void RaiseTrainerMonLevel(struct Pokemon* mon, u32 up)
+{
+	u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+	u32 level = GetMonData(mon, MON_DATA_LEVEL, NULL);
+	if (level >= MAX_LEVEL)
+		return;
+	level = MathMin(level + up, MAX_LEVEL);
+	SetMonData(mon, MON_DATA_EXP, &gExperienceTables[gBaseStats[species].growthRate][level]);
+	SetMonData(mon, MON_DATA_LEVEL, &level);
+}
+
 u8 HackAI_GetRank(const struct AIRankContext* context)
 {
     static const s8 offsets[DIFFICULTY_COUNT] = AI_RANK_DIFFICULTY_OFFSETS;
@@ -177,6 +190,15 @@ void HackDifficulty_AdjustTrainerMon(struct Pokemon* mon, u8 side)
 
 	if (side != B_SIDE_OPPONENT)
 		return;
+	if (OrdinaryTrainerBattle())
+	{
+		u16 difficulty = VarGet(HOENN_VAR_DIFFICULTY);
+		if (difficulty == DIFFICULTY_HARD || difficulty == DIFFICULTY_MOMO_ICE)
+		{
+			RaiseTrainerMonLevel(mon, difficulty == DIFFICULTY_HARD ? HARD_LEVEL_UP : MOMO_ICE_LEVEL_UP);
+			return;
+		}
+	}
 
 	if (MediumTrainerBattle())
 	{

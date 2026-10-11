@@ -539,8 +539,8 @@
     {
       "path": "src/hack_difficulty.c",
       "exit_code": 0,
-      "source_sha256": "2872fe26e65f8135e168b9470c9af643dd0c89d1d795d5b136d55477f01f037c",
-      "object_bytes": 4036,
+      "source_sha256": "1ca473ff06cc9ccfeae6432e5827324374cf02602272e70be345b08092104659",
+      "object_bytes": 4204,
       "diagnostics": ""
     },
     {
