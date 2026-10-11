@@ -159,6 +159,7 @@ enum //These vars need to be one after the other (hence the enum)
 // One AI rank per 10 levels, up to Lv200; difficulty offsets/floors/caps
 // follow saved values: normal, easy, medium, hard, Momo Ice.
 #define AI_RANK_LEVEL_STEP 10
+#define AI_SWITCH_COOLDOWN_TURNS 5
 #define AI_RANK_LEVEL_CAP 200
 #define AI_RANK_DIFFICULTY_OFFSETS {0, -4, -2, 3, 0}
 #define AI_RANK_DIFFICULTY_FLOORS {0, 0, 0, 8, 24}

@@ -792,6 +792,8 @@ s8 HackAI_SecondAbilitySwitchBonus(struct Pokemon* mon);
 
 static bool8 ShouldSwitch(void)
 {
+	if (gNewBS->ai.switchingCooldown[gActiveBattler])
+		return FALSE;
 	u8 battlerIn1, battlerIn2;
 	u8 firstId, lastId;
 	u8 availableToSwitch;

@@ -2466,8 +2466,8 @@ void SetAttackerAndSwitchingBankToOpponent0(void)
 void SetSwitchingBankSwitchingCooldownTo2(void)
 {
 	gNewBS->ai.sideSwitchedThisRound |= gBitTable[SIDE(gBankSwitching)];
-	if (!(gNewBS->ai.sideSwitchedThisRound & gBitTable[SIDE(FOE(gBankSwitching))])) //There was no change on the other side of the field
-		gNewBS->ai.switchingCooldown[gBankSwitching] = 2;
+	// End-of-turn decrements once on the switching turn itself.
+	gNewBS->ai.switchingCooldown[gBankSwitching] = AI_SWITCH_COOLDOWN_TURNS + 1;
 }
 
 void FaintedBankNameInBuff1(void)

@@ -556,19 +556,7 @@ void atk52_switchineffects(void)
 
 	switch (gNewBS->switchInEffectsState) {
 		case SwitchIn_HandleAICooldown:
-			if (SIDE(gActiveBattler) == B_SIDE_PLAYER) //Player switched in a Pokemon
-			{
-				//If the player switches out their Pokemon, allow the AI to immediately switch out if it wants to
-				gNewBS->ai.switchingCooldown[GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)] = 0;
-				if (IS_DOUBLE_BATTLE)
-					gNewBS->ai.switchingCooldown[GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)] = 0;
-			}
-			else
-			{
-				gNewBS->ai.switchingCooldown[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] = 0;
-				if (IS_DOUBLE_BATTLE)
-					gNewBS->ai.switchingCooldown[GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)] = 0;
-			}
+			// Preserve the five-turn AI cooldown even when the other side switches.
 
 			++gNewBS->switchInEffectsState;
 			//Fallthrough
