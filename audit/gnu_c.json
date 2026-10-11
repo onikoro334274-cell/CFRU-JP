@@ -140,8 +140,8 @@
     {
       "path": "src/battle_start_turn_start.c",
       "exit_code": 0,
-      "source_sha256": "0f7746aeb4985ef83a3139c4654b304a5bf2c33bf0de596edc5b6d59b6bbbd8e",
-      "object_bytes": 29656,
+      "source_sha256": "0aa04d0e226bfa521d55cdf5e48d9e2adc80362dd3bc72ecf8de664eacbfe739",
+      "object_bytes": 29732,
       "diagnostics": ""
     },
     {
@@ -539,8 +539,8 @@
     {
       "path": "src/hack_difficulty.c",
       "exit_code": 0,
-      "source_sha256": "0ffb5b9d2144887fbf76baa309c6c2a106fa89723037149a1fffef5704751eb9",
-      "object_bytes": 4812,
+      "source_sha256": "975ebdabdd1a93af962827148bb299830406a9aae66b7882873a837724225097",
+      "object_bytes": 4952,
       "diagnostics": ""
     },
     {
@@ -1106,8 +1106,8 @@
     {
       "path": "src/move_menu.c",
       "exit_code": 0,
-      "source_sha256": "ca165e85902c51e39f33d4e2311f8a19f77098e488897f48b1419aeb6849c38d",
-      "object_bytes": 34504,
+      "source_sha256": "08fd04d85d4924b3bd76d8f6026e23341c43f93e51107dd1c9b26674213ab6c2",
+      "object_bytes": 34544,
       "diagnostics": ""
     },
     {

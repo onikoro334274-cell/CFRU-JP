@@ -1,5 +1,7 @@
 #include "defines.h"
 #include "defines_battle.h"
+#include "hack_difficulty.h"
+#include "Tables/hoenn_script_flags.h"
 #include "../include/battle_transition.h"
 #include "../include/battle_setup.h"
 #include "../include/event_data.h"
@@ -220,6 +222,10 @@ void BattleBeginFirstTurn(void)
 					gBattleScripting.battleStyle = OPTIONS_BATTLE_STYLE_SEMI_SHIFT;
 				#endif
 				SavePartyItems();
+				if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER))
+				&& !FlagGet(FLAG_BATTLE_FACILITY)
+				&& HackDifficulty_ForceSetStyle(VarGet(HOENN_VAR_DIFFICULTY)))
+					gBattleScripting.battleStyle = OPTIONS_BATTLE_STYLE_SET;
 				TryBackupEnemyTeam();
 				TryClearLevelCapKeptOn();
 				++*state;

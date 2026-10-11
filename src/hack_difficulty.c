@@ -235,6 +235,20 @@ u32 HackDifficulty_BuyPrice(u32 price, u16 difficulty)
 	return discounted == 0 ? 1 : discounted;
 }
 
+bool8 HackDifficulty_BagLimitReached(u16 difficulty, u8 usedCount)
+{
+	if (difficulty == DIFFICULTY_HARD)
+		return usedCount >= 3;
+	if (difficulty == DIFFICULTY_MOMO_ICE)
+		return usedCount >= 1;
+	return FALSE;
+}
+
+bool8 HackDifficulty_ForceSetStyle(u16 difficulty)
+{
+	return difficulty == DIFFICULTY_HARD || difficulty == DIFFICULTY_MOMO_ICE;
+}
+
 u16 HackDifficulty_RecoveryItem(u16 currentItem, u8 level, u8 roll, u16 difficulty)
 {
 	static const u8 chances[DIFFICULTY_COUNT] = {30, 10, 20, 50, 70};

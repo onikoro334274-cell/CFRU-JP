@@ -5,7 +5,7 @@ from check_factory_party_copy import function
 ROOT=Path(__file__).resolve().parent.parent
 def main():
  source=(ROOT/'src/hack_difficulty.c').read_text(encoding='utf-8')
- names=['static bool8 OrdinaryTrainerBattle(void)','static bool8 EasyTrainerBattle(void)','static bool8 MediumTrainerBattle(void)','static void LowerTrainerMonLevel(struct Pokemon* mon, u32 down)','static void RaiseTrainerMonLevel(struct Pokemon* mon, u32 up)','static void AdjustTrainerMonCore(struct Pokemon* mon, u8 side)','u16 HackDifficulty_RecoveryItem(u16 currentItem, u8 level, u8 roll, u16 difficulty)','void HackDifficulty_AdjustTrainerMon(struct Pokemon* mon, u8 side)']
+ names=['static bool8 OrdinaryTrainerBattle(void)','static bool8 EasyTrainerBattle(void)','static bool8 MediumTrainerBattle(void)','static void LowerTrainerMonLevel(struct Pokemon* mon, u32 down)','static void RaiseTrainerMonLevel(struct Pokemon* mon, u32 up)','static void AdjustTrainerMonCore(struct Pokemon* mon, u8 side)','u16 HackDifficulty_RecoveryItem(u16 currentItem, u8 level, u8 roll, u16 difficulty)','void HackDifficulty_AdjustTrainerMon(struct Pokemon* mon, u8 side)','bool8 HackDifficulty_BagLimitReached(u16 difficulty, u8 usedCount)','bool8 HackDifficulty_ForceSetStyle(u16 difficulty)']
  production='\n'.join(function(source,n) for n in names)
  fixture=r"""
 typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typedef u8 bool8;
@@ -17,6 +17,7 @@ typedef unsigned char u8;typedef unsigned short u16;typedef unsigned int u32;typ
 #define BATTLE_TYPE_FRONTIER 2
 #define FLAG_BATTLE_FACILITY 0
 #define HOENN_VAR_DIFFICULTY 0
+#define FALSE 0
 #define DIFFICULTY_COUNT 5
 #define ITEM_ORAN_BERRY 139
 #define ITEM_SITRUS_BERRY 142
@@ -49,6 +50,7 @@ static u32 GetMonData(struct Pokemon* m,unsigned field,void* unused){return fiel
 static void SetMonData(struct Pokemon* m,unsigned field,const void* value){if(field==1)m->level=*(const u32*)value;else if(field==2)m->exp=*(const u32*)value;else if(field==3)m->item=*(const u16*)value;else m->ev[field-4]=*(const u8*)value;}
 PRODUCTION
 int main(void){
+for(unsigned d=0;d<65536;d++){if(HackDifficulty_ForceSetStyle(d)!=(d==3||d==4))return 4;for(unsigned count=0;count<256;count++)if(HackDifficulty_BagLimitReached(d,count)!=((d==3&&count>=3)||(d==4&&count>=1)))return 5;}
 for(unsigned i=0;i<=200;i++)gExperienceTables[0][i]=i*i*i;
 for(difficulty=0;difficulty<5;difficulty++)for(unsigned level=1;level<=200;level++)
 for(unsigned side=0;side<2;side++)for(unsigned flags=0;flags<4;flags++)for(facility=0;facility<2;facility++)for(unsigned item=9;item<=11;item++)for(roll=0;roll<100;roll++){

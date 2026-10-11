@@ -1,5 +1,7 @@
 #include "defines.h"
 #include "defines_battle.h"
+#include "hack_difficulty.h"
+#include "Tables/hoenn_script_flags.h"
 #include "../include/menu.h"
 #include "../include/sprite.h"
 #include "../include/string_util.h"
@@ -2381,6 +2383,10 @@ bool8 CheckCantMoveThisTurn(void)
 
 bool8 IsBagDisabled(void)
 {
+	if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER))
+	&& !FlagGet(FLAG_BATTLE_FACILITY)
+	&& HackDifficulty_BagLimitReached(VarGet(HOENN_VAR_DIFFICULTY), gNewBS->playerItemUsedCount))
+		return TRUE;
 	#ifdef VAR_GAME_DIFFICULTY
 	u8 itemRestrictions = 0;
 	u8 difficulty = VarGet(VAR_GAME_DIFFICULTY);
