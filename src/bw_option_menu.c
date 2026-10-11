@@ -16,6 +16,7 @@
 #include "../include/event_data.h"
 #include "Tables/hoenn_script_flags.h"   /* HOENN_VAR_OVERWORLD_SPEED */
 #include "hack_battle_speed.h"
+#include "../include/constants/pokemon.h"   /* TYPE_NAME_LENGTH（2026-10-11） */
 #include "hack_difficulty.h"
 
 /*
@@ -89,10 +90,18 @@ extern const u8 gText_BwOpt_MoemonOff[];
 extern const u8 gText_BwOpt_Habitat[];
 extern const u8 gText_BwOpt_HabitatOrig[];
 extern const u8 gText_BwOpt_WonderTrade[];
+extern const u8 gText_BwOpt_WonderType[];       /* 2026-10-11 */
+extern const u8 gText_BwOpt_WonderTypeAll[];
+extern const u8 gText_BwOpt_DescWonderType[];
+#define WONDER_TRADE_TYPE_COUNT 18
+#define HACK_VAR_WONDER_TYPE 0x50DC
+extern const u8 gWonderTradeTypeOrder[WONDER_TRADE_TYPE_COUNT];   /* src/hack_wonder_trade.c */
+extern const u8 gTypeNames[][TYPE_NAME_LENGTH + 1];   /* 1 つ 6 バイト（src/move_menu.c と同じ宣言） */
 extern const u8 gText_BwOpt_Medium[];
 extern const u8 gText_BwOpt_Easy[];
 extern const u8 gText_BwOpt_Hard[];
 extern const u8 gText_BwOpt_MomoIce[];
+extern const u8 gText_BwOpt_RiruIce[];    /* 2026-10-11 りるアイス（patches/0321） */
 extern const u8 gText_BwOpt_Slow[];
 extern const u8 gText_BwOpt_Mid[];
 extern const u8 gText_BwOpt_Fast[];
@@ -144,6 +153,7 @@ enum
 #endif
     TD_HABITAT,                          /* 2026-10-10 せいそくち（もとは たいせつなもの せいそくスイッチ） */
     TD_WONDERTRADE,                      /* 2026-10-10 ミラクルこうかんの場面 */
+    TD_WONDERTYPE,                       /* 2026-10-11 ミラクルこうかんで来るポケモンの 1 つ目のタイプ */
     TD_TIMER,
     TD_ARROW_PRESSED,                    /* 元の sArrowPressed（static）の代わり */
     TD_TOP,                              /* スクロール: いちばん上に出ている項目 */
@@ -163,6 +173,7 @@ enum
 #endif
     MENUITEM_HABITAT,                    /* 2026-10-10 いれかえ／もとのまま＝旗 HACK_FLAG_HABITAT_ORIGINAL */
     MENUITEM_WONDERTRADE,                /* 2026-10-10 みる／みない＝旗 HACK_FLAG_WONDER_SKIP（src/hack_wonder_trade.c） */
+    MENUITEM_WONDERTYPE,                 /* 2026-10-11 ぜんぶ／タイプ 18 個＝予約変数 HACK_VAR_WONDER_TYPE（0 ぜんぶ・1〜18 は gWonderTradeTypeOrder の番号 + 1） */
     MENUITEM_COUNT,
 };
 
@@ -187,6 +198,7 @@ static const u8 *const sItemNames[MENUITEM_COUNT] =
 #endif
     gText_BwOpt_Habitat,
     gText_BwOpt_WonderTrade,
+    gText_BwOpt_WonderType,
 };
 
 static const u8 *const sDescriptions[] =
@@ -198,6 +210,7 @@ static const u8 *const sDescriptions[] =
 #endif
     gText_BwOpt_DescHabitat,
     gText_BwOpt_DescWonderTrade,
+    gText_BwOpt_DescWonderType,
     gText_BwOpt_DescSave, gText_BwOpt_DescCancel,
 };
 
@@ -341,14 +354,20 @@ static void DrawValueChoice(const u8 *text, u8 y)
     DrawChoice(text, 150, y, TRUE);
 }
 
+/* 2026-10-11 こうかんタイプ: 0 ぜんぶ・1〜18 はタイプの名前（gTypeNames） */
+static void DrawWonderTypeChoice(u8 selection, u8 y)
+{
+    DrawValueChoice((selection >= 1 && selection <= WONDER_TRADE_TYPE_COUNT) ? gTypeNames[gWonderTradeTypeOrder[selection - 1]] : gText_BwOpt_WonderTypeAll, y);
+}
+
 static void DrawDifficultyChoice(u8 selection, u8 y)
 {
     static const u8 *const sNames[DIFFICULTY_COUNT] =
     {
-        gText_BwOpt_Easy, gText_BwOpt_Medium, gText_BwOpt_Mid, gText_BwOpt_Hard, gText_BwOpt_MomoIce,
+        gText_BwOpt_RiruIce, gText_BwOpt_Easy, gText_BwOpt_Medium, gText_BwOpt_Mid, gText_BwOpt_Hard, gText_BwOpt_MomoIce,
     };
 
-    DrawValueChoice(sNames[selection < DIFFICULTY_COUNT ? selection : 2], y);
+    DrawValueChoice(sNames[selection < DIFFICULTY_COUNT ? selection : 3], y);   /* 3 = ふつう（HackDifficulty_SelectionFromValue） */
 }
 
 static void DrawSpeedChoice(u8 selection, u8 y)
@@ -401,6 +420,9 @@ static void DrawChoicesFor(u8 item, u8 selection, u8 top)
     case MENUITEM_WONDERTRADE:
         DrawChoices2(gText_BwOpt_On, gText_BwOpt_Off, 112, 162, y, selection);
         break;
+    case MENUITEM_WONDERTYPE:
+        DrawWonderTypeChoice(selection, y);
+        break;
     }
     CopyWindowToVram(WIN_TEXT, 2);
 }
@@ -451,6 +473,9 @@ static u8 ProcessInputFor(u8 item, u8 selection, s16 *arrow)
     case MENUITEM_HABITAT:
     case MENUITEM_WONDERTRADE:
         selection = CycleInput(selection, 2, arrow);
+        break;
+    case MENUITEM_WONDERTYPE:
+        selection = CycleInput(selection, WONDER_TRADE_TYPE_COUNT + 1, arrow);
         break;
     }
     return selection;
@@ -561,6 +586,7 @@ void CB2_BwOptionMenu(void)
 #endif
         data[TD_HABITAT] = FlagGet(HACK_FLAG_HABITAT_ORIGINAL) ? 1 : 0;  /* 0 いれかえ / 1 もとのまま */
         data[TD_WONDERTRADE] = FlagGet(HACK_FLAG_WONDER_SKIP) ? 1 : 0;    /* 0 みる / 1 みない */
+        data[TD_WONDERTYPE] = VarGet(HACK_VAR_WONDER_TYPE) <= WONDER_TRADE_TYPE_COUNT ? VarGet(HACK_VAR_WONDER_TYPE) : 0;   /* 0 ぜんぶ */
         data[TD_ARROW_PRESSED] = FALSE;
         data[TD_TOP] = 0;
         for (i = 0; i < MENUITEM_COUNT; ++i)
@@ -659,7 +685,8 @@ static void Task_Save(u8 taskId)
         FlagSet(HACK_FLAG_WONDER_SKIP);
     else
         FlagClear(HACK_FLAG_WONDER_SKIP);
-    VarSet(HOENN_VAR_DIFFICULTY, HackDifficulty_ValueFromSelection(data[TD_DIFFICULTY]));
+    VarSet(HACK_VAR_WONDER_TYPE, data[TD_WONDERTYPE]);
+    VarSet(HOENN_VAR_DIFFICULTY, HackDifficulty_ValueFromSelection(data[TD_DIFFICULTY]));   /* ★ わくはもう変えない（セーブの値のまま・枠の見本もその値） */
     BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_FadeOut;
 }

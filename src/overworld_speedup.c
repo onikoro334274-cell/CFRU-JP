@@ -76,6 +76,7 @@ void HackTrainingPouch_FieldTick(void);
 void HackMoemonSwitch_FieldTick(void);
 void HackMomSavings_FieldTick(void);
 void HackMonId_FieldTick(void);
+void HackPhone_FieldTick(void);   /* src/hack_phone.c（2026-10-11 電話帳の着信） */
 void HackHabitatSwitch_FieldTick(void);
 void HackFriendOt_FieldTick(void);
 
@@ -276,6 +277,7 @@ void OverworldSpeedup_CB2Overworld(void)
     PROF_END(6);
     PROF_BEGIN();
     HackFriendOt_FieldTick();       /* ★ 2026-10-10 なつき度 255 の子は親を主人公に（src/hack_friend_ot.c・ID を付けたあと） */
+    HackPhone_FieldTick();          /* ★ 2026-10-11 電話帳の相手からの着信（src/hack_phone.c・pm-start/poke-call） */
     PROF_END(7);
 
     if (fading)

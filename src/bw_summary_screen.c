@@ -1649,6 +1649,16 @@ static u8 GetNatureForStats(struct Pokemon *mon)
     return GetNature(mon);
 }
 
+/* ★ 2026-10-11 ユーザー「銀の王冠で HP の個体値を鍛えた → 表示が何も変わらない」（patches/0312）:
+   すごいとっくん（CFRU の special 0x12F）は個体値を書き換えず mon->hyperTraining のビットを立て、能力の計算（CalculateMonStatsNew）だけが
+   それを 31 として読む。この画面は生の個体値を読んでいたので 20 のまま出ていた。計算と同じ読み方にする（ビットの並びは MON_DATA_HP_IV + i と同じ） */
+static u8 GetIvForDisplay(struct Pokemon *mon, u8 ivField)
+{
+    if (mon->hyperTraining & gBitTable[ivField - MON_DATA_HP_IV])
+        return 31;
+    return GetMonData(mon, ivField, NULL);
+}
+
 static void DrawIvRank(u8 iv, u8 x, u8 y)
 {
     BlitBitmapRectToWindow(sBwSs->window[3], sIVRankImages[iv & 31], 0, 0, 8, 8, x, y, 16, 8);
@@ -1658,7 +1668,7 @@ static void DrawIvRank(u8 iv, u8 x, u8 y)
 static void PrintEvIvRow(u8 y, u8 evField, u8 ivField, u8 x, u8 width)
 {
     u8 text[12];
-    u8 iv = GetMonData(&sBwSs->currentMon, ivField, NULL);
+    u8 iv = GetIvForDisplay(&sBwSs->currentMon, ivField);
     u8 *p = ConvertIntToDecimalStringN(text, GetMonData(&sBwSs->currentMon, evField, NULL), STR_CONV_MODE_LEFT_ALIGN, 3);
 
     *p++ = 0xBA;   /* / */
@@ -1702,12 +1712,12 @@ static void PrintMonStats(void)
     PrintFit(3, 90, 27, 68, DARK, sBwSs->summary.statStr[PSS_STAT_SPE]);
     PrintFit(3, 69, 72, 80, DARK, sBwSs->summary.expStr);      /* 右端 141（実機 1 回目: 見出しと重なった・2026-10-09 ユーザー「経験値右にずらしたほうが」） */
     PrintFit(3, 69, 72, 92, DARK, sBwSs->summary.toNextStr);
-    DrawIvRank(GetMonData(mon, MON_DATA_HP_IV, NULL), 10, 1);
-    DrawIvRank(GetMonData(mon, MON_DATA_ATK_IV, NULL), 120, 21);
-    DrawIvRank(GetMonData(mon, MON_DATA_DEF_IV, NULL), 120, 33);
-    DrawIvRank(GetMonData(mon, MON_DATA_SPATK_IV, NULL), 120, 45);
-    DrawIvRank(GetMonData(mon, MON_DATA_SPDEF_IV, NULL), 120, 57);
-    DrawIvRank(GetMonData(mon, MON_DATA_SPEED_IV, NULL), 120, 69);
+    DrawIvRank(GetIvForDisplay(mon, MON_DATA_HP_IV), 10, 1);
+    DrawIvRank(GetIvForDisplay(mon, MON_DATA_ATK_IV), 120, 21);
+    DrawIvRank(GetIvForDisplay(mon, MON_DATA_DEF_IV), 120, 33);
+    DrawIvRank(GetIvForDisplay(mon, MON_DATA_SPATK_IV), 120, 45);
+    DrawIvRank(GetIvForDisplay(mon, MON_DATA_SPDEF_IV), 120, 57);
+    DrawIvRank(GetIvForDisplay(mon, MON_DATA_SPEED_IV), 120, 69);
 }
 
 static void PrintExpLabels(void)

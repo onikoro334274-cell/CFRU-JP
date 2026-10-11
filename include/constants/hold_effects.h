@@ -154,7 +154,15 @@
 #define ITEM_EFFECT_DANGER_LEAF 149 //[hack] 2026-10-09 あぶないはっぱ（patches/0237）
 #define ITEM_EFFECT_GENE_BOND 150 //[hack] 2026-10-10 いでんしのきずな（patches/0287・damage_calc.c）
 #define ITEM_EFFECT_MILD 151 //[hack] 2026-10-10 マイルド（patches/0289・accuracy_calc.c／attackcanceler.c）
-#define ITEM_EFFECT_COUNT (ITEM_EFFECT_MILD + 1)
+#define ITEM_EFFECT_SECOND_ARROW 152 //[hack] 2026-10-10 にのや（patches/0291・src/hack_second_arrow.c）
+#define ITEM_EFFECT_PINWHEEL 153 //[hack] 2026-10-10 かざぐるま（patches/0292）
+#define ITEM_EFFECT_ROOM_INTERIOR 154 //[hack] 2026-10-10 ばんのうインテリア（patches/0292）
+#define ITEM_EFFECT_HUSTLE_BAND 155 //[hack] 2026-10-10 はりきりハチマキ（patches/0292）
+#define ITEM_EFFECT_HUSTLE_SPECS 156 //[hack] 2026-10-10 はりきりメガネ（patches/0292）
+#define ITEM_EFFECT_STUBBORN_BANDANA 157 //[hack] 2026-10-10 かたくなバンダナ（patches/0292）
+#define ITEM_EFFECT_MAISEN 158 //[hack] 2026-10-10 まいせん（patches/0292）
+#define ITEM_EFFECT_MOMO_SHERBET 159 //[hack] 2026-10-11 ももシャーベット（能力 1.5 倍・毎ターン 1/6・うばわれない・src/hack_momo_ice.c）
+#define ITEM_EFFECT_COUNT (ITEM_EFFECT_MOMO_SHERBET + 1)
 
 //Focus Sash: Item Effect = ITEM_EFFECT_FOCUS_BAND, Item Quality = 100, Item Mystery 2 = 1
 //Power Items: Item Effect = ITEM_EFFECT_MACHO_BRACE Item Quality = See Below

@@ -4,24 +4,37 @@ import os
 import subprocess
 import shutil
 import sys
-import tempfile
-import struct
-import hashlib
-import json
 from datetime import datetime
 import _io
-from pathlib import Path
 
 OFFSET_TO_PUT = 0x900000
 SOURCE_ROM = "BPRJ0.gba"
 ROM_NAME = "test.gba"
 
-from toolchain import tool_path
-from rom_bounds import validate_payload
+if sys.platform.startswith('win'):
+    PathVar = os.environ.get('Path')
+    Paths = PathVar.split(';')
+    PATH = ''
+    for candidatePath in Paths:
+        if 'devkitARM' in candidatePath:
+            PATH = candidatePath
+            break
+    if PATH == '':
+        PATH = 'C://devkitPro//devkitARM//bin'
+        if os.path.isdir(PATH) is False:
+            print('Devkit not found.')
+            sys.exit(1)
 
-OBJDUMP = tool_path('objdump')
-NM = tool_path('nm')
-AS = tool_path('as')
+    PREFIX = 'arm-none-eabi-'
+    OBJDUMP = os.path.join(PATH, PREFIX + 'objdump')
+    NM = os.path.join(PATH, PREFIX + 'nm')
+    AS = os.path.join(PATH, PREFIX + 'as')
+
+else:  # Linux, OSX, etc.
+    PREFIX = 'arm-none-eabi-'
+    OBJDUMP = (PREFIX + 'objdump')
+    NM = (PREFIX + 'nm')
+    AS = (PREFIX + 'as')
 
 OUTPUT = 'build/output.bin'
 BYTE_REPLACEMENT = 'bytereplacement'
@@ -85,25 +98,11 @@ def GetSymbols(subtract=0) -> {str: int}:
     return ret
 
 
-def _check_code_patch(rom, target, offset, size):
-    if not 0 <= target < 0x2000000:
-        raise ValueError('Hook target must be in the first 32 MiB of ROM')
-    previous = rom.tell()
-    rom.seek(0, os.SEEK_END)
-    length = rom.tell()
-    rom.seek(previous)
-    if offset < 0 or offset > min(length, 0x2000000) - size:
-        raise ValueError('Code patch is outside the existing ROM: ' + hex(offset))
-
-
 def Hook(rom: _io.BufferedReader, space: int, hookAt: int, register=0):
-    if not 0 <= register <= 7:
-        raise ValueError('Thumb hook register must be r0..r7')
     # Align 2
     if hookAt & 1:
         hookAt -= 1
 
-    _check_code_patch(rom, space, hookAt, 10 if hookAt % 4 else 8)
     rom.seek(hookAt)
 
     register &= 7
@@ -113,19 +112,15 @@ def Hook(rom: _io.BufferedReader, space: int, hookAt: int, register=0):
     else:
         data = bytes([0x00, 0x48 | register, 0x00 | (register << 3), 0x47])
 
-    space = (space + 0x08000000) | 1
+    space += 0x08000001
     data += (space.to_bytes(4, 'little'))
     rom.write(bytes(data))
 
 
 def FunctionWrap(rom: _io.BufferedReader, space: int, hookAt: int, numParams: int, isReturning: int):
-    if not 0 <= numParams <= 125 or isReturning not in (0, 1):
-        raise ValueError('Invalid wrapper parameter count or return mode')
     # Align 2
     if hookAt & 1:
         hookAt -= 1
-    if hookAt % 4:
-        raise ValueError('Function wrapper must start at a word-aligned address')
 
     rom.seek(hookAt)
     numParams = numParams - 1
@@ -146,17 +141,16 @@ def FunctionWrap(rom: _io.BufferedReader, space: int, hookAt: int, numParams: in
             data += bytes([i, 0x9C, i+2, 0x94])
         data += bytes([0x2, 0xB0, 0x10, 0xBC, isReturning + 1, 0xBC, isReturning << 3, 0x47, 0x20, 0x47])
 
-    _check_code_patch(rom, space, hookAt, len(data) + 4)
-    space = (space + 0x08000000) | 1
+    space += 0x08000001
     data += (space.to_bytes(4, 'little'))
     rom.write(bytes(data))
 
 
 def Repoint(rom: _io.BufferedReader, space: int, repointAt: int, slideFactor=0):
+    rom.seek(repointAt)
+
     space += (0x08000000 + slideFactor)
     data = (space.to_bytes(4, 'little'))
-    _check_existing_write(rom, repointAt, len(data))
-    rom.seek(repointAt)
     rom.write(bytes(data))
 
 
@@ -167,159 +161,121 @@ IGNORED_OFFSETS = [0x35C748, 0x35C774, 0xCABDF0]
 
 
 def RealRepoint(rom: _io.BufferedReader, offsetTuples: [(int, int, str)]):
+    pointerList = []
     pointerDict = {}
-    for offset, target, symbol in offsetTuples:
+    for tup in offsetTuples:  # Format is (Double Pointer, New Pointer, Symbol)
+        offset = tup[0]
         rom.seek(offset)
-        raw = rom.read(4)
-        if len(raw) != 4:
-            raise ValueError('Repoint source is outside the ROM: ' + hex(offset))
-        pointer = ExtractPointer(raw)
-        if pointer == 0:
-            raise ValueError('Cannot globally repoint a null pointer: ' + hex(offset))
-        pointerDict[pointer] = (target + 0x08000000, symbol)
-    results = []
-    if not pointerDict:
-        return results
-    rom.seek(0, os.SEEK_END)
-    limit = min(rom.tell(), 0x1000000)
-    ignored = set(IGNORED_OFFSETS)
-    for start in range(0, limit, 65536):
-        rom.seek(start)
-        data = rom.read(min(65536, limit - start))
-        for index, (word,) in enumerate(struct.iter_unpack('<I', data[:len(data) & ~3])):
-            offset = start + index * 4
-            replacement = pointerDict.get(word)
-            if replacement is not None and offset not in ignored:
-                results.append((offset, replacement[1]))
-                rom.seek(offset)
-                rom.write(replacement[0].to_bytes(4, 'little'))
-    return results
+        pointer = ExtractPointer(rom.read(4))
+        pointerList.append(pointer)
+        pointerDict[pointer] = (tup[1] + 0x08000000, tup[2])
 
+    offset = 0
+    offsetList = []
 
-def _check_existing_write(rom, offset, size):
-    previous = rom.tell()
-    rom.seek(0, os.SEEK_END)
-    length = rom.tell()
-    rom.seek(previous)
-    if offset < 0 or offset > length - size:
-        raise ValueError('Data patch is outside the existing ROM: ' + hex(offset))
+    while offset < 0xFFFFFD:
+        if offset in IGNORED_OFFSETS:
+            offset += 4
+            continue
+
+        rom.seek(offset)
+        word = ExtractPointer(rom.read(4))
+        rom.seek(offset)
+
+        for pointer in pointerList:
+            if word == pointer:
+                offsetList.append((offset, pointerDict[pointer][1]))
+                rom.write(bytes(pointerDict[pointer][0].to_bytes(4, 'little')))
+                break
+
+        offset += 4
+
+    return offsetList
 
 
 def ReplaceBytes(rom: _io.BufferedReader, offset: int, data: str):
-    payload = bytes(int(word, 16) for word in data.split())
-    _check_existing_write(rom, offset, len(payload))
-    rom.seek(offset)
-    rom.write(payload)
+    ar = offset
+    words = data.split()
+    for i in range(0, len(words)):
+        rom.seek(ar)
+        intByte = int(words[i], 16)
+        rom.write(bytes(intByte.to_bytes(1, 'big')))
+        ar += 1
 
 
-from preprocess import TryProcessFileInclusion, TryProcessConditionalCompilation, validate_definition_file
+def TryProcessFileInclusion(line: str, definesDict: dict) -> bool:
+    if line.startswith('#include "'):
+        try:
+            path = line.split('"')[1].strip()
+            with open(path, 'r') as file:
+                for line in file:
+                    if line.startswith('#define '):
+                        try:
+                            lineList = line.strip().split()
+                            title = lineList[1]
+
+                            if len(lineList) == 2 or lineList[2].startswith('//') or lineList[2].startswith('/*'):
+                                define = True
+                            else:
+                                define = lineList[2]
+
+                            definesDict[title] = define
+                        except IndexError:
+                            print('Error reading define on line"' + line.strip() + '" in file "' + path + '".')
+
+        except Exception as e:
+            print('Error including file on line "' + line.strip() + '".')
+            print(e)
+
+        return True  # Inclusion line; don't read otherwise
+
+    return False
 
 
-def _active_repoint_requests():
-    requests, definitions, conditionals = [], {}, []
-    if os.path.isfile(REPOINT_ALL):
-        with open(REPOINT_ALL, 'r', encoding='utf-8-sig') as file:
-            for line in file:
-                if TryProcessConditionalCompilation(line, definitions, conditionals):
-                    continue
-                if TryProcessFileInclusion(line, definitions):
-                    continue
-                if line.strip().startswith('#') or not line.strip():
-                    continue
-                symbol, address = line.split()
-                requests.append((symbol, int(address, 16) - 0x08000000))
-    return requests
+def TryProcessConditionalCompilation(line: str, definesDict: dict, conditionals: [(str, bool)]) -> bool:
+    line = line.strip()
+    upperLine = line.upper()
+    numWordsOnLine = len(line.split())
+
+    if upperLine.startswith('#IFDEF ') and numWordsOnLine > 1:
+        condition = line.strip().split()[1]
+        conditionals.insert(0, (condition, True))  # Insert at front
+        return True
+    elif upperLine.startswith('#IFNDEF ') and numWordsOnLine > 1:
+        condition = line.strip().split()[1]
+        conditionals.insert(0, (condition, False))  # Insert at front
+        return True
+    elif upperLine == '#ELSE':
+        if len(conditionals) >= 1:  # At least one statement was pushed before
+            condition = conditionals.pop(0)
+            if condition[1] is True:
+                conditionals.insert(0, (condition[0], False))  # Invert old statement
+            else:
+                conditionals.insert(0, (condition[0], True))  # Invert old statement
+            return True
+    elif upperLine == '#ENDIF':
+        conditionals.pop(0)  # Remove first element (last pushed)
+        return True
+    else:
+        for condition in conditionals:
+            definedType = condition[1]
+            condition = condition[0]
+
+            if definedType is True:  # From #ifdef
+                if condition not in definesDict:
+                    return True  # If something isn't defined then skip the line
+            else:  # From #ifndef
+                if condition in definesDict:
+                    return True  # If something is defined then skip the line
+
+    return False
 
 
-def _repoint_signature(rom, requests):
-    digest = hashlib.sha256(json.dumps({'version': 1, 'requests': requests,
-                                      'ignored': IGNORED_OFFSETS}, sort_keys=True).encode('utf-8'))
-    rom.seek(0)
-    while True:
-        block = rom.read(1048576)
-        if not block:
-            break
-        digest.update(block)
-    return digest.hexdigest()
-
-
-def _load_repoint_cache(path, signature, targets):
-    if not os.path.isfile(path):
-        return None
-    try:
-        text = Path(path).read_text(encoding='utf-8-sig')
-        header, body = text.split('\n', 1)
-        prefix = '##repoint-cache-v1 '
-        if not header.startswith(prefix):
-            return None
-        metadata = json.loads(header[len(prefix):])
-        if metadata['input'] != signature or metadata['entries'] != hashlib.sha256(body.encode('utf-8')).hexdigest():
-            return None
-        entries = []
-        for line in body.splitlines():
-            symbol, address = line.split()
-            offset = int(address)
-            if symbol not in targets or offset < 0 or offset >= 0x1000000 or offset % 4:
-                return None
-            entries.append((symbol, offset))
-        return entries
-    except (ValueError, KeyError, TypeError, UnicodeError):
-        return None
-
-
-def _write_repoint_cache(path, signature, entries):
-    body = ''.join('{} {}\n'.format(symbol, offset) for symbol, offset in entries)
-    metadata = {'input': signature, 'entries': hashlib.sha256(body.encode('utf-8')).hexdigest()}
-    Path(path).write_text('##repoint-cache-v1 ' + json.dumps(metadata, sort_keys=True) + '\n' + body,
-                          encoding='utf-8')
-
-
-def _read_rom_pointer(rom, offset):
-    _check_existing_write(rom, offset, 4)
-    rom.seek(offset)
-    pointer = ExtractPointer(rom.read(4)) - 0x08000000
-    _check_existing_write(rom, pointer, 1)
-    return pointer
-
-
-def _event_script_offset(rom, bank, map_number, kind, event_id, headers):
-    if not 0 <= bank <= 255 or not 0 <= map_number <= 255:
-        raise ValueError('Map bank and number must be in 0..255')
-    key = (bank, map_number)
-    if key not in headers:
-        banks = _read_rom_pointer(rom, 0x54B0C)
-        maps = _read_rom_pointer(rom, banks + bank * 4)
-        headers[key] = _read_rom_pointer(rom, maps + map_number * 4)
-    header = headers[key]
-    if kind == 'map':
-        _check_existing_write(rom, header + 8, 4)
-        return header + 8
-    layouts = {'npc': (0, 4, 0x18, 0x10), 'trainer': (0, 4, 0x18, 0x10),
-               'item': (0, 4, 0x18, 0x10), 'tile': (2, 12, 0x10, 12),
-               'sign': (3, 16, 0xC, 8)}
-    if kind not in layouts:
-        raise ValueError('Unknown event type: ' + kind)
-    count_offset, pointer_offset, stride, script_offset = layouts[kind]
-    events = _read_rom_pointer(rom, header + 4)
-    _check_existing_write(rom, events + count_offset, 1)
-    rom.seek(events + count_offset)
-    count = rom.read(1)[0]
-    if event_id < 0 or event_id >= count:
-        raise ValueError('{} event index {} is outside count {}'.format(kind, event_id, count))
-    table = _read_rom_pointer(rom, events + pointer_offset)
-    _check_existing_write(rom, table, count * stride)
-    return table + event_id * stride + script_offset
-
-
-def _insert(output_rom, generated_repoints, offsets_ini):
-    validate_payload(OFFSET_TO_PUT, os.path.getsize(OUTPUT))
-    for path in (BYTE_REPLACEMENT, HOOKS, REPOINTS, REPOINT_ALL, ROUTINE_POINTERS,
-                 FUNCTION_REWRITES, EVENT_SCRIPTS, SONGS):
-        if os.path.isfile(path):
-            validate_definition_file(path)
+def main():
+    startTime = datetime.now()
 
     try:
-        shutil.copyfile(SOURCE_ROM, output_rom)
+        shutil.copyfile(SOURCE_ROM, ROM_NAME)
     except FileNotFoundError:
         print('Error: Insertion could not be completed.\n'
               + 'Could not find source rom: "' + SOURCE_ROM + '".\n'
@@ -331,7 +287,7 @@ def _insert(output_rom, generated_repoints, offsets_ini):
               + '\nPlease free it up before trying again.')
         sys.exit(1)
 
-    with open(output_rom, 'rb+') as rom:
+    with open(ROM_NAME, 'rb+') as rom:
         print("Inserting code.")
         table = GetSymbols(GetTextSection())
         rom.seek(OFFSET_TO_PUT)
@@ -345,13 +301,13 @@ def _insert(output_rom, generated_repoints, offsets_ini):
 
         # Insert byte changes
         if os.path.isfile(BYTE_REPLACEMENT):
-            with open(BYTE_REPLACEMENT, 'r', encoding='utf-8-sig') as replacelist:
+            with open(BYTE_REPLACEMENT, 'r') as replacelist:
                 definesDict = {}
                 conditionals = []
                 for line in replacelist:
-                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                        continue
                     if TryProcessFileInclusion(line, definesDict):
+                        continue
+                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
                         continue
                     if line.strip().startswith('#') or line.strip() == '':
                         continue
@@ -360,8 +316,6 @@ def _insert(output_rom, generated_repoints, offsets_ini):
                     try:
                         ReplaceBytes(rom, offset, line[9:].strip())
                     except ValueError: #Try loading from the defines dict if unrecognizable character
-                        if line[9:].strip() not in definesDict:
-                            raise
                         newNumber = definesDict[line[9:].strip()]
                         try:
                             newNumber = int(newNumber)
@@ -373,7 +327,7 @@ def _insert(output_rom, generated_repoints, offsets_ini):
 
         # Do Special Inserts
         if os.path.isfile(SPECIAL_INSERTS) and os.path.isfile(SPECIAL_INSERTS_OUT):
-            with open(SPECIAL_INSERTS, 'r', encoding='utf-8-sig') as file:
+            with open(SPECIAL_INSERTS, 'r') as file:
                 offsetList = []
                 for line in file:
                     if line.strip().startswith('.org '):
@@ -413,13 +367,13 @@ def _insert(output_rom, generated_repoints, offsets_ini):
 
         # Read hooks from a file
         if os.path.isfile(HOOKS):
-            with open(HOOKS, 'r', encoding='utf-8-sig') as hookList:
+            with open(HOOKS, 'r') as hookList:
                 definesDict = {}
                 conditionals = []
                 for line in hookList:
-                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                        continue
                     if TryProcessFileInclusion(line, definesDict):
+                        continue
+                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
                         continue
                     if line.strip().startswith('#') or line.strip() == '':
                         continue
@@ -429,19 +383,20 @@ def _insert(output_rom, generated_repoints, offsets_ini):
                     try:
                         code = table[symbol]
                     except KeyError:
-                        raise ValueError('Missing insertion symbol: ' + symbol)
+                        print('Symbol missing:', symbol)
+                        continue
 
                     Hook(rom, code, offset, int(register))
 
         # Read repoints from a file
         if os.path.isfile(REPOINTS):
-            with open(REPOINTS, 'r', encoding='utf-8-sig') as repointList:
+            with open(REPOINTS, 'r') as repointList:
                 definesDict = {}
                 conditionals = []
                 for line in repointList:
-                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                        continue
                     if TryProcessFileInclusion(line, definesDict):
+                        continue
+                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
                         continue
                     if line.strip().startswith('#') or line.strip() == '':
                         continue
@@ -452,47 +407,87 @@ def _insert(output_rom, generated_repoints, offsets_ini):
                         try:
                             code = table[symbol]
                         except KeyError:
-                            raise ValueError('Missing insertion symbol: ' + symbol)
+                            print('Symbol missing:', symbol)
+                            continue
 
                         Repoint(rom, code, offset)
 
-                    elif len(line.split()) == 3:
+                    if len(line.split()) == 3:
                         symbol, address, slide = line.split()
                         offset = int(address, 16) - 0x08000000
                         try:
                             code = table[symbol]
                         except KeyError:
-                            raise ValueError('Missing insertion symbol: ' + symbol)
+                            print('Symbol missing:', symbol)
+                            continue
 
                         Repoint(rom, code, offset, int(slide))
-                    else:
-                        raise ValueError('Expected symbol, address and optional slide: ' + line.strip())
 
-        requests = _active_repoint_requests()
-        targets = {}
-        for symbol, offset in requests:
-            if symbol not in table:
-                raise ValueError('Missing insertion symbol: ' + symbol)
-            targets[symbol] = table[symbol]
-        signature = _repoint_signature(rom, requests)
-        cached = _load_repoint_cache(generated_repoints, signature, targets)
-        if cached is None:
-            matches = RealRepoint(rom, [(offset, targets[symbol], symbol) for symbol, offset in requests])
-            cached = [(symbol, offset) for offset, symbol in matches]
+        symbolsRepointed = set()
+        if os.path.isfile(GENERATED_REPOINTS):
+            with open(GENERATED_REPOINTS, 'r') as repointList:
+                for line in repointList:
+                    if line.strip().startswith('#') or line.strip() == '':
+                        continue
+
+                    symbol, address = line.split()
+                    offset = int(address)
+                    try:
+                        code = table[symbol]
+                    except KeyError:
+                        print('Symbol missing:', symbol)
+                        continue
+
+                    symbolsRepointed.add(symbol)
+                    Repoint(rom, code, offset)
+
         else:
-            for symbol, offset in cached:
-                Repoint(rom, targets[symbol], offset)
-        _write_repoint_cache(generated_repoints, signature, cached)
+            with open(GENERATED_REPOINTS, 'w') as repointList:
+                repointList.write('##This is a generated file at runtime. Do not modify it!\n')
+
+        if os.path.isfile(REPOINT_ALL):
+            offsetsToRepointTogether = []
+            with open(REPOINT_ALL, 'r') as repointList:
+                definesDict = {}
+                conditionals = []
+                for line in repointList:
+                    if TryProcessFileInclusion(line, definesDict):
+                        continue
+                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
+                        continue
+                    if line.strip().startswith('#') or line.strip() == '':
+                        continue
+
+                    symbol, address = line.split()
+                    offset = int(address, 16) - 0x08000000
+
+                    if symbol in symbolsRepointed:
+                        continue
+
+                    try:
+                        code = table[symbol]
+                    except KeyError:
+                        print('Symbol missing:', symbol)
+                        continue
+                    offsetsToRepointTogether.append((offset, code, symbol))
+
+                if offsetsToRepointTogether != []:
+                    offsets = RealRepoint(rom, offsetsToRepointTogether) # Format is [(offset, symbol), ...]
+
+                    output = open(GENERATED_REPOINTS, 'a')
+                    for tup in offsets:
+                        output.write(tup[1] + ' ' + str(tup[0]) + '\n')
+                    output.close()
 
         # Read routine repoints from a file
         if os.path.isfile(ROUTINE_POINTERS):
-            with open(ROUTINE_POINTERS, 'r', encoding='utf-8-sig') as pointerlist:
+            with open(ROUTINE_POINTERS, 'r') as pointerlist:
                 definesDict = {}
                 conditionals = []
                 for line in pointerlist:
-                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                        continue
                     if TryProcessFileInclusion(line, definesDict):
+                        continue
+                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
                         continue
                     if line.strip().startswith('#') or line.strip() == '':
                         continue
@@ -502,19 +497,20 @@ def _insert(output_rom, generated_repoints, offsets_ini):
                     try:
                         code = table[symbol]
                     except KeyError:
-                        raise ValueError('Missing insertion symbol: ' + symbol)
+                        print('Symbol missing:', symbol)
+                        continue
 
                     Repoint(rom, code, offset, 1)
 
         # Read routine rewrite wrapper from a file
         if os.path.isfile(FUNCTION_REWRITES):
-            with open(FUNCTION_REWRITES, 'r', encoding='utf-8-sig') as frwlist:
+            with open(FUNCTION_REWRITES, 'r') as frwlist:
                 definesDict = {}
                 conditionals = []
                 for line in frwlist:
-                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                        continue
                     if TryProcessFileInclusion(line, definesDict):
+                        continue
+                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
                         continue
                     if line.strip().startswith('#') or line.strip() == '':
                         continue
@@ -524,61 +520,154 @@ def _insert(output_rom, generated_repoints, offsets_ini):
                     try:
                         code = table[symbol]
                     except KeyError:
-                        raise ValueError('Missing insertion symbol: ' + symbol)
+                        print('Symbol missing:', symbol)
+                        continue
 
                     FunctionWrap(rom, code, offset, int(numParams), int(isReturning))
 
         # Insert Event Scripts
         if os.path.isfile(EVENT_SCRIPTS):
-            definesDict, conditionals, headers = {}, [], {}
-            with open(EVENT_SCRIPTS, 'r', encoding='utf-8-sig') as file:
-                for number, line in enumerate(file, 1):
-                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                        continue
+            definesDict = {}
+
+            mapHeaders = {}  # For signpost events
+            npcTables = {}  # For people events
+            tileTables = {}  # For script tiles
+            signTables = {}  # For signpost events
+
+            npcCounts = {}  # For people events
+            tileCounts = {}  # For script tiles
+            signCounts = {}  # For signpost events
+
+            conditionals = []
+            rom.seek(0x54B0C)
+            mapBanksHeader = ExtractPointer(rom.read(4)) - 0x08000000
+
+            with open(EVENT_SCRIPTS, 'r') as file:
+                for i, line in enumerate(file):
                     if TryProcessFileInclusion(line, definesDict):
                         continue
-                    if line.strip().startswith('#') or not line.strip():
+                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
                         continue
+                    if line.strip().startswith('#') or line.strip() == '':
+                        continue
+
                     try:
-                        fields = line.split()
-                        if len(fields) == 5:
-                            kind, bank, map_number, event_id, symbol = fields
-                            event_id = int(event_id)
-                        elif len(fields) == 4:
-                            kind, bank, map_number, symbol = fields
-                            event_id = -1
-                        else:
-                            raise ValueError('Invalid event script row')
-                        kind = kind.lower()
-                        offset = _event_script_offset(rom, int(bank), int(map_number), kind, event_id, headers)
-                        if kind == 'trainer':
-                            symbol = 'EventScript_' + symbol
-                        elif kind == 'item':
-                            symbol = 'ItemFindScript_' + symbol
-                        symbol = definesDict.get(symbol, symbol)
-                        if symbol in table:
-                            code = table[symbol]
-                        else:
+                        eventId = -1  # Reset just in case of error
+                        if len(line.split()) == 4 or len(line.split()) == 5:
+                            if len(line.split()) == 5:
+                                eventType, mapBank, mapNum, eventId, symbol = line.split()
+                                eventId = int(eventId)
+                            else:  # 4
+                                eventType, mapBank, mapNum, symbol = line.split()
+
+                            eventType = eventType.lower()
+                            mapBank = int(mapBank)
+                            mapNum = int(mapNum)
+                            dictId = (mapBank << 8) | mapNum
+
+                            if dictId not in mapHeaders:
+                                rom.seek(mapBanksHeader + mapBank * 4)
+                                mapBankHeader = ExtractPointer(rom.read(4)) - 0x08000000
+                                if mapBankHeader == (0xF7F7F7F7 - 0x08000000):
+                                    continue  # Garbage map bank header
+                                rom.seek(mapBankHeader + mapNum * 4)
+                                mapHeader = ExtractPointer(rom.read(4)) - 0x08000000
+                                if mapHeader == (0xF7F7F7F7 - 0x08000000):
+                                    continue  # Garbage map header
+                                mapHeaders[dictId] = mapHeader  # Store for later
+                            else:
+                                mapHeader = mapHeaders[dictId]
+
+                            if eventType == "map":
+                                offset = mapHeader + 0x8
+                            elif eventType == "npc" or eventType == "trainer" or eventType == "item":
+                                if eventId < 0:
+                                    raise(OSError)
+                                if dictId not in npcTables:
+                                    rom.seek(mapHeader + 0x4)
+                                    eventHeader = ExtractPointer(rom.read(4)) - 0x08000000
+                                    rom.seek(eventHeader)
+                                    npcCount = int(rom.read(1)[0])
+                                    rom.seek(eventHeader + 0x4)
+                                    npcTable = ExtractPointer(rom.read(4)) - 0x08000000
+                                    npcTables[dictId] = npcTable  # Store for later
+                                    npcCounts[dictId] = npcCount  # Store for later
+                                else:
+                                    npcTable = npcTables[dictId]
+                                    npcCount = npcCounts[dictId]
+
+                                # Check if valid npc
+                                if eventId >= npcCount:
+                                    print("Errror! NPC id {} exceeds the count of {} on line {}: {}".format(eventId, npcCount, i, line.strip()))
+                                    continue
+
+                                # Check shortcut npcs and modify symbol
+                                if eventType == "trainer":
+                                    symbol = "EventScript_" + symbol
+                                elif eventType == "item":
+                                    symbol = "ItemFindScript_" + symbol
+
+                                length = 0x18  # Length of one entry
+                                offset = npcTable + eventId * 0x18 + 0x10
+
+                            elif eventType == "tile":
+                                if eventId < 0:
+                                    raise(OSError)
+                                if dictId not in tileTables:
+                                    rom.seek(mapHeader + 0x4)
+                                    eventHeader = ExtractPointer(rom.read(4)) - 0x08000000
+                                    rom.seek(eventHeader + 0xC)
+                                    tileTable = ExtractPointer(rom.read(4)) - 0x08000000
+                                    tileTables[dictId] = tileTable  # Store for later
+                                else:
+                                    tileTable = tileTables[dictId]
+                                length = 0x10  # Length of one entry
+                                offset = tileTable + eventId * length + 0xC
+
+                            elif eventType == "sign":
+                                if eventId < 0:
+                                    raise(OSError)
+                                if dictId not in signTables:
+                                    rom.seek(mapHeader + 0x4)
+                                    eventHeader = ExtractPointer(rom.read(4)) - 0x08000000
+                                    rom.seek(eventHeader + 0x10)
+                                    signTable = ExtractPointer(rom.read(4)) - 0x08000000
+                                    signTables[dictId] = signTable  # Store for later
+                                else:
+                                    signTable = signTables[dictId]
+                                length = 0xC  # Length of one entry
+                                offset = signTable + eventId * length + 0x8
+
+                            else:
+                                print("Unknown event type \"{}\"!".format(eventType))
+                                continue
+
+                            if symbol in definesDict:
+                                symbol = definesDict[symbol]
+
                             try:
-                                code = int(symbol, 16)
-                            except ValueError as error:
-                                raise ValueError('Missing insertion symbol: ' + symbol) from error
-                        Repoint(rom, code, offset)
-                    except (OSError, ValueError, IndexError) as error:
-                        raise ValueError('Invalid event script on line {}: {}'.format(number, line.strip())) from error
+                                code = table[symbol]
+                            except KeyError:
+                                try:
+                                    code = int(symbol, 16)  # If script offset was written in hex
+                                except ValueError:
+                                    print('Symbol missing:', symbol)
+                                    continue
+
+                            Repoint(rom, code, offset)
+                    except OSError:
+                        print("There was an error inserting the event script on line {}: {}".format(i, line.strip()))
 
         # Insert Song Pointers
         if os.path.isfile(SONGS):
-            definesDict = {}
-            conditionals = []
             rom.seek(0x1C10D8)  # m4aSongNumStart
             songTable = ExtractPointer(rom.read(4)) - 0x08000000
 
-            with open(SONGS, "r", encoding='utf-8-sig') as file:
+            with open(SONGS, "r") as file:
                 for i, line in enumerate(file):
-                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
-                        continue
                     if TryProcessFileInclusion(line, definesDict):
+                        continue
+                    if TryProcessConditionalCompilation(line, definesDict, conditionals):
                         continue
                     if line.strip().startswith('#') or line.strip() == '':
                         continue
@@ -598,14 +687,18 @@ def _insert(output_rom, generated_repoints, offsets_ini):
                             try:
                                 code = int(song, 16)  # If script offset was written in hex
                             except ValueError:
-                                raise ValueError('Missing insertion symbol: ' + song)
+                                print('Symbol missing:', song)
+                                continue
 
                         Repoint(rom, code, offset)
-                    except (OSError, ValueError, IndexError) as error:
-                        raise ValueError("Invalid song on line {}: {}".format(i + 1, line.strip())) from error
+                    except:
+                        print("There was an error inserting the song on line {}: {}".format(i, line.strip()))
 
         width = max(map(len, table.keys())) + 1
-        offsetIni = open(offsets_ini, 'w', encoding='utf-8')
+        if os.path.isfile('offsets.ini'):
+            offsetIni = open('offsets.ini', 'r+')
+        else:
+            offsetIni = open('offsets.ini', 'w')
 
         offsetIni.truncate()
         for key in sorted(table.keys()):
@@ -613,63 +706,7 @@ def _insert(output_rom, generated_repoints, offsets_ini):
             offsetIni.write(fstr.format(key + ':', table[key] + 0x08000000) + '\n')
         offsetIni.close()
 
-def _publish_files(files):
-    """Publish staged outputs together, restoring previous files on failure."""
-    published = []
-    try:
-        for staged, destination in files:
-            backup = staged.with_name(staged.name + '.previous')
-            had_previous = destination.exists()
-            if had_previous:
-                os.replace(destination, backup)
-            published.append((destination, backup if had_previous else None))
-            os.replace(staged, destination)
-    except BaseException as error:
-        rollback_errors = []
-        for destination, backup in reversed(published):
-            try:
-                if backup is not None:
-                    os.replace(backup, destination)
-                else:
-                    destination.unlink(missing_ok=True)
-            except OSError as rollback_error:
-                rollback_errors.append(str(rollback_error))
-        if rollback_errors:
-            raise RuntimeError('Output rollback failed; backups retained: ' + '; '.join(rollback_errors)) from error
-        raise
-
-
-def main():
-    start_time = datetime.now()
-    destination = Path(ROM_NAME).resolve()
-    if destination == Path(SOURCE_ROM).resolve():
-        raise ValueError('Source ROM and output ROM must have different paths')
-    repoints_destination = Path(GENERATED_REPOINTS).resolve()
-    offsets_destination = Path('offsets.ini').resolve()
-    if Path(SOURCE_ROM).resolve() in {repoints_destination, offsets_destination}:
-        raise ValueError('Source ROM cannot be a metadata output path')
-    if len({destination, repoints_destination, offsets_destination}) != 3:
-        raise ValueError('ROM and metadata output paths must be distinct')
-    staged = Path(tempfile.mkdtemp(prefix='.cfru-insert-', dir=destination.parent))
-    preserve_backups = False
-    try:
-        output_rom, generated_repoints, offsets_ini = (staged / name for name in ('rom', 'repoints', 'offsets'))
-        if repoints_destination.is_file():
-            shutil.copyfile(repoints_destination, generated_repoints)
-        _insert(output_rom, generated_repoints, offsets_ini)
-        _publish_files([(generated_repoints, repoints_destination),
-                        (offsets_ini, offsets_destination), (output_rom, destination)])
-    except BaseException as error:
-        if any(staged.glob('*.previous')):
-            preserve_backups = True
-            raise RuntimeError('Insertion failed; previous outputs are retained in ' + str(staged)) from error
-        raise
-    finally:
-        if not preserve_backups:
-            if staged.resolve().parent != destination.parent or not staged.name.startswith('.cfru-insert-'):
-                raise RuntimeError('Unexpected insertion staging directory: ' + str(staged))
-            shutil.rmtree(staged)
-    print('Inserted in ' + str(datetime.now() - start_time) + '.')
+        print('Inserted in ' + str(datetime.now() - startTime) + '.')
 
 
 if __name__ == '__main__':

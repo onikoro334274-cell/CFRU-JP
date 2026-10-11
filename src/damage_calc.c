@@ -4392,6 +4392,16 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 
 	//Check attacker item effect boost
 	switch (data->atkItemEffect) {
+		case ITEM_EFFECT_HUSTLE_BAND: //[hack] patches/0292 2026-10-10 はりきりハチマキ: 物理技 1.3 倍（ユーザー「威力アップ系は1.3くらいで」）
+			if (data->moveSplit == SPLIT_PHYSICAL)
+				power = (power * 13) / 10;
+			break;
+
+		case ITEM_EFFECT_HUSTLE_SPECS: //[hack] patches/0292 はりきりメガネ: 特殊技 1.3 倍
+			if (data->moveSplit == SPLIT_SPECIAL)
+				power = (power * 13) / 10;
+			break;
+
 		case ITEM_EFFECT_GENE_BOND: //[hack] patches/0287 2026-10-10 いでんしのきずな: イーブイと その しんかけい（リンドリスも）の攻撃技 1.3 倍
 			switch (SpeciesToNationalPokedexNum(data->atkSpecies)) {
 				case NATIONAL_DEX_EEVEE: case NATIONAL_DEX_VAPOREON: case NATIONAL_DEX_JOLTEON: case NATIONAL_DEX_FLAREON:

@@ -1723,10 +1723,7 @@ u32 sp08A_ReadPedometerValue(void) {
 
 bool8 CheckAndSetDailyEvent(u16 eventVar, bool8 setDailyEventVar);
 
-/* Event timestamps occupy two adjacent u16 variables; an odd variable index
- * gives only halfword alignment. Keep the four-byte bit layout without
- * allowing the compiler to emit unaligned word stores on ARM7TDMI. */
-struct __attribute__((packed, aligned(2))) DailyEventVar
+struct DailyEventVar
 {
 	u32 minute : 6;	//60 min in hour
 	u32 hour : 5;	//24 hrs in day

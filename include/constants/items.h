@@ -899,7 +899,17 @@ enum
 #define ITEM_GENE_BOND 0x34C  //★ 2026-10-10 いでんしのきずな（もたせる道具・イーブイと その しんかけいの 攻撃技 1.3 倍・ユーザーの仕様書）
 #define ITEM_MILD 0x34D  //★ 2026-10-10 マイルド（もたせる道具・相手の命中 0.9 倍・相手が 20% で いうことを きかない・accuracy_calc.c／attackcanceler.c）
 #define ITEM_GOLD_CAPSULE 0x34E  //★ 2026-10-10 おうごんのカプセル（もたせる道具・一度でも戦闘に出ると賞金とネコにこばん系のお金が 4 倍・効き目は おまもりこばん と同じ）
-#define ITEMS_COUNT (ITEM_GOLD_CAPSULE + 1)
+#define ITEM_SECOND_ARROW 0x34F  //★ 2026-10-10 にのや（二の矢・もたせる道具・技が失敗したら こうげき・とくこう・すばやさ +1・1 回で なくなる・src/hack_second_arrow.c）
+#define ITEM_PINWHEEL 0x350  //★ 2026-10-10 かざぐるま（もたせる道具・patches/0292）
+#define ITEM_ROOM_INTERIOR 0x351  //★ 2026-10-10 ばんのうインテリア（もたせる道具・patches/0292）
+#define ITEM_HUSTLE_BAND 0x352  //★ 2026-10-10 はりきりハチマキ（もたせる道具・patches/0292）
+#define ITEM_HUSTLE_SPECS 0x353  //★ 2026-10-10 はりきりメガネ（もたせる道具・patches/0292）
+#define ITEM_STUBBORN_BANDANA 0x354  //★ 2026-10-10 かたくなバンダナ（もたせる道具・patches/0292）
+#define ITEM_MAISEN 0x355  //★ 2026-10-10 まいせん（もたせる道具・patches/0292）
+#define ITEM_MOMO_SHERBET 0x356  //★ 2026-10-11 ももシャーベット（ももアイスの下位版・なんいど ももアイス で相手のトレーナーのポケモンが持つ・入手不可・src/hack_momo_ice.c）
+#define ITEM_EXP_CANDY_XXL 0x357  //★ 2026-10-11 けいけんアメXXL（経験値 100,000・src/exp_candy.c・patches/0323）
+#define ITEM_ALOLA_STONE 0x358  //★ 2026-10-11 アローラのいし（進化前に使うと アローラの姿へ・ヒスイのいしと同じ作り・patches/0327・5e の割り当て）
+#define ITEMS_COUNT (ITEM_ALOLA_STONE + 1)
 
 //For Pokemon Unbound
 #ifdef UNBOUND

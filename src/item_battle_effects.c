@@ -770,6 +770,22 @@ u8 ItemBattleEffects(u8 caseID, u8 bank, bool8 moveTurn, bool8 doPluck)
 					}
 					break;
 
+				case ITEM_EFFECT_MOMO_SHERBET: //[hack] 2026-10-11 ももシャーベット（ももアイスの下位版）は毎ターン最大 HP の 1/6 回復（src/hack_momo_ice.c）
+					if (!moveTurn && !BATTLER_MAX_HP(bank)
+					&&  !IsHealBlocked(bank)
+					&&  !gNewBS->leftoverHealingDone[bank])
+					{
+						gBattleMoveDamage = MathMax(1, GetBaseMaxHP(bank) / 6);
+						if (gBattleMons[bank].hp + gBattleMoveDamage > gBattleMons[bank].maxHP)
+							gBattleMoveDamage = gBattleMons[bank].maxHP - gBattleMons[bank].hp;
+						gBattleMoveDamage *= -1;
+						BattleScriptExecute(BattleScript_ItemHealHP_End2);
+						effect = ITEM_HP_CHANGE;
+						RecordItemEffectBattle(bank, bankHoldEffect);
+						gNewBS->leftoverHealingDone[bank] = TRUE;
+					}
+					break;
+
 				case ITEM_EFFECT_BLACK_SLUDGE:
 					if (!moveTurn)
 					{
@@ -1081,6 +1097,14 @@ u8 ItemBattleEffects(u8 caseID, u8 bank, bool8 moveTurn, bool8 doPluck)
 
 						BattleScriptPushCursor();
 						gBattlescriptCurrInstr = BattleScript_RaiseStatsItem;
+						effect = ITEM_STATS_CHANGE;
+					}
+					break;
+				case ITEM_EFFECT_SECOND_ARROW: //[hack] patches/0291 2026-10-10 にのや: 技が失敗したら こうげき・とくこう・すばやさ +1（src/hack_second_arrow.c）
+					if (HackSecondArrow_TryActivate(gBankAttacker))
+					{
+						BattleScriptPushCursor();
+						gBattlescriptCurrInstr = BattleScript_SecondArrowRet;
 						effect = ITEM_STATS_CHANGE;
 					}
 					break;

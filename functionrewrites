@@ -184,3 +184,7 @@ BwIsMapNamePopupTaskActive 08097D10 0 1
 ##  素の PrintBagPocketName（081092E8・0x24 バイト）: どうぐ のポケットのときだけページの名前
 HackBagPage_ProcessPocketSwitchInput 08109C60 2 1
 HackBagPage_PrintPocketName 081092E8 0 0
+
+## 2026-10-11 64MB の後ろ半分（src/hack_split_pics.c・5e の指摘）: 展開前に大きさを直に読む素の 2 関数は、元が後ろ半分なら先に写しを取る
+HackSplit_MallocAndDecompress 080F7AF8 2 1
+HackSplit_LoadCompressedSpriteSheetUsingHeap 0800E9E8 1 1

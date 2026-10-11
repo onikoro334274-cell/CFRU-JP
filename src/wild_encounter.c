@@ -295,6 +295,8 @@ static u8 PickWildMonNature(void)
 	return umodsi(Random(), 25);
 }
 
+void HackDifficulty_WildMon(struct Pokemon* mon); //[hack] patches/0321 src/hack_difficulty.c
+
 void CreateWildMon(u16 species, u8 level, u8 monHeaderIndex, bool8 purgeParty)
 {
 	u8 enemyMonIndex = 0;
@@ -336,6 +338,8 @@ void CreateWildMon(u16 species, u8 level, u8 monHeaderIndex, bool8 purgeParty)
 		REGULAR_NATURE_CREATION:
 		CreateMonWithNatureLetter(&gEnemyParty[enemyMonIndex], species, level, 32, PickWildMonNature(), PickUnownLetter(species, monHeaderIndex));
 	}
+
+	HackDifficulty_WildMon(&gEnemyParty[enemyMonIndex]); //[hack] patches/0321 なんいど りるアイス: 野生は 6V（src/hack_difficulty.c）
 
 	#ifdef FLAG_HIDDEN_ABILITY
 	if (FlagGet(FLAG_HIDDEN_ABILITY))

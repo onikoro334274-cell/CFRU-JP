@@ -45,7 +45,23 @@ u8 __attribute__((long_call)) DisplayPartyMenuMessage(const u8* str, u8 b);     
 void __attribute__((long_call)) UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon);
 extern const u8 gText_ExpCandyGotExp[];
 
-static const u16 sExpCandyAmount[] = {100, 800, 3000, 10000, 30000};   /* ITEM_EXP_CANDY_XS から順 */
+static const u32 sExpCandyAmount[] = {100, 800, 3000, 10000, 30000, 100000};   /* ITEM_EXP_CANDY_XS から順・6 つ目は XXL（0x357・番号は続いていない） */
+#define EXP_CANDY_COUNT ARRAY_COUNT(sExpCandyAmount)
+
+/* ★ 2026-10-11 けいけんアメ XXL（patches/0323）: 番号 0x357 は XS〜XL（0x338〜0x33C）と続いていないので、表の添字は関数で引く */
+static u32 ExpCandyIndex(u16 item)
+{
+	if (item >= ITEM_EXP_CANDY_XS && item <= ITEM_EXP_CANDY_XL)
+		return item - ITEM_EXP_CANDY_XS;
+	if (item == ITEM_EXP_CANDY_XXL)
+		return 5;
+	return 0xFF;
+}
+
+static u16 ExpCandyItem(u32 index)
+{
+	return index < 5 ? ITEM_EXP_CANDY_XS + index : ITEM_EXP_CANDY_XXL;
+}
 
 static void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func);
 
@@ -104,7 +120,7 @@ static bool8 ExpCandyChainValid(u16 chain, u8 slot)
 	u32 candy = (chain >> 11) & 7;
 	return (chain & 0xC000) == 0 && target > 0 && target <= MAX_LEVEL
 		&& savedSlot < PARTY_SIZE && savedSlot == slot
-		&& candy < ARRAY_COUNT(sExpCandyAmount);
+		&& candy < EXP_CANDY_COUNT;
 }
 
 /* 素の PartyMenuTryEvolution（08127048）の置き換え（functionrewrites） */
@@ -130,7 +146,7 @@ void HackExpCandy_TryEvolution(u8 taskId)
 		{
 			u32 exp = VarGet(VAR_EXP_CANDY_EXP_LO) | ((u32) VarGet(VAR_EXP_CANDY_EXP_HI) << 16);
 			SetMonData(mon, MON_DATA_EXP, &exp);
-			gSpecialVar_ItemId = ITEM_EXP_CANDY_XS + ((chain >> 11) & 7);
+			gSpecialVar_ItemId = ExpCandyItem((chain >> 11) & 7);
 		}
 		ExpCandyChainClear();
 	}
@@ -164,7 +180,7 @@ static void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
 	u8 level = GetMonData(mon, MON_DATA_LEVEL, NULL);
 	u32 exp = GetMonData(mon, MON_DATA_EXP, NULL);
 	u32 maxExp = gExperienceTables[growth][MAX_LEVEL];
-	u32 amount = (item >= ITEM_EXP_CANDY_XS && item <= ITEM_EXP_CANDY_XL) ? sExpCandyAmount[item - ITEM_EXP_CANDY_XS] : 0;
+	u32 amount = ExpCandyIndex(item) < EXP_CANDY_COUNT ? sExpCandyAmount[ExpCandyIndex(item)] : 0;
 	u32 newExp;
 	u8 newLevel;
 
@@ -201,7 +217,7 @@ static void ItemUseCB_ExpCandy(u8 taskId, TaskFunc func)
 	}
 
 	/* レベルが上がる: 1 レベルずつ素のふしぎなアメの流れで（HackExpCandy_TryEvolution が次のレベルへつなぐ） */
-	VarSet(VAR_EXP_CANDY_TARGET, newLevel | (gPartyMenu.slotId << 8) | ((item - ITEM_EXP_CANDY_XS) << 11));
+	VarSet(VAR_EXP_CANDY_TARGET, newLevel | (gPartyMenu.slotId << 8) | (ExpCandyIndex(item) << 11));
 	VarSet(VAR_EXP_CANDY_EXP_LO, newExp & 0xFFFF);
 	VarSet(VAR_EXP_CANDY_EXP_HI, newExp >> 16);
 	ExpCandyNextLevel(taskId);

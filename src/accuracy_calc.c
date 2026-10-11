@@ -520,6 +520,11 @@ static u32 AccuracyCalcPassDefAbilityItemEffect(u16 move, u8 bankAtk, u8 bankDef
 	if (defAbility == ABILITY_TANGLEDFEET && IsConfused(bankDef))
 		calc /= 2; // 0.5 Tangled Feet loss
 
+	//[hack] patches/0292 2026-10-10 はりきりハチマキ（物理技）・はりきりメガネ（特殊技）は命中 0.8 倍（はりきり と同じ）
+	if ((atkEffect == ITEM_EFFECT_HUSTLE_BAND && moveSplit == SPLIT_PHYSICAL)
+	||  (atkEffect == ITEM_EFFECT_HUSTLE_SPECS && moveSplit == SPLIT_SPECIAL))
+		calc = udivsi((calc * 80), 100);
+
 	switch (atkEffect) {
 		case ITEM_EFFECT_WIDE_LENS:
 			calc = udivsi((calc * (100 + atkQuality)), 100); // 1.1 Wide Lens boost
@@ -620,6 +625,11 @@ u32 VisualAccuracyCalc_NoTarget(u16 move, u8 bankAtk)
 		#endif
 			calc = (calc * 6) / 10; // 0.6 Fog loss
 	}
+
+	//[hack] patches/0292 2026-10-10 はりきりハチマキ（物理技）・はりきりメガネ（特殊技）は命中 0.8 倍（はりきり と同じ）
+	if ((atkEffect == ITEM_EFFECT_HUSTLE_BAND && moveSplit == SPLIT_PHYSICAL)
+	||  (atkEffect == ITEM_EFFECT_HUSTLE_SPECS && moveSplit == SPLIT_SPECIAL))
+		calc = udivsi((calc * 80), 100);
 
 	if (atkEffect == ITEM_EFFECT_WIDE_LENS)
 		calc = udivsi((calc * (100 + atkQuality)), 100); // 1.1 Wide Lens boost

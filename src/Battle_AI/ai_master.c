@@ -945,7 +945,8 @@ static bool8 ShouldSwitchIfOnlyBadMovesLeft(void)
 			party = LoadPartyRange(gActiveBattler, &firstId, &lastId);
 			bestMon = GetMostSuitableMonToSwitchInto();
 
-			if (PredictedMoveWontDoTooMuchToMon(gActiveBattler, &party[bestMon], foe1))
+			if (bestMon < PARTY_SIZE   //[hack] 2026-10-11 5e: 交代先が無い（PARTY_SIZE）と &party[6] を読む
+			&& PredictedMoveWontDoTooMuchToMon(gActiveBattler, &party[bestMon], foe1))
 			{
 				gBattleStruct->switchoutIndex[SIDE(gActiveBattler)] = PARTY_SIZE;
 				EmitTwoReturnValues(1, ACTION_SWITCH, 0);

@@ -2,7 +2,7 @@
 おれは すごいとっくんの おとこ！\nおうかんを もってきたら\pポケモンを さいこうの ちからまで\nきたえて やるぞ！
 
 #org @gText_KantoHyper_WhichCap
-どっちの おうかんで\nきたえる？
+どっちの おうかんで きたえる？
 
 #org @gText_KantoHyper_Gold
 きんのおうかん
@@ -14,7 +14,7 @@
 やめる
 
 #org @gText_KantoHyper_GoldOffer
-おっ きんのおうかん！\nすべての ちからを きたえるか？
+おっ きんのおうかん！ すべての ちからを\nきたえるか？
 
 #org @gText_KantoHyper_SilverOffer
 おっ ぎんのおうかん！\nちからを 1つ きたえるか？
@@ -47,10 +47,10 @@ HP
 タマゴは きたえられないぞ
 
 #org @gText_KantoHyper_Done
-すごいとっくん かんりょう！\p[BUFFER1]は\nさいこうに なった！
+すごいとっくん かんりょう！\p[BUFFER1]は さいこうに なった！
 
 #org @gText_KantoHyper_AlreadyMax
-その ちからは もう\nさいこうだぞ！
+その ちからは もう さいこうだぞ！
 
 #org @gText_KantoHyper_Bye
 また こいよ！

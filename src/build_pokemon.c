@@ -26,6 +26,7 @@
 #include "../include/new/build_pokemon.h"
 #include "map_region.h" //[hack] patches/0091
 void HackDifficulty_AdjustTrainerMon(struct Pokemon* mon, u8 side); //[hack] patches/0132 src/hack_difficulty.c
+void HackDifficulty_AdjustFrontierMon(struct Pokemon* mon, bool8 forPlayer); //[hack] patches/0314 ももアイスは施設の相手も Lv+5（src/hack_difficulty.c・味方の相方・助っ人は触らない）
 #include "../include/new/build_pokemon_2.h"
 #include "../include/new/catching.h"
 #include "../include/new/damage_calc.h"
@@ -695,6 +696,7 @@ void sp06B_ReplacePlayerTeamWithMultiTrainerTeam(void)
 //Returns the number of Pokemon
 extern u16 HoennLeagueRematchTrainer(u16 trainerId); //★ src/hoenn_league.c（patches/0072）
 bool8 HackGoldenWedding_PickParty(u16 trainerId, bool8 firstTrainer, struct Trainer* copy, struct TrainerMonItemCustomMoves* party); //[hack] patches/0243
+void HackClassPool_ReplaceMon(struct Pokemon* mon, struct Pokemon* party, u8 index, u16 trainerId, u8 side); //[hack] patches/0305
 extern const struct BattleTowerSpread* HoennFrontier_MakeSpread(struct BattleTowerSpread* out, u16 tableId); //★ src/hoenn_frontier.c（patches/0078）
 extern const struct BattleTowerSpread* HoennFrontier_MakeBrainSpread(struct BattleTowerSpread* out, u16 tableId, u8 slot); //★ src/hoenn_frontier.c（patches/0087）
 extern const struct BattleTowerSpread* HoennFactory_OpponentSpread(struct BattleTowerSpread* out, u8 slot); //★ src/hoenn_factory.c（patches/0128）
@@ -1088,6 +1090,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon* const party, const u16 trainerId
 				SetMonData(mon, MON_DATA_SPECIES, &correctMiniorForm); //Prevents problems with it changing forms after lowering its shields
 			}
 
+			HackClassPool_ReplaceMon(mon, party, i, trainerId, side); //[hack] patches/0305 クラスごとの手持ちの候補から選び直す（src/hack_class_pool.c）
 			HackDifficulty_AdjustTrainerMon(mon, side); //[hack] patches/0132 なんいど「やさしい」: 努力値 0・持ち物なし・レベル -3（src/hack_difficulty.c）
 
 			//Caluate stats and set to full health
@@ -2255,6 +2258,7 @@ static void CreateFrontierMon(struct Pokemon* mon, const u8 level, const struct 
 		mon->teratype = spread->teraType - 1;
 
 	TryFormRevert(mon); //To fix Minior forms
+	HackDifficulty_AdjustFrontierMon(mon, forPlayer); //[hack] patches/0314 ももアイス: 施設の相手も Lv+5（ふつうのトレーナーは CreateNPCTrainerParty の HackDifficulty_AdjustTrainerMon。施設は BuildFrontierParty で先に抜ける＝5e の指摘 2026-10-11。gPlayerParty に作る相方・助っ人は中で外す）
 	CalculateMonStatsNew(mon);
 	HealMon(mon);
 }

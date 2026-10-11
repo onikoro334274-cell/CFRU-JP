@@ -55,7 +55,7 @@
 #define CB2_InitMainMenu ((MainCallback) (0x0800BCE0 | 1))
 #define gSaveFileStatusVanilla (*(vu16*) 0x030053F0)
 #define HEAP_START ((void*) 0x02000000)
-#define SLOT_HEAP_SIZE 0x1B000                      //08078A1E mov r1,#0xD8 / lsl r1,#9（patches/0288 HQ ミキサーで 0x1C000 → 0x1B000・後ろ 4KB は gSoundInfo）
+#define SLOT_HEAP_SIZE 0x1AE00                      //08078A1E mov r1,#0xD7 / lsl r1,#9（patches/0288 HQ ミキサーで 0x1C000 → 0x1B000・patches/0301 の 16 音で 0x1AE00・後ろは gSoundInfo 0x10B0。liru さんの直しで include/malloc.h の HEAP_SIZE と名前を分けた）
 #define SAVE_NORMAL 0
 #define SAVE_STATUS_EMPTY 0
 #define SAVE_STATUS_OK 1

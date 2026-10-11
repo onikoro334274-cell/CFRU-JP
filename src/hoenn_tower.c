@@ -375,6 +375,14 @@ void HoennTower_GetStreak(void)
 	gSpecialVar_LastResult = CurrentStreak();
 }
 
+//★ 2026-10-11 実績「れんしょうの はじまり」「フロンティアの はしゃ」（GAME_STAT_BATTLE_FACILITY_BEST_STREAK）を自前の連勝の施設でも上げる
+//  （上げていたのは CFRU のタワーの special 0x55 だけで、ドームなどの勝ちが数えられなかった・ユーザーの動画）
+void HoennFrontier_NoteBestStreak(u16 streak)
+{
+	if (GetGameStat(GAME_STAT_BATTLE_FACILITY_BEST_STREAK) < streak)
+		SetGameStat(GAME_STAT_BATTLE_FACILITY_BEST_STREAK, streak);
+}
+
 //連勝を 1 足す／なしにする（タワーは CFRU の special 0x55。記録のレベルにしてから）
 //パレス・アリーナはエメラルドの IncrementPalaceStreak / IncrementArenaStreak（9999 まで・最高も上げる）
 void HoennTower_IncrementStreak(void)
@@ -387,6 +395,7 @@ void HoennTower_IncrementStreak(void)
 			VarSet(PalaceStreakVar(FALSE), ++streak);
 		if (streak > VarGet(PalaceStreakVar(TRUE)))
 			VarSet(PalaceStreakVar(TRUE), streak);
+		HoennFrontier_NoteBestStreak(streak);
 		return;
 	}
 	HoennTower_SetRecordLevel();

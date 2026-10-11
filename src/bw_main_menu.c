@@ -20,6 +20,8 @@
 #include "../include/text.h"
 #include "../include/window.h"
 #include "../include/constants/songs.h"
+#include "Tables/hoenn_script_flags.h"   //HACK_VAR_SAVE_VERSION（2026-10-11）
+#include "hack_save_version.h"           //HACK_SAVE_MIN_VERSION（生成物・2026-10-11）
 
 /*
  * ★ 2026-10-10 ユーザー「BW系これになおして」→「全部そちらに置き換える」・画像 Start.png（BW のタイトルのあとのメニュー）:
@@ -40,6 +42,7 @@ extern const u8 gBwrMainBgPal[], gBwrMainIdlePals[], gBwrMainSelectedPal[];
 extern const u8 gBwrMainTiles1[], gBwrMainTiles2[], gBwrMainMapBg[];
 extern const u8 gBwrMainMapContinue[], gBwrMainMapNewGame[], gBwrMainMapGift[];
 extern const u8 gText_BwrMain_Continue[], gText_BwrMain_NewGame[], gText_BwrMain_Gift[], gText_BwrMain_Options[];
+extern const u8 gText_BwrMain_OldSave1[], gText_BwrMain_OldSave2[];   //★ 2026-10-11 古いレポート
 extern const u8 gText_BwrMain_Team[], gText_BwrMain_Badges[], gText_BwrMain_Dex[], gText_BwrMain_Time[];
 extern void CB2_BwOptionMenu(void);   //src/bw_option_menu.c
 u8 GetAllBadgeCount(void);            //src/badge_count.c
@@ -47,6 +50,7 @@ void HackMG_Receive(void);            //src/hack_mystery_gift.c（印・レポ�
 u16 __attribute__((long_call)) GetNationalPokedexCount(u8 caseId);
 void __attribute__((long_call)) TransferPlttBuffer(void);
 
+void HackSaveVersion_OnContinue(void);   //src/hack_save_version.c
 #define Task_HandleMainMenuAPressed ((TaskFunc) (0x0800C470 | 1))   //素（A を押したあと・data[0]／data[1] を読む）
 #define CB2_InitTitleScreen ((MainCallback) (0x080780AC | 1))
 #define IsMysteryGiftEnabled ((bool8 (*)(void)) (0x0806DAB0 | 1))   //素（このハックは bytereplacement でいつも TRUE＝ふしぎなもらいもの はいつも出る）
@@ -231,7 +235,11 @@ static void Task_BwMainInput(u8 taskId)
 			gTasks[taskId].func = Task_BwMainRoute;
 		}
 		else
+		{
+			if (data[SAVED] && data[SELECTED] == 0)
+				HackSaveVersion_OnContinue();   //★ 2026-10-11 版が上がっていたら フラグの戻し＋最後のポケセンへ（src/hack_save_version.c）
 			gTasks[taskId].func = Task_HandleMainMenuAPressed;   //data[0] 形・data[1] カーソル（素と同じ並び）
+		}
 	}
 	else if (JOY_NEW(DPAD_UP) && data[SELECTED] > 0)
 	{
@@ -267,6 +275,17 @@ static void BwMainSetup(s16 saved, bool8 releaseWindows)
 	u8 taskId, bg;
 	s16 *data;
 	u8 reg;
+	bool8 tooOld = FALSE;
+
+	//★ 2026-10-11 ユーザー「バージョンがかなり古いセーブデータは読み込めないようにしたい」→「v0.35.2 より前」「文を出して はじめから だけ」→
+	//  同日「セーブデータの互換 36.2 未満は切り捨てる方向で」: レポートの版（予約変数 0x50EF・src/hack_save_version.c・無ければ 0）が
+	//  HACK_SAVE_MIN_VERSION（tools/build/build_save_version.py の MIN_VERSION・いま 0.36.2）より古ければ「つづきから」を出さない。
+	//  レポートそのものは書き換えない（さいしょから で新しくレポートを書くまで残る）。形 0 にすると素の A の処理も さいしょから だけになる
+	if (saved && VarGet(HACK_VAR_SAVE_VERSION) < HACK_SAVE_MIN_VERSION)
+	{
+		saved = 0;
+		tooOld = TRUE;
+	}
 
 	SetVBlankCallback(NULL);
 	SetHBlankCallback(NULL);
@@ -320,6 +339,11 @@ static void BwMainSetup(s16 saved, bool8 releaseWindows)
 	{
 		Print(gText_BwrMain_NewGame, 24, 16, 1);
 		Print(gText_BwrMain_Options, 24, 40, 1);
+		if (tooOld)
+		{
+			Print(gText_BwrMain_OldSave1, 16, 80, 3);
+			Print(gText_BwrMain_OldSave2, 16, 96, 3);
+		}
 	}
 	UpdateSelection(data);
 	PutWindowTilemap(0);

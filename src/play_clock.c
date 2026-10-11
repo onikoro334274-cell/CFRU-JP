@@ -97,10 +97,9 @@ void PlayClock_GetMode(void)
 /* callasm: 0x8004 = 1 でプレイ時間の時計・0 でリアルタイムへ。
    日付が大きく飛ぶ（RTC の年 ⇔ 2000 年から）ので、日替わりの記録（群れ・VAR_SWARM_DAILY_EVENT と次の変数）を消して、
    次に時計を読んだときに新しい日として扱わせる */
-void PlayClock_SetMode(void)
+static void PlayClock_ApplyMode(bool8 requestedMode)
 {
 	u16 days = VarGet(HOENN_VAR_CLOCK_DAYS);
-	bool8 requestedMode = Var8004 != 0;
 
 	if (((days & CLOCK_MODE_BIT) != 0) == requestedMode)
 		return;
@@ -113,6 +112,20 @@ void PlayClock_SetMode(void)
 	VarSet(VAR_SWARM_DAILY_EVENT, 0);
 	VarSet(VAR_SWARM_DAILY_EVENT + 1, 0);
 	DirectClockUpdate();
+}
+
+void PlayClock_SetMode(void)
+{
+	PlayClock_ApplyMode(Var8004 != 0);
+}
+
+/* ★ 2026-10-11 時計の無いカートリッジ（SuperCard SD など・docs/research/2026-10-11_superfw-supercard-play.md）:
+   src/rtc.c の RtcCalcLocalTime が RTC を読めず（素と同じ条件＝RTC_ERR_FLAG_MASK）止まった時計 sRtcDummy に落ちるとき、
+   プレイ時間の時計へ切り替える。印はセーブに残る（直した mGBA に持って行ってもプレイ時間の時計のまま・タイムテレビで戻せる）。
+   日替わりの記録を消すのは PlayClock_SetMode と同じ。1 秒に 1 回呼ばれるが、切り替わっていれば何もしない */
+void PlayClock_SwitchOnWithoutRtc(void)
+{
+	PlayClock_ApplyMode(TRUE);
 }
 
 /* callasm: 0x8004 = 0 あさ / 1 ひる / 2 ゆうがた / 3 よる。その時間帯の始まりまで時計を**先へ**進める */

@@ -199,15 +199,26 @@ static void UpdateClockFromRtc(struct SiiRtcInfo *rtc)
 void __attribute__((long_call)) break_func();
 bool8 PlayClock_IsOn(void);    //[hack] src/play_clock.c
 void PlayClock_Fill(void);
+void PlayClock_SwitchOnWithoutRtc(void);
 extern const u8 SystemScript_StopZooming[];
 void RtcCalcLocalTime(void)
 {
 	if (sRTCFrameCount == 0)
 	{
+		//[hack] 2026-10-11 続けて誤りだった秒の数（0〜3）。素が使わない bit 12〜13 に置く（RTC_ERR_FLAG_MASK 0x0FF1 の外・6.13 で static は使えない）
+		u16 errSeconds = (sRTCErrorStatus >> 12) & 3;
+
 		RtcInit();
 
 		if (sRTCErrorStatus & RTC_ERR_FLAG_MASK)
+		{
 			sRtc = sRtcDummy;
+			if (errSeconds < 3)
+				++errSeconds;
+			if (errSeconds >= 3)
+				PlayClock_SwitchOnWithoutRtc();   //[hack] 2026-10-11 時計の無いカートリッジ（SuperCard）: 3 秒続けて読めないときだけプレイ時間の時計へ（一瞬の読みそこねでは切り替えない・5e の指摘）
+			sRTCErrorStatus |= errSeconds << 12;
+		}
 
 		//u8 prevSecond = gClock.second;
 		UpdateClockFromRtc(&sRtc);

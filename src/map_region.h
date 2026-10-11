@@ -27,6 +27,7 @@
 #define JOHTO_MAP_GROUP_COUNT   1
 #define SINNOH_MAP_GROUP_FIRST  77      /* tools/sinnoh/sinnoh_maps.py の SINNOH_GROUP（ホウエンのすぐ後ろ・2026-09-29 キッサキシティ） */
 #define SINNOH_MAP_GROUP_COUNT  1
+#define SINNOH_MAP_GROUP_SECOND 80      /* ★ 2026-10-11 シンオウの建物の中（tools/sinnoh/sinnoh_interiors.py の群 SINNOH_GROUP2・78 ジョウト・79 カントーの追加の次） */
 
 /* 「出会った場所」の地方の印（親の版 MET_GAME・4 ビット）。第 4 世代のプラチナの番号 */
 #define MET_GAME_SINNOH  12

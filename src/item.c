@@ -1433,6 +1433,8 @@ u16 HackTrainingPouch_Arrange(struct ItemSlot* slots, u16 capacity); //[hack] pa
 
 void StoreBagItemCount(void)
 {
+	//[hack] patches/0302 今のポケットの表（gBagPockets）を見る。固定の sBagPocketArrangement を数えると、バトルピラミッドで付け替えた
+	//  バトルバッグ（ほかのポケットは 0 枠・src/hoenn_pyramid.c）が効かず、ボールを持ち込めて「どうぐ」も 10 枠の後ろまで並んだ
 	struct ItemSlot* itemMem;
 	u16 itemAmount;
 	u16 checkLength;
@@ -1443,16 +1445,22 @@ void StoreBagItemCount(void)
 		tossed = FALSE;
 		switch (pocket) {
 			case 0:
-				itemMem = sBagPocketArrangement.itemRam;
-				itemAmount = sBagPocketArrangement.itemAmount;
+				itemMem = gBagPockets->itemRam;
+				itemAmount = gBagPockets->itemAmount;
 				break;
 			case 1:
-				itemMem = sBagPocketArrangement.keyItemRam;
-				itemAmount = sBagPocketArrangement.keyItemAmount;
+				itemMem = gBagPockets->keyItemRam;
+				itemAmount = gBagPockets->keyItemAmount;
 				break;
 			default:
-				itemMem = sBagPocketArrangement.pokeBallRam;
-				itemAmount = sBagPocketArrangement.pokeBallAmount;
+				itemMem = gBagPockets->pokeBallRam;
+				itemAmount = gBagPockets->pokeBallAmount;
+		}
+
+		if (itemAmount == 0) //[hack] patches/0302 枠の無いポケット（バトルピラミッドのキーアイテム・ボール）は 0 匹（下の数え方は枠の数を見ない）
+		{
+			sBagItemAmounts[pocket] = 0;
+			continue;
 		}
 
 		if (pocket == 0) //[hack] patches/0187: どうぐは育成の道具を分ける（ふだんは後ろへ・いくせいポーチでは前へ）。見せる数だけ数える
@@ -1852,22 +1860,24 @@ static s8 CompareItemsByHavingValue(struct ItemSlot* itemSlot1, struct ItemSlot*
 
 void SortItemsInBag(u8 pocket, u8 type)
 {
+	//[hack] patches/0302 今のポケットの表（gBagPockets）を見る。固定の sBagPocketArrangement を数えると、バトルピラミッドで付け替えた
+	//  バトルバッグ（ほかのポケットは 0 枠・src/hoenn_pyramid.c）が効かず、ボールを持ち込めて「どうぐ」も 10 枠の後ろまで並んだ
 	struct ItemSlot* itemMem;
 	u16 itemAmount;
 	s8 (*func)(struct ItemSlot*, struct ItemSlot*);
 
 	switch (pocket) {
 		case 0:
-			itemMem = sBagPocketArrangement.itemRam;
-			itemAmount = sBagPocketArrangement.itemAmount;
+			itemMem = gBagPockets->itemRam;
+			itemAmount = gBagPockets->itemAmount;
 			break;
 		case 1:
-			itemMem = sBagPocketArrangement.keyItemRam;
-			itemAmount = sBagPocketArrangement.keyItemAmount;
+			itemMem = gBagPockets->keyItemRam;
+			itemAmount = gBagPockets->keyItemAmount;
 			break;
 		default:
-			itemMem = sBagPocketArrangement.pokeBallRam;
-			itemAmount = sBagPocketArrangement.pokeBallAmount;
+			itemMem = gBagPockets->pokeBallRam;
+			itemAmount = gBagPockets->pokeBallAmount;
 	}
 
 	switch (type) {

@@ -179,7 +179,7 @@ struct SoundChannel
     u16 xpc;
 };
 
-#define MAX_DIRECTSOUND_CHANNELS 12
+#define MAX_DIRECTSOUND_CHANNELS 16  // ★ 2026-10-11 patches/0301: 12 → 16（gSoundInfo は 0x10B0 バイト・pcmBuffer は +0x450）
 
 #define PCM_DMA_BUF_SIZE 1584 // size of Direct Sound buffer
 

@@ -1,9 +1,9 @@
-/* 生成物。scripts/generate_npc_text_colors.py が作る。手で編集しないこと。
+/* 生成物。tools/rom/build_npc_text_colors.py が作る。手で編集しないこと。
    表 7（0x0700〜）の見た目ごとの話すときの文の色（0 男・1 女・2 ポケモン・3 ほか）。src/hack_npc_text_color.c が引く */
 #pragma once
 
 #define NPC_TEXT_COLOR_TABLE 7
-#define NPC_TEXT_COLOR_COUNT 150
+#define NPC_TEXT_COLOR_COUNT 151
 
 static const u8 sHackNpcTextColors[NPC_TEXT_COLOR_COUNT] =
 {
@@ -157,4 +157,5 @@ static const u8 sHackNpcTextColors[NPC_TEXT_COLOR_COUNT] =
 	0,	// 0x0793 SINNOH_FLINT
 	0,	// 0x0794 SINNOH_LUCIAN
 	1,	// 0x0795 SINNOH_CYNTHIA
+	1,	// 0x0796 HIGAN
 };

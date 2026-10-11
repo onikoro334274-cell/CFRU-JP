@@ -1,21 +1,18 @@
 #include "defines.h"
+#include "bw_follower_internal.h"
 #include "../include/sprite.h"
 #include "../include/decompress.h"
 #include "../include/pokemon.h"
 #include "../include/event_object_movement.h"
 #include "../include/task.h"
 #include "../include/palette.h"
-#include "../include/sound.h"
 #include "../include/field_player_avatar.h"
 #include "../include/sound.h"
-#include "../include/string_util.h"
-#include "../include/random.h"
 #include "../include/script.h"
 #include "../include/new/follow_me.h"
 #include "../include/fieldmap.h"
 #include "../include/constants/metatile_behaviors.h"
 #include "../include/new/dynamic_ow_pals.h"
-#include "../include/pokemon_icon.h"
 
 /*
     ポケモンの連れ歩き（#16）— 絵のある種族を全部（1054 種）
@@ -50,9 +47,6 @@
     ★ 書き込み可能な static は使えない（6.13）。状態は全部 gFollowerState（0203B818）に入れる。
 */
 
-#define BW_FOLLOWER_TILE_TAG 0x4F10         /* src/bw_follower_gfx.c の BWF_TILE_TAG と同じ値 */
-#define BW_FOLLOWER_FIRST_TABLE 1           /* gOverworldTableSwitcher の表 1〜5（patches/0022） */
-#define BW_FOLLOWER_PAL_SLOT 10             /* PALSLOT_NPC_SPECIAL。src/bw_follower_gfx.c と同じ値 */
 /* ★★ **なみのり等の旗を落とすと、その技そのものが使えなくなる**（実機 2026-09-20）。
    CFRU は「連れ歩きが付いて来られないなら技を出させない」という作りで、
    `src/overworld.c`（なみのり 2 箇所・たきのぼり・いわくだき相当・ダイビング 2 箇所）と
@@ -65,12 +59,7 @@
                          | FOLLOWER_FLAG_CAN_WATERFALL | FOLLOWER_FLAG_CAN_DIVE \
                          | FOLLOWER_FLAG_CAN_ROCK_CLIMB)
 
-extern const u8 gBwFollowerPalBlob[];
 extern const struct CompressedSpriteSheet gBwFollowerSheets[];
-extern const struct CompressedSpriteSheet gMoemonFollowerSheets[];   /* Moémon の連れ歩き（2026-10-08・LZ77） */
-extern bool8 BwFollowerLoadFSheet(const u8 *data, u16 rawSize, u16 tag);   /* src/bw_follower_fcomp.c（F 方式の展開・2026-09-28） */
-extern const u16 gBwFollowerSpeciesToGfx[];
-extern const u16 gBwFollowerSpeciesToGfxCount;
 extern const u16 gBwFollowerCount;
 extern struct Follower gFollowerState;
 
@@ -78,109 +67,6 @@ extern struct Follower gFollowerState;
    一度「優先度を上げて建物の前に出す」案を試したが、**建物の裏へ回ったときに
    連れ歩きが屋根の上を歩いて見える**のでユーザー判断で取りやめた（実機 2026-09-20）。
    仕組みは docs/research/2026-09-20_follower-all-species.md に残してある。 */
-
-/* ---- 見せかけの images（シート方式では中身は読まれない。大きさだけ意味がある） ---- */
-const struct SpriteFrameImage gBwFollowerDummyImages32[] = { { gBwFollowerPalBlob, 512, 0 } };
-const struct SpriteFrameImage gBwFollowerDummyImages64[] = { { gBwFollowerPalBlob, 2048, 0 } };
-
-/* ---- コマ表 ----
-   コマの並びは expansion と同じ: 0 下 / 1 下歩き / 2 上 / 3 上歩き / 4 横 / 5 横歩き。
-   8 コマのものは 6 / 7 が右向き（_Asym）。**値はタイルのずれ**。
-
-   ★★ **20 個では足りない。40 個いる。**（実機 2026-09-20 のクラッシュの原因）
-   素の FRLG は 0〜19 が「向き・歩き・速い・もっと速い・いちばん速い」だが、そのうしろにも
-   **走る 20〜23 / 回る 24〜27 / その場で足踏み 28 / 自転車 20〜39** がある
-   （pokefirered `include/constants/event_object_movement.h`）。
-   連れ歩きは `FOLLOWER_FLAG_HAS_RUNNING_FRAMES` を立てているので **20〜23 を必ず要求される**。
-   表が短いと配列の外を読み、その中身を「コマの命令」とみなして
-   **命令の種類で関数の表を引く**ため、でたらめな番地へ飛ぶ（Jumped to invalid address）。 */
-#define BW_FOLLOWER_ANIM_COUNT 40
-
-/* ★ 2026-10-07 ユーザー「トキワジムリセット」「移動床にバグが」（オートラン無効で回転して滑る床に乗るとリセット）:
-   素の SetStepAnimHandleAlternation（event_object_movement.c）はアニメの番号だけ替え、命令の位置（animCmdIndex）は前のアニメのまま
-   SeekSpriteAnim する。素の絵は sStepAnimTables で位置を直すが、この表は載っていないので直されない。歩きの途中（位置 2・3）から
-   向きのアニメ（命令 2 つ）に替わると表の外を命令として読み、関数の表の外（0 番地）を呼んでリセットしていた。
-   → 向きのアニメも歩きのアニメと同じ 4 コマ＋JUMP(0)（同じ絵を 4 回）にして、どの位置から再開しても表の中に収める */
-#define FACE(name, tile, flip) \
-    static const union AnimCmd name[] = { \
-        ANIMCMD_FRAME(tile, 16, .hFlip = flip), ANIMCMD_FRAME(tile, 16, .hFlip = flip), \
-        ANIMCMD_FRAME(tile, 16, .hFlip = flip), ANIMCMD_FRAME(tile, 16, .hFlip = flip), ANIMCMD_JUMP(0) }
-#define WALK(name, a, b, dur, flip) \
-    static const union AnimCmd name[] = { \
-        ANIMCMD_FRAME(a, dur, .hFlip = flip), ANIMCMD_FRAME(b, dur, .hFlip = flip), \
-        ANIMCMD_FRAME(b, dur, .hFlip = flip), ANIMCMD_FRAME(a, dur, .hFlip = flip), ANIMCMD_JUMP(0) }
-
-/* 32x32: 1 コマ 16 タイル */
-FACE(sAnim32_FaceSouth, 0, FALSE);
-FACE(sAnim32_FaceNorth, 32, FALSE);
-FACE(sAnim32_FaceWest, 64, FALSE);
-FACE(sAnim32_FaceEast, 64, TRUE);
-FACE(sAnim32_FaceEastAsym, 96, FALSE);
-WALK(sAnim32_GoSouth, 0, 16, 8, FALSE);
-WALK(sAnim32_GoNorth, 32, 48, 8, FALSE);
-WALK(sAnim32_GoWest, 64, 80, 8, FALSE);
-WALK(sAnim32_GoEast, 64, 80, 8, TRUE);
-WALK(sAnim32_GoEastAsym, 96, 112, 8, FALSE);
-WALK(sAnim32_FastSouth, 0, 16, 6, FALSE);
-WALK(sAnim32_FastNorth, 32, 48, 6, FALSE);
-WALK(sAnim32_FastWest, 64, 80, 6, FALSE);
-WALK(sAnim32_FastEast, 64, 80, 6, TRUE);
-WALK(sAnim32_FastEastAsym, 96, 112, 6, FALSE);
-WALK(sAnim32_FasterSouth, 0, 16, 4, FALSE);
-WALK(sAnim32_FasterNorth, 32, 48, 4, FALSE);
-WALK(sAnim32_FasterWest, 64, 80, 4, FALSE);
-WALK(sAnim32_FasterEast, 64, 80, 4, TRUE);
-WALK(sAnim32_FasterEastAsym, 96, 112, 4, FALSE);
-WALK(sAnim32_FastestSouth, 0, 16, 3, FALSE);
-WALK(sAnim32_FastestNorth, 32, 48, 3, FALSE);
-WALK(sAnim32_FastestWest, 64, 80, 3, FALSE);
-WALK(sAnim32_FastestEast, 64, 80, 3, TRUE);
-WALK(sAnim32_FastestEastAsym, 96, 112, 3, FALSE);
-
-/* 64x64: 1 コマ 64 タイル */
-FACE(sAnim64_FaceSouth, 0, FALSE);
-FACE(sAnim64_FaceNorth, 128, FALSE);
-FACE(sAnim64_FaceWest, 256, FALSE);
-FACE(sAnim64_FaceEast, 256, TRUE);
-WALK(sAnim64_GoSouth, 0, 64, 8, FALSE);
-WALK(sAnim64_GoNorth, 128, 192, 8, FALSE);
-WALK(sAnim64_GoWest, 256, 320, 8, FALSE);
-WALK(sAnim64_GoEast, 256, 320, 8, TRUE);
-WALK(sAnim64_FastSouth, 0, 64, 6, FALSE);
-WALK(sAnim64_FastNorth, 128, 192, 6, FALSE);
-WALK(sAnim64_FastWest, 256, 320, 6, FALSE);
-WALK(sAnim64_FastEast, 256, 320, 6, TRUE);
-WALK(sAnim64_FasterSouth, 0, 64, 4, FALSE);
-WALK(sAnim64_FasterNorth, 128, 192, 4, FALSE);
-WALK(sAnim64_FasterWest, 256, 320, 4, FALSE);
-WALK(sAnim64_FasterEast, 256, 320, 4, TRUE);
-WALK(sAnim64_FastestSouth, 0, 64, 3, FALSE);
-WALK(sAnim64_FastestNorth, 128, 192, 3, FALSE);
-WALK(sAnim64_FastestWest, 256, 320, 3, FALSE);
-WALK(sAnim64_FastestEast, 256, 320, 3, TRUE);
-
-/* 40 個の並びは 3 つの表で共通。東だけ差し替える */
-#define ANIM_TABLE(name, P, east, goEast, fastEast, fasterEast, fastestEast) \
-const union AnimCmd *const name[BW_FOLLOWER_ANIM_COUNT] = { \
-    /*  0〜 3 向き   */ P##_FaceSouth, P##_FaceNorth, P##_FaceWest, east, \
-    /*  4〜 7 歩き   */ P##_GoSouth, P##_GoNorth, P##_GoWest, goEast, \
-    /*  8〜11 速い   */ P##_FastSouth, P##_FastNorth, P##_FastWest, fastEast, \
-    /* 12〜15 もっと */ P##_FasterSouth, P##_FasterNorth, P##_FasterWest, fasterEast, \
-    /* 16〜19 最速   */ P##_FastestSouth, P##_FastestNorth, P##_FastestWest, fastestEast, \
-    /* 20〜23 走る   */ P##_FastestSouth, P##_FastestNorth, P##_FastestWest, fastestEast, \
-    /* 24〜27 回る   */ P##_FaceSouth, P##_FaceNorth, P##_FaceWest, east, \
-    /* 28 足踏み     */ P##_GoSouth, \
-    /* 29〜31        */ P##_GoNorth, P##_GoWest, goEast, \
-    /* 32〜35 自転車 */ P##_FastestSouth, P##_FastestNorth, P##_FastestWest, fastestEast, \
-    /* 36〜39 自転車 */ P##_FastestSouth, P##_FastestNorth, P##_FastestWest, fastestEast, \
-}
-
-ANIM_TABLE(gBwFollowerAnims_Sym32, sAnim32, sAnim32_FaceEast, sAnim32_GoEast,
-           sAnim32_FastEast, sAnim32_FasterEast, sAnim32_FastestEast);
-ANIM_TABLE(gBwFollowerAnims_Asym32, sAnim32, sAnim32_FaceEastAsym, sAnim32_GoEastAsym,
-           sAnim32_FastEastAsym, sAnim32_FasterEastAsym, sAnim32_FastestEastAsym);
-ANIM_TABLE(gBwFollowerAnims_Sym64, sAnim64, sAnim64_FaceEast, sAnim64_GoEast,
-           sAnim64_FastEast, sAnim64_FasterEast, sAnim64_FastestEast);
 
 /* ---- 話しかけたときのスクリプト ----
    ★ NULL にしてはいけない。CFRU の FollowMe_ScriptHook は、連れ歩きの localId に話しかけると
@@ -190,126 +76,6 @@ ANIM_TABLE(gBwFollowerAnims_Sym64, sAnim64, sAnim64_FaceEast, sAnim64_GoEast,
    ★ 中身は assembly/bwfollow/bw_follower_hooks.s にある（C では書けない。理由はそちらに）。 */
 extern const u8 gBwFollowerScript[];
 
-struct Pokemon *BwFollowerLeadMon(void);   /* 下で定義 */
-
-/* ---- 話しかけたときの反応 ----
-   気分の決め方は pokeemerald-expansion の `GetFollowerAction()`（src/event_object_movement.c）に
-   合わせた。重みを振っておいて、なつき度・HP・状態異常で重みを付け替え、そこから 1 つ選ぶ。
-   ★ 本家 HGSS は「きげん」を 1 つの値で持って増減させるが（`FieldSystem_UnkSub108_*Mood`）、
-   そのための RAM がこちらには無いので、expansion 式の「その場で重みを振る」ほうを採った。
-   ★★★ **文章に差し込みコード（FD xx）を入れてはいけない。**
-   素 FRLG の `ShowFieldMessage(str)` は中で `StringExpandPlaceholders(gStringVar4, str)` を呼ぶ
-   （pokefirered `field_message_box.c`）。こちらは組み立てた文章を **gStringVar4 に置いて渡す**ので、
-   差し込みがあると**同じ入れ物の中で展開されて自分を壊す**。展開後のほうが長いため、
-   読んでいる先を書き潰して暴走する（実機 2026-09-20「話しかけたらクラッシュ」の正体）。
-   → **ニックネームはこちらで前に足す。**文章は「〜は …」から始まる形にしてある
-   （strings/bw_follower.string）。差し込みが無ければ展開は「自分から自分への写し」になり無害。 */
-enum BwFollowerEmotion
-{
-    BWF_EMO_HAPPY, BWF_EMO_NEUTRAL, BWF_EMO_SAD, BWF_EMO_UPSET, BWF_EMO_ANGRY,
-    BWF_EMO_PENSIVE, BWF_EMO_LOVE, BWF_EMO_SURPRISE, BWF_EMO_CURIOUS, BWF_EMO_MUSIC,
-    BWF_EMO_SICK, BWF_EMO_COUNT
-};
-
-extern const u8 gText_BwFollower_Happy1[], gText_BwFollower_Happy2[];
-extern const u8 gText_BwFollower_Neutral1[], gText_BwFollower_Neutral2[];
-extern const u8 gText_BwFollower_Sad1[], gText_BwFollower_Sad2[];
-extern const u8 gText_BwFollower_Upset1[], gText_BwFollower_Upset2[];
-extern const u8 gText_BwFollower_Angry1[], gText_BwFollower_Angry2[];
-extern const u8 gText_BwFollower_Pensive1[], gText_BwFollower_Pensive2[];
-extern const u8 gText_BwFollower_Love1[], gText_BwFollower_Love2[];
-extern const u8 gText_BwFollower_Surprise1[], gText_BwFollower_Surprise2[];
-extern const u8 gText_BwFollower_Curious1[], gText_BwFollower_Curious2[];
-extern const u8 gText_BwFollower_Music1[], gText_BwFollower_Music2[];
-extern const u8 gText_BwFollower_Sick1[], gText_BwFollower_Sick2[];
-
-static const u8 *const sBwFollowerTalk[BWF_EMO_COUNT][2] = {
-    [BWF_EMO_HAPPY]    = { gText_BwFollower_Happy1,    gText_BwFollower_Happy2 },
-    [BWF_EMO_NEUTRAL]  = { gText_BwFollower_Neutral1,  gText_BwFollower_Neutral2 },
-    [BWF_EMO_SAD]      = { gText_BwFollower_Sad1,      gText_BwFollower_Sad2 },
-    [BWF_EMO_UPSET]    = { gText_BwFollower_Upset1,    gText_BwFollower_Upset2 },
-    [BWF_EMO_ANGRY]    = { gText_BwFollower_Angry1,    gText_BwFollower_Angry2 },
-    [BWF_EMO_PENSIVE]  = { gText_BwFollower_Pensive1,  gText_BwFollower_Pensive2 },
-    [BWF_EMO_LOVE]     = { gText_BwFollower_Love1,     gText_BwFollower_Love2 },
-    [BWF_EMO_SURPRISE] = { gText_BwFollower_Surprise1, gText_BwFollower_Surprise2 },
-    [BWF_EMO_CURIOUS]  = { gText_BwFollower_Curious1,  gText_BwFollower_Curious2 },
-    [BWF_EMO_MUSIC]    = { gText_BwFollower_Music1,    gText_BwFollower_Music2 },
-    [BWF_EMO_SICK]     = { gText_BwFollower_Sick1,     gText_BwFollower_Sick2 },
-};
-
-/* 素の重み（expansion と同じ値） */
-static const u8 sBwFollowerEmoWeight[BWF_EMO_COUNT] = {
-    [BWF_EMO_HAPPY] = 10, [BWF_EMO_NEUTRAL] = 15, [BWF_EMO_SAD] = 5,
-    [BWF_EMO_UPSET] = 15, [BWF_EMO_ANGRY] = 15, [BWF_EMO_PENSIVE] = 15,
-    [BWF_EMO_LOVE] = 0, [BWF_EMO_SURPRISE] = 10, [BWF_EMO_CURIOUS] = 10,
-    [BWF_EMO_MUSIC] = 15, [BWF_EMO_SICK] = 0,
-};
-
-void BwFollowerTalk(void)
-{
-    struct Pokemon *mon = BwFollowerLeadMon();
-    u8 w[BWF_EMO_COUNT];
-    u32 hp, maxHp;
-    u16 friendship, total, roll;
-    u8 i, emo;
-
-    for (i = 0; i < BWF_EMO_COUNT; ++i)
-        w[i] = sBwFollowerEmoWeight[i];
-
-    if (mon == NULL)
-    {
-        StringCopy(gStringVar4, sBwFollowerTalk[BWF_EMO_NEUTRAL][0]);
-        return;
-    }
-
-    /* ★ ニックネームを前に、文章をうしろに。gStringVar1 は置き場として借りるだけ */
-    GetMonData(mon, MON_DATA_NICKNAME, gStringVar1);
-    PlayCry1(GetMonData(mon, MON_DATA_SPECIES2, NULL), 0);
-
-    friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
-    if (friendship > 80)
-    {
-        w[BWF_EMO_HAPPY] = 20; w[BWF_EMO_UPSET] = 5; w[BWF_EMO_ANGRY] = 5;
-        w[BWF_EMO_LOVE] = 20;  w[BWF_EMO_MUSIC] = 20;
-    }
-    if (friendship > 170)
-    {
-        w[BWF_EMO_HAPPY] = 30; w[BWF_EMO_LOVE] = 30;
-    }
-
-    hp = GetMonData(mon, MON_DATA_HP, NULL);
-    maxHp = GetMonData(mon, MON_DATA_MAX_HP, NULL);
-    if (maxHp != 0 && hp * 100 / maxHp < 50)
-        w[BWF_EMO_SAD] = 30;
-    if (maxHp != 0 && hp * 100 / maxHp < 20)
-        w[BWF_EMO_SAD] = 45;
-    if (GetMonData(mon, MON_DATA_STATUS, NULL) != 0)
-    {
-        w[BWF_EMO_SICK] = 40;
-        w[BWF_EMO_SAD] = 20;
-    }
-
-    total = 0;
-    for (i = 0; i < BWF_EMO_COUNT; ++i)
-        total += w[i];
-
-    emo = BWF_EMO_NEUTRAL;
-    if (total != 0)
-    {
-        roll = Random() % total;
-        for (i = 0; i < BWF_EMO_COUNT; ++i)
-        {
-            if (roll < w[i])
-            {
-                emo = i;
-                break;
-            }
-            roll -= w[i];
-        }
-    }
-
-    StringCopy(StringCopy(gStringVar4, gStringVar1), sBwFollowerTalk[emo][Random() & 1]);
-}
 
 /* ---- 地図に実体の無い連れ歩きのための枠（フックから返す） ----
    絵の番号は `CreateFollowerAvatar` が `gFollowerState.gfxId` で上書きするので、
@@ -353,10 +119,6 @@ const struct EventObjectTemplate gBwFollowerTemplate = {
      書き換え可能な static は使えない（6.13）ので、空いている欄に置くしかない。
    ============================================================================ */
 extern bool8 __attribute__((long_call)) FieldEffectActiveListContains(u8 id);
-static u16 BwFollowerIndexOf(u16 gfxId);   /* 下で定義 */
-u16 BwFollowerGfxIdForSpecies(u16 species);
-u16 BwFollowerGfxIdForMon(struct Pokemon *mon);
-static bool8 BwFollowerValidIndex(u16 index);
 static void BwFollowerLoadOwnPalette(void);
 static void BwFollowerCheckShinyPalette(struct EventObject *obj);
 static void Task_BwFollowerBall(u8 taskId);
@@ -381,7 +143,6 @@ extern const u16 *const gBwFollowerBallPal;
 #define BW_FLDEFF_POKECENTER_HEAL 25
 
 #define BW_BALL_TILE_TAG 0x4F11             /* src/bw_follower_gfx.c と同じ値 */
-#define BW_PAL_TAG_BASE 0x2000              /* 〃（種族ごとの札の先頭） */
 #define BW_BALL_FRAMES 5
 #define BW_BALL_TILES_PER_FRAME 8           /* 16x32 = 2x4 タイル */
 #define BW_BALL_ANIM_COUNT 8                /* 使うのは 0〜4。こちらしか動かさないので 8 で足りる */
@@ -461,34 +222,6 @@ static const union AffineAnimCmd *const sBallAffineAnims[] = {
 #define tBallSprite data[1]
 #define tAffine data[2]
 #define tEnter data[3]
-
-/* ★ inProgress は見ない。ボールの中では FALSE にしてあるため。
-   ★ objId が 0（＝主人公の物体）のときは必ず弾く。**ここを踏むと主人公を消す。** */
-/* いま連れ歩くべき絵の番号（0 = 連れ歩けない）
-   ★ **「手持ちの 1 番目」ではなく「最初の生きているポケモン」**。HGSS 本家がそうしている
-   （`参考/pokeheartgold` の `FollowMon_ChangeMon()` が `GetFirstAliveMonInParty_CrashIfNone`)。
-   1 番目が瀕死・タマゴでも、次の元気な子が付いてくる。 */
-/* 連れ歩く 1 匹（NULL = いない）。**最初の生きているポケモン** */
-struct Pokemon *BwFollowerLeadMon(void)
-{
-    u8 i;
-
-    for (i = 0; i < PARTY_SIZE; ++i)
-    {
-        struct Pokemon *mon = &gPlayerParty[i];
-
-        /* ★ 2026-10-07 欄を直接読む（CFRU の手持ちは暗号化されていない）。毎コマ呼ばれるので GetMonData だと重い（デモ版の報告「処理落ち」）。
-           タマゴの種族も 0 ではないので、SPECIES2（タマゴなら SPECIES_EGG）で空きを見ていたのと同じ */
-        if (mon->species == SPECIES_NONE)
-            break;                              /* ここから先は空 */
-        if (mon->isEgg || mon->hp == 0)
-            continue;                           /* タマゴ・瀕死は飛ばす */
-
-        return mon;
-    }
-
-    return NULL;
-}
 
 /* ---- 出してよい場所か ------------------------------------------------
    ★★ **HGSS は地図ごとに 3 段階**を持っている（`MapHeader.followMode`）:
@@ -583,25 +316,6 @@ static u16 BwFollowerWantedGfxId(void)
 /* タイルを積み直す。**地図を作り直すと割り当ては消えるので毎回呼ぶ**
    ★ 積めなかったら FALSE。64x64 は 384 タイル要るので、遊んでいる最中だと
    VRAM の空きが足りないことがある。そのまま出すと**絵がゴミになる**ので出さない。 */
-static bool8 BwFollowerLoadSheet(u16 gfxId)
-{
-    struct CompressedSpriteSheet sheet;
-    u16 index = BwFollowerIndexOf(gfxId);
-
-    FreeSpriteTilesByTag(BW_FOLLOWER_TILE_TAG);
-    if (index >= gBwFollowerCount)
-    {
-        /* Moémon の連れ歩き（2026-10-08）: LZ77（assembly/hack_moemon_follow/moemon_followers.s） */
-        LoadCompressedSpriteSheetUsingHeap(&gMoemonFollowerSheets[index - gBwFollowerCount]);
-        return GetSpriteTileStartByTag(BW_FOLLOWER_TILE_TAG) != 0xFFFF;
-    }
-    sheet = gBwFollowerSheets[index];
-    /* ★ 2026-09-28 LZ77 → 自前の F 方式（src/bw_follower_fcomp.c）。展開の入れ物が取れなければ FALSE（次のコマでやり直す） */
-    if (!BwFollowerLoadFSheet(sheet.data, sheet.size, BW_FOLLOWER_TILE_TAG))
-        return FALSE;
-    return GetSpriteTileStartByTag(BW_FOLLOWER_TILE_TAG) != 0xFFFF;
-}
-
 /* ★★ メニューなどで画面を作り直されるとタイルの割り当てが消える。
    こちらの BW 風スタートメニューは `ResetSpriteData()` と `FreeAllSpritePalettes()` を呼ぶので、
    戻ってきたとき連れ歩きの**シートの札が登録されていない**（`GetSpriteTileStartByTag` が 0xFFFF）。
@@ -629,6 +343,8 @@ static void BwFollowerRepairSheet(struct EventObject *obj)
     BwFollowerRebindSheet(obj);
 }
 
+/* ★ inProgress は見ない。ボールの中では FALSE にしてあるため。
+   ★ objId が 0（＝主人公の物体）のときは必ず弾く。**ここを踏むと主人公を消す。** */
 static struct EventObject *BwFollowerObject(void)
 {
     struct EventObject *obj;
@@ -831,6 +547,8 @@ static u8 BwFollowerMakeBall(struct Sprite *follower, u8 frame)
 
     FreeSpriteTilesByTag(BW_BALL_TILE_TAG);
     LoadCompressedSpriteSheetUsingHeap(&gBwFollowerBallSheet);
+    if (GetSpriteTileStartByTag(BW_BALL_TILE_TAG) == 0xFFFF)
+        return 0xFF;
     LoadPalette(gBwFollowerBallPal, 0x100 + follower->oam.paletteNum * 16, 32);
 
     /* ボールの足元を連れ歩きの足元に合わせる（16x32 なので中心は下端の 16 画素上） */
@@ -1168,28 +886,54 @@ PLACE:
 }
 
 /* ★ 2026-10-04 今ある（見えない）連れ歩きを、その場でボールから出す（BwFollowerStartBall(FALSE) の演出の部分だけ・物体は作り直さない） */
-static void BwFollowerReleaseFromBall(struct EventObject *obj)
+/* Start either ball transition, with one allocation/failure policy. */
+static void BwFollowerBeginBallAnimation(struct EventObject *obj, bool8 enter)
 {
     struct Sprite *follower = &gSprites[obj->spriteId];
     u8 taskId;
+
+    /* BPRJ CreateTask returns 0 when full, which aliases a live task.
+     * Check capacity before calling it; also accept 0xFF from other builds. */
+    taskId = GetTaskCount() < NUM_TASKS ? CreateTask(Task_BwFollowerBall, 1) : 0xFF;
+    if (taskId >= NUM_TASKS)
+    {
+        /* No task slot: finish without an animation and preserve live tasks. */
+        if (enter)
+        {
+            DestroySprite(follower);
+            RemoveEventObject(obj);
+            BW_BALL_STATE = BW_BALL_IN;
+        }
+        else
+        {
+            obj->invisible = FALSE;
+            BwFollowerLoadOwnPalette();
+            BW_BALL_STATE = BW_BALL_OUT;
+        }
+        return;
+    }
+    gTasks[taskId].tTimer = BW_BALL_DURATION;
+    gTasks[taskId].tBallSprite = 0xFF;
+    gTasks[taskId].tEnter = enter;
+    gTasks[taskId].tAffine = (obj->facingDirection == DIR_EAST
+                              && follower->anims[3]->frame.hFlip) ? 1 : 0;
+}
+
+static void BwFollowerReleaseFromBall(struct EventObject *obj)
+{
+    struct Sprite *follower = &gSprites[obj->spriteId];
 
     obj->invisible = TRUE;
     follower->pos2.x = 0;
     follower->pos2.y = 0;
     obj->hasShadow = FALSE;
-    taskId = CreateTask(Task_BwFollowerBall, 1);
-    gTasks[taskId].tTimer = BW_BALL_DURATION;
-    gTasks[taskId].tBallSprite = 0xFF;
-    gTasks[taskId].tEnter = FALSE;
-    gTasks[taskId].tAffine = (obj->facingDirection == DIR_EAST
-                              && follower->anims[3]->frame.hFlip) ? 1 : 0;
+    BwFollowerBeginBallAnimation(obj, FALSE);
 }
 
 static void BwFollowerStartBall(bool8 enter)
 {
     struct EventObject *obj;
     struct Sprite *follower;
-    u8 taskId;
 
     if (enter)
     {
@@ -1232,13 +976,7 @@ static void BwFollowerStartBall(bool8 enter)
         follower->pos2.y = 0;
         obj->hasShadow = FALSE;
     }
-    taskId = CreateTask(Task_BwFollowerBall, 1);
-    gTasks[taskId].tTimer = BW_BALL_DURATION;
-    gTasks[taskId].tBallSprite = 0xFF;
-    gTasks[taskId].tEnter = enter;
-    /* 右向きで、しかも左右反転で右を作っている種族だけ負の倍率の側を使う */
-    gTasks[taskId].tAffine = (obj->facingDirection == DIR_EAST
-                              && follower->anims[3]->frame.hFlip) ? 1 : 0;
+    BwFollowerBeginBallAnimation(obj, enter);
 }
 
 /* ---- 入れ替えはその場で差し替える（HGSS と同じ・ボールは使わない） ----
@@ -1491,133 +1229,6 @@ void BwFollowerHideForFieldEffect(void)
 #undef tBallSprite
 #undef tAffine
 #undef tEnter
-
-/* ---- 種族 -> 絵の番号 ---- */
-u16 BwFollowerGfxIdForSpecies(u16 species)
-{
-    if (species >= gBwFollowerSpeciesToGfxCount)
-        return 0;
-
-    return gBwFollowerSpeciesToGfx[species];
-}
-
-/* 絵の番号（表 << 8 | 位置）-> 通し番号 */
-static u16 BwFollowerIndexOf(u16 gfxId)
-{
-    return (((gfxId >> 8) - BW_FOLLOWER_FIRST_TABLE) << 8) | (gfxId & 0xFF);
-}
-
-/* ---- Moémon の連れ歩き（#55・2026-10-08 ユーザー「アイコンと連れ歩きもあるならいれていい」）----
-   絵は assembly/hack_moemon_follow/moemon_followers.s（tools/sprites/build_moemon_followers.py・--split-pics の版だけ・
-   ほかの版は tools/build/cfru_runner.py が空の表に）。通し番号は連れ歩きの続き（gBwFollowerCount + j・表 1〜5 の空き枠・
-   絵の情報と色の表は tools/bwfollow/build_bw_follower.py が作る）。
-   どの子が萌えもんかは DPE だけが知っているので、CFRU から呼べる GetIconSpecies（08096988・DPE のフック）が返す
-   萌えもんのアイコンの番号（DPE の NUM_SPECIES + k）で決める＝戦いの絵・アイコンと同じ決め方（ON/OFF・前からいた子・通信）。 */
-extern const u32 gMoemonFollowerCount;
-extern const u16 gMoemonFollowerIconBase;
-extern const u16 gMoemonFollowerIconCount;
-extern const u8 gMoemonFollowerByIcon[];
-extern const u16 gBwFollowerMoeSlots;
-extern const u16 gBwFollowerOwPalMoeFirst;
-
-static u16 BwFollowerIndexToGfxId(u16 index)
-{
-    return (((index >> 8) + BW_FOLLOWER_FIRST_TABLE) << 8) | (index & 0xFF);
-}
-
-static bool8 BwFollowerValidIndex(u16 index)
-{
-    return index < gBwFollowerCount
-        || ((u32) (index - gBwFollowerCount) < gMoemonFollowerCount && (u32) (index - gBwFollowerCount) < gBwFollowerMoeSlots);
-}
-
-u16 BwFollowerGfxIdForMon(struct Pokemon *mon)
-{
-    u16 species = GetMonData(mon, MON_DATA_SPECIES2, NULL);
-
-    if (gMoemonFollowerCount != 0)
-    {
-        u16 icon = GetIconSpecies(species, mon->personality);
-
-        if (icon >= gMoemonFollowerIconBase && icon < gMoemonFollowerIconBase + gMoemonFollowerIconCount)
-        {
-            u8 j = gMoemonFollowerByIcon[icon - gMoemonFollowerIconBase];
-
-            if (j != 0 && j <= gBwFollowerMoeSlots)
-                return BwFollowerIndexToGfxId(gBwFollowerCount + j - 1);
-        }
-    }
-    return BwFollowerGfxIdForSpecies(species);
-}
-
-/* ---- 色違い（2026-09-28 ユーザー「連れ歩きの色違い進めて」）----------------
-   パレットは**札**で引かれる（連れ歩きは 0x2000 + 通し番号・生成物 src/bw_follower_gfx.c）。
-   札から表の何件目かを探す素の関数 FindEventObjectPaletteIndexByTag（0805EE60）を**丸ごと置き換え**
-   （hooks の BWFOLLOW ブロック・r3）、連れ歩きの札で、いま連れ歩く子（最初の生きているポケモン）が
-   その絵で色違いなら、色違いの件（表の後ろ・札 0x2800 + 通し番号）を返す。
-   ★ 札から色を積む道は全部この関数を通る: 素の PatchObjectPalette / LoadObjectEventPalette（呼び元は BL 2 つだけ）、
-     CFRU の動的パレット（dynamic_ow_pals.c の LoadNPCPalette = PatchObjectPalette）、こちらの BwFollowerLoadOwnPalette
-   ★ 絵の番号（gfxId）は色違いでも同じなので、札も同じ。動的パレットは札で置き場を使い回すため、
-     同じ種族で色違いとそうでない子を入れ替えると古い色が残る → BwFollowerCheckShinyPalette が積み直す
-   ★ 素の関数は表の終わりを 0x11FF で見ていたが、写した表の終わりは { NULL, 0 }。こちらは data が NULL で止める */
-extern const struct SpritePalette gBwFollowerOwPalTable[];
-extern const u16 gBwFollowerOwPalFirst;
-extern const u16 gBwFollowerOwPalShinyFirst;
-#define BW_SHINY_PAL_TAG_BASE 0x2800        /* tools/bwfollow/build_bw_follower.py の BWF_SHINY_PAL_TAG_BASE と同じ */
-
-/* 通し番号 index の絵を出している子が色違いか。
-   ★ 2026-10-05 ユーザー「連れ歩きポケモンが色違い同士だと入れ替えたとき通常色になる」:
-     前は「いまの先頭」だけを見ていた。手持ちを入れ替えた直後は、絵が新しい先頭に替わるまで前の子の絵が出ている
-     （先頭が絵を出せない種族なら前の子の絵のまま）。そのあいだ前の子の色違いの色が「先頭と違う」として通常の色に
-     塗り直され、入れ替えた先でもその色が残った。→ 生きている手持ちを前から見て、その絵の子を最初に見つけたら、その子で決める */
-static bool8 BwFollowerLeadShinyFor(u16 index)
-{
-    u8 i;
-
-    for (i = 0; i < PARTY_SIZE; ++i)
-    {
-        struct Pokemon *mon = &gPlayerParty[i];
-        u16 gfxId;
-
-        if (mon->species == SPECIES_NONE)       /* ★ 2026-10-07 欄を直接読む（毎コマ・BwFollowerLeadMon と同じ） */
-            break;
-        if (mon->isEgg || mon->hp == 0)
-            continue;
-        gfxId = BwFollowerGfxIdForMon(mon);
-        if (gfxId != 0 && BwFollowerIndexOf(gfxId) == index)
-            return IsMonShiny(mon);
-    }
-    return FALSE;
-}
-
-/* 通し番号 index の色が gBwFollowerOwPalTable の何件目か（Moémon は表の後ろ・2026-10-08） */
-static u16 BwFollowerPalPos(u16 index, bool8 shiny)
-{
-    if (index >= gBwFollowerCount)
-        return gBwFollowerOwPalMoeFirst + (shiny ? gBwFollowerMoeSlots : 0) + (index - gBwFollowerCount);
-    return (shiny ? gBwFollowerOwPalShinyFirst : gBwFollowerOwPalFirst) + index;
-}
-
-/* 0805EE60 FindEventObjectPaletteIndexByTag の代わり。→ 表の何件目か（無ければ 0xFF。素と同じ） */
-u16 BwFollowerFindOwPalIndex(u16 tag)
-{
-    u16 i;
-
-    if (tag >= BW_PAL_TAG_BASE && tag < BW_PAL_TAG_BASE + gBwFollowerCount + gBwFollowerMoeSlots)
-    {
-        i = tag - BW_PAL_TAG_BASE;
-        return BwFollowerPalPos(i, BwFollowerLeadShinyFor(i));
-    }
-    if (tag >= BW_SHINY_PAL_TAG_BASE && tag < BW_SHINY_PAL_TAG_BASE + gBwFollowerCount + gBwFollowerMoeSlots)
-        return BwFollowerPalPos(tag - BW_SHINY_PAL_TAG_BASE, TRUE);
-
-    for (i = 0; gBwFollowerOwPalTable[i].data != NULL && gBwFollowerOwPalTable[i].tag != 0x11FF; ++i)
-    {
-        if (gBwFollowerOwPalTable[i].tag == tag)
-            return i;
-    }
-    return 0xFF;
-}
 
 static bool8 BwPalEquals(const u16 *a, const u16 *b)
 {

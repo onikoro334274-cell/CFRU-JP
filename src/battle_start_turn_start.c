@@ -8,6 +8,7 @@
 #include "../include/gpu_regs.h"
 #include "../include/party_menu.h"
 #include "../include/random.h"
+#include "../include/constants/items.h"   //[hack] 2026-10-11 POCKET_POKE_BALLS
 #include "../include/scanline_effect.h"
 #include "../include/constants/pokedex.h"
 #include "../include/constants/songs.h"
@@ -37,6 +38,15 @@
 #include "../include/new/set_z_effect.h"
 #include "../include/new/terastal.h"
 #include "../include/new/util.h"
+
+//★ 2026-10-11 ユーザー判断（5e 経由）「1 戦で使える道具の数は ボールだけ数えない」: なんいど むずかしい 3 回／ももアイス 1 回の数（playerItemUsedCount）に
+//  ボール（POCKET_POKE_BALLS）の使用は入れない。野生戦でも数える（回復の道具は制限・ボールは無制限）。選んだ道具は gBattleBufferB[bank][1..2]
+//  （素の HandleAction_UseItem が gLastUsedItem に写すのと同じ入れ物）
+static bool8 HackChosenItemIsBall(u8 bank)
+{
+	u16 item = gBattleBufferB[bank][1] | (gBattleBufferB[bank][2] << 8);
+	return gItems[item].pocket == POCKET_POKE_BALLS;   //ItemId_GetPocket は BPRJ.ld に無い（6.29・achievements.c と同じ）
+}
 
 /*
 battle_start_turn_start.c
@@ -936,7 +946,7 @@ void SetActionsAndBanksTurnOrder(void)
 				gActiveBattler = 0;
 				turnOrderId = 5;
 			}
-			else if (gChosenActionByBank[0] == ACTION_USE_ITEM)
+			else if (gChosenActionByBank[0] == ACTION_USE_ITEM && !HackChosenItemIsBall(0))   //[hack] 2026-10-11 ユーザー判断「ボールだけ数えない」
 			{
 				gNewBS->playerItemUsedCount = MathMin(gNewBS->playerItemUsedCount + 1, 0xFF);
 			}
@@ -946,7 +956,7 @@ void SetActionsAndBanksTurnOrder(void)
 				gActiveBattler = 2;
 				turnOrderId = 5;
 			}
-			else if (gChosenActionByBank[2] == ACTION_USE_ITEM && !IsTagBattle())
+			else if (gChosenActionByBank[2] == ACTION_USE_ITEM && !IsTagBattle() && !HackChosenItemIsBall(2))   //[hack] 2026-10-11
 			{
 				gNewBS->playerItemUsedCount = MathMin(gNewBS->playerItemUsedCount + 1, 0xFF);
 			}

@@ -74,6 +74,9 @@ static const struct MomPurchase sMomPurchases[] =
 	{32768, ITEM_MASTER_BALL},   //シルフカンパニー 1F の売り場（65535）の半分（2026-10-10 ユーザー「シルフカンパニーの金額から半額で」）
 	{0, ITEM_MOEMON_FOSSIL},    //Moemonかせき（10000 円・手に入るのはここだけ＝2026-10-10 ユーザー「「Moemonかせき」はママのみで」・src/hack_moemon_fossil.c）
 	{0, ITEM_GOLD_CAPSULE},     //おうごんのカプセル（15000 円・手に入るのはここだけ＝2026-10-10 ユーザー「お母さんの買い物」）
+	{0, ITEM_HISUI_ROCK},       //ヒスイのいし（10000 円・手に入るのはここだけ＝2026-10-11 ユーザー「ままで」・ヒスイの姿 7 つとリンドリスの進化の石・patches/0241）
+	{0, ITEM_GIMMIGHOUL_COIN},  //コレクレーのコイン（3000 円・コレクレー → サーフゴー・2026-10-11 ユーザー「コレクレーのコインをママについか」）
+	{0, ITEM_ALOLA_STONE},      //アローラのいし（10000 円・手に入るのはここだけ＝2026-10-11 ユーザー「ままに」・patches/0327）
 };
 
 static u32 GetSavings(void)
@@ -105,6 +108,36 @@ static u32 PurchasePrice(u8 index)
 
 //★ 2026-10-10 ユーザー「ママのかいものを一気に渡すように」: 1 つずつ（家で受け取るまで次を買わない）をやめ、貯金で買えるだけ続けて買う
 //  （まだ渡していない数は VAR_MOM_PENDING_COUNT・99 まで）。家で全部まとめて渡す（HackMomSavings_GiveAll）
+//★ 2026-10-11 ユーザー「でんわで ママが かったアイテムが PC に おくられるように」: 買った道具はパソコンの どうぐ（gSaveBlock1->pcItems・30 枠・
+//  1 枠 999 まで・素と同じく数は暗号化しない）へ直に入れる。入らなければ今までどおり「家で渡す」（VAR_MOM_PENDING_COUNT）に残す。
+//  素の AddPCItem は BPRJ.ld に無い（6.29）ので同じことをここで書く
+#define PC_ITEM_MAX 999
+static bool8 MomAddPcItem(u16 item)
+{
+	u32 i;
+	struct ItemSlot* pc = gSaveBlock1->pcItems;
+
+	for (i = 0; i < PC_ITEMS_COUNT; ++i)
+		if (pc[i].itemId == item && pc[i].quantity < PC_ITEM_MAX)
+		{
+			++pc[i].quantity;
+			return TRUE;
+		}
+	for (i = 0; i < PC_ITEMS_COUNT; ++i)
+		if (pc[i].itemId == ITEM_NONE || pc[i].quantity == 0)
+		{
+			pc[i].itemId = item;
+			pc[i].quantity = 1;
+			return TRUE;
+		}
+	return FALSE;
+}
+
+//電話の文の選び方: この回に買ったものが全部パソコンに入ったか（bit 14 を電話の印と一緒に立てる）・この回に買った数（bit 8〜13・63 まで・「〜など」の判定）
+#define CALL_TO_PC 0x4000
+#define CALL_COUNT_SHIFT 8
+#define CALL_COUNT_MASK 0x3F00
+
 static void TryMomPurchase(void)
 {
 	u16 step = VarGet(VAR_MOM_STEP);
@@ -112,20 +145,36 @@ static void TryMomPurchase(void)
 	u32 savings = GetSavings();
 	u16 count = VarGet(VAR_MOM_PENDING_COUNT);
 	bool8 bought = FALSE;
+	bool8 allToPc = TRUE;
 
-	while (count < MOM_PENDING_MAX && savings >= PurchasePrice(index))
+	u16 boughtNow = 0;     //電話の「〜など」用（bit 8〜13・63 まで）
+	u16 boughtTotal = 0;   //1 回の戦闘で買う数の上限（99・パソコンに入る分は count が増えないので別に数える・2026-10-11 5e）
+
+	while (count < MOM_PENDING_MAX && boughtTotal < MOM_PENDING_MAX && savings >= PurchasePrice(index))
 	{
 		savings -= PurchasePrice(index);
 		CopyItemName(sMomPurchases[index].item, gStringVar1);   //電話で言う名前（最後に買ったもの）
+		//★ 家待ち（count）が 1 つでもある間は、新しい買い物もパソコンに入れず家待ちに足す。家待ちは「index の手前から count 個」で
+		//  復元する（HackMomSavings_GiveAll）ので、パソコンに入った分と混ざると別の品を指す（5e の指摘 2026-10-11）
+		if (count == 0 && VarGet(VAR_MOM_PENDING) == ITEM_NONE && MomAddPcItem(sMomPurchases[index].item))
+			;   //パソコンへ（2026-10-11）
+		else
+		{
+			++count;   //入らなかった分（と、そのあとの分）は家で
+			allToPc = FALSE;
+		}
 		index = (index + 1) % ARRAY_COUNT(sMomPurchases);
-		++count;
+		++boughtTotal;
+		if (boughtNow < 63)
+			++boughtNow;
 		bought = TRUE;
 	}
 	if (!bought)
 		return;
 	SetSavings(savings);
 	VarSet(VAR_MOM_PENDING_COUNT, count);
-	VarSet(VAR_MOM_STEP, index | CALL_PENDING);
+	VarSet(VAR_MOM_STEP, index | CALL_PENDING | (boughtNow << CALL_COUNT_SHIFT)
+	       | ((allToPc && count == 0 && VarGet(VAR_MOM_PENDING) == ITEM_NONE) ? CALL_TO_PC : 0));
 }
 
 //★ 2026-10-09 ユーザー「ママの貯金金額を表示するようにしてほしい」→「おかね送る状態のときにひょうじしてほしい」:
@@ -207,16 +256,23 @@ void HackMomSavings_FieldTick(void)
 	if (gSaveBlock1->location.mapGroup == 4 && (u8) gSaveBlock1->location.mapNum <= 1)
 		return;
 
-	VarSet(VAR_MOM_STEP, VarGet(VAR_MOM_STEP) & ~CALL_PENDING);
 	{
-		//電話: 「ちょきんで [BUFFER1]を かっておいたわ」＝最後に買ったもの（2 こ以上なら「〜など」）
+		u16 step = VarGet(VAR_MOM_STEP);
+		u16 boughtNow = (step & CALL_COUNT_MASK) >> CALL_COUNT_SHIFT;   //この回に買った数（0 は前の形のセーブ＝家待ちの数で代える）
 		u16 count = VarGet(VAR_MOM_PENDING_COUNT);
-		u8 last = ((VarGet(VAR_MOM_STEP) & 0xFF) + ARRAY_COUNT(sMomPurchases) - 1) % ARRAY_COUNT(sMomPurchases);
+		u8 last;
+
+		Var8004 = (step & CALL_TO_PC) ? 1 : 0;   //★ 2026-10-11 1 = 全部パソコンへ入れた（文を変える）・0 = 家で渡すものがある
+		VarSet(VAR_MOM_STEP, step & ~(CALL_PENDING | CALL_TO_PC | CALL_COUNT_MASK));
+		//電話: 「ちょきんで [BUFFER1]を かっておいたわ」＝最後に買ったもの（2 こ以上なら「〜など」）
+		last = ((step & 0xFF) + ARRAY_COUNT(sMomPurchases) - 1) % ARRAY_COUNT(sMomPurchases);
 		if (count == 0 && VarGet(VAR_MOM_PENDING) != ITEM_NONE)
 			CopyItemName(VarGet(VAR_MOM_PENDING), gStringVar1);
 		else
 			CopyItemName(sMomPurchases[last].item, gStringVar1);
-		if (count + (VarGet(VAR_MOM_PENDING) != ITEM_NONE) > 1)
+		if (boughtNow == 0)
+			boughtNow = count + (VarGet(VAR_MOM_PENDING) != ITEM_NONE);
+		if (boughtNow > 1)
 			StringAppend(gStringVar1, gText_MomSav_Etc);
 	}
 	ScriptContext1_SetupScript(EventScript_MomSavingsCall);

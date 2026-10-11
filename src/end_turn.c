@@ -1435,13 +1435,14 @@ u8 TurnBasedEffects(void)
 										++effect;
 									}
 									break;
+								case ITEM_EFFECT_MAISEN: //[hack] patches/0292 2026-10-10 まいせん: 毎ターン 1/10（くっつきバリ と同じ台本）
 								case ITEM_EFFECT_STICKY_BARB:
 									if (ABILITY(gActiveBattler) != ABILITY_MAGICGUARD)
 									{
 										gLastUsedItem = ITEM(gBattleScripting.bank = gActiveBattler);
 										RecordItemEffectBattle(gActiveBattler, itemEffect);
 
-										gBattleMoveDamage = MathMax(1, GetBaseMaxHP(gActiveBattler) / 8);
+										gBattleMoveDamage = MathMax(1, GetBaseMaxHP(gActiveBattler) / ((itemEffect == ITEM_EFFECT_MAISEN) ? 10 : 8));
 										gNewBS->turnDamageTaken[gActiveBattler] = gBattleMoveDamage; //For Emergency Exit
 										BattleScriptExecute(BattleScript_BlackSludgeHurt);
 										++effect;

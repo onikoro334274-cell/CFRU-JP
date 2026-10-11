@@ -169,6 +169,13 @@ void HackMonId_MakeMoemon(struct BoxPokemon* mon)
 	HackMonId_Set(mon, (tid & 0xFFFF) | (sid << 16));
 }
 
+//★ 2026-10-11 ホウエンのミラクル交換（src/hack_wonder_trade.c）: 性格値を作り直さず（6.5）、自身の ID を色違いの当たりにする。
+//  裏 ID は PickSid（Moémon の当たり・はずれは性格値の式のまま）・表 ID は裏 ID と XOR して SHINY_THRESHOLD 未満に
+void HackMonId_MakeShiny(struct BoxPokemon* mon)
+{
+	HackMonId_Set(mon, MakeId(TRUE, mon->personality));
+}
+
 void HackMonId_Ensure(struct BoxPokemon* mon)
 {
 	if (mon->substruct0.species == SPECIES_NONE || HackMonId_Get(mon) != 0)

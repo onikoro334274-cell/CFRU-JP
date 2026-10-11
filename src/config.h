@@ -140,7 +140,7 @@ enum //These vars need to be one after the other (hence the enum)
 
 /*===== General Number Options =====*/
 #define KANTO_DEX_COUNT 151
-#define NATIONAL_DEX_COUNT 1027
+#define NATIONAL_DEX_COUNT 1028
 
 #define MAX_LEVEL 200 //Also change this in the file "asm_defines.asm" found in the root //[hack] patches/0236 100 → 200（2026-10-09）
 #define NUM_TRAINER_CLASSES 107 //Vanilla FR has 107
@@ -157,13 +157,13 @@ enum //These vars need to be one after the other (hence the enum)
 #define EGG_HATCH_LEVEL 1 //The level eggs hatch at
 #define AI_TRY_TO_KILL_RATE 50 //In battles against a trainer with AI flags of 1, the AI will try to use a move to knock out the opponents XX percent of the time
 // One AI rank per 10 levels, up to Lv200; difficulty offsets/floors/caps
-// follow saved values: normal, easy, medium, hard, Momo Ice.
+// follow saved values: normal, easy, medium, hard, Momo Ice, Riru Ice (6 entries).
 #define AI_RANK_LEVEL_STEP 10
 #define AI_SWITCH_COOLDOWN_TURNS 5
 #define AI_RANK_LEVEL_CAP 200
-#define AI_RANK_DIFFICULTY_OFFSETS {0, -4, -2, 3, 0}
-#define AI_RANK_DIFFICULTY_FLOORS {0, 0, 0, 8, 24}
-#define AI_RANK_DIFFICULTY_CAPS {20, 16, 18, 23, 24}
+#define AI_RANK_DIFFICULTY_OFFSETS {0, -4, -2, 3, 0, -24} //[hack] patches/0321 6 つ目 = りるアイス（5）: いつも 0（いちばん弱い）
+#define AI_RANK_DIFFICULTY_FLOORS {0, 0, 0, 8, 24, 0}
+#define AI_RANK_DIFFICULTY_CAPS {20, 16, 18, 23, 24, 0}
 #define AI_RANK_WILD_LEVEL_STEP AI_RANK_LEVEL_STEP
 #define AI_RANK_WILD_DIFFICULTY_OFFSETS AI_RANK_DIFFICULTY_OFFSETS
 #define AI_RANK_WILD_DIFFICULTY_FLOORS AI_RANK_DIFFICULTY_FLOORS

@@ -814,7 +814,7 @@ void DoBattleFieldEffect(void)
 			}
 			else if (!IsTrickRoomActive())
 			{
-				gNewBS->TrickRoomTimer = 5;
+				gNewBS->TrickRoomTimer = (ITEM_EFFECT(gBankAttacker) == ITEM_EFFECT_ROOM_INTERIOR) ? 8 : 5; //[hack] patches/0292 ばんのうインテリア（+3 ターン）
 				gBattleStringLoader = TrickRoomSetString;
 			}
 			else
@@ -829,7 +829,7 @@ void DoBattleFieldEffect(void)
 			}
 			else if (!IsWonderRoomActive())
 			{
-				gNewBS->WonderRoomTimer = 5;
+				gNewBS->WonderRoomTimer = (ITEM_EFFECT(gBankAttacker) == ITEM_EFFECT_ROOM_INTERIOR) ? 8 : 5; //[hack] patches/0292 ばんのうインテリア（+3 ターン）
 				gBattleStringLoader = WonderRoomSetString;
 			}
 			else
@@ -844,7 +844,7 @@ void DoBattleFieldEffect(void)
 			}
 			else if (!IsMagicRoomActive())
 			{
-				gNewBS->MagicRoomTimer = 5;
+				gNewBS->MagicRoomTimer = (ITEM_EFFECT(gBankAttacker) == ITEM_EFFECT_ROOM_INTERIOR) ? 8 : 5; //[hack] patches/0292 ばんのうインテリア（+3 ターン）
 				gBattleStringLoader = MagicRoomSetString;
 			}
 			else
@@ -1297,7 +1297,7 @@ void TailwindLuckyChantFunc(void)
 				gBattlescriptCurrInstr = BattleScript_ButItFailed - 5;
 			else
 			{
-				gNewBS->TailwindTimers[SIDE(gBankAttacker)] = 4;
+				gNewBS->TailwindTimers[SIDE(gBankAttacker)] = (ITEM_EFFECT(gBankAttacker) == ITEM_EFFECT_PINWHEEL) ? 7 : 4; //[hack] patches/0292 かざぐるま（+3 ターン）
 				gBattleStringLoader = TailwindSetString;
 			}
 			break;

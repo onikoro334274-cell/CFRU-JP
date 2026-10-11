@@ -1,6 +1,7 @@
 @ ipatix HQ Sound Mixer V2.1（https://github.com/ipatix）を pm-start/b2w2-reloaded（5705ed0）が配布バイナリから ASM に戻したもの（src/hq_mixer.S）をそのまま写した。
 @ 2026-10-10 patches/0288: m4aSoundInit がこれを IWRAM 0x03005FA0 へ写して SoundMainRAM として呼ぶ（bytereplacement・repoints）。
 @ 写すバイト数は 2,852（0x2C9 語）。中身を変えたら bytereplacement の 081C1078 も直す。devkitARM の as で組むと元の機械語と SHA256 一致（0a3b3eca…）。
+@ ★ 2026-10-11 patches/0301（DirectSound 16 音）で +0x0010 の #0x350 を #0x450 に変えたので、今は元と 1 語だけ違う。
 /* Recovered from distributed HQ mixer machine code; original names unavailable. */
 .syntax unified
 .cpu arm7tdmi
@@ -25,7 +26,7 @@ hq_mixer_start:
 .arm
     cmp r4, #2 @ ROM +0x000c
 .L_0010:
-    addeq r7, r0, #0x350 @ ROM +0x0010
+    addeq r7, r0, #0x450 @ ROM +0x0010  @ ★ 2026-10-11 patches/0301: pcmBuffer は 16 チャンネルの後ろ +0x450（元は #0x350）
 .L_0014:
     addne r7, r5, r8 @ ROM +0x0014
 .L_0018:

@@ -588,6 +588,7 @@ static void ShowNonInteractiveDomeTourneyTree(void);
 static void ResolveDomeRoundWinners(void);
 static void SaveDomeChallenge(void);
 static void IncrementDomeStreaks(void);
+void HoennFrontier_NoteBestStreak(u16 streak);   //src/hoenn_tower.c（実績のいちばん長い連勝）
 static void ResetSketchedMoves(void);
 static void RestoreDomePlayerPartyHeldItems(void);
 static void ReduceDomePlayerPartyToSelectedMons(void);
@@ -2949,6 +2950,8 @@ static void IncrementDomeStreaks(void)
 
     if (DOME->domeWinStreaks[battleMode][lvlMode] > DOME->domeRecordWinStreaks[battleMode][lvlMode])
         DOME->domeRecordWinStreaks[battleMode][lvlMode] = DOME->domeWinStreaks[battleMode][lvlMode];
+    //★ 2026-10-11 実績の「バトルしせつで ○れんしょう」: ドームの連勝は大会の数なので、勝った戦いの数（1 大会 = 4 戦）で数える
+    HoennFrontier_NoteBestStreak(DOME->domeWinStreaks[battleMode][lvlMode] * DOME_ROUNDS_COUNT);
 }
 
 // For showing the opponent info card of the upcoming trainer

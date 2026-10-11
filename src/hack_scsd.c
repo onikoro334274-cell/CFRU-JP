@@ -129,7 +129,7 @@ static bool8 HackScsd_Mount(struct ScsdFs *fs)
 	if (b[3] == 'E' && b[4] == 'X' && b[5] == 'F' && b[6] == 'A' && b[7] == 'T')
 	{
 		/* exFAT clusters are at most 32 MiB: 2^16 sectors at 512 bytes. */
-		if (b[0x6C] != 9 || b[0x6D] > 16
+		if (b[0x6C] != 9 || b[0x6D] > 8   //[hack] 2026-10-11 5e: 1 クラスタは 256 区画まで（読む所の上限とそろえる）
 		 || Rd32(b + 0x50) > 0xFFFFFFFFu - part
 		 || Rd32(b + 0x58) > 0xFFFFFFFFu - part
 		 || Rd32(b + 0x60) < 2)
@@ -158,7 +158,7 @@ static bool8 HackScsd_Mount(struct ScsdFs *fs)
 			return FALSE;
 		fs->data = fs->rootLba + fs->rootSecs;
 		fs->spcShift = Log2(b[0x0D]);
-		return TRUE;
+		return fs->spcShift <= 8;   //[hack] 2026-10-11 5e: 1 クラスタは 256 区画まで
 	}
 	if (Rd32(b + 0x24) != 0) //FAT32
 	{
@@ -170,7 +170,7 @@ static bool8 HackScsd_Mount(struct ScsdFs *fs)
 		fs->data = fs->fat + b[0x10] * Rd32(b + 0x24);
 		fs->spcShift = Log2(b[0x0D]);
 		fs->rootClus = Rd32(b + 0x2C);
-		return TRUE;
+		return fs->spcShift <= 8;   //[hack] 2026-10-11 5e
 	}
 	return FALSE;
 }
@@ -182,7 +182,7 @@ static bool8 EndClus(struct ScsdFs *fs, u32 c)
 
 static u32 ClusLba(struct ScsdFs *fs, u32 c)
 {
-	if (EndClus(fs, c) || fs->spcShift >= 32
+	if (EndClus(fs, c) || fs->spcShift > 8   //[hack] 2026-10-11 5e: 1 クラスタは 256 区画まで（FAT の規格でも最大 128）
 	 || c - 2 > ((0xFFFFFFFFu - fs->data) >> fs->spcShift))
 		return 0;
 	return fs->data + ((c - 2) << fs->spcShift);
@@ -408,6 +408,30 @@ bool8 HackScsd_ReadFile(const char *name83, const char *longName, u32 sector, u3
 		ok = HackScsd_ReadOpened(fs, sector, n, out);
 	Free(fs);
 	return ok;
+}
+
+//★ 2026-10-11 開いたまま何度か読む（src/hack_split_pics.c＝長さと本体を 1 回のマウントで）。返した入れ物は HackScsd_FileClose で Free
+void *HackScsd_FileOpen(const char *name83, const char *longName)
+{
+	u32 result;
+	struct ScsdFs *fs = HackScsd_Open(name83, longName, &result);
+
+	if (fs != NULL && result != 3)
+	{
+		Free(fs);
+		return NULL;
+	}
+	return fs;
+}
+
+bool8 HackScsd_FileRead(void *fs, u32 sector, u32 n, void *out)
+{
+	return HackScsd_ReadOpened((struct ScsdFs *) fs, sector, n, out);
+}
+
+void HackScsd_FileClose(void *fs)
+{
+	Free(fs);
 }
 
 //SDTEST.BIN を見分けて SDPIC_STATUS に置く（見出し "PKSSDPIC" を確かめる）

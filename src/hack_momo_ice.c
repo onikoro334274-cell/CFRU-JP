@@ -22,6 +22,25 @@ bool8 HackMomoIce_Held(struct Pokemon* mon)
 	return mon->item == ITEM_MOMO_ICE; //CFRU の手持ちは暗号化されていない（include/pokemon.h）。GetMonData を通すと重い
 }
 
+//★ 2026-10-11 ユーザー「難易度ももアイスの場合に ももアイスの下位互換アイテムの実装 絶対に入手不可 相手（トレーナー）のポケモンが所持するように」:
+//  ももシャーベット（ITEM_MOMO_SHERBET・ITEM_EFFECT_MOMO_SHERBET）。HP と 5 つの能力 1.5 倍・毎ターン 1/6 回復（item_battle_effects.c）・
+//  うばわれない（battle_util.c の CanTransferItem）。状態異常・こんらん・能力ダウン・メガ／ゲンシの代わりは ももアイス だけ（下位版には無い）。
+//  持たせるのは src/hack_difficulty.c（なんいど ももアイス のトレーナー戦の相手・メガストーン／ゲンシの玉／Z クリスタルの子は持ち物を変えない）。
+//  店・贈り物・ふしぎなおくりもの・ミラクル交換のどこにも出さない＝手に入らない（verify_momo_sherbet.py が見る）
+bool8 HackMomoSherbet_Held(struct Pokemon* mon)
+{
+	return mon->item == ITEM_MOMO_SHERBET;
+}
+
+static u32 MomoMultiply(struct Pokemon* mon, u32 value)
+{
+	if (HackMomoIce_Held(mon))
+		return value * 2;
+	if (HackMomoSherbet_Held(mon))
+		return value * 3 / 2;
+	return value;
+}
+
 //CalculateMonStatsNew の最大 HP を出した直後（持っていれば 2 倍）
 u16 HackMomoIce_MaxHP(struct Pokemon* mon, u16 species, u16 maxHP)
 {
@@ -29,9 +48,12 @@ u16 HackMomoIce_MaxHP(struct Pokemon* mon, u16 species, u16 maxHP)
 	if (species == SPECIES_SHEDINJA)
 		return maxHP;
 	#endif
-	if (!HackMomoIce_Held(mon))
+	if (!HackMomoIce_Held(mon) && !HackMomoSherbet_Held(mon))
 		return maxHP;
-	return (maxHP > 0x7FFF) ? 0xFFFF : maxHP * 2;
+	{
+		u32 v = MomoMultiply(mon, maxHP);
+		return (v > 0xFFFF) ? 0xFFFF : v;
+	}
 }
 
 //CalculateMonStatsNew の 5 つの能力を出した直後
@@ -39,11 +61,11 @@ void HackMomoIce_Stats(struct Pokemon* mon)
 {
 	u32 i;
 
-	if (!HackMomoIce_Held(mon))
+	if (!HackMomoIce_Held(mon) && !HackMomoSherbet_Held(mon))
 		return;
 	for (i = MON_DATA_ATK; i <= MON_DATA_SPDEF; ++i)
 	{
-		u32 stat = GetMonData(mon, i, NULL) * 2;
+		u32 stat = MomoMultiply(mon, GetMonData(mon, i, NULL));
 		if (stat > 0xFFFF)
 			stat = 0xFFFF;
 		SetMonData(mon, i, &stat);

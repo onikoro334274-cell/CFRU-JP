@@ -1550,12 +1550,20 @@ PrintElectroShotString:
 
 BattleScript_CheckPowerHerb:
 	waitmessage DELAY_1SECOND
+	jumpifhelditemeffect BANK_ATTACKER ITEM_EFFECT_MAISEN MaisenChargeBS @ [hack] patches/0292 まいせん（ためずに出す・なくならない）
 	jumpifhelditemeffect BANK_ATTACKER ITEM_EFFECT_POWER_HERB PowerHerbChargeBS
 	jumpifraidboss BANK_ATTACKER TwoTurnMovesRaidBossSkipCharge
 	orword HIT_MARKER HITMARKER_CHARGING
 	setmoveeffect MOVE_EFFECT_CHARGING | MOVE_EFFECT_AFFECTS_USER
 	seteffectprimary
 	return
+
+MaisenChargeBS:
+	playanimation BANK_ATTACKER ANIM_ITEM_USE 0x0
+	setword BATTLE_STRING_LOADER gText_Maisen_NoCharge
+	printstring 0x184
+	waitmessage DELAY_1SECOND
+	goto TwoTurnMovesRaidBossSkipCharge
 
 PowerHerbChargeBS:
 	playanimation BANK_ATTACKER ANIM_ITEM_USE 0x0
@@ -5221,6 +5229,7 @@ Geomancy_Charge:
 	ppreduce
 	attackanimation
 	waitanimation
+	jumpifhelditemeffect BANK_ATTACKER ITEM_EFFECT_MAISEN Geomancy_Maisen @ [hack] patches/0292 まいせん
 	jumpifhelditemeffect BANK_ATTACKER ITEM_EFFECT_POWER_HERB Geomancy_PowerHerb
 	jumpifraidboss BANK_ATTACKER Geomancy_RaidBossSkipCharge
 	orword HIT_MARKER HITMARKER_CHARGING
@@ -5268,6 +5277,13 @@ Geomancy_RaiseSpd2:
 	printfromtable gStatUpStringIds
 	waitmessage DELAY_1SECOND
 	goto BS_MOVE_END
+
+Geomancy_Maisen:
+	playanimation BANK_ATTACKER ANIM_ITEM_USE 0x0
+	setword BATTLE_STRING_LOADER gText_Maisen_NoCharge
+	printstring 0x184
+	waitmessage DELAY_1SECOND
+	goto Geomancy_RaidBossSkipCharge
 
 Geomancy_PowerHerb:
 	playanimation BANK_ATTACKER ANIM_ITEM_USE 0x0

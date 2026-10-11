@@ -704,6 +704,64 @@ static u16 TakePendingNotification(void)
 	return POPUP_ID_MANY;
 }
 
+//Tiny 3x5 digits (+1px shadow) for the unlock counts (popup / list title bar): font 0 is the smallest built-in font.
+//Each row is 3 bits, the highest bit is the leftmost pixel.
+#define TINY_GLYPH_H 5
+#define TINY_ADVANCE 4 //3px glyph + 1px gap (the shadow fills the gap)
+#define CHAR_DIGIT_0 0xA1 //charmap.tbl: "0"-"9" are 0xA1-0xAA
+#define CHAR_SLASH_JP 0xBA
+
+static const u8 sTinyGlyphs[11][TINY_GLYPH_H] =
+{
+	{7, 5, 5, 5, 7}, //0
+	{2, 6, 2, 2, 7}, //1
+	{7, 1, 7, 4, 7}, //2
+	{7, 1, 7, 1, 7}, //3
+	{5, 5, 7, 1, 1}, //4
+	{7, 4, 7, 1, 7}, //5
+	{7, 4, 7, 5, 7}, //6
+	{7, 1, 1, 1, 1}, //7
+	{7, 5, 7, 5, 7}, //8
+	{7, 5, 7, 1, 7}, //9
+	{1, 1, 2, 4, 4}, ///
+};
+
+static s8 GetTinyGlyph(u8 c)
+{
+	if (c >= CHAR_DIGIT_0 && c < CHAR_DIGIT_0 + 10)
+		return c - CHAR_DIGIT_0;
+	if (c == CHAR_SLASH_JP)
+		return 10;
+	return -1; //Anything else is drawn as a blank
+}
+
+static void PrintTinyText(u8 windowId, u16 x, u16 y, const u8* str)
+{
+	//Shadows first so the text pixels are always on top
+	for (u8 pass = 0; pass < 2; ++pass)
+	{
+		u8 color = (pass == 0) ? TEXT_COLOR_LIGHT_GREY : TEXT_COLOR_DARK_GREY;
+		u8 offset = (pass == 0) ? 1 : 0;
+
+		for (u8 i = 0; str[i] != EOS; ++i)
+		{
+			s8 glyph = GetTinyGlyph(str[i]);
+
+			if (glyph < 0)
+				continue;
+
+			for (u8 row = 0; row < TINY_GLYPH_H; ++row)
+			{
+				for (u8 col = 0; col < 3; ++col)
+				{
+					if (sTinyGlyphs[glyph][row] & (4 >> col))
+						FillWindowPixelRect(windowId, color, x + i * TINY_ADVANCE + col + offset, y + row + offset, 1, 1);
+				}
+			}
+		}
+	}
+}
+
 #ifndef ACH_UNLOCK_MESSAGEBOX
 //SoulGold-style popup: a small window slides down in the top right corner while the player keeps walking.
 //It is drawn on BG0 (the field text BG) and slid by scrolling BG0, like the map name popup.
@@ -716,6 +774,7 @@ static u16 TakePendingNotification(void)
 #define POPUP_TEXT_X 8
 #define POPUP_NAME_X 22 //Leaves room for the ball icon
 #define POPUP_NAME_Y 15
+#define POPUP_COUNT_Y 7 //Tiny digits "12/54" next to the title (same spacing as the list title bar)
 #define POPUP_ICON_Y (POPUP_TILEMAP_TOP * 8 + POPUP_NAME_Y + 7) //Ball centered on the name (same spacing as the list screen)
 #define POPUP_OFFSCREEN_Y 48
 #define POPUP_SLIDE_FRAMES 18
@@ -872,7 +931,7 @@ static void TryCreatePopup(u16 id, u16 count)
 	}
 
 	//The window is as wide as its text and sticks to the right edge of the screen
-	innerWidth = POPUP_TEXT_X + GetStringWidth(0, gText_Ach_PopupTitle, 0) + 8 + GetStringWidth(0, countText, 0);
+	innerWidth = POPUP_TEXT_X + GetStringWidth(0, gText_Ach_PopupTitle, 0) + 8 + StringLength(countText) * TINY_ADVANCE;
 	lineWidth = nameX + GetStringWidth(1, line2, 0);
 	if (lineWidth > innerWidth)
 		innerWidth = lineWidth;
@@ -908,7 +967,7 @@ static void TryCreatePopup(u16 id, u16 count)
 	FillWindowPixelBuffer(windowId, PIXEL_FILL(1));
 	DrawStdWindowFrame(windowId, FALSE);
 	WindowPrint(windowId, 0, POPUP_TEXT_X, 1, &sPopupTextColor, 0, gText_Ach_PopupTitle);
-	WindowPrint(windowId, 0, width * 8 - 8 - GetStringWidth(0, countText, 0), 1, &sPopupTextColor, 0, countText);
+	PrintTinyText(windowId, width * 8 - 8 - StringLength(countText) * TINY_ADVANCE, POPUP_COUNT_Y, countText);
 	WindowPrint(windowId, 1, nameX, POPUP_NAME_Y, &sPopupTextColor, 0, line2);
 	PutWindowTilemap(windowId);
 	CopyWindowToVram(windowId, COPYWIN_BOTH);
@@ -1389,6 +1448,8 @@ static void CreateBallIcon(u8 taskId, u8 row, u16 id)
 	}
 }
 
+#define TINY_COUNT_Y 8 //Unlock count in the title bar (PrintTinyText)
+#define TINY_COUNT_RIGHT 232
 static void PrintTitle(u8 cursor)
 {
 	FillWindowPixelBuffer(WIN_TITLE, PIXEL_FILL(0));
@@ -1403,7 +1464,7 @@ static void PrintTitle(u8 cursor)
 	u8* str = ConvertIntToDecimalStringN(gStringVar4, Achievements_CountUnlocked(), STR_CONV_MODE_LEFT_ALIGN, 3);
 	str = StringCopy(str, gText_Ach_Slash);
 	ConvertIntToDecimalStringN(str, ACH_COUNT, STR_CONV_MODE_LEFT_ALIGN, 3);
-	WindowPrint(WIN_TITLE, 0, 232 - GetStringWidth(0, gStringVar4, 0), 2, &sTextDark, 0, gStringVar4);
+	PrintTinyText(WIN_TITLE, TINY_COUNT_RIGHT - StringLength(gStringVar4) * TINY_ADVANCE, TINY_COUNT_Y, gStringVar4);
 
 	PutWindowTilemap(WIN_TITLE);
 	CopyWindowToVram(WIN_TITLE, COPYWIN_BOTH);
@@ -1470,9 +1531,10 @@ static void PrintDescription(u8 cursor)
 		u8* str = StringCopy(gStringVar4, text);
 		*str++ = 0x00; //Space
 		*str++ = 0x00; //Space
-		str = ConvertIntToDecimalStringN(str, Achievements_GetProgress(cursor), STR_CONV_MODE_LEFT_ALIGN, 6);
+		//10 digits: the whole u32 range (with fewer digits, e.g. 1000000 showed as "?00000")
+		str = ConvertIntToDecimalStringN(str, Achievements_GetProgress(cursor), STR_CONV_MODE_LEFT_ALIGN, 10);
 		str = StringCopy(str, gText_Ach_Slash);
-		str = ConvertIntToDecimalStringN(str, gAchievements[cursor].target, STR_CONV_MODE_LEFT_ALIGN, 6);
+		str = ConvertIntToDecimalStringN(str, gAchievements[cursor].target, STR_CONV_MODE_LEFT_ALIGN, 10);
 		*str = EOS;
 		text = gStringVar4;
 	}

@@ -38,7 +38,14 @@ EventScript_MomSavingsCall:
 	textcolor TEXT_COLOR_NEUTRAL
 	msgbox gText_MomCall_Ring MSG_KEEPOPEN
 	textcolor TEXT_COLOR_FEMALE
+	compare 0x8004 1                                 @ ★ 2026-10-11 1 = 買ったものは全部パソコンへ（src/hack_mom_savings.c の FieldTick が置く）
+	if 0x1 _goto EventScript_MomSavingsCallPc
 	msgbox gText_MomCall_Talk MSG_KEEPOPEN
+	closemessage
+	releaseall
+	end
+EventScript_MomSavingsCallPc:
+	msgbox gText_MomCall_TalkPc MSG_KEEPOPEN
 	closemessage
 	releaseall
 	end

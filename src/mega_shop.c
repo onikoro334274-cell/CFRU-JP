@@ -12,6 +12,8 @@
 #include "../include/new/ram_locs.h"
 #include "../include/event_data.h"
 #include "../include/new/Vanilla_functions.h"
+#include "hack_difficulty.h"               //[hack] patches/0321 なんいど りるアイス: 買い値は半額（HackDifficulty_BuyPrice）
+#include "Tables/hoenn_script_flags.h"      //HOENN_VAR_DIFFICULTY
 #include "Tables/mega_shop_items.h"
 
 /*
@@ -111,7 +113,7 @@ u32 MegaShop_Price(u16 item)
 		for (i = 0; i < MEGA_SHOP_COUNT; ++i)
 		{
 			if (gMegaShopItems[i] == item)
-				return HackDifficulty_BuyPrice(sMegaShopPrices[i], VarGet(HOENN_VAR_DIFFICULTY));
+				return HackDifficulty_BuyPrice(sMegaShopPrices[i], VarGet(HOENN_VAR_DIFFICULTY));   //りるアイスは半額（patches/0321）
 		}
 	}
 	else if (gShopData.itemList == gZCrystalShopItems)
@@ -336,6 +338,18 @@ extern const struct Item gItemData[];
 #define SILPH_MASTER_BALL_PRICE 65535
 extern const u16 KantoSilph_MasterBallItems[];
 
+static u16 ItemIdGetBasePrice(u16 item);
+
+//★ 2026-10-11 なんいど りるアイス（patches/0321）: 買う画面（CB2_BuyMenu）のときだけ半額（src/hack_difficulty.c の HackDifficulty_BuyPrice）。売値（バッグ）はそのまま
+u16 MegaShop_ItemIdGetPrice(u16 item)
+{
+	u32 price = ItemIdGetBasePrice(item);
+
+	if (gMain.callback2 == CB2_BuyMenu || gMain.callback2 == CB2_InitBuyMenu)
+		price = HackDifficulty_BuyPrice(price, VarGet(HOENN_VAR_DIFFICULTY));
+	return price;
+}
+
 static u16 ItemIdGetBasePrice(u16 item)
 {
 	u32 i;
@@ -354,10 +368,3 @@ static u16 ItemIdGetBasePrice(u16 item)
 	return MEGA_SELL_TABLE_PRICE;
 }
 
-u16 MegaShop_ItemIdGetPrice(u16 item)
-{
-	u16 price = ItemIdGetBasePrice(item);
-	if (gMain.callback2 == CB2_BuyMenu || gMain.callback2 == CB2_InitBuyMenu)
-		return HackDifficulty_BuyPrice(price, VarGet(HOENN_VAR_DIFFICULTY));
-	return price;
-}

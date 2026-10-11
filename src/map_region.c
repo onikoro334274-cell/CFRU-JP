@@ -22,7 +22,7 @@ u8 GetMapGroupRegion(u8 group)
         return MAP_REGION_HOENN;
     if (InGroupRange(group, JOHTO_MAP_GROUP_FIRST, JOHTO_MAP_GROUP_COUNT))
         return MAP_REGION_JOHTO;
-    if (InGroupRange(group, SINNOH_MAP_GROUP_FIRST, SINNOH_MAP_GROUP_COUNT))
+    if (InGroupRange(group, SINNOH_MAP_GROUP_FIRST, SINNOH_MAP_GROUP_COUNT) || group == SINNOH_MAP_GROUP_SECOND)
         return MAP_REGION_SINNOH;
     return MAP_REGION_KANTO;
 }

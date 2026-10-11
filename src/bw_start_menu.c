@@ -124,6 +124,10 @@ extern const u8 BwSmDexnavTiles[];
 extern const u16 BwSmDexnavPal[];
 extern const u8 BwSmAchievementsTiles[];
 extern const u16 BwSmAchievementsPal[];
+extern const u8 BwSmPhoneTiles[];
+extern const u16 BwSmPhonePal[];
+extern const u8 gText_BwSm_Phone[];
+extern void CB2_HackPhoneBook(void);    /* src/hack_phone.c（2026-10-11 でんわ） */
 
 /* ---- 文字列（strings/bw_start_menu.string）---- */
 extern const u8 gText_BwSm_Pokedex[];
@@ -177,6 +181,7 @@ enum
     GFXTAG_RETIRE,
     GFXTAG_DEXNAV,
     GFXTAG_ACHIEVEMENTS,
+    GFXTAG_PHONE,             /* 2026-10-11 でんわ（src/hack_phone.c） */
 };
 
 enum
@@ -189,6 +194,7 @@ enum
     BWSM_OPTION,
     BWSM_DEXNAV,
     BWSM_ACHIEVEMENTS,      /* 2026-10-10 じっせき（src/achievements.c） */
+    BWSM_PHONE,             /* 2026-10-11 でんわ（pm-start/poke-call・src/hack_phone.c） */
     BWSM_RETIRE,
     BWSM_MAX_ITEMS,
 };
@@ -302,6 +308,7 @@ static const struct SpriteTemplate sIconTemplates[BWSM_MAX_ITEMS] =
     [BWSM_OPTION] = ICON(GFXTAG_OPTIONS),
     [BWSM_DEXNAV] = ICON(GFXTAG_DEXNAV),
     [BWSM_ACHIEVEMENTS] = ICON(GFXTAG_ACHIEVEMENTS),
+    [BWSM_PHONE] = ICON(GFXTAG_PHONE),
     [BWSM_RETIRE] = {GFXTAG_RETIRE, GFXTAG_RETIRE, &sExitOam, sAnimTableExit, NULL, gDummySpriteAffineAnimTable, PanelCallback},
 };
 
@@ -309,6 +316,7 @@ static void BwSm_PlayerCard(void);
 static void BwSm_Options(void);
 static void BwSm_DexNav(void);
 static void BwSm_Achievements(void);
+static void BwSm_Phone(void);
 
 static const struct BwSmOption sOptions[BWSM_MAX_ITEMS] =
 {
@@ -328,6 +336,8 @@ static const struct BwSmOption sOptions[BWSM_MAX_ITEMS] =
                      {BwSmDexnavTiles, 32 * 32, GFXTAG_DEXNAV}, {BwSmDexnavPal, GFXTAG_DEXNAV}},
     [BWSM_ACHIEVEMENTS] = {gText_BwSm_Achievements, 0, NULL, BwSm_Achievements,
                            {BwSmAchievementsTiles, 32 * 32, GFXTAG_ACHIEVEMENTS}, {BwSmAchievementsPal, GFXTAG_ACHIEVEMENTS}},
+    [BWSM_PHONE] = {gText_BwSm_Phone, 0, NULL, BwSm_Phone,
+                    {BwSmPhoneTiles, 32 * 32, GFXTAG_PHONE}, {BwSmPhonePal, GFXTAG_PHONE}},
     [BWSM_RETIRE] = {gText_BwSm_Retire, FLAG_SYS_SAFARI_MODE, BwSmScript_Retire, NULL,
                      {BwSmExitTiles, 16 * 16, GFXTAG_RETIRE}, {BwSmExitPal, GFXTAG_RETIRE}},
 };
@@ -878,6 +888,12 @@ static void BwSm_DexNav(void)
 {
     /* CFRU の素のメニュー用の入口をそのまま使う（フェードは済んでいるので 1 回で通る） */
     StartMenuDexNavCallback();
+}
+
+static void BwSm_Phone(void)
+{
+    /* 電話帳（src/hack_phone.c・pm-start/poke-call）。B でこのメニューへ戻る・かけるとフィールドで台本 */
+    SetMainCallback2(CB2_HackPhoneBook);
 }
 
 static void BwSm_Achievements(void)

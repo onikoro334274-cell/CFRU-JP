@@ -1,4 +1,4 @@
-/* 斜めの階段: 素の動きの表（日本語版 0x0836A644・0xAA 個）の中身。scripts/generate_sideways_stairs.py が生成・手で編集しないこと */
+/* 斜めの階段: 素の動きの表（日本語版 0x0836A644・0xAA 個）の中身。tools/rom/build_sideways_stairs.py が生成・手で編集しないこと */
 #pragma once
 
 #define SIDEWAYS_VANILLA_MOVEMENT_ACTIONS 0xAA

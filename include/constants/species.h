@@ -1493,4 +1493,7 @@
 /* RINDORIS BEGIN (tools/custom_mon/rindoris/build_rindoris.py・詩音) */
 #define SPECIES_RINDORIS 0x5D2
 /* RINDORIS END */
-#define NUM_SPECIES (SPECIES_RINDORIS + 1)
+/* GIGAMINE BEGIN (tools/custom_mon/gigamine/build_gigamine.py・やん之助) */
+#define SPECIES_GIGAMINE 0x5D3
+/* GIGAMINE END */
+#define NUM_SPECIES (SPECIES_GIGAMINE + 1)

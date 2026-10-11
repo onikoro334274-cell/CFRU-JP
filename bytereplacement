@@ -345,9 +345,8 @@
 0803DF5E 20 25 6D 01
 0803DFCA 20 25 6D 01
 08040F50 20 20 40 01
-## Native item-effect level increment must support experience-candy steps through Lv200.
-## Ordinary Rare Candy retains its Lv100 entry limit in ItemUseCB_RareCandy.
-## BPRJ 08040F24: cmp r0,#100 -> cmp r0,#200 (config.h MAX_LEVEL).
+## [hack] 2026-10-11 patches/0304（liru さんの pokemonstart 枝）: 道具の効果の「レベルを 1 上げる」の上限 cmp r0,#100 → #200（けいけんアメで Lv100 を越えて進めるため・config.h MAX_LEVEL）。
+##   ふしぎなアメの入口の Lv100 の判定（ItemUseCB_RareCandy）はそのまま
 08040F24 C8 28
 08042D94 0B
 08042D9C 09
@@ -460,7 +459,7 @@
 0808F964 TOTAL_BOXES_COUNT
 0809079E TOTAL_BOXES_COUNT
 0809084E TOTAL_BOXES_COUNT
-08091E62 TOTAL_BOXES_COUNT
+#08091E62 TOTAL_BOXES_COUNT
 08092792 TOTAL_BOXES_COUNT
 080928CA TOTAL_BOXES_COUNT
 0809293E TOTAL_BOXES_COUNT
@@ -2217,6 +2216,11 @@
 ##   ニビのランニングシューズの助手を出さない（ブロック撃破: 場面 1 -> 2 / clearflag -> setflag）
 0817F885 02
 0817F88C 29
+##   オーキドのモンスターボール 5 -> 30 個（additem と setorcopyvar 0x8001 の数の下位バイト・2 か所・2026-10-11）
+0817CD9E 1E
+0817CDAE 1E
+0817D06B 1E
+0817D07B 1E
 ## KANTOHOME END
 
 ## HOENNBIKE (src/hoenn_bike.c, 2026-09-24)
@@ -2414,12 +2418,13 @@
 ## [hack] 2026-10-10 patches/0288 HQ ミキサー（pm-start/b2w2-reloaded・ipatix HQ Sound Mixer V2.1・本体は assembly/hack_hqmixer/hq_mixer.s）
 ##   ユーザー「b2w2-reloaded 取り込んで」→「エンジン＋カントーの曲を B2W2 に」。パッチの番地はこちらの RAM とぶつかるので置き場を変えた:
 ##   ミキサー IWRAM 0x03005FA0（もとの gSoundInfo の所・パッチと同じ）・gSoundInfo（0xFB0）はヒープの後ろ 0x0201B000（ヒープは 0x1C000 → 0x1B000）
+##   ★ 2026-10-11 patches/0301（16 音）で gSoundInfo は 0x10B0 バイト・置き場 0x0201AE00〜0x0201BEB0・ヒープ 0x1AE00（movs r1, #0xD7）に変えた（下の値が正）
 ##   BGM の再生器（gMPlayTable[0]）のトラックは EWRAM 0x0203E300〜0x0203E800 に 16 本（0x50 × 16）。CFRU の変数（gTempTeamBackup 6 匹＝〜0x0203E274）と
 ##   素の 0x0203F0E8 の間の空き。★ IWRAM 0x03002918（もとの SoundMainRAM の入れ物）はミキサーが混ぜる作業場として決め打ちで使う（hq_mixer.s の .L_018c）ので置かない
 ##   同時 12 音（081C1084 00 CC）は上の「Extend Direct Sound Tracks」がもう入れている
 ## gSoundInfo の番地（IntrMain の近く・m4aSoundInit）
-080007B4 00 B0 01 02
-081C107C 00 B0 01 02
+080007B4 00 AE 01 02
+081C107C 00 AE 01 02
 ## SoundMain が呼ぶ SoundMainRAM（Thumb）→ 写したミキサー
 081C0050 A1 5F 00 03
 ## m4aSoundInit の CpuSet: 写し先と大きさ（0x2C9 語・32 ビット）。写し元は repoints の hq_mixer_start 081C1070
@@ -2428,5 +2433,39 @@
 ## gMPlayTable[0]（BGM）: トラックの入れ物と本数
 08467EE0 00 E3 03 02 10
 ## ヒープ 0x1C000 → 0x1B000（movs r1, #0xD8 / lsls r1, #9）: AgbMain と ふりだしに戻るとき（src/hack_save_slot.c の HEAP_SIZE も同じ）
-080003F0 D8 21
-08078A1E D8 21
+##   → 2026-10-11 patches/0301 で 0x1AE00（movs r1, #0xD7）。7 か所とも
+080003F0 D7 21
+08078A1E D7 21
+## [hack] 2026-10-11 patches/0300: InitHeap を呼ぶ所はほかに 5 つあり、0x1C000 のままだった（ユーザー「図鑑に載ってないポケモンを捕まえると図鑑表示から
+##   ボックス送りまでにフリーズ」）。つづきから（load_save.c の MoveSaveBlocks_ResetHeap）でヒープが 0x1C000 に戻り、後ろ 4KB の gSoundInfo を
+##   大きな Alloc（図鑑の画面）が上書き → 音の鎖が輪になり MPlayMain が抜けない → VBlank の処理が終わらず固まる。全部 0x1B000 に
+##   （tools/rom/verify_heap_size.py が InitHeap の前の movs r1, #0xE0 / lsls r1, #9 を数える）
+0800A700 D7 21
+0804B8D4 D7 21
+080780EA D7 21
+08079340 D7 21
+080ED7AC D7 21
+## [hack] 2026-10-11 patches/0301 DirectSound 12 音 → 16 音（ユーザー「16 音に拡張」。元パッチ b2w2-reloaded は 16 トラック・12 音＝SOURCE.md 59 行）
+##   SoundInfo のチャンネルが 16 × 0x40 になり pcmBuffer が +0x350 → +0x450（大きさ 0xFB0 → 0x10B0）。ミキサー（hq_mixer.s の addeq r7, r0, #0x450）も同じ
+##   gSoundInfo は 0x0201AE00〜0x0201BEB0（gDecompressionBuffer 0x0201C000 の手前）・ヒープは 0x1AE00（上の 7 か所の movs r1, #0xD7・hack_save_slot.c・verify_heap_size.py）
+##   チャンネル数は ply_note などが gSoundInfo+6（maxChans）を実行時に読むので、決め打ちは下の Thumb だけ（tools/bgm/verify_b2w2_kanto.py が素のバイトと今の ROM を見る）
+## SoundMain の pcmBuffer の語（ldr r5, =0x350 → 0x450）
+081C0058 50 04 00 00
+## SoundInit: DMA1SAD = gSoundInfo + 0x450（movs r2, #0x8A / lsls r2, #3）・DMA2SAD = gSoundInfo + 0xA80（movs r2, #0xA8 / lsls #4 のまま）
+081C14B2 8A 22 D2 00
+081C14C2 A8 22
+## m4aSoundMode: maxChans はモードの 4 ビットでは 16 を渡せないので「lsrs r0, r4, #8」→「movs r0, #0x10」（081C1084 の 00 CC はそのまま）・消す輪 12 → 16・pcmBuffer の CpuSet（movs r0, #0x8A / lsls r0, #3）
+081C1624 10 20
+081C1628 10 24
+081C172E 8A 20 C0 00
+## SoundClear: 消す輪 12 → 16
+081C16A2 10 25
+## [hack] 2026-10-11 ユーザー「0x10B1C6 [06] → [07] 0x10B48C [06] → [07] で治りませんかね 売るときの金額が7桁になると？になる」:
+##   売る画面の合計の数字（ConvertIntToDecimalStringN の桁 movs r3, #6・左寄せ）を 7 けたに。道具の値段は u16 なので 32767 × 99 = 3,243,933 円＝7 けたで足りる
+0810B1C6 07
+0810B48C 07
+
+## [hack] 2026-10-11 patches/0308 ユーザー「プクリンの画像でてきてない」（初めて捕まえたときの図鑑の演出）: 素の CreateTrainerCardSprite（0810CB98）が
+##   最初に Malloc(4 * 0x800 = 0x2000) を借り、借りられないと絵も色も読まない。戦いのあとはヒープのいちばん大きな空きが 0x2000 より小さいことがある
+##   （ユーザーのセーブで 7,044 バイト・ヒープは 0288／0300／0301 で 0x1AE00 に縮んだ）。lsls r0, r0, #6 → #5 で 0x1000（64x64 は 0x800・縮めない全身 64x96 も 0xC00）
+0810CBD8 40 01

@@ -97,6 +97,9 @@ Moemon
 #org @gText_BwOpt_MomoIce
 ももアイス
 
+#org @gText_BwOpt_RiruIce
+りるアイス
+
 #org @gText_BwOpt_DescTextSpeed
 メッセージの はやさを\n3だんかいから えらびます
 
@@ -113,7 +116,7 @@ Moemon
 フィールドの うごきの はやさを\n1ばいから 4ばいまで えらびます
 
 #org @gText_BwOpt_DescDifficulty
-ポケモンの つよさを えらびます\nももアイスは さいこうの AIランク
+ポケモンの つよさを えらびます\nりるアイスが いちばん やさしい
 
 #org @gText_BwOpt_DescBattleSpeed
 せんとうの はやさを\n1ばいから 4ばいまで えらびます
@@ -132,3 +135,12 @@ Moemonの べつの みための えを\nだすか きめます
 
 #org @gText_BwOpt_DescCancel
 へんこうを とりけしています
+
+#org @gText_BwOpt_WonderType
+こうかんタイプ
+
+#org @gText_BwOpt_WonderTypeAll
+ぜんぶ
+
+#org @gText_BwOpt_DescWonderType
+ミラクルこうかんで くる ポケモンの\n1つめの タイプを えらびます

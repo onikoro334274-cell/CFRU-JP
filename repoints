@@ -539,6 +539,9 @@ KantoOakLab_EventScript_DexExtras 0817CD84
 KantoHome1F_EventScript_MomTalk 0837D730
 ##   自宅 2F のファミコン（看板 0837D780 の +0x08）-> ミュージックプレイヤーを受け取る（#28）
 KantoHome2F_EventScript_NES 0837D788
+##   オーキドのモンスターボール「5こ もらった！」の文（loadpointer の語・2 か所）-> 30 個の文（strings/kanto_oak.string）
+gText_KantoOak_GotBalls30 0817CDA2
+gText_KantoOak_GotBalls30 0817D06F
 ## KANTOHOME END
 
 ## HOENNBIKE (src/hoenn_bike.c, 2026-09-24)
@@ -746,9 +749,10 @@ gHackTitleRocksGfx 08386920
 gHackTitleRocksPal 08386940
 ##   tag 2 (the "blank sprite" in the English ROM) is the JP-only red "aka" badge with a flame -> transparent
 gHackTitleBlankGfx 08386930
-##   Garchomp opens and closes its mouth (2026-10-09, src/hack_title_mouth.c): CB2_InitTitleScreen's SetMainCallback2(CB2_TitleScreenRun)
+##   Garchomp roars (2026-10-11, src/hack_title_roar.c; was the mouth open/close of 2026-10-09): CB2_InitTitleScreen's SetMainCallback2(CB2_TitleScreenRun)
 ##   literal 080782AC (vanilla 08078335 = CB2_TitleScreenRun 08078334 + Thumb; the only word in the ROM that points at it). 3rd column 1 = Thumb bit
-HackTitleMouth_CB2Run 080782AC 1
+##   2026-10-11: mouth cells -> 14-frame roar (src/hack_title_roar.c, two tile banks 0 / 576 in BG1, map swapped in VBlank)
+HackTitleRoar_CB2Run 080782AC 1
 
 ##   自宅 1 階の人物の表（地図のイベント 0837D764 の +4 = 0837D768・素の値 0837D720）-> お母さんの横にピカチュウを足した表（2026-10-06・assembly/kanto/kanto_home_pikachu.s）
 KantoHome1F_Objects 0837D768
@@ -794,3 +798,8 @@ gBwrTextboxPal 0804FE94
 
 ##[hack] 2026-10-10 patches/0288 HQ ミキサー: m4aSoundInit の CpuSet の写し元（assembly/hack_hqmixer/hq_mixer.s）
 hq_mixer_start 081C1070
+gBwrCollection_MartTiles 0809AACC
+gBwrCollection_MartMap 0809AAD4
+gBwrCollection_MartTmhmMap 0809AB1C
+gBwrCollection_MartPalette 0809AB24
+gBwrCollection_ItemPcMap 0810E2C0

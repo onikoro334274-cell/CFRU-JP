@@ -89,6 +89,8 @@
 #define PYRAMID_LIGHT_SET_RADIUS 0
 #define PYRAMID_LIGHT_INCR_RADIUS 1
 
+#define PYRAMID_WILD_MONS_PER_ROUND 8   //1 周の野生の表の数（hoenn_pyramid_data.h・tools/frontier/verify_frontier_pyramid.py が数える）
+
 struct PyramidWildMon
 {
 	u16 species;
@@ -754,6 +756,7 @@ void HoennPyramid_MarkTrainerBattled(void)
 
 /* ---- 野生（エメラルドの GenerateBattlePyramidWildMon） ----------------------------------------------------- */
 //草むらの表の代わり: 12 匹の枠は 1〜12 番の種類（出たあと GenerateWildMon が「種類 - 1」番目の子に入れ替える）
+//★ 2026-10-11 1 周の表は 8 匹なので、9〜12 番（枠の 1 割）は 8 匹の中に折りたたむ（前は表の外を読んで Lv200 になった）
 static const struct WildPokemon sPyramidWildPlaceholders[12] =
 {
 	{50, 50, 1}, {50, 50, 2}, {50, 50, 3}, {50, 50, 4}, {50, 50, 5}, {50, 50, 6},
@@ -774,36 +777,43 @@ void HoennPyramid_GenerateWildMon(void)
 	int i;
 	const struct PyramidWildMon *wildMons;
 	u32 id;
-	u32 lvl = LvlMode();
+	s32 lvl;                       //★ 2026-10-11 符号つき（下の引き算が負になると u32 で回り込み、MAX_LEVEL で抑えて Lv200 になった）
+	u32 mode = LvlMode();
 	u16 round = Round();
 	u8 altAbility;
 
-	if (lvl != FRONTIER_LVL_50)
+	if (mode != FRONTIER_LVL_50)
 		wildMons = sOpenLevelWildMonPointers[round];
 	else
 		wildMons = sLevel50WildMonPointers[round];
 
+	/* ★ 2026-10-11 ユーザー「レベル 50 で野生がまれに Lv200」: 1 周の表は 8 匹（エメラルドの床の仮の種族も 1〜8＝フシギダネ〜カメール）なのに
+	 * 12 まで許していて、表の後ろ（次の周・レベル 50 の 20 周目のあとはオープンの「差」の表）を読んでいた。
+	 * ホウエンの野生の生成器・入れ替えた野生で床の種族が 1〜8 でなくなることもあるので、8 匹の中に折りたたむ */
 	id = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL) - 1;
-	if (id >= 12)
-		id = 0;
+	if (id >= PYRAMID_WILD_MONS_PER_ROUND)
+		id %= PYRAMID_WILD_MONS_PER_ROUND;
 	SetMonData(&gEnemyParty[0], MON_DATA_SPECIES, &wildMons[id].species);
 	GetSpeciesName(name, wildMons[id].species);
 	SetMonData(&gEnemyParty[0], MON_DATA_NICKNAME, &name);
-	if (lvl != FRONTIER_LVL_50)
+	if (mode != FRONTIER_LVL_50)
 	{
 		//エメラルドの SetFacilityPtrsGetLevel（オープンは手持ちのいちばん高いレベル・下は 60）
 		u32 best = 60;
 		for (i = 0; i < 3; ++i)
 			if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
 				best = MathMax(best, GetMonData(&gPlayerParty[i], MON_DATA_LEVEL, NULL));
-		lvl = best - wildMons[id].lvl;
-		lvl = lvl - 5 + (Random() % 11);
+		lvl = (s32) best - wildMons[id].lvl;
+		lvl = lvl - 5 + (s32) (Random() % 11);
 	}
 	else
 	{
-		lvl = wildMons[id].lvl - 5 + ((Random() % 11));
+		lvl = wildMons[id].lvl - 5 + (s32) (Random() % 11);
 	}
-	lvl = MathMin(MathMax(lvl, 1), MAX_LEVEL);
+	if (lvl < 1)
+		lvl = 1;
+	if (lvl > MAX_LEVEL)
+		lvl = MAX_LEVEL;
 	SetMonData(&gEnemyParty[0], MON_DATA_EXP, &gExperienceTables[gBaseStats[wildMons[id].species].growthRate][lvl]);
 
 	switch (wildMons[id].abilityNum) {

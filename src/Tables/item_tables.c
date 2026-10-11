@@ -568,6 +568,8 @@ const struct FlingStruct gFlingTable[ITEMS_COUNT] =
 	[ITEM_EXP_CANDY_M] = {30, 0},
 	[ITEM_EXP_CANDY_L] = {30, 0},
 	[ITEM_EXP_CANDY_XL] = {30, 0},
+	[ITEM_EXP_CANDY_XXL] = {30, 0},   //[hack] patches/0323
+	[ITEM_ALOLA_STONE] = {30, 0},   //[hack] patches/0327 アローラのいし
 };
 
 const u16 gBannedBattleEatBerries[] =
@@ -631,6 +633,7 @@ const u8 gConsumableItemEffects[] =
 	ITEM_EFFECT_THROAT_SPRAY,
 	ITEM_EFFECT_BOOSTER_ENERGY,
 	ITEM_EFFECT_MIRROR_HERB,
+	ITEM_EFFECT_SECOND_ARROW, //[hack] patches/0291 2026-10-10 にのや は使ったら戦いのあとも戻らない（ユーザー「1 回で消える」）
 	ITEM_EFFECT_DANGER_LEAF, //[hack] patches/0237 2026-10-09 あぶないはっぱは使ったら戦いのあとも戻らない（ユーザー「バトル後消費されるように例外にしてほしい」）
 	0xFF,
 };
@@ -1181,6 +1184,8 @@ const u16 gItemsByType[ITEMS_COUNT] =
 	[ITEM_EXP_CANDY_M] = ITEM_TYPE_LEVEL_MODIFIER,
 	[ITEM_EXP_CANDY_L] = ITEM_TYPE_LEVEL_MODIFIER,
 	[ITEM_EXP_CANDY_XL] = ITEM_TYPE_LEVEL_MODIFIER,
+	[ITEM_EXP_CANDY_XXL] = ITEM_TYPE_LEVEL_MODIFIER,   //[hack] patches/0323
+	[ITEM_ALOLA_STONE] = ITEM_TYPE_EVOLUTION_STONE,   //[hack] patches/0327 アローラのいし
 };
 
 
@@ -2044,6 +2049,16 @@ const struct ItemIconTemplate gItemGraphicsTable[] =
 	{gItemIcon_Gene_BondTiles, gItemIcon_Gene_BondPal},	// ITEM_GENE_BOND（2026-10-10 Claude が仕様書の絵にならって描いた・tools/items/kizuna/build_kizuna_icon.py）
 	{gItemIcon_MildTiles, gItemIcon_MildPal},	// ITEM_MILD（2026-10-10 Claude が描いた青い箱・tools/items/mild/build_mild_icon.py）
 	{gItemIcon_Gold_CapsuleTiles, gItemIcon_Gold_CapsulePal},	// ITEM_GOLD_CAPSULE（ユーザーの絵を 24 に収めた・tools/items/gold_capsule/build_gold_capsule_icon.py）
+	{gItemIcon_Second_ArrowTiles, gItemIcon_Second_ArrowPal},	// ITEM_SECOND_ARROW（ユーザーの絵にならって描いた・tools/items/second_arrow/build_second_arrow_icon.py）
+	{gItemIcon_PinwheelTiles, gItemIcon_PinwheelPal},	// ITEM_PINWHEEL（Claude が描いた・tools/items/hack_items_1010/build_icons.py）
+	{gItemIcon_Room_InteriorTiles, gItemIcon_Room_InteriorPal},	// ITEM_ROOM_INTERIOR（Claude が描いた・tools/items/hack_items_1010/build_icons.py）
+	{gItemIcon_ChoiceBandTiles, gItemIcon_ChoiceBandPal},	// ITEM_HUSTLE_BAND（ChoiceBand の絵を借りる）
+	{gItemIcon_Choice_SpecsTiles, gItemIcon_Choice_SpecsPal},	// ITEM_HUSTLE_SPECS（Choice_Specs の絵を借りる）
+	{gItemIcon_FocusBandTiles, gItemIcon_FocusBandPal},	// ITEM_STUBBORN_BANDANA（FocusBand の絵を借りる）
+	{gItemIcon_MaisenTiles, gItemIcon_MaisenPal},	// ITEM_MAISEN（Claude が描いた・tools/items/hack_items_1010/build_icons.py）
+	{gItemIcon_Momo_IceTiles, gItemIcon_Momo_IcePal},	// ITEM_MOMO_SHERBET（ももアイスの絵を借りる・2026-10-11）
+	{gItemIcon_ExpCandyXXLTiles, gItemIcon_ExpCandyXXLPal},	// ITEM_EXP_CANDY_XXL（graphics/item/gItemIcon_ExpCandyXXL.png＝XL の写し・patches/0323）
+	{gItemIcon_Alola_StoneTiles, gItemIcon_Alola_StonePal},	// ITEM_ALOLA_STONE（2026-10-11 Claude が描いた夕日色の石・tools/items/alola_stone/build_alola_stone_icon.py・patches/0327）
 };
 
 const struct Item gItemData[] =
@@ -15628,6 +15643,177 @@ const struct Item gItemData[] =
 		.pocket = POCKET_ITEMS,
 		.type = ITEM_USE_BAG_MENU,
 		.fieldUseFunc = gFieldFunc_Item_None,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// にのや（自作・ITEM_SECOND_ARROW 0x34F・2026-10-10・もたせる道具・技が失敗したら こうげき・とくこう・すばやさ +1・1 回で なくなる）
+	{
+		.name = {0x16, 0x19, 0x24, 0xFF}, // にのや
+		.itemId = ITEM_SECOND_ARROW,
+		.price = 4000,
+		.holdEffect = ITEM_EFFECT_SECOND_ARROW,
+		.holdEffectParam = 0,
+		.description = DESC_SECOND_ARROW,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_BAG_MENU,
+		.fieldUseFunc = gFieldFunc_Item_None,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// かざぐるま（自作・ITEM_PINWHEEL 0x350・2026-10-10・もたせる道具・patches/0292）
+	{
+		.name = {0x06, 0x3C, 0x39, 0x29, 0x1F, 0xFF}, // かざぐるま
+		.itemId = ITEM_PINWHEEL,
+		.price = 4000,
+		.holdEffect = ITEM_EFFECT_PINWHEEL,
+		.holdEffectParam = 0,
+		.description = DESC_PINWHEEL,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_BAG_MENU,
+		.fieldUseFunc = gFieldFunc_Item_None,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// ばんのうインテリア（自作・ITEM_ROOM_INTERIOR 0x351・2026-10-10・もたせる道具・patches/0292）
+	{
+		.name = {0x46, 0x2E, 0x19, 0x03, 0x52, 0x7E, 0x63, 0x78, 0x51, 0xFF}, // ばんのうインテリア
+		.itemId = ITEM_ROOM_INTERIOR,
+		.price = 4000,
+		.holdEffect = ITEM_EFFECT_ROOM_INTERIOR,
+		.holdEffectParam = 0,
+		.description = DESC_ROOM_INTERIOR,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_BAG_MENU,
+		.fieldUseFunc = gFieldFunc_Item_None,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// はりきりハチマキ（自作・ITEM_HUSTLE_BAND 0x352・2026-10-10・もたせる道具・patches/0292）
+	{
+		.name = {0x1A, 0x28, 0x07, 0x28, 0x6A, 0x61, 0x6F, 0x57, 0xFF}, // はりきりハチマキ
+		.itemId = ITEM_HUSTLE_BAND,
+		.price = 4000,
+		.holdEffect = ITEM_EFFECT_HUSTLE_BAND,
+		.holdEffectParam = 0,
+		.description = DESC_HUSTLE_BAND,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_BAG_MENU,
+		.fieldUseFunc = gFieldFunc_Item_None,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// はりきりメガネ（自作・ITEM_HUSTLE_SPECS 0x353・2026-10-10・もたせる道具・patches/0292）
+	{
+		.name = {0x1A, 0x28, 0x07, 0x28, 0x72, 0x87, 0x68, 0xFF}, // はりきりメガネ
+		.itemId = ITEM_HUSTLE_SPECS,
+		.price = 4000,
+		.holdEffect = ITEM_EFFECT_HUSTLE_SPECS,
+		.holdEffectParam = 0,
+		.description = DESC_HUSTLE_SPECS,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_BAG_MENU,
+		.fieldUseFunc = gFieldFunc_Item_None,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// かたくなバンダナ（自作・ITEM_STUBBORN_BANDANA 0x354・2026-10-10・もたせる道具・patches/0292）
+	{
+		.name = {0x06, 0x10, 0x08, 0x15, 0x96, 0x7E, 0x91, 0x65, 0xFF}, // かたくなバンダナ
+		.itemId = ITEM_STUBBORN_BANDANA,
+		.price = 4000,
+		.holdEffect = ITEM_EFFECT_STUBBORN_BANDANA,
+		.holdEffectParam = 0,
+		.description = DESC_STUBBORN_BANDANA,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_BAG_MENU,
+		.fieldUseFunc = gFieldFunc_Item_None,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// まいせん（自作・ITEM_MAISEN 0x355・2026-10-10・もたせる道具・patches/0292）
+	{
+		.name = {0x1F, 0x02, 0x0E, 0x2E, 0xFF}, // まいせん
+		.itemId = ITEM_MAISEN,
+		.price = 5000,
+		.holdEffect = ITEM_EFFECT_MAISEN,
+		.holdEffectParam = 0,
+		.description = DESC_MAISEN,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_BAG_MENU,
+		.fieldUseFunc = gFieldFunc_Item_None,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// ももシャーベット（自作・ITEM_MOMO_SHERBET 0x356・2026-10-11・もたせる道具・ももアイスの下位版・なんいど ももアイス で相手のトレーナーのポケモンが持つ・
+	//  値段 0・店にも贈り物にも出さない＝入手不可・src/hack_momo_ice.c／hack_difficulty.c）
+	{
+		.name = {0x23, 0x23, 0x5C, 0x84, 0xAE, 0x99, 0xA0, 0x64, 0xFF}, // ももシャーベット
+		.itemId = ITEM_MOMO_SHERBET,
+		.price = 0,
+		.holdEffect = ITEM_EFFECT_MOMO_SHERBET,
+		.holdEffectParam = 0,
+		.description = DESC_MOMO_SHERBET,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_BAG_MENU,
+		.fieldUseFunc = gFieldFunc_Item_None,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// けいけんアメXXL（自作・経験値 100000・XL の 3 倍の値段・src/exp_candy.c・patches/0323・2026-10-11 ユーザー「経験あめXXL XLより経験値両多め」）
+	{
+		.name = {0x09, 0x02, 0x09, 0x2E, 0x51, 0x72, 0xD2, 0xD2, 0xC6, 0xFF}, // けいけんアメXXL
+		.itemId = ITEM_EXP_CANDY_XXL,
+		.price = 30000,
+		.holdEffect = 0,
+		.holdEffectParam = 0,
+		.description = DESC_EXP_CANDY_XXL,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_PARTY_MENU,
+		.fieldUseFunc = FieldUseFunc_ExpCandy,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// アローラのいし（自作・ITEM_ALOLA_STONE 0x358・2026-10-11・進化前に使うと アローラの姿へ＝ヒスイのいし（0x306）と同じ作り・patches/0327・値段 10000）
+	{
+		.name = {0x51, 0x7B, 0xAE, 0x77, 0x19, 0x02, 0x0C, 0xFF}, // アローラのいし
+		.itemId = ITEM_ALOLA_STONE,
+		.price = 10000,
+		.holdEffect = 0,
+		.holdEffectParam = 0,
+		.description = DESC_ALOLA_STONE,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_PARTY_MENU,
+		.fieldUseFunc = gFieldFunc_Evo_Item,
 		.battleUsage = 0,
 		.battleUseFunc = NULL,
 		.secondaryId = 0

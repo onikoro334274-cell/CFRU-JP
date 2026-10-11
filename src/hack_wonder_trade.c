@@ -8,6 +8,8 @@
 #include "../include/new/catching.h"
 #include "../include/text.h"
 #include "../include/constants/pokedex.h"
+#include "hack_mon_id.h"   //2026-10-11 ホウエンの色違い
+#define WONDER_TRADE_TYPE_COUNT 18   //★ 2026-10-11 src/bw_option_menu.c と同じ数
 #include "../include/pokedex.h"
 #include "../include/constants/pokemon.h"
 #include "../include/new/evolution.h"
@@ -342,11 +344,25 @@ static const u8* const sWonderTradeNicknames[WONDER_TRADE_NUM_NICKNAMES] =
 //★ 2026-10-07 全ポケモン（図鑑 1〜NATIONAL_DEX_COUNT の基本の姿・2026-10-10 から追加ポケモンも）から同じ確率で選ぶ（元は第 3 世代までを 4 つの組に分けていた）。
 //  NationalPokedexNumToSpecies（DPE）は図鑑の番号のいちばん前の種族＝基本の姿を返す。
 //  データの無い番号（無いはず）・タマゴは選び直す
+//★ 2026-10-11 ユーザー「設定にミラクル交換の出現テーブルの変更 ポケモンの第一タイプで もとの仕様でも」:
+//  せってい の「こうかんタイプ」（src/bw_option_menu.c・予約変数 HACK_VAR_WONDER_TYPE 0x50DC）で、来るポケモンを 1 つ目のタイプで絞る。
+//  値は 0 = ぜんぶ（今までどおり）・1〜18 = 下の表の i - 1 番のタイプ（図鑑の並び）。表は せってい の画面と共用
+#define HACK_VAR_WONDER_TYPE 0x50DC
+const u8 gWonderTradeTypeOrder[WONDER_TRADE_TYPE_COUNT] =
+{
+	TYPE_NORMAL, TYPE_FIRE, TYPE_WATER, TYPE_GRASS, TYPE_ELECTRIC, TYPE_ICE, TYPE_FIGHTING, TYPE_POISON, TYPE_GROUND,
+	TYPE_FLYING, TYPE_PSYCHIC, TYPE_BUG, TYPE_ROCK, TYPE_GHOST, TYPE_DRAGON, TYPE_DARK, TYPE_STEEL, TYPE_FAIRY,
+};
+
 static u16 GetRandomWonderTradeSpecies(void)
 {
 	u32 tries;
+	u16 sel = VarGet(HACK_VAR_WONDER_TYPE);
+	bool8 byType = sel >= 1 && sel <= WONDER_TRADE_TYPE_COUNT;
+	u8 type = byType ? gWonderTradeTypeOrder[sel - 1] : 0;
 
-	for (tries = 0; tries < 20; ++tries)
+	//タイプで絞るときは当たるまで引き直す（いちばん少ないタイプでも全体の 3% ほど＝平均 30 回ほど・上限 3000 回で ぜんぶ に戻す）
+	for (tries = 0; tries < (byType ? 3000 : 20); ++tries)
 	{
 		u16 roll = Random();
 		u16 species;
@@ -357,9 +373,17 @@ static u16 GetRandomWonderTradeSpecies(void)
 			continue;
 		species = NationalPokedexNumToSpecies(1 + roll % NATIONAL_DEX_COUNT);
 
-		if (species != SPECIES_NONE && species != SPECIES_EGG && species < NUM_SPECIES && gBaseStats[species].baseHP != 0)
+		if (species != SPECIES_NONE && species != SPECIES_EGG && species < NUM_SPECIES && gBaseStats[species].baseHP != 0
+		&& (!byType || gBaseStats[species].type1 == type))
 			return species;
 	}
+	if (byType)
+		for (tries = 0; tries < 20; ++tries)
+		{
+			u16 species = NationalPokedexNumToSpecies(1 + Random() % NATIONAL_DEX_COUNT);
+			if (species != SPECIES_NONE && species != SPECIES_EGG && species < NUM_SPECIES && gBaseStats[species].baseHP != 0)
+				return species;
+		}
 	return SPECIES_PIKACHU;
 }
 
@@ -390,6 +414,19 @@ static const u8 sWonderTradeTeraTypes[] =
 //★ 2026-10-07 ユーザー「1日5回まで制限はずして」: 1 日の回数の確かめ（元の CheckWonderTradeLimit）と数えるのをやめた。
 //  変数 0x50F5〜0x50F7 は使わなくなったが予約のまま（tools/rom/build_hoenn_scripts.py の VAR_RESERVED_FIRST）
 
+//★ 2026-10-11 ユーザー「ホウエンにミラクル交換実装 伝説 幻のピックアップ 色違いも」: カイナシティの だいすきクラブ の係（台本が Var8007 = 1 で呼ぶ・
+//  クチバは 0）は、1/8 で伝説・幻（src/hack_legend_raid.c の一覧 92 種と同じ・せっていの こうかんタイプ は見ない）・1/16 で色違い
+//  （色違いは性格値を作り直さず（6.5）自身の ID を当たりにする＝HackMonId_MakeShiny・#70。せっていの こうかんタイプ は 7/8 のふつうの分に効き、
+//  みない はクチバと同じ流れなので同じく効く）。確率は仮の値（ユーザーの指定なし）
+#define HOENN_WONDER_LEGEND_ODDS 8
+#define HOENN_WONDER_SHINY_ODDS 16
+u16 HackLegendRaid_RandomSpecies(void);   //src/hack_legend_raid.c（レイドの「前回と別」の変数 0x51F5 は触らない）
+
+static bool8 IsHoennWonderTrade(void)
+{
+	return Var8007 == 1;
+}
+
 void CreateWonderTradePokemon(void)
 {
 	u8 i;
@@ -397,7 +434,8 @@ void CreateWonderTradePokemon(void)
 	u8 nickname[POKEMON_NAME_LENGTH + 1];
 	u8 otGender;
 	u8 otIndex = Random() % WONDER_TRADE_NUM_OT_NAMES;
-	u16 species = GetRandomWonderTradeSpecies();
+	u16 species = (IsHoennWonderTrade() && Random() % HOENN_WONDER_LEGEND_ODDS == 0)
+	            ? HackLegendRaid_RandomSpecies() : GetRandomWonderTradeSpecies();
 	u8 slot = Var8005;
 	u8 level;
 	struct Pokemon* mon = &gEnemyParty[0];
@@ -433,6 +471,8 @@ void CreateWonderTradePokemon(void)
 	SetMonData(mon, MON_DATA_OT_NAME, otName);
 	SetMonData(mon, MON_DATA_OT_GENDER, &otGender);
 	SetMonData(mon, MON_DATA_NICKNAME, nickname);
+	if (IsHoennWonderTrade() && Random() % HOENN_WONDER_SHINY_ODDS == 0)
+		HackMonId_MakeShiny((struct BoxPokemon*) mon);   //ホウエン: 色違い（自身の ID で・2026-10-11）
 	CalculateMonStats(mon);
 
 #if WONDER_TRADE_RANDOM_BALL

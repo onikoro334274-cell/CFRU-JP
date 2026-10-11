@@ -757,7 +757,8 @@ bool8 IsMoveRedirectionPrevented(u16 move, u16 atkAbility)
 	return move == MOVE_SNIPESHOT
 		|| (move != MOVE_NONE && gBattleMoves[move].effect == EFFECT_SKY_DROP)
 		|| atkAbility == ABILITY_PROPELLERTAIL
-		|| atkAbility == ABILITY_STALWART;
+		|| atkAbility == ABILITY_STALWART
+		|| ITEM_EFFECT(gBankAttacker) == ITEM_EFFECT_STUBBORN_BANDANA; //[hack] patches/0292 2026-10-10 かたくなバンダナ（呼び元は全部 gBankAttacker の技）
 }
 
 u8 GetMoveTarget(u16 move, u8 useMoveTarget)
@@ -1202,6 +1203,7 @@ bool8 CanTransferItem(u16 species, u16 item)
 	switch (effect) {
 		case ITEM_EFFECT_Z_CRYSTAL:
 		case ITEM_EFFECT_MOMO_ICE: //[hack] patches/0175 ももアイスは どろぼう・はたきおとす・トリックなどで動かない
+		case ITEM_EFFECT_MOMO_SHERBET: //[hack] 2026-10-11 ももシャーベット（相手専用・持ち帰れない）
 			return FALSE;
 
 		#ifdef NATIONAL_DEX_GIRATINA
@@ -1574,7 +1576,8 @@ u8 AttacksThisTurn(u8 bank, u16 move) // Note: returns 1 if it's a charging turn
 	u8 moveEffect = gBattleMoves[move].effect;
 
 	// first argument is unused
-	if (ITEM_EFFECT(bank) == ITEM_EFFECT_POWER_HERB)
+	if (ITEM_EFFECT(bank) == ITEM_EFFECT_POWER_HERB
+	||  ITEM_EFFECT(bank) == ITEM_EFFECT_MAISEN) //[hack] patches/0292 まいせん
 		return 2;
 
 	if (moveEffect == EFFECT_SOLARBEAM && (((gBattleWeather & WEATHER_SUN_ANY) && WEATHER_HAS_EFFECT) || ABILITY(bank) == ABILITY_MEGA_SOL)) //★ ZA メガ（patches/0069）

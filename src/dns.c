@@ -403,9 +403,12 @@ u32 GetMinuteDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour,
 
 	u32 days = GetDayDifference(startYear, startMonth, startDay, endYear, endMonth, endDay);
 
-	u64 minutes = (u64) days * 1440 + endHour * 60 + endMin;
-	minutes -= startHour * 60 + startMin;
-	return minutes > 0xFFFFFFFFu ? 0xFFFFFFFFu : (u32) minutes;
+	/* patches/0304: liru さんの u64 を u32 の飽和演算に（CFRU は libgcc の __aeabi_lmul をリンクしない） */
+	if (days > (0xFFFFFFFFu - 1440u) / 1440u)
+		return 0xFFFFFFFFu;
+	u32 minutes = days * 1440u + endHour * 60u + endMin;
+	u32 startMinutes = startHour * 60u + startMin;
+	return minutes >= startMinutes ? minutes - startMinutes : 0;
 }
 
 u32 GetHourDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour, u32 endYear, u8 endMonth, u8 endDay, u8 endHour)
@@ -423,16 +426,17 @@ u32 GetHourDifference(u32 startYear, u8 startMonth, u8 startDay, u8 startHour, u
 
 	u32 days = GetDayDifference(startYear, startMonth, startDay, endYear, endMonth, endDay);
 
-	u64 hours = (u64) days * 24 + endHour;
-	hours -= startHour;
-	return hours > 0xFFFFFFFFu ? 0xFFFFFFFFu : (u32) hours;
+	if (days > (0xFFFFFFFFu - 24u) / 24u)
+		return 0xFFFFFFFFu;
+	u32 hours = days * 24u + endHour;
+	return hours >= startHour ? hours - startHour : 0;
 }
 
 u32 GetDayDifference(u32 startYear, u8 startMonth, u8 startDay, u32 endYear, u8 endMonth, u8 endDay)
 {
 	const u16 cumDays[] = {0,31,59,90,120,151,181,212,243,273,304,334}; //Cumulative Days by month
 	const u16 leapcumDays[] = {0,31,60,91,121,152,182,213,244,274,305,335}; //Cumulative Days by month for leap year
-	u64 totdays = 0;
+	u32 totdays = 0;
 	if (!IsValidCalendarDate(startYear, startMonth, startDay)
 	|| !IsValidCalendarDate(endYear, endMonth, endDay))
 		return 0;
@@ -458,14 +462,16 @@ u32 GetDayDifference(u32 startYear, u8 startMonth, u8 startDay, u32 endYear, u8 
 	u32 last = endYear - 1;
 	u32 leapYears = (last / 4 - last / 100 + last / 400)
 	              - (startYear / 4 - startYear / 100 + startYear / 400);
-	totdays += (u64) (endYear - startYear - 1) * 365 + leapYears;
+	if (endYear - startYear - 1 > (0xFFFFFFFFu - 800u) / 366u)
+		return 0xFFFFFFFFu;
+	totdays += (endYear - startYear - 1) * 365u + leapYears;
 
     if (IsLeapYear(endYear))
         totdays = totdays + (leapcumDays[endMonth - 1] + endDay);
     else
         totdays = totdays + (cumDays[endMonth - 1] + endDay);
 
-    return totdays > 0xFFFFFFFFu ? 0xFFFFFFFFu : (u32) totdays;
+    return totdays;
 }
 
 u32 GetMonthDifference(u32 startYear, u8 startMonth, u32 endYear, u8 endMonth)
@@ -476,9 +482,10 @@ u32 GetMonthDifference(u32 startYear, u8 startMonth, u32 endYear, u8 endMonth)
 	|| (startYear == endYear && startMonth > endMonth))
 		return 0;
 
-	u64 months = (u64) (endYear - startYear) * 12 + endMonth;
-	months -= startMonth;
-	return months > 0xFFFFFFFFu ? 0xFFFFFFFFu : (u32) months;
+	if (endYear - startYear > (0xFFFFFFFFu - 12u) / 12u)
+		return 0xFFFFFFFFu;
+	u32 months = (endYear - startYear) * 12u + endMonth;
+	return months >= startMonth ? months - startMonth : 0;
 }
 
 u32 GetYearDifference(u32 startYear, u32 endYear)

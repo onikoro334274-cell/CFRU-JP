@@ -28,8 +28,15 @@ struct PackedLayoutMap
 	const u16* bottom;   //下 7 行: 南の地図から（FillNorthConnection）
 	const u16* left;     //左 8 列（1 行 8 マス）: 西の地図から（FillEastConnection）
 	const u16* right;    //右 7 列（1 行 7 マス）: 東の地図から（FillWestConnection）
-	u8 lz[];             //マス目全体の LZ77
+	const u8* lz;        //マス目全体の LZ77（頭 0x10）か Deflate（頭 0x5A・2026-10-11・src/hack_inflate.c・tools/mapfcomp/layout_deflate.py）。★ 2026-10-11 埋め込みからポインタに＝64MB の後ろ半分へ出せる（tools/build/split_back.py・入口 lz_dispatch.s が 0x0A… を振り分ける）
 };
+
+bool8 HackInflate(const u8* src, u32 srcSize, u8* dst, u32 dstSize, void* work, u32 workSize);   //src/hack_inflate.c（patches/0319）
+bool8 HackSplit_IsBack(const void* src);                                        //src/hack_split_pics.c（dd）: 0x0A… の後ろ半分か
+bool8 HackSplit_Native(void);                                                   //直した mGBA（後ろ半分が見える）か
+u32 HackSplit_FetchEntryTo(const void* src, void* dst, u32 cap, const u8** out);  //後ろ半分の塊（4 バイト前に長さ）を dst（cap バイト・長さ + 1023 まで要る）へ。→ 長さ（0 = 読めない）・*out は中身の頭
+#define PACKED_FETCH_CAP 6144   //SD の写しの入れ物（縮めたマス目は最大 4,208 バイト + 区画の端数 1023・tools/mapfcomp/layout_deflate.py --check が見る）
+#define PACKED_DEFLATE_MAGIC 0x5A
 
 struct BackupMapLayoutFR { s32 Xsize; s32 Ysize; u16 *map; };
 #define VMap (*(struct BackupMapLayoutFR *)0x03005080)
@@ -59,8 +66,52 @@ void HackLayout_InitBackupMapLayoutData(const u16* map, u16 width, u16 height)
 	{
 		//VMap の後ろへ展開してから前へ写す。行 y の写し先 (y + 7) * (width + 15) + 7 は展開した所 (0x2800 - width * height + y * width)
 		//より前にある（VMap に収まる大きさなら必ず）ので、前から順に写せば読む前の所を潰さない
+		//★ 2026-10-11 本体は後ろ半分（--split-pics）にあることがある。直した mGBA（後ろ半分が見える）なら src そのもの・SuperCard の SD からなら
+		//  RAM の写し（dd の HackSplit_FetchEntryTo・4 バイト前の長さ・入れ物は Malloc）。頭のバイトを見る前にもらう（SD の道では 0x0A… を直に読めない）。
+		//  長さ（srcLen）が分かるときは展開器に渡して、化けた写しで入力の先を読まない（5e の指摘 2）。
+		//  読めなければ（SD が読めない・ヒープが無い）空のマス（0x3FF）で埋める（固まらせない・検算が先に捕まえる。LZ77 の入口の道も SD では同じくヒープが要る）
+		const u8* lz = ((const struct PackedLayoutMap*) map)->lz;
+		const u8* packed = lz;
+		void* alloc = NULL;
+		u32 srcLen = 0;
+		u32 rawSize = width * height * sizeof(u16);
+		bool8 ok = FALSE;
+
+		if (HackSplit_IsBack(lz))
+		{
+			if (HackSplit_Native())
+				srcLen = *(const u32*) ((u32) lz - 4);
+			else
+			{
+				alloc = Malloc(PACKED_FETCH_CAP);
+				if (alloc != NULL)
+					srcLen = HackSplit_FetchEntryTo(lz, alloc, PACKED_FETCH_CAP, &packed);
+				if (srcLen == 0 || srcLen > PACKED_FETCH_CAP - 1023)
+					packed = NULL;
+			}
+		}
+
 		tail = VMap.map + VIRTUAL_MAP_SIZE - width * height;
-		LZ77UnCompWram(((const struct PackedLayoutMap*) map)->lz, tail);
+		if (packed != NULL && packed[0] == PACKED_DEFLATE_MAGIC)
+		{
+			//★ 2026-10-11 Deflate（LZ77 より約 20% 小さい）。作業場（3,616 バイト）は VMap の頭の空き (0x2800 − w×h)×2（展開先 tail より前）。
+			//  足りない地図は生成器（tools/mapfcomp/layout_deflate.work_fits）が LZ77 のままにする（いちばん狭い 120×61 で 5,840 バイト）
+			//  ＝展開の作業場は Malloc に頼らない（5e の指摘: ヒープが無いと空のマスになって詰む）。頭の生の大きさは展開器が w×h×2 と突き合わせる
+			ok = HackInflate(packed, srcLen, (u8*) tail, rawSize, VMap.map, (u8*) tail - (u8*) VMap.map);
+		}
+		else if (packed != NULL && packed[0] == 0x10
+		      && (u32) (packed[1] | (packed[2] << 8) | (packed[3] << 16)) == rawSize)
+		{
+			//LZ77（work_fits が偽の地図）: 頭が 0x10 で大きさが w×h×2 のときだけ（化けた写しで BIOS が VMap の先まで書かないように・5e の指摘 1）
+			LZ77UnCompWram(packed, tail);   //写しなら RAM から（入口の SD の道は通らない）・そうでなければ今までどおり
+			ok = TRUE;
+		}
+		if (!ok)
+		{
+			CpuFill16(MAPGRID_UNDEFINED_CELL, tail, rawSize);   //CpuFill16 はマクロ（中かっこ）なので if の中は囲む
+		}
+		if (alloc != NULL)
+			Free(alloc);
 		map = tail;
 	}
 

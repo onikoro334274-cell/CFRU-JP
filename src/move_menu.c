@@ -2383,7 +2383,7 @@ bool8 CheckCantMoveThisTurn(void)
 
 bool8 IsBagDisabled(void)
 {
-	if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER))
+	if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER))   //[hack] 2026-10-11 野生戦でも数える（ボールは数に入れない＝battle_start_turn_start.c）
 	&& !FlagGet(FLAG_BATTLE_FACILITY)
 	&& HackDifficulty_BagLimitReached(VarGet(HOENN_VAR_DIFFICULTY), gNewBS->playerItemUsedCount))
 		return TRUE;

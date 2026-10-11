@@ -5264,6 +5264,29 @@ const struct TrainersWithEvs gTrainersWithEvsSpreads[] =
 		.ability = Ability_1,
 		.teraType = 12,
 	},
+	[497] =
+	{
+		.nature = NATURE_BOLD,
+		.ivs = 31,
+		.hpEv = 248,
+		.defEv = 228,
+		.spdEv = 32,
+		.ball = TRAINER_EV_CLASS_BALL,
+		.ability = Ability_1,
+		.teraType = 17,
+	},
+	[498] =
+	{
+		.nature = NATURE_CAREFUL,
+		.ivs = 31,
+		.hpEv = 252,
+		.atkEv = 12,
+		.spdEv = 108,
+		.spDefEv = 136,
+		.ball = TRAINER_EV_CLASS_BALL,
+		.ability = Ability_1,
+		.shiny = TRUE,
+	},
 	// HOENN BOSS SPREADS END
 };
 #endif

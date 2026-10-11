@@ -13,11 +13,40 @@
 .equ SPECIAL_CHOOSE_PARTY_MON, 0x9F
 .equ SPECIAL_GET_PARTY_MON_SPECIES, 0x147
 .equ SPECIAL_DO_INGAME_TRADE_SCENE, 0xFE
+@ ★ 2026-10-11 ユーザー「話しかけると『いま ミラクル交換は メンテナンス中です』と出て交換できないように」（patches/0324）。
+@   クチバの人の入口 EventScript_Wonder_Trades_Kanto だけ（1 なら文を出して終わる・0 なら今までどおり EventScript_Wonder_Trades へ）。
+@   EventScript_Wonder_Trades 本体は触らない（f8 のホウエン・カイナの 2 人目（0322）が共有しても止まらないように・5e）。戻すときは 0 に。
+.equ WONDER_TRADE_MAINTENANCE, 1
+
+.global EventScript_Wonder_Trades_Kanto
+EventScript_Wonder_Trades_Kanto:
+.if WONDER_TRADE_MAINTENANCE
+	lock
+	faceplayer
+	msgbox gText_WonderTrade_Maintenance MSG_NORMAL
+	release
+	end
+.else
+	goto EventScript_Wonder_Trades
+.endif
 
 .global EventScript_Wonder_Trades
 EventScript_Wonder_Trades:
 	lock
 	faceplayer
+	setvar 0x8007 0x0                  @ 0 = クチバ（ふつう）。src/hack_wonder_trade.c の IsHoennWonderTrade が見る
+	goto WonderTrade_Ask
+
+@ ★ 2026-10-11 ユーザー「ホウエンにミラクル交換実装 伝説 幻のピックアップ 色違いも」: カイナシティの ポケモンだいすきクラブ の係
+@   （build_hoenn.PEOPLE_APPEND）。Var8007 = 1 で、1/8 伝説・幻・1/16 色違い（C 側）。あとの流れはクチバと同じ
+.global HackScr_WonderTrade_Hoenn
+HackScr_WonderTrade_Hoenn:
+	lock
+	faceplayer
+	setvar 0x8007 0x1
+	msgbox gText_WonderTrade_HoennIntro MSG_NORMAL
+
+WonderTrade_Ask:
 	@ ★ 2026-10-07 ユーザー「1日5回まで制限はずして」: 回数の確かめ（CheckWonderTradeLimit）をやめた・何回でもできる
 	msgbox gText_WonderTrade_Ask MSG_NORMAL
 	msgbox gText_WonderTrade_Ask2 MSG_YESNO

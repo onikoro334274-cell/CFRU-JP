@@ -116,13 +116,19 @@ __aeabi_idiv:
     .thumb_func
     .type __aeabi_idivmod,function
 __aeabi_idivmod:
-	push {lr}
-	bl ActualModulationInt
-.byte 0x01, 0x1C @;mov r1, r0 - Return to r1 for some reason
-	pop {pc}
-	
-ActualModulationInt:
-	ldr r3, =(__modsi3)
+	@ [hack] 2026-10-11 patches/0328: ABI どおり r0 = 商・r1 = 余り を返す。前は __modsi3 の余りを r0 と r1 の両方に返していて、
+	@   GCC が同じ a / b と a % b を 1 回の __aeabi_idivmod にまとめた C（r0 を商として読む）で、商が余りになっていた
+	@   （タイトルの 14 コマの step = t / 12 など・CLAUDE.md 6.83）。__divsi3（素の ROM）は r4 を push/pop するので r4・r5 は壊れない
+	push {r4, r5, lr}
+	movs r4, r0
+	movs r5, r1
+	bl ActualDivisionInt
+	muls r5, r0, r5
+	subs r1, r4, r5
+	pop {r4, r5, pc}
+
+ActualDivisionInt:
+	ldr r3, =(__divsi3)
 	bx r3
 	.size __aeabi_idivmod, . - __aeabi_idivmod
 
@@ -132,13 +138,17 @@ ActualModulationInt:
     .thumb_func
     .type __aeabi_uidivmod,function
 __aeabi_uidivmod:
-	push {lr}
-	bl ActualModulationUInt
-.byte 0x01, 0x1C @;mov r1, r0 - Return to r1 for some reason
-	pop {pc}
-	
-ActualModulationUInt:
-	ldr r3, =(__umodsi3)
+	@ [hack] 2026-10-11 patches/0328: ABI どおり r0 = 商・r1 = 余り（上の __aeabi_idivmod と同じ理由）
+	push {r4, r5, lr}
+	movs r4, r0
+	movs r5, r1
+	bl ActualDivisionUInt
+	muls r5, r0, r5
+	subs r1, r4, r5
+	pop {r4, r5, pc}
+
+ActualDivisionUInt:
+	ldr r3, =(__udivsi3)
 	bx r3
 	.size __aeabi_uidivmod, . - __aeabi_uidivmod
 

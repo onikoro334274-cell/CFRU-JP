@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "../include/event_data.h"
+#include "../include/event_object_movement.h"
 #include "../include/random.h"
 #include "../include/new/catching.h"
 #include "../include/new/frontier.h"
@@ -314,4 +315,24 @@ bool16 HoennFrontier_InitWindowsZeroed(const struct WindowTemplate *templates)
 			CpuFill16(0, buf, sizes[GetBgAttribute(i, BG_ATTR_SCREENSIZE) & 3]);
 	}
 	return ret;
+}
+
+/* ★ 2026-10-11 ユーザー「バトルアリーナの審判の文字色」→「他も同様に」: 施設のマップスクリプト（ON_FRAME）の文は話しかけた人がいないので、
+ * 素の ContextNpcGetTextColor が前に選んだ人（gSelectedObjectEvent）の色か黒を使っていた。
+ * LASTTALKED（0x800F）に話している人の localId を入れて呼ぶと、その人を選んだことにして色をその人の絵で決める（textcolor は 0xFF＝絵で決める）。
+ * localId 0 か見つからなければ黒（ゲームの知らせ）。 */
+#define gSelectedObjectEvent (*((u8*) 0x030050B4))
+void HoennFrontier_TalkAs(void)
+{
+	u8 localId = (u8) gSpecialVar_LastTalked;
+	u8 objId = (localId == 0) ? EVENT_OBJECTS_COUNT : GetEventObjectIdByLocalIdAndMap(localId, gSaveBlock1->location.mapNum, gSaveBlock1->location.mapGroup);
+
+	if (objId >= EVENT_OBJECTS_COUNT)
+	{
+		gSelectedObjectEvent = 0;
+		gSpecialVar_TextColor = 3;   //黒
+		return;
+	}
+	gSelectedObjectEvent = objId;
+	gSpecialVar_TextColor = 0xFF;    //選んだ人の絵で決める
 }

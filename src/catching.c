@@ -36,6 +36,7 @@ catching.c
 #define BattleScript_DodgedBall 		((u8*) 0x81BDA8D)
 extern const u8 BattleScript_RaidMonEscapeBall[];
 extern bool8 HackLegendRaid_Active(void); //[hack] patches/0181
+u32 HackDifficulty_CatchOdds(u32 odds); //[hack] patches/0326 なんいどが低いほど捕まえやすい（src/hack_difficulty.c）
 
 #define sBallCatchBonuses ((u8*) 0x820D29A)
 
@@ -169,6 +170,8 @@ void atkEF_handleballthrow(void)
 			//else if (gBattleResults.usedBalls[ballType - BALL_TYPE_ULTRA_BALL] < 0xFF)
 			//		gBattleResults.usedBalls[ballType - BALL_TYPE_ULTRA_BALL]++;
 		}
+
+		odds = HackDifficulty_CatchOdds(odds); //[hack] patches/0326 なんいど: りるアイス 3 倍・やさしい 2 倍・ほどほど 1.5 倍・むずかしい 0.7 倍・ももアイス 0.5 倍（サファリも・0xFF で頭打ち・マスターボールは下の分岐で必ず捕まる）
 
 		//[hack] patches/0181: 伝説レイド（src/hack_legend_raid.c）は勝てば必ず捕まえられる（2026-10-06 ユーザー「捕まえられなかった」）
 		if (HackLegendRaid_Active())

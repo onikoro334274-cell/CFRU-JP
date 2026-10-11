@@ -125,6 +125,14 @@ extern const u8 gItemIcon_MildTiles[]; // 2026-10-10 マイルド（tools/items/
 extern const u8 gItemIcon_MildPal[];
 extern const u8 gItemIcon_Gold_CapsuleTiles[]; // 2026-10-10 おうごんのカプセル（tools/items/gold_capsule/build_gold_capsule_icon.py）
 extern const u8 gItemIcon_Gold_CapsulePal[];
+extern const u8 gItemIcon_Second_ArrowTiles[]; // 2026-10-10 にのや（tools/items/second_arrow/build_second_arrow_icon.py）
+extern const u8 gItemIcon_Second_ArrowPal[];
+extern const u8 gItemIcon_PinwheelTiles[]; // 2026-10-10（tools/items/hack_items_1010/build_icons.py）
+extern const u8 gItemIcon_PinwheelPal[];
+extern const u8 gItemIcon_Room_InteriorTiles[]; // 2026-10-10（tools/items/hack_items_1010/build_icons.py）
+extern const u8 gItemIcon_Room_InteriorPal[];
+extern const u8 gItemIcon_MaisenTiles[]; // 2026-10-10（tools/items/hack_items_1010/build_icons.py）
+extern const u8 gItemIcon_MaisenPal[];
 extern const u8 gItemIcon_Lumiose_GaletteTiles[];
 extern const u8 gItemIcon_Lumiose_GalettePal[];
 extern const u8 gItemIcon_Shalour_SableTiles[];
@@ -2318,6 +2326,14 @@ extern const u8 DESC_MOEMON_FOSSIL[];
 extern const u8 DESC_GENE_BOND[];
 extern const u8 DESC_MILD[];
 extern const u8 DESC_GOLD_CAPSULE[];
+extern const u8 DESC_SECOND_ARROW[];
+extern const u8 DESC_PINWHEEL[];
+extern const u8 DESC_ROOM_INTERIOR[];
+extern const u8 DESC_HUSTLE_BAND[];
+extern const u8 DESC_HUSTLE_SPECS[];
+extern const u8 DESC_STUBBORN_BANDANA[];
+extern const u8 DESC_MAISEN[];
+extern const u8 DESC_MOMO_SHERBET[]; //[hack] 2026-10-11 ももシャーベット
 void FieldUseFunc_HabitatSwitch(u8 taskId);
 void FieldUseFunc_DangerSugar(u8 taskId);
 extern const u8 DESC_EXP_CANDY_XS[];
@@ -2333,6 +2349,12 @@ extern const u8 DESC_EXP_CANDY_L[];
 extern const u8 gItemIcon_ExpCandyLTiles[];
 extern const u8 gItemIcon_ExpCandyLPal[];
 extern const u8 DESC_EXP_CANDY_XL[];
+extern const u8 DESC_EXP_CANDY_XXL[];   //[hack] patches/0323 けいけんアメXXL
+extern const u8 DESC_ALOLA_STONE[];   //[hack] patches/0327 アローラのいし
 extern const u8 gItemIcon_ExpCandyXLTiles[];
+extern const u8 gItemIcon_ExpCandyXXLTiles[];   //[hack] patches/0323
 extern const u8 gItemIcon_ExpCandyXLPal[];
+extern const u8 gItemIcon_ExpCandyXXLPal[];
+extern const u8 gItemIcon_Alola_StoneTiles[];   //[hack] patches/0327 アローラのいし（tools/items/alola_stone/build_alola_stone_icon.py）
+extern const u8 gItemIcon_Alola_StonePal[];
 #endif

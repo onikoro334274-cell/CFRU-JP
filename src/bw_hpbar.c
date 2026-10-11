@@ -517,7 +517,33 @@ static const u8 sBwShinyStarTile[32] =   /* 8×8 の星（色 1＝枠の暗い�
     0x00, 0x10, 0x01, 0x00,  0x00, 0x91, 0x19, 0x00,  0x10, 0x99, 0x99, 0x01,  0x91, 0x99, 0x99, 0x19,
     0x91, 0x99, 0x99, 0x19,  0x10, 0x99, 0x99, 0x01,  0x00, 0x91, 0x19, 0x00,  0x00, 0x10, 0x01, 0x00,
 };
+/* ★ 2026-10-11 ユーザー「色違いマークをこれにしてほしい」（pokemon_Start_-_Battle_Window_-_Shiny_Star.png・8×8・黒の縁と #E8F800）。
+   枠のパレットに黒と #E8F800 が無いので、印は自分のパレット（枠のパレットの 14 を黒・15 を #E8F800 にしたもの・札 BW_MARKER_PAL_TAG）を使う。
+   パレットの枠が空いていなければ前と同じく枠のパレットと上の金の星（sBwShinyStarTile） */
+#define BW_MARKER_PAL_TAG 0x5A1C
+static const u8 sBwShinyStarTileOwn[32] =   /* 色 14＝黒・15＝#E8F800（画像の画素のまま） */
+{
+    0x00, 0xEE, 0x0E, 0x00,  0xEE, 0xFE, 0xEE, 0x0E,  0xFE, 0xFF, 0xFF, 0x0E,  0xEE, 0xFF, 0xEF, 0x00,
+    0xE0, 0xEF, 0xEF, 0x00,  0xFE, 0x0E, 0xFE, 0x0E,  0xEE, 0x00, 0xE0, 0x0E,  0x00, 0x00, 0x00, 0x00,
+};
+static const u16 sBwMarkerPal[16] =   /* BW の枠のパレット（ROM の 08C11B84）の 14・15 だけ差し替え */
+{
+    0x0000, 0x2108, 0x7FFF, 0x6B5A, 0x1613, 0x5AD6, 0x318C, 0x1084,
+    0x18C6, 0x029F, 0x4A7F, 0x7713, 0x173A, 0x5D97, 0x0000, 0x03FD,
+};
+static const struct SpritePalette sBwMarkerSpritePal = {sBwMarkerPal, BW_MARKER_PAL_TAG};
 static void BwCaughtMarkerFollow(struct Sprite *marker);
+
+static void BwCaughtMarkerDestroy(struct Sprite *marker)   //消して、ほかに印が無ければパレットも返す
+{
+    u8 i;
+
+    DestroySprite(marker);
+    for (i = 0; i < MAX_SPRITES; ++i)
+        if (gSprites[i].inUse && gSprites[i].callback == BwCaughtMarkerFollow)
+            return;
+    FreeSpritePaletteByTag(BW_MARKER_PAL_TAG);
+}
 static const struct OamData sBwMarkerOam = {.shape = SPRITE_SHAPE(16x8), .size = SPRITE_SIZE(16x8)};
 static const union AnimCmd sBwMarkerAnim[] = {ANIMCMD_FRAME(0, 1), ANIMCMD_END};
 static const union AnimCmd *const sBwMarkerAnims[] = {sBwMarkerAnim};
@@ -546,32 +572,33 @@ static u8 BwCaughtMarkerFlags(u8 battlerId, struct Pokemon *mon)   //bit0 = ボ�
 
 static void BwCaughtMarkerFollow(struct Sprite *marker)
 {
-    u8 parentId = marker->data[0], battlerId = marker->data[1], flags, t, i;
+    u8 parentId = marker->data[0], battlerId = marker->data[1], flags, t, i, ownPal;
     struct Sprite *parent;
     u16 *out;
 
     if (parentId >= MAX_SPRITES || battlerId >= gBattlersCount || gBattlerPartyIndexes[battlerId] >= PARTY_SIZE)
     {
-        DestroySprite(marker);
+        BwCaughtMarkerDestroy(marker);
         return;
     }
     parent = &gSprites[parentId];
     if (!parent->inUse || gHealthboxSpriteIds[battlerId] != parentId || parent->data[6] != battlerId
      || !(flags = BwCaughtMarkerFlags(battlerId, &gEnemyParty[gBattlerPartyIndexes[battlerId]])))
     {
-        DestroySprite(marker);
+        BwCaughtMarkerDestroy(marker);
         return;
     }
+    ownPal = IndexOfSpritePaletteTag(BW_MARKER_PAL_TAG);
     marker->pos1.x = parent->pos1.x + parent->pos2.x + parent->centerToCornerVecX + 96;
     marker->pos1.y = parent->pos1.y + parent->pos2.y + parent->centerToCornerVecY + 12;
     out = (u16 *) (OBJ_VRAM0 + marker->oam.tileNum * TILE_SIZE_4BPP);
     for (t = 0; t < 2; ++t)
     {
-        const u16 *in = (const u16 *) (t == 0 ? gBwCaughtBallTile : sBwShinyStarTile);
+        const u16 *in = (const u16 *) (t == 0 ? gBwCaughtBallTile : ownPal < 16 ? sBwShinyStarTileOwn : sBwShinyStarTile);
         for (i = 0; i < 16; ++i)
             out[t * 16 + i] = (flags & (1 << t)) ? in[i] : 0;
     }
-    marker->oam.paletteNum = parent->oam.paletteNum;
+    marker->oam.paletteNum = ownPal < 16 ? ownPal : parent->oam.paletteNum;
     marker->oam.priority = parent->oam.priority;
     marker->invisible = parent->invisible;
     marker->coordOffsetEnabled = parent->coordOffsetEnabled;
@@ -592,11 +619,12 @@ static void BwCaughtMarkerSync(u8 spriteId, struct Pokemon *mon, u8 battlerId)
     if (!BwCaughtMarkerFlags(battlerId, mon))
     {
         if (found < MAX_SPRITES)
-            DestroySprite(&gSprites[found]);
+            BwCaughtMarkerDestroy(&gSprites[found]);
         return;
     }
     if (found == MAX_SPRITES)
     {
+        LoadSpritePalette(&sBwMarkerSpritePal);   //枠が空いていなければ 0xFF＝枠のパレットで出す
         found = CreateSprite(&sBwMarkerTemplate, 0, 0, gSprites[spriteId].subpriority);
         if (found >= MAX_SPRITES)
             return;   //スプライトがいっぱい: 出さない

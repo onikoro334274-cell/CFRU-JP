@@ -11,7 +11,7 @@ WARNING！\pThe correct system time could\nnot be read。\pEnable the Real Time 
 [BUFFER][01]は\n[BUFFER][03]を つかった！\pよわいポケモンと\nそうぐう しやすくなった！[FC][09]
 
 #org @gText_SecondBagItemCanBeRegisteredToL
-A second item in the Cube can be\nregistered to [L_BUTTON] for easy use。
+A second item\nin the Cube can be\lregistered to [L_BUTTON] for\leasy use。
 
 #org @gText_AutoRunEnable
 オートラン [GREEN]ゆうこう[BLACK]
@@ -92,61 +92,61 @@ A second item in the Cube can be\nregistered to [L_BUTTON] for easy use。
 ふかい きりが きえさった！
 
 #org @gText_WaterDyed
-みずは ふかい あおに\nそまっている……
+みずは ふかい あおに そまっている……
 
 #org @gText_WaterMurkyBrown
-みずは ちゃいろく\nにごっている……
+みずは ちゃいろく にごっている……
 
 #org @gText_WaterMurkyBrownUseSurf
-みずは ちゃいろく\nにごっている……\pなみのりを つかいますか？
+みずは ちゃいろく にごっている……\pなみのりを つかいますか？
 
 #org @gText_LikeToLavaSurf
-マグマは まっかに\nかがやいている……\pなみのりを つかいますか？
+マグマは まっかに かがやいている……\pなみのりを つかいますか？
 
 #org @gText_LavaSurfedWith
-[BUFFER1]は マグマで\nなみに のりはじめた！
+[BUFFER1]は マグマで なみに\nのりはじめた！
 
 #org @gText_LavaDyed
-マグマは まっかに\nかがやいている……
+マグマは まっかに かがやいている……
 
 #org @gText_WantToDive
-ふかい うみだ！\n[BUFFER2]を つかいますか？
+ふかい うみだ！ [BUFFER2]を\nつかいますか？
 
 #org @gText_WantToSurface
 うえから ひかりが さしこんでいる！\n[BUFFER2]を つかいますか？
 
 #org @gText_CantDive
-ふかい うみだ！\nポケモンの わざで もぐれるかも？
+ふかい うみだ！ ポケモンの わざで\nもぐれるかも？
 
 #org @gText_CantSurface
 うえから ひかりが さしこんでいる！\nポケモンの わざで あがれるかも？
 
 #org @gText_TVSwarm
-こんにちは\n『ポケモン ニュース』の じかんです\pたいへん めずらしい ニュースが\nはいって きました\p[GREEN][BUFFER1][BLACK]で\n[GREEN][BUFFER2][BLACK]が たいりょうはっせい した\lという ほうこくが ありました！\p[GREEN][BUFFER2][BLACK]と いえば\nなかなか みつけることが むずかしい\lポケモンとしても ゆうめい ですね\pあなたも このしんぴてきな\n[GREEN][BUFFER2][BLACK]の たいりょうはっせいを\lみにいっては いかが でしょうか？\pいじょう\n『ポケモン ニュース』でした
+こんにちは 『ポケモン ニュース』の\nじかんです\pたいへん めずらしい ニュースが\nはいって きました\p[GREEN][BUFFER1][BLACK]で [GREEN][BUFFER2][BLACK]が\nたいりょうはっせい した という\lほうこくが ありました！\p[GREEN][BUFFER2][BLACK]と いえば\nなかなか みつけることが むずかしい\lポケモンとしても ゆうめい ですね\pあなたも このしんぴてきな\n[GREEN][BUFFER2][BLACK]の たいりょうはっせいを\lみにいっては いかが でしょうか？\pいじょう 『ポケモン ニュース』でした
 
 #org @gText_DoorIsLocked
 カギが かかっている
 
 #org @gText_PsychicBarrier
-There appears to be some sort of\nPsychic barrier in the way
+There appears to be\nsome sort of Psychic\lbarrier in the way
 
 #org @gText_ClimbLadder
 Would you like to climb the\nladder？
 
 #org @gText_CantReachLadder
-You can't reach the ladder from\nhere！
+You can't reach the\nladder from here！
 
 #org @gText_FollowNarrowPath
-おや？\nとおれそうな すきまが ある！\pはいってみますか？
+おや？ とおれそうな すきまが ある！\pはいってみますか？
 
 #org @gText_FollowNarrowPathNowhere
 どこにも つながって いなかった
 
 #org @gText_WantToUseHeadbutt
-ずつきに てごろな\nおおきな き が ある！\pずつきを つかいますか？
+ずつきに てごろな おおきな き が\nある！\pずつきを つかいますか？
 
 #org @gText_TreeCanBeHeadbutted
-ずつきに てごろな\nおおきな き が ある！
+ずつきに てごろな おおきな き が\nある！
 
 #org @gText_StartMining
 かべが すこし もりあがっている\nほってみますか？
@@ -263,7 +263,7 @@ Stop zooming！
 がくしゅうそうちが オフになった
 
 #org @gText_HyperTrainingMonChoice
-すごいとっくんを する\nポケモンを えらんで ください
+すごいとっくんを する ポケモンを えらんで\nください
 
 #org @gText_GoldBottleCap
 きんのおうかん
@@ -272,7 +272,7 @@ Stop zooming！
 ぎんのおうかん
 
 #org @gText_BottleCapChoice
-きんのおうかんと ぎんのおうかん\nどちらを つかいますか？
+きんのおうかんと ぎんのおうかん どちらを\nつかいますか？
 
 #org @gText_HyperTrainingEnd
 [BUFFER1]は すごいとっくんで\nつよくなった！[PAUSE_UNTIL_PRESS]
@@ -296,7 +296,7 @@ Stop zooming！
 とくぼう
 
 #org @gText_HyperTrainingStatChoice
-きたえる のうりょくを\nえらんで ください
+きたえる のうりょくを えらんで ください
 
 #org @gText_HyperTrainingCant
 これいじょう きたえる ことは\nできない ようだ[PAUSE_UNTIL_PRESS]

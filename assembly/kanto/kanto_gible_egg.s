@@ -57,7 +57,7 @@ KantoFanClub_Objects:
 	.2byte 9, 8
 	.byte 3, 8, 0x11, 0
 	.2byte 0, 0
-	.4byte EventScript_Wonder_Trades
+	.4byte EventScript_Wonder_Trades_Kanto   @ 2026-10-11 メンテナンス中の入口（patches/0324・wonder_trade_script.s の WONDER_TRADE_MAINTENANCE）
 	.2byte 0, 0
 
 .align 2

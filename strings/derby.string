@@ -1,14 +1,14 @@
 #org @gText_Derby_Ask
-けいばじょうへ ようこそ！\nコインを かけて レースを たのしもう。あそぶ？
+けいばじょうへ ようこそ！ コインを\nかけて レースを たのしもう。あそぶ？
 
 #org @gText_Derby_YouWon
-おめでとう！\nコイン [BUFFER1]まいを ゲットしたよ！
+おめでとう！ コイン\n[BUFFER1]まいを ゲットしたよ！
 
 #org @gText_Derby_NoWin
 ざんねん！ はずれだったね。\nまた ちょうせん してね。
 
 #org @gText_Derby_NoCoinCase
-けいばじょうへ ようこそ！\pでも コインケースを\nもっていないみたい…
+けいばじょうへ ようこそ！\pでも コインケースを もっていないみたい…
 
 #org @gText_Derby_NotEnoughCoins
 けいばじょうへ ようこそ！\pでも コインが たりないみたい…

@@ -5,28 +5,28 @@
 ミラクルこうかんを おこないますか？
 
 #org @gText_WonderTrade_ComeAgain
-またの おこしを\nおまちしております
+またの おこしを おまちしております
 
 #org @gText_WonderTrade_SelectMon
 こうかんにだす ポケモンを\nせんたく してください
 
 #org @gText_WonderTrade_Confirm
-[BUFFER1]を\nこうかんに だしますか？
+[BUFFER1]を こうかんに\nだしますか？
 
 #org @gText_WonderTrade_ItemWarn
-もちものの [BUFFER2]も\nいっしょに なくなります\pそれでも\nこうかんに だしますか？
+もちものの [BUFFER2]も いっしょに\nなくなります\pそれでも こうかんに だしますか？
 
 #org @gText_WonderTrade_Wait
-こうかんあいてを\nさがしています。
+こうかんあいてを さがしています。
 
 #org @gText_WonderTrade_Wait2
-こうかんあいてが\nみつかりました！\pこうかんを かいしします！
+こうかんあいてが みつかりました！\pこうかんを かいしします！
 
 #org @gText_WonderTrade_Thanks
-こうかんした ポケモンを\nかわいがって あげてね！
+こうかんした ポケモンを かわいがって\nあげてね！
 
 #org @gText_WonderTrade_NoEgg
-タマゴは こうかんに\nだすことが できません
+タマゴは こうかんに だすことが\nできません
 
 #org @gText_WonderTrade_Someone
 だれか
@@ -291,3 +291,9 @@
 
 #org @gText_WonderTrade_Received
 [BUFFER1]が やってきた！
+
+#org @gText_WonderTrade_Maintenance
+いま ミラクルこうかんは
+メンテナンスちゅうです
+#org @gText_WonderTrade_HoennIntro
+ホウエンの ミラクルこうかんは ちょっと\nとくべつ！\pでんせつや まぼろしの ポケモンが\nまじることも あるし\pいろちがいが くることも あるんだって！

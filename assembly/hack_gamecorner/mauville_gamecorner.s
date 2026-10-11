@@ -13,6 +13,17 @@
 
 .equ SP_ADD_MENU, 0x25
 
+@ ★ 2026-10-11 コイン売り（tools/rom/build_hoenn.py の EXTRA_NPCS）: 素のタマムシのゲームコーナーの店員の台本（CeladonCity_GameCorner_EventScript_CoinsClerk）の選択肢から先を使う
+.global HackScr_MauvilleCoinsClerk
+HackScr_MauvilleCoinsClerk:
+	lock
+	faceplayer
+	showmoneybox 0 0 0
+	showcoinsbox 0 5
+	message gText_MauvilleCoins_Welcome
+	waitmessage
+	goto 0x081850B9   @ 素の台本の multichoice から（あいさつの文だけ「ロケット ゲーム コーナー」をキンセツに差し替え）
+
 .global HackScr_MauvilleGachaMenu
 HackScr_MauvilleGachaMenu:
 	lockall

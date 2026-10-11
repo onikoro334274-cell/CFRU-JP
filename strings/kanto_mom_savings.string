@@ -4,14 +4,17 @@
 #org @gText_MomCall_Talk
 もしもし [PLAYER]？ おかあさんよ\pちょきんで [BUFFER1]を\nかっておいたわ\pいえに かえったら わたすわね！\nがんばってね！
 
+#org @gText_MomCall_TalkPc
+もしもし [PLAYER]？ おかあさんよ\pちょきんで [BUFFER1]を\nかっておいたわ\pパソコンの どうぐに\nおくっておいたからね！\pがんばってね！
+
 #org @gText_MomSav_Gift
-おかえり！\nちょきんで かっておいた ものよ
+おかえり！ ちょきんで かっておいた\nものよ
 
 #org @gText_MomSav_StatusOn
 ちょきんは いま [BUFFER1]えんよ\pしょうきんの [BUFFER2]パーセントを\nためているわ
 
 #org @gText_MomSav_StatusOff
-ちょきんは いま [BUFFER1]えんよ\pいまは ちょきんを\nおやすみ してるわ
+ちょきんは いま [BUFFER1]えんよ\pいまは ちょきんを おやすみ してるわ
 
 #org @gText_MomSav_What
 ちょきんは どうする？
@@ -62,13 +65,13 @@
 100パーセント
 
 #org @gText_MomSav_PercentSet
-わかったわ しょうきんの\n[BUFFER2]パーセントを ためておくわね
+わかったわ しょうきんの\n[BUFFER2]パーセントを\lためておくわね
 
 #org @gText_MomSav_Started
-まかせて！ しょうきんの\n[BUFFER2]パーセントを ためておくわね\pためた ぶんと おなじだけ\nおかあさんも たしておくわ\pやせいの ポケモンに かったときも\nすこし ためておくわね\pたまったら やくに たつ ものを\nかっておくわ
+まかせて！ しょうきんの\n[BUFFER2]パーセントを\lためておくわね\pためた ぶんと おなじだけ おかあさんも\nたしておくわ\pやせいの ポケモンに かったときも\nすこし ためておくわね\pたまったら やくに たつ ものを\nかっておくわ
 
 #org @gText_MomSav_Stopped
-わかったわ\nちょきんは おやすみ するわね
+わかったわ ちょきんは おやすみ するわね
 
 #org @gText_MomSav_Bye
 いってらっしゃい！
@@ -83,4 +86,4 @@
 [PLAYER]は かいものを\n[BUFFER1]こ うけとった！
 
 #org @gText_MomSav_BagFull
-バッグが いっぱいで わたせなかった\nものは またこんど わたすわね
+バッグが いっぱいで わたせなかった ものは\nまたこんど わたすわね

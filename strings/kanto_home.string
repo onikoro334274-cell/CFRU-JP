@@ -2,52 +2,63 @@
 [PLAYER]！ ちょっと まって！
 
 #org @gText_KantoMom_Gift
-いつか たびに でる ひの ために\nママ いろいろ よういしておいたの\pせかいの あちこちで\nつかわれている ふしぎな どうぐよ\pぜんぶ もっていって ちょうだい
+いつか たびに でる ひの ために\nママ いろいろ よういしておいたの\pせかいの あちこちで つかわれている\nふしぎな どうぐよ\pぜんぶ もっていって ちょうだい
 
 #org @gText_KantoMom_Shoes
-それから これも！\nあたらしい くつよ
+それから これも！ あたらしい くつよ
 
 #org @gText_KantoMom_GotShoes
-[PLAYER]は ママから\nランニングシューズを もらった！
+[PLAYER]は ママから ランニングシューズを\nもらった！
 
 #org @gText_KantoMom_ExplainShoes
 Bボタンを おしながら あるくと\nはしる ことが できる！
 
 #org @gText_KantoMom_Bye
-からだに きを つけてね\nいってらっしゃい！
+からだに きを\nつけてね いってらっしゃい！
 
 #org @gText_KantoMom_PikachuOffer
-[PLAYER]も ポケモンを\nもらったのね！\pそうそう この こも\nいっしょに つれて いきなさい
+[PLAYER]も ポケモンを もらったのね！\pそうそう この こも いっしょに\nつれて いきなさい
 
 #org @gText_KantoMom_GotPikachu
-[PLAYER]は ママから\nピカチュウを もらった！
+[PLAYER]は ママから ピカチュウを\nもらった！
 
 #org @gText_KantoMom_PikachuToPC
-ピカチュウは パソコンに\nおくられたわよ
+ピカチュウは パソコンに おくられたわよ
 
 #org @gText_KantoMom_PikachuBye
-でんきだまを もたせてあるから\nだいじに してあげてね
+でんきだまを もたせてあるから だいじに\nしてあげてね
 
 #org @gText_KantoMom_PikachuNoRoom
-あら てもちも パソコンも\nいっぱいみたい また きてね
+あら てもちも パソコンも いっぱいみたい\nまた きてね
 
 #org @gText_KantoMom_CharmsForgot
-あっ そうそう！\nこれ わたすのを わすれてたわ
+あっ そうそう！ これ わたすのを\nわすれてたわ
 
 #org @gText_KantoMom_CharmsBye
-タマゴが みつかりやすくなるのと\nいろちがいに であいやすくなる\pおまもり なんだって\nたいせつに してね
+タマゴが みつかりやすくなるのと\nいろちがいに であいやすくなる\pおまもり なんだって たいせつに してね
 
 #org @gText_KantoMom_ShiningOffer
-それから これも！\nもっと ひかる おまもり なんだって
+それから これも！ もっと ひかる おまもり\nなんだって
 
 #org @gText_KantoMom_ShiningBye
-いろちがいに もっと であいやすく\nなるそうよ\pいらないときは バッグで つかうと\nききめを とめられるんだって
+いろちがいに もっと であいやすく\nなるそうよ\pいらないときは バッグで つかうと ききめを\nとめられるんだって
 
 #org @gText_KantoHome2F_NESFound
-ファミコンの よこに\nなにか おいてある！
+ファミコンの よこに なにか おいてある！
 
 #org @gText_KantoMom_FormItems
-あら その ポケモン！\nこれで すがたが かわるそうよ
+あら その ポケモン！ これで すがたが\nかわるそうよ
 
 #org @gText_KantoMom_FormItemsBye
 てもちで つかってみてね
+
+#org @gText_KantoMom_Money
+それから これは おこづかい たびには\nおかねも いるでしょ
+
+#org @gText_KantoMom_GotMoney
+[PLAYER]は ママから 30まんえん\nもらった！
+#org @gText_KantoMom_CharmsToo
+それから おまもりも もっていきなさい
+
+#org @gText_KantoMom_KeyItems
+でんせつの ポケモンの すがたを\nかえる どうぐ なんだって\pバッグの たいせつなものに いれておくわね

@@ -61,7 +61,7 @@ bool8 HackTrainingPouch_IsTrainingItem(u16 item)
 		return TRUE;
 	if (item >= ITEM_LONELY_MINT && item <= ITEM_SERIOUS_MINT)    //ミント 21
 		return TRUE;
-	if (item >= ITEM_EXP_CANDY_XS && item <= ITEM_EXP_CANDY_XL)   //けいけんアメ
+	if ((item >= ITEM_EXP_CANDY_XS && item <= ITEM_EXP_CANDY_XL) || item == ITEM_EXP_CANDY_XXL)   //けいけんアメ（XXL 0x357 は番号が続いていない・patches/0323）
 		return TRUE;
 
 	switch (item) {
@@ -274,6 +274,7 @@ static const u8 *const sBagPageNames[BAG_PAGE_COUNT] =
 void StoreBagItemCount(void);   //src/item.c
 u16 GetNumItemsInPocket(u8 pocket);   //src/item.c
 #define SE_BAG_POCKET 0xF6   //素の ProcessPocketSwitchInput が鳴らす音
+#define BAG_TASK_RESET_CURSOR 9    //バッグのタスクの data[9]（素は 0〜8・10〜13・14/15 は SetTaskFuncWithFollowupFunc の戻り先＝pokefirered item_menu.c・task.c）: ページを替えた次のコマでカーソルを 0 に
 
 //functionrewrites: PrintBagPocketName 081092E8
 void HackBagPage_PrintPocketName(void)
@@ -298,6 +299,14 @@ static void ChangePage(u8 taskId, u8 page)
 	disp[0xD] = (n + 1 > 6) ? 6 : n + 1;
 	gBagMenuState.cursorPos[0] = 0;
 	gBagMenuState.itemsAbove[0] = 0;
+	/* ★ 2026-10-11 ユーザーの動画「持ち物欄の一番下が永遠といけるようになってる・いろんな欄がバグる」:
+	   ここで 0 を返すと、素の入力の処理（Task_BagMenu_HandleInput）はそのまま ListMenu_ProcessInput と ListMenuGetScrollAndRow を
+	   片づけたばかりの一覧（data[0]）で呼び、古いスクロールの位置で上の 0 を書き戻していた → 新しいページの一覧が数より下までスクロールし、
+	   前の名前の残り・崩れた行が出て、そこで道具を選ぶと数の外の枠を書き換えた。
+	   左右・L・R のキーを消して古い一覧を動かさず、0 に戻すのは次のコマ（Task_AnimateSwitchPockets が頭でここを呼ぶ）でやり直す */
+	gMain.newKeys &= ~(DPAD_LEFT | DPAD_RIGHT | L_BUTTON | R_BUTTON);
+	gMain.newAndRepeatedKeys &= ~(DPAD_LEFT | DPAD_RIGHT | L_BUTTON | R_BUTTON);
+	gTasks[taskId].data[BAG_TASK_RESET_CURSOR] = TRUE;
 }
 
 //functionrewrites: ProcessPocketSwitchInput 08109C60（0 = そのまま・1 = 左のポケットへ・2 = 右のポケットへ）
@@ -305,6 +314,13 @@ u8 HackBagPage_ProcessPocketSwitchInput(u8 taskId, u8 pocketId)
 {
 	u8 lr, page = CurrentPage();
 	bool8 animating = gTasks[taskId].func == VanillaTask_AnimateSwitchPockets;
+
+	if (animating && gTasks[taskId].data[BAG_TASK_RESET_CURSOR])   //ページを替えた次のコマ（一覧を作り直す前）
+	{
+		gTasks[taskId].data[BAG_TASK_RESET_CURSOR] = FALSE;
+		gBagMenuState.cursorPos[0] = 0;
+		gBagMenuState.itemsAbove[0] = 0;
+	}
 
 	if ((sBagMenuDisplayPtr[5] & 0xF) != 0)   //並べ替え・入れ替えの途中
 		return 0;

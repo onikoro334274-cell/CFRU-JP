@@ -1,4 +1,4 @@
-/* ラティ兄妹がホウエンを徘徊する場所の表。scripts/generate_hoenn_roamers.py が生成。手で編集しないこと。
+/* ラティ兄妹がホウエンを徘徊する場所の表。tools/rom/build_hoenn_roamers.py が生成。手で編集しないこと。
    出典: pokeemerald src/roamer.c sRoamerLocations（エメラルドの群 0 の地図の番号）。
    形は CFRU の sRoamerLocations と同じ（1 行 7 マス・先頭が今いる道路・0xFF が終わり・最後の行は全部 0xFF）*/
 #pragma once

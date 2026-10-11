@@ -45,6 +45,12 @@ static const u16 sLegendRaidSpecies[] =
 	SPECIES_TERAPAGOS, SPECIES_PECHARUNT,
 };
 
+//★ 2026-10-11 ホウエンのミラクル交換（src/hack_wonder_trade.c）が同じ一覧から引く
+u16 HackLegendRaid_RandomSpecies(void)
+{
+	return sLegendRaidSpecies[Random() % ARRAY_COUNT(sLegendRaidSpecies)];
+}
+
 bool8 HackLegendRaid_Active(void)
 {
 	return FlagGet(HACK_FLAG_LEGEND_RAID);

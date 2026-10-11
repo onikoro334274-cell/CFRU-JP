@@ -1347,7 +1347,8 @@ void atk49_moveend(void) //All the effects that happen after a move is used
 			&& (itemEffect == ITEM_EFFECT_LIFE_ORB
 			 || itemEffect == ITEM_EFFECT_SHELL_BELL
 			 || itemEffect == ITEM_EFFECT_THROAT_SPRAY
-			 || itemEffect == ITEM_EFFECT_BLUNDER_POLICY))
+			 || itemEffect == ITEM_EFFECT_BLUNDER_POLICY
+			 || itemEffect == ITEM_EFFECT_SECOND_ARROW)) //[hack] patches/0291 にのや
 			{
 				if (ItemBattleEffects(ItemEffects_ContactAttacker, gBankAttacker, TRUE, FALSE))
 					effect = TRUE;

@@ -1,4 +1,4 @@
-// Recovered by scripts/recover_region_flags.py from preserved event/map metadata.
+// tools/johto/build_johto_gyms.py が生成（手で編集しないこと）。ジョウトのバッジのフラグ（tools/johto/johto_ids.json）
 #pragma once
 #define JOHTO_FLAG_BADGE1 0x1300
 #define JOHTO_FLAG_BADGE2 0x1301
