@@ -30,6 +30,7 @@
 #include "../include/new/roamer.h"
 #include "../include/new/util.h"
 #include "../include/new/wild_encounter.h"
+#include "../include/new/wild_attack_move.h"
 /*
 wild_encounter.c
 	handles functions related to wild encounter probability and associated features
@@ -1242,6 +1243,7 @@ static bool8 TryGetAbilityInfluencedWildMonIndex(const struct WildPokemon* wildM
 
 void DoStandardWildBattle(void)
 {
+	WildMon_EnsureAttackMove(&gEnemyParty[0]);
 	ScriptContext2_Enable();
 	FreezeEventObjects();
 	StopPlayerAvatar();
@@ -1252,6 +1254,7 @@ void DoStandardWildBattle(void)
 	if (FlagGet(FLAG_DOUBLE_WILD_BATTLE))
 	{
 		gBattleTypeFlags |= BATTLE_TYPE_DOUBLE;
+		WildMon_EnsureAttackMove(&gEnemyParty[1]);
 
 		if (FlagGet(FLAG_TAG_BATTLE))
 			gBattleTypeFlags |=  BATTLE_TYPE_INGAME_PARTNER;
