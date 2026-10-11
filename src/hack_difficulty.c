@@ -224,6 +224,17 @@ static void AdjustTrainerMonCore(struct Pokemon* mon, u8 side)
 /* ★ 2026-10-03 ユーザー「設定の難易度デフォルトやさしいで」: はじめからのとき、なんいどを やさしい にしておく。
    src/save.c の NewGameWipeNewSaveData（拡張のセーブ 0x0203B0E8〜を 0 で消す・拡張変数 0x5000〜も中）の直後に呼ぶ（patches/0146）。
    ★ 値の意味（0 ふつう / 1 やさしい）は変えない（前のセーブで選んだ値はそのまま） */
+u32 HackDifficulty_BuyPrice(u32 price, u16 difficulty)
+{
+	u32 discounted;
+	if (price == 0 || (difficulty != DIFFICULTY_HARD && difficulty != DIFFICULTY_MOMO_ICE))
+		return price;
+	discounted = price / 5;
+	if (difficulty == DIFFICULTY_MOMO_ICE)
+		discounted = discounted * 2 + (price % 5) * 2 / 5;
+	return discounted == 0 ? 1 : discounted;
+}
+
 u16 HackDifficulty_RecoveryItem(u16 currentItem, u8 level, u8 roll, u16 difficulty)
 {
 	static const u8 chances[DIFFICULTY_COUNT] = {30, 10, 20, 50, 70};

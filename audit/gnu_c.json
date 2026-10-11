@@ -539,8 +539,8 @@
     {
       "path": "src/hack_difficulty.c",
       "exit_code": 0,
-      "source_sha256": "00159e3b43ada890b33b4f9b78145c71d34864df1beb55cec8aba16c80ba4625",
-      "object_bytes": 4656,
+      "source_sha256": "0ffb5b9d2144887fbf76baa309c6c2a106fa89723037149a1fffef5704751eb9",
+      "object_bytes": 4812,
       "diagnostics": ""
     },
     {
@@ -1092,8 +1092,8 @@
     {
       "path": "src/mega_shop.c",
       "exit_code": 0,
-      "source_sha256": "4a2d896bc68209a382e248b0582c09fa7399b591fb59ce06d5efe0a6d3072c99",
-      "object_bytes": 6692,
+      "source_sha256": "27cdda9325056f8322e5b338801b9132fb87317b9d195c2d6dd379c5edaae4ce",
+      "object_bytes": 6872,
       "diagnostics": ""
     },
     {

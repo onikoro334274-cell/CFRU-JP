@@ -1,4 +1,6 @@
 #include "defines.h"
+#include "hack_difficulty.h"
+#include "Tables/hoenn_script_flags.h"
 #include "../include/list_menu.h"
 #include "../include/menu.h"
 #include "../include/shop.h"
@@ -109,7 +111,7 @@ u32 MegaShop_Price(u16 item)
 		for (i = 0; i < MEGA_SHOP_COUNT; ++i)
 		{
 			if (gMegaShopItems[i] == item)
-				return sMegaShopPrices[i];
+				return HackDifficulty_BuyPrice(sMegaShopPrices[i], VarGet(HOENN_VAR_DIFFICULTY));
 		}
 	}
 	else if (gShopData.itemList == gZCrystalShopItems)
@@ -117,7 +119,7 @@ u32 MegaShop_Price(u16 item)
 		for (i = 0; i < Z_CRYSTAL_SHOP_COUNT; ++i)
 		{
 			if (gZCrystalShopItems[i] == item)
-				return sZCrystalShopPrices[i];
+				return HackDifficulty_BuyPrice(sZCrystalShopPrices[i], VarGet(HOENN_VAR_DIFFICULTY));
 		}
 	}
 	else if (gShopData.itemList == gDangerLeafShopItems)
@@ -125,7 +127,7 @@ u32 MegaShop_Price(u16 item)
 		for (i = 0; i < DANGER_LEAF_SHOP_COUNT; ++i)
 		{
 			if (gDangerLeafShopItems[i] == item)
-				return DangerLeafPrice(item, sDangerLeafShopPrices[i]);
+				return HackDifficulty_BuyPrice(DangerLeafPrice(item, sDangerLeafShopPrices[i]), VarGet(HOENN_VAR_DIFFICULTY));
 		}
 	}
 	return ItemId_GetPrice(item);
@@ -334,7 +336,7 @@ extern const struct Item gItemData[];
 #define SILPH_MASTER_BALL_PRICE 65535
 extern const u16 KantoSilph_MasterBallItems[];
 
-u16 MegaShop_ItemIdGetPrice(u16 item)
+static u16 ItemIdGetBasePrice(u16 item)
 {
 	u32 i;
 
@@ -350,4 +352,12 @@ u16 MegaShop_ItemIdGetPrice(u16 item)
 			return sMegaShopPrices[i];
 	}
 	return MEGA_SELL_TABLE_PRICE;
+}
+
+u16 MegaShop_ItemIdGetPrice(u16 item)
+{
+	u16 price = ItemIdGetBasePrice(item);
+	if (gMain.callback2 == CB2_BuyMenu || gMain.callback2 == CB2_InitBuyMenu)
+		return HackDifficulty_BuyPrice(price, VarGet(HOENN_VAR_DIFFICULTY));
+	return price;
 }

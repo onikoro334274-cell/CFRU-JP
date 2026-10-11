@@ -1,0 +1,10 @@
+{
+  "result": "pass",
+  "sources": {
+    "src/hack_difficulty.c": "0ffb5b9d2144887fbf76baa309c6c2a106fa89723037149a1fffef5704751eb9",
+    "src/mega_shop.c": "27cdda9325056f8322e5b338801b9132fb87317b9d195c2d6dd379c5edaae4ce"
+  },
+  "change": "Hard buy price 20%, momo ice 40%; other difficulties unchanged. Finite integer floor, minimum 1 for nonzero prices. Sell prices retain original values outside buy callbacks.",
+  "verification": "check_mega_shop_prices.py: 19660800 item/table/shop/callback/difficulty cases; actual ARM compilation of both changed C units.",
+  "limitations": "Native shop callbacks mocked; actual linked shop UI and transactions not runtime verified."
+}

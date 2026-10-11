@@ -4,6 +4,7 @@
 
 /* Preserve existing held items; roll 0..99 selects difficulty recovery berries. */
 u16 HackDifficulty_RecoveryItem(u16 currentItem, u8 level, u8 roll, u16 difficulty);
+u32 HackDifficulty_BuyPrice(u32 price, u16 difficulty);
 
 // Existing save values retain their meaning. Menu order is easy to hardest.
 enum HackDifficulty
