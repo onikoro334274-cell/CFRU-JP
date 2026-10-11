@@ -1580,6 +1580,8 @@ static bool8 ShouldSwitchToAvoidDeath(void)
 			u8 firstId, lastId;
 			struct Pokemon* party = LoadPartyRange(gActiveBattler, &firstId, &lastId);
 			u8 bestMon = GetMostSuitableMonToSwitchInto();
+			if (bestMon < firstId || bestMon >= lastId)
+				return FALSE;
 			u32 resultFlags = AI_TypeCalc(defMove, FOE(gActiveBattler), gActiveBattler, &party[bestMon]);
 
 			if ((resultFlags & MOVE_RESULT_NO_EFFECT && GetMostSuitableMonToSwitchIntoScore() >= SWITCHING_INCREASE_HAS_SUPER_EFFECTIVE_MOVE) //Has some sort of followup
@@ -1941,7 +1943,7 @@ u8 GetMostSuitableMonToSwitchInto(void)
 	u8 option1 = gNewBS->ai.bestMonIdToSwitchInto[gActiveBattler][0];
 	u8 option2 = gNewBS->ai.bestMonIdToSwitchInto[gActiveBattler][1];
 
-	if (option1 == PARTY_SIZE
+	if (option1 < firstId || option1 >= lastId
 	||  GetMonData(&party[option1], MON_DATA_HP, NULL) == 0) //Best mon is dead
 	{
 		CalcMostSuitableMonToSwitchInto();
@@ -1949,11 +1951,19 @@ u8 GetMostSuitableMonToSwitchInto(void)
 
 		if (!BankSideHasTwoTrainers(gActiveBattler))
 			gNewBS->ai.calculatedAISwitchings[PARTNER(gActiveBattler)] = TRUE;
+		option1 = gNewBS->ai.bestMonIdToSwitchInto[gActiveBattler][0];
+		option2 = gNewBS->ai.bestMonIdToSwitchInto[gActiveBattler][1];
 	}
 
 	if (option1 == gBattleStruct->monToSwitchIntoId[battlerIn1]
 	||  option1 == gBattleStruct->monToSwitchIntoId[battlerIn2])
-		return option2;
+		option1 = option2;
+
+	if (option1 < firstId || option1 >= lastId
+	|| GetMonData(&party[option1], MON_DATA_HP, NULL) == 0
+	|| option1 == gBattleStruct->monToSwitchIntoId[battlerIn1]
+	|| option1 == gBattleStruct->monToSwitchIntoId[battlerIn2])
+		return PARTY_SIZE;
 
 	return option1;
 }
