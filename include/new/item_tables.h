@@ -2357,4 +2357,7 @@ extern const u8 gItemIcon_ExpCandyXLPal[];
 extern const u8 gItemIcon_ExpCandyXXLPal[];
 extern const u8 gItemIcon_Alola_StoneTiles[];   //[hack] patches/0327 アローラのいし（tools/items/alola_stone/build_alola_stone_icon.py）
 extern const u8 gItemIcon_Alola_StonePal[];
+extern const u8 DESC_CREEPER_ICE[];   //[hack] patches/0333 くりーぱーアイス
+extern const u8 gItemIcon_Creeper_IceTiles[];   //[hack] patches/0333（tools/items/creeper_ice/build_creeper_ice_icon.py）
+extern const u8 gItemIcon_Creeper_IcePal[];
 #endif

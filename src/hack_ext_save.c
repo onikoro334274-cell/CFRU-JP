@@ -28,11 +28,58 @@
 #define ProgramFlashSectorAndVerifyVanilla ((u32 (*)(u16, u8*)) (0x081C2C50 | 1))   //0 なら書けた
 #include "hack_save_crypt.h"
 
+#define ReadFlashVanilla ((void (*)(u16, u32, void*, u32)) (0x081C2A54 | 1))   //かき混ぜたまま読む（比べるだけ）
+#define BANK_PROBE_SIZE 16
+
+static bool8 SameBytes16(const u8* a, const u8* b)
+{
+	u32 i;
+	for (i = 0; i < BANK_PROBE_SIZE; ++i)
+		if (a[i] != b[i])
+			return FALSE;
+	return TRUE;
+}
+
+/* ★ 2026-10-11 ユーザーのセーブが壊れた（docs/research/2026-10-11_save-shelf-page-corruption.md）:
+   64MB の ROM が見えても、mGBA がバンク 2 以上の切り替えを無視する版（.sav が 128KB のまま）だと、区画 32 への書き込みが
+   「今のバンクの区画 0」（物理 0 か 16）に落ちて本体を壊す（src/hack_save_slot.c の確かめ用の書き込みで棚のページ 15 が消えた）。
+   書く前に「読むだけ」でバンクの切り替えが効くかを見る: 区画 0（バンク 0）→ 区画 32（バンク 2）の頭が同じなら
+   切り替えが無視された（か 1 ビットに丸められた）か、どちらも消えたまま＝使わない。区画 16（バンク 1）→ 区画 32 も同じ。
+   はじめから直後（全部 0xFF）は使えない判定になるが、最初のレポートのあとは区画 0 に中身が入るので使える */
+//ref（本体のバンク 0 か 1 の区画）を読んだ直後に test（高いバンクの区画）を読んで、違うものが読めるか。
+//  切り替えを無視する版は「今のバンク＝ref のバンク」の同じ所が読めるので同じになる・1 ビットに丸める版も 0 か 1 のどちらかと同じになる
+static bool8 ProbeDiffers(u16 refSector, u16 testSector)
+{
+	u8 a[BANK_PROBE_SIZE], c[BANK_PROBE_SIZE];
+
+	ReadFlashVanilla(refSector, 0, a, BANK_PROBE_SIZE);
+	ReadFlashVanilla(testSector, 0, c, BANK_PROBE_SIZE);
+	return !SameBytes16(a, c);
+}
+
+//★ 5e の指摘 2026-10-11: 前の 1MB 版の mGBA（バンク 0〜15 は本物・16 以上は無視して今のバンクに書く）はバンク 2 が本物なので、
+//  一番低いバンク（2）だけでなく使う一番高いバンク（追加の区画の末尾＝バンク 47・ぼうけんのしょ 2 なら +48 の hooks で 95）も見る。
+//  区画の番号は今のスロット基準（スロット 2 のときは SwitchFlashBank の hooks が +48 する）
+static bool8 BankSwitchWorks(void)
+{
+	static const u16 tests[2] = {EXT_FIRST_SECTOR, EXT_FIRST_SECTOR + EXT_SECTOR_COUNT - 16};   //バンク 2 の区画 0・バンク 47 の区画 0
+	u32 i;
+
+	for (i = 0; i < 2; ++i)
+	{
+		if (!ProbeDiffers(0, tests[i]) || !ProbeDiffers(16, tests[i]))
+			return FALSE;
+	}
+	return TRUE;
+}
+
 bool8 HackExtSave_Available(void)
 {
 	const u32* head = (const u32*) 0x0A000000;
 
-	return head[0] == 0x50534B50 && head[1] == 0x31534349;   //'PKSPICS1'
+	if (!(head[0] == 0x50534B50 && head[1] == 0x31534349))   //'PKSPICS1'（64MB の後ろ半分が見える）
+		return FALSE;
+	return BankSwitchWorks();
 }
 
 bool8 HackExtSave_ReadSector(u16 n, void* dst)

@@ -89,6 +89,10 @@ const s8 gAbilityRatings[ABILITIES_COUNT] =
 	[ABILITY_DAZZLING] = 5,
 	[ABILITY_SHINOBIASHI] = 5,
 	[ABILITY_URAMESHIYA] = 5,
+	[ABILITY_SUN_AVATAR] = 9,       //★ 2026-10-11 たいようのけしん（ひでり と同じ）
+	[ABILITY_SUN_BUTTERFLY] = 6,    //★ たいようのちょう
+	[ABILITY_MIWAKUNOUROKO] = 7,    //★ 2026-10-11 ミワクノウロコ（いかく と同じ）
+	[ABILITY_TSUKINOMAMORI] = 4,    //★ 2026-10-11 ツキノマモリ（クリアボディ と同じ）
 	[ABILITY_DEFEATIST] = -1,
 	[ABILITY_DEFIANT] = 5,
 	[ABILITY_DELTASTREAM] = 10,
@@ -375,6 +379,7 @@ const bool8 gMoldBreakerIgnoredAbilities[ABILITIES_COUNT] =
 	[ABILITY_EARTHEATER] =		TRUE,
 	[ABILITY_FILTER] =			TRUE,
 	[ABILITY_FLASHFIRE] =		TRUE,
+	[ABILITY_SUN_AVATAR] =		TRUE,   //★ 2026-10-11 もらいび を含む（かたやぶりで無視される側）
 	[ABILITY_FLOWERGIFT] =		TRUE,
 	[ABILITY_GOODASGOLD] =		TRUE,
 	[ABILITY_GUARDDOG] =		TRUE,
@@ -437,6 +442,7 @@ const bool8 gMoldBreakerIgnoredAbilities[ABILITIES_COUNT] =
 	[ABILITY_SWEETVEIL] =		TRUE,
 	[ABILITY_DAZZLING] =		TRUE,
 	[ABILITY_SHINOBIASHI] = TRUE,
+	[ABILITY_TSUKINOMAMORI] = TRUE,   //★ 2026-10-11 ツキノマモリ（クリアボディ と同じく かたやぶりで無視）
 	[ABILITY_DISGUISE] =		TRUE,
 	[ABILITY_FLUFFY] =			TRUE,
 	[ABILITY_AURA_GUARD] =		TRUE, //★ ZA メガ（patches/0069）
@@ -532,6 +538,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u16 ability, u16 special, u16 moveAr
 
 			switch (gLastUsedAbility) {		//All of these abilities either use or make changes to
 				case ABILITY_SCARE:			//★ 2026-10-01 おどかし
+				case ABILITY_MIWAKUNOUROKO:	//★ 2026-10-11 ミワクノウロコ
 				case ABILITY_INTIMIDATE:	//the unidentified Ghost. In FR, only Intimidate and
 				case ABILITY_TRACE:			//Trace were included in this list. It has thus been
 				case ABILITY_DOWNLOAD:		//been expanded to support newer abilities.
@@ -554,6 +561,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u16 ability, u16 special, u16 moveAr
 
 		switch (gLastUsedAbility) {
 			case ABILITY_SCARE: //★ 2026-10-01 おどかし
+			case ABILITY_MIWAKUNOUROKO: //★ 2026-10-11 ミワクノウロコ
 			case ABILITY_INTIMIDATE:
 			case ABILITY_DOWNLOAD:
 			case ABILITY_FOREWARN:
@@ -686,6 +694,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u16 ability, u16 special, u16 moveAr
 			}
 			break;
 
+		case ABILITY_SUN_AVATAR:   //★ 2026-10-11 たいようのけしん＝ひでり（src/hack_volcarona.c）
 		case ABILITY_DROUGHT:
 			if (!(gBattleWeather & (WEATHER_SUN_ANY | WEATHER_PRIMAL_ANY | WEATHER_CIRCUS)))
 			{
@@ -789,6 +798,10 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u16 ability, u16 special, u16 moveAr
 
 		case ABILITY_SCARE: //★ 2026-10-01 おどかし（いかくの とくこう版・src/second_ability.c）
 			effect = Hack_StartIntimidateLike(bank, FALSE);
+			break;
+
+		case ABILITY_MIWAKUNOUROKO: //★ 2026-10-11 ミワクノウロコ（いかく と同じ・ツキノウロコ）
+			effect = Hack_StartIntimidateLike(bank, TRUE);
 			break;
 
 		case ABILITY_SUPERSWEETSYRUP:
@@ -2084,6 +2097,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u16 ability, u16 special, u16 moveAr
 						effect = 2, statId = STAT_ATK, amount = INCREASE_1;
 					break;
 
+				case ABILITY_SUN_AVATAR:   //★ 2026-10-11 たいようのけしん＝もらいび
 				case ABILITY_FLASHFIRE:
 					if (moveType == TYPE_FIRE && !(gBattleMons[bank].status1 & STATUS1_FREEZE))
 						effect = 3;
@@ -2280,6 +2294,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 bank, u16 ability, u16 special, u16 moveAr
 				}
 				break;
 
+			case ABILITY_SUN_AVATAR:   //★ 2026-10-11 たいようのけしん＝ほのおのからだ
 			case ABILITY_FLAMEBODY:
 				if (MOVE_HAD_EFFECT
 				&& TOOK_DAMAGE(bank)

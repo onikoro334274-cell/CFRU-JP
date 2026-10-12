@@ -151,7 +151,9 @@ s8 HackAI_SecondAbilitySwitchBonus(struct Pokemon* mon)
 	{
 		case ABILITY_INTIMIDATE:
 		case ABILITY_SCARE:
+		case ABILITY_MIWAKUNOUROKO:   //★ 2026-10-11 ミワクノウロコ
 		case ABILITY_DRIZZLE:
+		case ABILITY_SUN_AVATAR:   //★ 2026-10-11 たいようのけしん＝ひでり
 		case ABILITY_DROUGHT:
 		case ABILITY_SANDSTREAM:
 		case ABILITY_SNOWWARNING:

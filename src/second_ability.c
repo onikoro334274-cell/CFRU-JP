@@ -76,7 +76,8 @@ static u16 MomPikachuSecondAbility(u16 species, struct Pokemon* mon)
 }
 
 
-u16 HackDragonBoulder_SecondAbility(const struct Pokemon* mon, u16 species); //src/hack_dragon_boulder.c（2026-10-07 特別なガブリアスZ → りゅうのいわお）
+u16 HackDragonBoulder_SecondAbility(const struct Pokemon* mon, u16 species);
+u16 HackVolcarona_SecondAbility(u16 species, const struct Pokemon* mon);   //src/hack_volcarona.c（2026-10-11 特別なウルガモスの 2 つ目 たいようのちょう・#95） //src/hack_dragon_boulder.c（2026-10-07 特別なガブリアスZ → りゅうのいわお）
 
 /* 1 匹の 2 つ目の特性（レベルは見ない・ステータス画面と AI 用） */
 u16 SecondAbility_OfMon(struct Pokemon* mon)
@@ -90,6 +91,8 @@ u16 SecondAbility_OfMon(struct Pokemon* mon)
 
 	if (ability == ABILITY_NONE)
 		ability = MomPikachuSecondAbility(species, mon);
+	if (ability == ABILITY_NONE)
+		ability = HackVolcarona_SecondAbility(species, mon);
 	return ability;
 }
 
@@ -111,6 +114,8 @@ u16 SecondAbility_OfBank(u8 bank)
 		ability = SecondAbility_OfSpecies(SPECIES(bank));
 	if (ability == ABILITY_NONE)
 		ability = MomPikachuSecondAbility(SPECIES(bank), SIDE(bank) == B_SIDE_PLAYER ? GetBankPartyData(bank) : NULL);
+	if (ability == ABILITY_NONE)
+		ability = HackVolcarona_SecondAbility(SPECIES(bank), GetBankPartyData(bank));   //★ 相手側の個体にも効く（通信対戦）
 	if (ability == ABILITY(bank))
 		return ABILITY_NONE;
 	return ability;
@@ -165,6 +170,9 @@ bool8 SecondAbility_TrySwitchIn(u8 bank)
 			break;
 		case ABILITY_SCARE:
 			effect = Hack_StartIntimidateLike(bank, FALSE);
+			break;
+		case ABILITY_MIWAKUNOUROKO:   //★ 2026-10-11 ミワクノウロコ（ツキノウロコ・いかく と同じ）
+			effect = Hack_StartIntimidateLike(bank, TRUE);
 			break;
 		case ABILITY_ELECTRICSURGE:
 			effect = TryStartTerrain(bank, ELECTRIC_TERRAIN, B_ANIM_ELECTRIC_SURGE, ElectricTerrainSetString);

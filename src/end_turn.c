@@ -20,6 +20,8 @@
 #include "../include/new/terastal.h"
 #include "../include/new/util.h"
 #include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
+#include "hack_volcarona.h"   //★ 2026-10-11 たいようのちょう
+#include "hack_creeper_ice.h" //[hack] patches/0333 くりーぱーアイス
 
 /*
 end_turn.c
@@ -275,6 +277,7 @@ u8 TurnBasedEffects(void)
 				else if (gBattleWeather & WEATHER_SUN_ANY)
 				{
 					if (!(gBattleWeather & WEATHER_SUN_PERMANENT)
+					&& !HackVolcarona_HoldsSun()   //★ 2026-10-11 たいようのちょう: 場にいる間は にほんばれ などの晴れを減らさない
 					&& --gWishFutureKnock.weatherDuration == 0)
 					{
 						gBattleWeather &= ~WEATHER_SUN_ANY;
@@ -1435,6 +1438,16 @@ u8 TurnBasedEffects(void)
 										++effect;
 									}
 									break;
+								case ITEM_EFFECT_CREEPER_ICE: //[hack] patches/0333 2026-10-11 くりーぱーアイス: 残りの文・5 ターン目に爆発（src/hack_creeper_ice.c）
+								{
+									const u8* script = HackCreeperIce_EndTurn(gActiveBattler);
+									if (script != NULL)
+									{
+										BattleScriptExecute(script);
+										++effect;
+									}
+									break;
+								}
 								case ITEM_EFFECT_MAISEN: //[hack] patches/0292 2026-10-10 まいせん: 毎ターン 1/10（くっつきバリ と同じ台本）
 								case ITEM_EFFECT_STICKY_BARB:
 									if (ABILITY(gActiveBattler) != ABILITY_MAGICGUARD)

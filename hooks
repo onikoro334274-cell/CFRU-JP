@@ -1024,3 +1024,6 @@ HackDex_RegisterHook 081076B8 1
 
 ## 2026-10-10 タイトルのあとのメニューを BW に（src/bw_main_menu.c・bw-reloaded の main_menu）。素の 0800C1A0 の中・CFRU の時計の注意のフック（0800C1A4）の戻り先 0800C1AC
 BwMainMenuHook 0800C1AC 0
+
+## 2026-10-12 ネット交換（src/hack_network_trade.c・pm-start/enchanted-network-trade・patches/0336）。素の SetBlockReceivedFlag 08009F44 の頭（8 バイト・r3）
+NetTrade_BlockHook 08009F44 3

@@ -20,6 +20,7 @@
 #define MB_UNDERWATER_BLOCKED_ABOVE 0x19
 #define MB_1A 0x1A
 #define MB_1B 0x1B
+#define MB_BW_STRENGTH_HOLE 0x1F //[hack] patches/0346 2026-10-12 かいりき岩を落とす穴（pm-start/kairiki-bw・tools/kairiki_bw・#107）
 #define MB_STRENGTH_BUTTON 0x20
 #define MB_SAND 0x21
 #define MB_SEAWEED 0x22

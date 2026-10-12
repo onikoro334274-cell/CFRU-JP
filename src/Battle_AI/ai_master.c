@@ -1027,7 +1027,7 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
 		case TYPE_FIRE:
 			absorbingTypeAbility1 = ABILITY_FLASHFIRE;
 			absorbingTypeAbility2 = ABILITY_WELLBAKEDBODY;
-			absorbingTypeAbility3 = ABILITY_FLASHFIRE;
+			absorbingTypeAbility3 = ABILITY_SUN_AVATAR;   //★ 2026-10-11 たいようのけしん＝もらいび
 			break;
 		case TYPE_ELECTRIC:
 			absorbingTypeAbility1 = ABILITY_VOLTABSORB;

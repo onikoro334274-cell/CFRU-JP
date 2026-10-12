@@ -143,6 +143,14 @@ void atk15_seteffectwithchance(void)
 		}
 		else if (Random() % 100 <= percentChance && gBattleCommunication[MOVE_EFFECT_BYTE] != 0 && MOVE_HAD_EFFECT)
 		{
+			//★ 2026-10-11 ミワクノセンリツ（ツキノウロコ）: ムーンフォースの「特攻 -1」を、相手の こうげき と とくこう の
+			//  能力ランク補正前の実数値の高いほうに（同じなら半々）。技の効果はムーンフォースのまま＝AI は特攻を下げる技と読む
+			if (gCurrentMove == MOVE_MIWAKUNOSENRITSU && gBattleCommunication[MOVE_EFFECT_BYTE] == MOVE_EFFECT_SP_ATK_MINUS_1)
+			{
+				u16 atk = gBattleMons[gBankTarget].attack, spAtk = gBattleMons[gBankTarget].spAttack;
+				if (atk > spAtk || (atk == spAtk && (Random() & 1)))
+					gBattleCommunication[MOVE_EFFECT_BYTE] = MOVE_EFFECT_ATK_MINUS_1;
+			}
 			SetMoveEffect(FALSE, 0);
 		}
 		else

@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "defines_battle.h"
 #include "hack_difficulty.h"
+#include "hack_debug_menu.h"   //[hack] patches/0331 デバッグメニューの捕獲 100%（-DHACK_DEBUG_MENU のときだけ）
 #include "../include/event_data.h"
 #include "../include/pokemon.h"
 #include "../include/new/item.h"
@@ -335,6 +336,11 @@ static const u8 sCatchOddsTenths[DIFFICULTY_COUNT] = {10, 20, 15, 7, 5, 30};   /
 u32 HackDifficulty_CatchOdds(u32 odds)
 {
 	u16 difficulty = VarGet(HOENN_VAR_DIFFICULTY);
+
+#ifdef HACK_DEBUG_MENU
+	if (HackDebugMenu_CatchAll())   //[hack] patches/0331 デバッグメニューの「ほかく100」（印 HACK_FLAG_DEBUG_CATCH・ふつうの版では見ない）
+		return 0xFF;
+#endif
 
 	u32 before = odds;
 

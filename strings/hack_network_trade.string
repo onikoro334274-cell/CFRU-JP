@@ -1,0 +1,116 @@
+#org @gText_NetTrade_Title
+ミラクルこうかん
+
+#org @gText_NetTrade_Normal
+つうじょうこうかん
+
+#org @gText_NetTrade_NormalSel
+* つうじょうこうかん
+
+#org @gText_NetTrade_Password
+パスワードこうかん
+
+#org @gText_NetTrade_PasswordSel
+* パスワードこうかん
+
+#org @gText_NetTrade_Receive
+サーバーからうけとる
+
+#org @gText_NetTrade_ReceiveSel
+* サーバーからうけとる
+
+#org @gText_NetTrade_HelpTop
+A けってい   B とじる
+
+#org @gText_NetTrade_ChooseMon
+おくる ポケモンをえらぶ
+
+#org @gText_NetTrade_UpDown
+うえ した えらぶ
+
+#org @gText_NetTrade_HelpBack
+A けってい   B もどる
+
+#org @gText_NetTrade_CannotSend
+このポケモンは おくれません
+
+#org @gText_NetTrade_Digits
+8けたの パスワード
+
+#org @gText_NetTrade_Star
+*
+
+#org @gText_NetTrade_ChangeDigit
+うえ した すうじをかえる
+
+#org @gText_NetTrade_MoveDigit
+ひだり みぎ けたをえらぶ
+
+#org @gText_NetTrade_Cable
+ケーブルを つないでください
+
+#org @gText_NetTrade_WillSave
+こうかんご レポートをかきます
+
+#org @gText_NetTrade_Start
+A つうしんかいし
+
+#org @gText_NetTrade_BBack
+B もどる
+
+#org @gText_NetTrade_Wait
+つうしんちゅう しばらくおまちください
+
+#org @gText_NetTrade_NoPower
+でんげんを きらないでください
+
+#org @gText_NetTrade_Cancel
+B ちゅうし
+
+#org @gText_NetTrade_Close
+A または B で とじる
+
+#org @gText_NetTrade_Result0
+こうかんが かんりょうしました
+
+#org @gText_NetTrade_Result1
+パスワード または モードがちがいます
+
+#org @gText_NetTrade_Result2
+すでに うけとっています
+
+#org @gText_NetTrade_Result3
+つうしんエラー やりなおしてください
+
+#org @gText_NetTrade_Result4
+てもちが いっぱいです
+
+#org @gText_NetTrade_Result5
+ポケモンデータに エラーがあります
+
+#org @gText_NetTrade_Result6
+レポートを かけませんでした
+
+#org @gText_NetTrade_Result7
+こうかんは ほぞんずみです
+
+#org @gText_NetTrade_Result7b
+つうしんが きれました
+
+#org @gText_NetTrade_Result8
+てもちの ポケモンがいません
+
+#org @gText_NetTrade_Result9
+まえの こうかんを さいかいしてください
+
+#org @gText_NetTrade_Result10
+まえの こうかんの きろくを けしました
+
+#org @gText_NetTrade_GiveUp1
+さいかい できないときは SELECT で
+
+#org @gText_NetTrade_GiveUp2
+まえの こうかんの きろくを けす
+
+#org @gText_BwrMain_NetTrade
+ミラクルこうかん

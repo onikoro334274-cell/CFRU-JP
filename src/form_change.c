@@ -772,6 +772,13 @@ void HoldItemFormChange(struct Pokemon* mon, u16 item)
 			}
 			break;
 		#endif
+
+		//★ 2026-10-11 バイバニラ（かいはつしゃのすがた）: ももアイスを持たせると この姿・外すと（ほかの道具でも）バイバニラに戻る
+		//  （ユーザー判断・tools/custom_mon/vanilluxe_dev・patches/0335）。性格値は触らない（色違いはそのまま）
+		case SPECIES_VANILLUXE:
+		case SPECIES_VANILLUXE_DEV:
+			targetSpecies = (item == ITEM_MOMO_ICE) ? SPECIES_VANILLUXE_DEV : SPECIES_VANILLUXE;
+			break;
 	}
 
 	if (targetSpecies != SPECIES_NONE && targetSpecies != species)

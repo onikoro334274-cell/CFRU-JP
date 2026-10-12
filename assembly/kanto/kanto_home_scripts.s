@@ -239,18 +239,11 @@ KantoHome1F_EventScript_MomTalkMain:
 @ ピカチュウのあと: おまもり 3 つ（まるい・ひかる・かがやく）のどれかが無ければ、無いものを全部 1 回の会話で渡す（2026-10-11 まとめた）。
 @ 全部あれば いんせき・カタログ → お母さんの貯金
 KantoHome1F_EventScript_MomCharms:
-	checkitem ITEM_OVAL_CHARM 1
-	compare LASTRESULT 0
-	if 0x1 _goto KantoHome1F_EventScript_MomGiveCharms
-	checkitem ITEM_SHINY_CHARM 1
-	compare LASTRESULT 0
-	if 0x1 _goto KantoHome1F_EventScript_MomGiveCharms
-	checkitem ITEM_SHINING_CHARM 1
-	compare LASTRESULT 0
-	if 0x1 _goto KantoHome1F_EventScript_MomGiveCharms
-	checkitem ITEM_DNA_SPLICERS 1                    @ 2026-10-11 伝説の道具 9 つの代表（前の版のセーブ）
-	compare LASTRESULT 0
-	if 0x1 _goto KantoHome1F_EventScript_MomGiveCharms
+	@ ★ 2026-10-12 ユーザー「ママからたいせつなものにもらっていないのがあったらママに話しかければもらえるように」:
+	@   おまもり 3 つ・1 階の贈り物の たいせつなもの 6 つ・伝説の 9 つの 18 個を全部調べ、1 つでも無ければ無いものを全部渡す（MomGiveCharms）
+	call KantoHome1F_EventScript_CheckMissing
+	compare 0x8009 0
+	if 0x5 _goto KantoHome1F_EventScript_MomGiveCharms   @ 0x5 = not equal
 	callasm HackMeteorite_MomCheck + 1                   @ ★ 2026-10-09 デオキシス・ロトムを持っているのに いんせき・カタログが無ければ（src/hack_meteorite.c）
 	compare LASTRESULT 1
 	if 0x1 _goto KantoHome1F_EventScript_MomFormItems
@@ -315,6 +308,7 @@ KantoHome1F_EventScript_CharmsBody:
 	compare LASTRESULT 0
 	if 0x1 _call KantoHome1F_EventScript_MomGiveShining
 	call KantoHome1F_EventScript_KeyItemsBody
+	call KantoHome1F_EventScript_StartItemsBody   @ 2026-10-12 1 階の贈り物の たいせつなもの 6 つのうち無いもの
 	return
 
 KantoHome1F_EventScript_CharmsExplain:
@@ -350,6 +344,81 @@ KantoHome1F_EventScript_KeyItemsBody:
 KantoHome1F_EventScript_KeyItemsExplain:
 	textcolor TEXT_COLOR_FEMALE
 	msgbox gText_KantoMom_KeyItems MSG_KEEPOPEN
+	return
+
+@ ★ 2026-10-12 ママからもらう たいせつなもの 18 個（おまもり 3・1 階の贈り物 6・伝説の 9）のどれかが無ければ 0x8009 = 1
+KantoHome1F_EventScript_CheckMissing:
+	setvar 0x8009 0
+	setvar 0x8000 ITEM_OVAL_CHARM
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_SHINY_CHARM
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_SHINING_CHARM
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_Z_POWER_RING
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_TERA_ORB
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_MEGA_RING
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_DYNAMAX_BAND
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_BERRY_PLANTER
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_TIME_TV
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_GRACIDEA
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_DNA_SPLICERS
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_REVEAL_GLASS
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_PRISON_BOTTLE
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_N_SOLARIZER
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_N_LUNARIZER
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_RUSTED_SWORD
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_RUSTED_SHIELD
+	call KantoHome1F_EventScript_MarkIfMissing
+	setvar 0x8000 ITEM_REINS_OF_UNITY
+	call KantoHome1F_EventScript_MarkIfMissing
+	return
+
+KantoHome1F_EventScript_MarkIfMissing:
+	checkitem 0x8000 1
+	compare LASTRESULT 0
+	if 0x1 _goto KantoHome1F_EventScript_MarkMissing
+	return
+
+KantoHome1F_EventScript_MarkMissing:
+	setvar 0x8009 1
+	return
+
+@ ★ 2026-10-12 1 階の贈り物の たいせつなもの 6 つ（Zパワーリング・テラスタルオーブ・メガリング・ダイマックスバンド・きのみプランター・タイムテレビ）のうち無いものを渡す（1 つでも渡したら説明を 1 回）
+KantoHome1F_EventScript_StartItemsBody:
+	setvar 0x8009 0
+	setvar 0x8000 ITEM_Z_POWER_RING
+	call KantoHome1F_EventScript_KeyItem
+	setvar 0x8000 ITEM_TERA_ORB
+	call KantoHome1F_EventScript_KeyItem
+	setvar 0x8000 ITEM_MEGA_RING
+	call KantoHome1F_EventScript_KeyItem
+	setvar 0x8000 ITEM_DYNAMAX_BAND
+	call KantoHome1F_EventScript_KeyItem
+	setvar 0x8000 ITEM_BERRY_PLANTER
+	call KantoHome1F_EventScript_KeyItem
+	setvar 0x8000 ITEM_TIME_TV
+	call KantoHome1F_EventScript_KeyItem
+	compare 0x8009 0
+	if 0x5 _call KantoHome1F_EventScript_StartItemsExplain      @ 0x5 = not equal
+	return
+
+KantoHome1F_EventScript_StartItemsExplain:
+	textcolor TEXT_COLOR_FEMALE
+	msgbox gText_KantoMom_StartItems MSG_KEEPOPEN
 	return
 
 @ 0x8000 の道具を持っていなければ 1 つ渡す（giveitem と同じ 0x8000／0x8001 → callstd MSG_OBTAIN）

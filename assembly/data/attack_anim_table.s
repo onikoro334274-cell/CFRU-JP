@@ -1044,6 +1044,9 @@ gMoveAnimations:
 .word 0x81B0BF5		@MOVE_FLOATYFALL（素の MOVE_AERIALACE のアニメ）
 
 .word ANIM_SHADOWSNEAK	@MOVE_URASHINEN
+.word 0x81AC7F2	@MOVE_ENBUCHO（ほのおのうず のアニメ・2026-10-11 #95）
+.word ANIM_MOONBLAST	@MOVE_MIWAKUNOSENRITSU（ムーンフォース のアニメ・ツキノウロコ）
+.word ANIM_DAZZLINGGLEAM	@MOVE_FRUITCANNON（マジカルシャイン のアニメ・バイバニラ（かいはつしゃのすがた））
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .pool
@@ -30551,7 +30554,7 @@ ELECTRO_COALESCE:
 	return
 
 .align 2
-NEEDLEARM_ELECTRO: objtemplate ANIM_TAG_SPARKLE_1 ANIM_TAG_SPARKLE_1 OAM_OFF_32x32 ANIM_TAG_SPARK 0x0 gDummySpriteAffineAnimTable 0x80A5559
+NEEDLEARM_ELECTRO: objtemplate ANIM_TAG_SPARKLE_1 ANIM_TAG_SPARKLE_1 OAM_OFF_32x32 gDummySpriteAnimTable 0x0 gDummySpriteAffineAnimTable 0x80A5559 @ [hack] patches/0330 アニメの表の欄が札の番号 ANIM_TAG_SPARK（0x2711＝BIOS）だった＝エレクトロビームのためで無効な番地へ飛んで固まる
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 .pool

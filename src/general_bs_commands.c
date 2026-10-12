@@ -42,6 +42,7 @@
 #include "../include/new/terastal.h"
 #include "../include/new/util.h"
 #include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
+#include "hack_debug_menu.h" //[hack] patches/0342
 
 /*
 general_bs_commands.c
@@ -741,6 +742,10 @@ void atk0B_healthbarupdate(void)
 void atk0C_datahpupdate(void)
 {
 	if (gBattleExecBuffer) return;
+
+#ifdef HACK_DEBUG_MENU
+	HackDebugMenu_AdjustDamage(GetBankForBattleScript(gBattlescriptCurrInstr[1])); //[hack] patches/0342 「むてき」「いちげき」（デバッグ版だけ）
+#endif
 
 	if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT) || (gHitMarker & HITMARKER_NON_ATTACK_DMG))
 	{

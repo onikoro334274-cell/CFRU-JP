@@ -31,6 +31,7 @@
 #include "../include/new/util.h"
 #include "../include/new/wild_encounter.h"
 #include "../include/new/wild_attack_move.h"
+#include "hack_debug_menu.h" //[hack] patches/0342
 /*
 wild_encounter.c
 	handles functions related to wild encounter probability and associated features
@@ -648,6 +649,8 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo* wildMonInfo, u8 ar
 			goto SKIP_INDEX_SEARCH;
 		if (TryGetAbilityInfluencedWildMonIndex(wildMonInfo->wildPokemon, TYPE_FIRE, ABILITY_FLASHFIRE, &wildMonIndex, monsCount))
 			goto SKIP_INDEX_SEARCH;
+		if (TryGetAbilityInfluencedWildMonIndex(wildMonInfo->wildPokemon, TYPE_FIRE, ABILITY_SUN_AVATAR, &wildMonIndex, monsCount)) //★ 2026-10-11 たいようのけしん＝もらいび（src/hack_volcarona.c）
+			goto SKIP_INDEX_SEARCH;
 		if (TryGetAbilityInfluencedWildMonIndex(wildMonInfo->wildPokemon, TYPE_GRASS, ABILITY_HARVEST, &wildMonIndex, monsCount))
 			goto SKIP_INDEX_SEARCH;
 		if (TryGetAbilityInfluencedWildMonIndex(wildMonInfo->wildPokemon, TYPE_WATER, ABILITY_STORMDRAIN, &wildMonIndex, monsCount))
@@ -693,6 +696,8 @@ SKIP_INDEX_SEARCH:
 			if (TryGetAbilityInfluencedWildMonIndex(wildMonInfo->wildPokemon, TYPE_ELECTRIC, ABILITY_LIGHTNINGROD, &wildMonIndex, monsCount))
 				goto SKIP_INDEX_SEARCH_2;
 			if (TryGetAbilityInfluencedWildMonIndex(wildMonInfo->wildPokemon, TYPE_FIRE, ABILITY_FLASHFIRE, &wildMonIndex, monsCount))
+				goto SKIP_INDEX_SEARCH_2;
+			if (TryGetAbilityInfluencedWildMonIndex(wildMonInfo->wildPokemon, TYPE_FIRE, ABILITY_SUN_AVATAR, &wildMonIndex, monsCount)) //★ 2026-10-11 たいようのけしん＝もらいび（src/hack_volcarona.c）
 				goto SKIP_INDEX_SEARCH_2;
 			if (TryGetAbilityInfluencedWildMonIndex(wildMonInfo->wildPokemon, TYPE_GRASS, ABILITY_HARVEST, &wildMonIndex, monsCount))
 				goto SKIP_INDEX_SEARCH_2;
@@ -771,6 +776,10 @@ bool8 DoesCurrentMapHaveFishingMons(void)
 
 bool8 DoesFishBite(void)
 {
+#ifdef HACK_DEBUG_MENU
+	if (HackDebugMenu_NoWild()) //[hack] patches/0342 デバッグメニューの「やせいなし」（デバッグ版だけ）
+		return FALSE;
+#endif
 	if (DoesCurrentMapHaveFishingMons())
 	{
 		u8 chance = 50; //Default 50% chance of biting
@@ -863,6 +872,10 @@ u8 GetAbilityEncounterRateModType(void)
 
 bool8 StandardWildEncounter(const u32 currMetaTileBehavior, const u16 previousMetaTileBehavior)
 {
+#ifdef HACK_DEBUG_MENU
+	if (HackDebugMenu_NoWild()) //[hack] patches/0342 デバッグメニューの「やせいなし」（デバッグ版だけ）
+		return FALSE;
+#endif
 	const struct WildPokemonInfo* landMonsInfo, *waterMonsInfo;
 	struct Roamer* roamer;
 	bool8 clearDoubleFlag = FALSE;
@@ -1059,6 +1072,13 @@ u8 GetMapBaseEncounterCooldown(u8 lowerByte)
 
 void RockSmashWildEncounter(void)
 {
+#ifdef HACK_DEBUG_MENU
+	if (HackDebugMenu_NoWild()) //[hack] patches/0342 デバッグメニューの「やせいなし」
+	{
+		gSpecialVar_LastResult = FALSE;
+		return;
+	}
+#endif
 	const struct WildPokemonInfo* wildPokemonInfo = LoadProperMonsData(ROCK_SMASH_MONS_HEADER);
 
 	if (wildPokemonInfo == NULL)
@@ -1101,6 +1121,10 @@ static void TrySetDoubleSweetScentBattle(void)
 
 bool8 SweetScentWildEncounter(void)
 {
+#ifdef HACK_DEBUG_MENU
+	if (HackDebugMenu_NoWild()) //[hack] patches/0342 デバッグメニューの「やせいなし」（デバッグ版だけ）
+		return FALSE;
+#endif
 	s16 x, y;
 	const struct WildPokemonInfo* landMonsInfo = LoadProperMonsData(LAND_MONS_HEADER);
 	const struct WildPokemonInfo* waterMonsInfo = LoadProperMonsData(WATER_MONS_HEADER);

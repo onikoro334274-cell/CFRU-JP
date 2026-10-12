@@ -1496,4 +1496,11 @@
 /* GIGAMINE BEGIN (tools/custom_mon/gigamine/build_gigamine.py・やん之助) */
 #define SPECIES_GIGAMINE 0x5D3
 /* GIGAMINE END */
-#define NUM_SPECIES (SPECIES_GIGAMINE + 1)
+/* TSUKINOUROKO BEGIN (tools/custom_mon/tsukinouroko/build_tsukinouroko.py) */
+#define SPECIES_TSUKINOUROKO 0x5D4
+/* TSUKINOUROKO END */
+/* VANILLUXE_DEV BEGIN (tools/custom_mon/vanilluxe_dev/build_vanilluxe_dev.py) */
+// バイバニラ（かいはつしゃのすがた）・ももアイスを持たせた姿
+#define SPECIES_VANILLUXE_DEV 0x5D5
+/* VANILLUXE_DEV END */
+#define NUM_SPECIES (SPECIES_VANILLUXE_DEV + 1)

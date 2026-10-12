@@ -188,3 +188,24 @@ HackBagPage_PrintPocketName 081092E8 0 0
 ## 2026-10-11 64MB の後ろ半分（src/hack_split_pics.c・5e の指摘）: 展開前に大きさを直に読む素の 2 関数は、元が後ろ半分なら先に写しを取る
 HackSplit_MallocAndDecompress 080F7AF8 2 1
 HackSplit_LoadCompressedSpriteSheetUsingHeap 0800E9E8 1 1
+
+## 2026-10-12 ボックスジャンプ（src/hack_box_jump.c・pm-start/box-jump・#105・patches/0341）: 箱を選ぶ画面の素の 4 つ
+HackBoxJump_Input 0808C398 0 1
+HackBoxJump_Create 0808C400 1 0
+HackBoxJump_Destroy 0808C5E0 0 0
+HackBoxJump_Render 0808C6B0 0 0
+##
+## ダウジングマシンをホウエンなどでも（2026-10-12・src/hack_itemfinder.c・隠し道具の看板の印を読む）
+HackItemfinder_InRange 0813F538 2 1
+HackItemfinder_AtPos 0813F728 3 1
+##
+## バトルサーチャーをホウエン・シンオウでも（2026-10-12・src/hack_vs_seeker.c・表の長さを即値から HACK_REMATCH_COUNT に）
+HackVs_ShouldTryRematchBattleInternal 0810D858 2 1
+HackVs_LookupOpponentInArray 0810D8E8 2 1
+HackVs_IsTrainerReadyForRematchInternal 0810D9A8 2 1
+HackVs_GetRematchIdx 0810DB5C 2 1
+HackVs_GetNextAvailableRematchTrainer 0810DC3C 3 1
+HackVs_GetRematchTrainerId 0810D93C 1 1
+
+## 2026-10-12 ランダム天気（src/hack_random_weather.c・#106・patches/0345）: 素の SetSav1WeatherFromCurrMapHeader（地図に入るとき）
+HackRandomWeather_SetSav1FromHeader 0807A8A0 0 0

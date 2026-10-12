@@ -70,6 +70,9 @@ WonderTrade_SelectMon:
 	@ ★ 2026-10-09 ユーザー「ももアイスをトレード不可アイテムに」: ももアイスを持った子は出せない（0x8006 = 2・src/hack_wonder_trade.c）
 	compare 0x8006 0x2
 	if equal _goto WonderTrade_NoMomoIce
+	@ ★ 2026-10-11 特別なウルガモス（#95）は出せない（0x8006 = 3・src/hack_volcarona.c）
+	compare 0x8006 0x3
+	if equal _goto WonderTrade_NoSpecialMon
 	msgbox gText_WonderTrade_Confirm MSG_YESNO
 	compare LASTRESULT 0x1
 	if notequal _goto WonderTrade_SelectMon
@@ -110,6 +113,10 @@ WonderTrade_Cancel:
 
 WonderTrade_NoMomoIce:
 	msgbox gText_MomoIce_NoTrade MSG_NORMAL
+	goto WonderTrade_SelectMon
+
+WonderTrade_NoSpecialMon:
+	msgbox gText_WonderTrade_NoSpecialMon MSG_NORMAL
 	goto WonderTrade_SelectMon
 
 WonderTrade_NoEgg:

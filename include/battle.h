@@ -1056,6 +1056,8 @@ struct NewBattleStruct
 	u8 hackAffectionMove; //[hack] patches/0240 なつき度（src/hack_affection.c）: 1 回の技の間の印（技の始めに 0）
 	u8 hackAffectionLastMon; //[hack] patches/0240 「さいごの いっぴき」の文を出した場（ビット）
 	u8 hackAffectionUsed; //[hack] patches/0240 この戦いで技を出した自分の手持ち（番号のビット）
+	u8 hackCreeperIceTurns[MAX_BATTLERS_COUNT]; //[hack] patches/0333 くりーぱーアイス: 場ごとの ターンの数（5 で爆発）
+	u8 hackCreeperIceMon[MAX_BATTLERS_COUNT]; //[hack] patches/0333 その数を数えている手持ちの番号 + 1（別の子が出たら 0 から）
 };
 
 extern struct NewBattleStruct* gNewBS; //0x203E038

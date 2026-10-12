@@ -68,6 +68,8 @@ u16 HoennLeagueRematchTrainer(u16 trainerId)
 /*
     ★ 2026-10-10 シンオウのポケモンリーグの殿堂入り（印 SINNOH_FLAG_LEAGUE_HOF・tools/sinnoh/build_sinnoh_gyms.py の league）→
       リーグのポケセン（HnS のセキエイのポケセン）の看護師の前へ。行き先は src/Tables/sinnoh_flags.h（生成物）
+    ★ 2026-10-12 ユーザー（5e 経由）「殿堂入りのあとの戻り先はマサラタウンの家の前（カントー・ホウエンと同じ）」:
+      シンオウも印を消すだけで、行き先はマサラ（つづきからの戻る場所もマサラ）。sinnoh_flags.h の SINNOH_LEAGUE_PC_* はもう使わない
 */
 void HoennLeague_SetWarpsAfterHallOfFame(void)
 {
@@ -77,10 +79,6 @@ void HoennLeague_SetWarpsAfterHallOfFame(void)
 	if (FlagGet(SINNOH_FLAG_LEAGUE_HOF))
 	{
 		FlagClear(SINNOH_FLAG_LEAGUE_HOF);
-		group = SINNOH_LEAGUE_PC_GROUP;
-		num = SINNOH_LEAGUE_PC_NUM;
-		x = SINNOH_LEAGUE_PC_X;
-		y = SINNOH_LEAGUE_PC_Y;
 	}
 	else if (FlagGet(HOENN_FLAG_HOF_IN_HOENN))
 	{

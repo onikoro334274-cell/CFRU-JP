@@ -737,6 +737,7 @@ u8 ItemBattleEffects(u8 caseID, u8 bank, bool8 moveTurn, bool8 doPluck)
 		if (BATTLER_ALIVE(bank))
 		{
 			switch (bankHoldEffect) {
+				case ITEM_EFFECT_CREEPER_ICE: //[hack] patches/0333 くりーぱーアイスも毎ターン 1/16（たべのこしと同じ）
 				case ITEM_EFFECT_LEFTOVERS:
 				LEFTOVERS_HEAL:
 					if (!moveTurn && !BATTLER_MAX_HP(bank)

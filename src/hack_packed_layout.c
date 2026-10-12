@@ -113,6 +113,10 @@ void HackLayout_InitBackupMapLayoutData(const u16* map, u16 width, u16 height)
 		if (alloc != NULL)
 			Free(alloc);
 		map = tail;
+		//★ 2026-10-11 Deflate の作業場は VMap の頭（上の 7 行と左の 7 マス＝素の InitMapLayoutData が 0x3FF で埋めた所）なので、
+		//  展開のあとに埋め直す（埋めないと地図の上の縁の外に作業場のごみが描かれた＝ユーザー「マップの境界らしき場所がバグっている」・v0.39.1）。
+		//  dest（最初のマスの写し先）は tail より前なので、展開したマス目は潰れない
+		CpuFill16(MAPGRID_UNDEFINED_CELL, VMap.map, (u8*) dest - (u8*) VMap.map);
 	}
 
 	for (y = 0; y < height; y++)

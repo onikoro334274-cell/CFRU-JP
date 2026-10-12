@@ -47,6 +47,7 @@ void HackDifficulty_AdjustFrontierMon(struct Pokemon* mon, bool8 forPlayer); //[
 #include "Tables/raid_encounters.h"
 #include "Tables/raid_partners.h"
 #include "Tables/trainers_with_evs_table.h"
+#include "hack_volcarona.h"   //[hack] 2026-10-11 特別なウルガモス
 //[hack] patches/0143 トレーナーヒル（src/hoenn_trainer_hill.c）
 bool8 HoennHill_InHillBattle(void);
 const struct BattleTowerSpread* HoennHill_MakeSpread(struct BattleTowerSpread* out, u16 tableId, u8 slot);
@@ -4498,6 +4499,8 @@ u16 GetMonAbility(const struct Pokemon* mon)
 	u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
 
 	ability = HackGibleEgg_SpecialAbility(mon, species); //[hack] 2026-10-03 りゅうのよろい（ABILITY_DRAGONARMOR・patches/0150） クチバのフカマルの子はメガシンカしても
+	if (ability == ABILITY_NONE)
+		ability = HackVolcarona_SpecialAbility(mon, species); //[hack] 2026-10-11 たいようのけしん（特別なウルガモスだけ・src/hack_volcarona.c・#95）
 	if (ability != ABILITY_NONE)
 		return ability;
 

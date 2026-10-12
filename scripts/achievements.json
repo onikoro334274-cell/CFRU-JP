@@ -1485,6 +1485,146 @@
     "id": "ITEM_SAFARI_BALL",
     "amount": 10
    }
+  },
+  {
+   "id": "WATASHI_LIRU",
+   "name": "りると バトル",
+   "desc": "かくれトレーナーの\\nりるに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF01",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WATASHI_UI",
+   "name": "ういと バトル",
+   "desc": "かくれトレーナーの\\nういに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF02",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WATASHI_SHIDARE",
+   "name": "しだれと バトル",
+   "desc": "かくれトレーナーの\\nしだれに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF03",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WATASHI_MILK",
+   "name": "みるくと バトル",
+   "desc": "かくれトレーナーの\\nみるくに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF04",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WATASHI_NAO",
+   "name": "なおと バトル",
+   "desc": "かくれトレーナーの\\nなおに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF05",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WATASHI_KAIRI",
+   "name": "かいりと バトル",
+   "desc": "かくれトレーナーの\\nかいりに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF06",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WATASHI_RIKKA",
+   "name": "りっかと バトル",
+   "desc": "かくれトレーナーの\\nりっかに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF07",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WATASHI_SHII",
+   "name": "しぃと バトル",
+   "desc": "かくれトレーナーの\\nしぃに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF08",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WATASHI_RAN",
+   "name": "らんと バトル",
+   "desc": "かくれトレーナーの\\nらんに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF09",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
+  },
+  {
+   "id": "WATASHI_ICHIGO",
+   "name": "いちごと バトル",
+   "desc": "かくれトレーナーの\\nいちごに かつ",
+   "tier": "GOLD",
+   "kind": "FLAG",
+   "param": "0xF0A",
+   "target": 1,
+   "reward": {
+    "type": "ITEM",
+    "id": "ITEM_EXP_CANDY_XXL",
+    "amount": 10
+   }
   }
  ],
  "rewards": [

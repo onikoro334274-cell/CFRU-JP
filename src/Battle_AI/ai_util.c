@@ -1744,6 +1744,7 @@ bool8 GoodIdeaToLowerAttack(u8 bankDef, u8 bankAtk, u16 move)
 	return STAT_STAGE(bankDef, STAT_STAGE_ATK) > 4 && PhysicalMoveInMoveset(bankDef)
 		&& defAbility != ABILITY_CONTRARY
 		&& defAbility != ABILITY_CLEARBODY
+		&& defAbility != ABILITY_TSUKINOMAMORI   //★ 2026-10-11 ツキノマモリ
 		&& defAbility != ABILITY_WHITESMOKE
 		&& defAbility != ABILITY_FULLMETALBODY
 		&& defAbility != ABILITY_HYPERCUTTER
@@ -1761,6 +1762,7 @@ bool8 GoodIdeaToLowerDefense(u8 bankDef, u8 bankAtk, u16 move)
 		&& PhysicalMoveInMoveset(bankAtk)
 		&& defAbility != ABILITY_CONTRARY
 		&& defAbility != ABILITY_CLEARBODY
+		&& defAbility != ABILITY_TSUKINOMAMORI   //★ 2026-10-11 ツキノマモリ
 		&& defAbility != ABILITY_WHITESMOKE
 		&& defAbility != ABILITY_FULLMETALBODY
 		&& defAbility != ABILITY_BIGPECKS
@@ -1777,6 +1779,7 @@ bool8 GoodIdeaToLowerSpAtk(u8 bankDef, u8 bankAtk, u16 move)
 	return STAT_STAGE(bankDef, STAT_STAGE_SPATK) > 4 && SpecialMoveInMoveset(bankDef)
 		&& defAbility != ABILITY_CONTRARY
 		&& defAbility != ABILITY_CLEARBODY
+		&& defAbility != ABILITY_TSUKINOMAMORI   //★ 2026-10-11 ツキノマモリ
 		&& defAbility != ABILITY_FULLMETALBODY
 		&& defAbility != ABILITY_WHITESMOKE
 		&& ITEM_EFFECT(bankDef) != ITEM_EFFECT_CLEAR_AMULET;
@@ -1792,6 +1795,7 @@ bool8 GoodIdeaToLowerSpDef(u8 bankDef, u8 bankAtk, u16 move)
 	return STAT_STAGE(bankDef, STAT_STAGE_SPDEF) > 4 && SpecialMoveInMoveset(bankAtk)
 		&& defAbility != ABILITY_CONTRARY
 		&& defAbility != ABILITY_CLEARBODY
+		&& defAbility != ABILITY_TSUKINOMAMORI   //★ 2026-10-11 ツキノマモリ
 		&& defAbility != ABILITY_FULLMETALBODY
 		&& defAbility != ABILITY_WHITESMOKE
 		&& ITEM_EFFECT(bankDef) != ITEM_EFFECT_CLEAR_AMULET;
@@ -1807,6 +1811,7 @@ bool8 GoodIdeaToLowerSpeed(u8 bankDef, u8 bankAtk, u16 move)
 	return SpeedCalc(bankAtk) <= SpeedCalc(bankDef)
 		&& defAbility != ABILITY_CONTRARY
 		&& defAbility != ABILITY_CLEARBODY
+		&& defAbility != ABILITY_TSUKINOMAMORI   //★ 2026-10-11 ツキノマモリ
 		&& defAbility != ABILITY_FULLMETALBODY
 		&& defAbility != ABILITY_WHITESMOKE
 		&& ITEM_EFFECT(bankDef) != ITEM_EFFECT_CLEAR_AMULET;
@@ -1821,6 +1826,7 @@ bool8 GoodIdeaToLowerAccuracy(u8 bankDef, u8 bankAtk, u16 move)
 
 	return defAbility != ABILITY_CONTRARY
 		&& defAbility != ABILITY_CLEARBODY
+		&& defAbility != ABILITY_TSUKINOMAMORI   //★ 2026-10-11 ツキノマモリ
 		&& defAbility != ABILITY_WHITESMOKE
 		&& defAbility != ABILITY_FULLMETALBODY
 		&& defAbility != ABILITY_KEENEYE
@@ -1835,6 +1841,7 @@ bool8 GoodIdeaToLowerEvasion(u8 bankDef, u8 bankAtk, unusedArg u16 move)
 	return (STAT_STAGE(bankDef, STAT_STAGE_EVASION) > 6 || MoveInMovesetWithAccuracyLessThan(bankAtk, bankDef, 90, TRUE))
 		&& defAbility != ABILITY_CONTRARY
 		&& defAbility != ABILITY_CLEARBODY
+		&& defAbility != ABILITY_TSUKINOMAMORI   //★ 2026-10-11 ツキノマモリ
 		&& defAbility != ABILITY_FULLMETALBODY
 		&& defAbility != ABILITY_WHITESMOKE
 		&& ITEM_EFFECT(bankDef) != ITEM_EFFECT_CLEAR_AMULET;

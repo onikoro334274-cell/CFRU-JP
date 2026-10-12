@@ -57,6 +57,7 @@
 #include "../include/new/overworld.h"
 #include "../include/new/wild_encounter.h"
 #include "../include/new/util.h"
+#include "hack_debug_menu.h" //[hack] patches/0342
 
 /*
 dexnav.c
@@ -1896,6 +1897,13 @@ static void DexNavDrawIcons(bool8 detectorMode)
 extern void sp0AF_DismountBicyle(void);
 bool8 InitDexNavHUD(u16 species, u8 environment, bool8 detectorMode)
 {
+#ifdef HACK_DEBUG_MENU
+	if (HackDebugMenu_NoWild()) //[hack] patches/0342 デバッグメニューの「やせいなし」（デバッグ版だけ）
+	{
+		DexNavShowFieldMessage(FIELD_MSG_LOOK_IN_OTHER_SPOT);
+		return FALSE;
+	}
+#endif
 	if (Overworld_GetFlashLevel() > 0)
 	{
 		DexNavShowFieldMessage(FIELD_MSG_TOO_DARK);

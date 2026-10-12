@@ -21,6 +21,8 @@
 
 #include "Tables/type_tables.h"
 #include "hack_affection.h" //[hack] patches/0240 なつき度（src/hack_affection.c）
+#include "hack_volcarona.h"   //★ 2026-10-11 たいようのちょう
+#include "hack_creeper_ice.h" //[hack] patches/0333 くりーぱーアイス
 
 bool8 HackDragonBoulder_Bank(u8 bank); //[hack] patches/0207 りゅうのいわお（src/hack_dragon_boulder.c）
 bool8 HackDragonBoulder_Mon(struct Pokemon* mon);
@@ -2827,6 +2829,10 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 		data->resultFlags = 0;
 	}
 
+//★ 2026-10-11 たいようのちょう（特別なウルガモスの 2 つ目・Lv50 から・src/hack_volcarona.c）: 晴れのとき とくこう 1.5 倍
+	if (!useMonAtk && HackVolcarona_ButterflyBoost(bankAtk))
+		spAttack = (spAttack * 15) / 10;
+
 //Attacker Ability Checks
 	switch(data->atkAbility) {
 		case ABILITY_HUGEPOWER:
@@ -2885,6 +2891,7 @@ static s32 CalculateBaseDamage(struct DamageCalc* data)
 			}
 			break;
 
+		case ABILITY_SUN_AVATAR:   //★ 2026-10-11 たいようのけしん＝もらいび（src/hack_volcarona.c）
 		case ABILITY_FLASHFIRE:
 		//1.5x Boost
 			if (!useMonAtk && data->moveType == TYPE_FIRE
@@ -4389,6 +4396,8 @@ static u16 AdjustBasePower(struct DamageCalc* data, u16 power)
 			power = (power * 13) / 10;
 			break;
 	}
+
+	power = HackCreeperIce_AdjustPower(power, data->move, data->defItemEffect); //[hack] patches/0333 くりーぱーアイスを持つ相手へのじばく系は 1/5
 
 	//Check attacker item effect boost
 	switch (data->atkItemEffect) {

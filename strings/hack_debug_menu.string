@@ -1,0 +1,260 @@
+#org @gText_HackDebug_Title
+デバッグメニュー
+
+#org @gText_HackDebug_Cursor
+*
+
+#org @gText_HackDebug_Catch
+ほかく100
+
+#org @gText_HackDebug_Item
+アイテムをもらう
+
+#org @gText_HackDebug_Warp
+まちへワープ
+
+#org @gText_HackDebug_Heal
+てもちをかいふく
+
+#org @gText_HackDebug_Money
+おかねをMAXに
+
+#org @gText_HackDebug_Badges
+バッジをぜんぶもらう
+
+#org @gText_HackDebug_Flag
+フラグへんしゅう
+
+#org @gText_HackDebug_Close
+とじる
+
+#org @gText_HackDebug_CatchOn
+ほかく100 あり
+
+#org @gText_HackDebug_CatchOff
+ほかく100 なし
+
+#org @gText_HackDebug_ItemNumber
+アイテムばんごう
+
+#org @gText_HackDebug_ItemNumberSel
+* アイテムばんごう
+
+#org @gText_HackDebug_ItemCount
+こすう
+
+#org @gText_HackDebug_ItemCountSel
+* こすう
+
+#org @gText_HackDebug_ItemUnused
+みしようのばんごう
+
+#org @gText_HackDebug_HelpUpDown
+うえ・した こうもくきりかえ
+
+#org @gText_HackDebug_HelpStep
+ひだり・みぎ 1ずつ
+
+#org @gText_HackDebug_HelpBig
+Lおしながら100 / Rで10
+
+#org @gText_HackDebug_ItemGot
+アイテムをもらいました
+
+#org @gText_HackDebug_ItemFail
+バッグいっぱい・ばんごうエラー
+
+#org @gText_HackDebug_ItemHelp
+A もらう / B もどる
+
+#org @gText_HackDebug_WarpTitle
+ワープさき
+
+#org @gText_HackDebug_WarpHelp
+A ワープ / B もどる
+
+#org @gText_HackDebug_FlagTitle
+フラグばんごう 10しん
+
+#org @gText_HackDebug_On
+オン
+
+#org @gText_HackDebug_Off
+オフ
+
+#org @gText_HackDebug_FlagHelp
+A きりかえ / B もどる
+
+#org @gText_HackDebug_Healed
+かいふくしました
+
+#org @gText_HackDebug_MoneyDone
+おかねをMAXに
+
+#org @gText_HackDebug_BadgesDone
+バッジをもらいました
+
+#org @gText_HackDebug_WarpGroup
+ぐん
+
+#org @gText_HackDebug_WarpGroupSel
+* ぐん
+
+#org @gText_HackDebug_WarpMap
+ちず
+
+#org @gText_HackDebug_WarpMapSel
+* ちず
+
+#org @gText_HackDebug_WarpNoName
+なまえなし
+
+#org @gText_HackDebug_WarpHelpUD
+うえ・した ぐん・ちずをきりかえ
+
+#org @gText_HackDebug_NoWild
+やせいなし
+
+#org @gText_HackDebug_Invincible
+むてき
+
+#org @gText_HackDebug_Ohko
+いちげきでたおす
+
+#org @gText_HackDebug_NoTrainer
+トレーナーむし
+
+#org @gText_HackDebug_Moemon
+もえもんか
+
+#org @gText_HackDebug_Shiny
+いろちがいか
+
+#org @gText_HackDebug_Edit
+てもちへんしゅう
+
+#org @gText_HackDebug_GetMon
+ポケモンをもらう
+
+#org @gText_HackDebug_Shop
+すきなショップへ
+
+#org @gText_HackDebug_Lv200
+てもちをLv200に
+
+#org @gText_HackDebug_Dex
+ずかんコンプリート
+
+#org @gText_HackDebug_TopHelp
+A けってい / B とじる
+
+#org @gText_HackDebug_PickHelp
+A えらぶ / B もどる
+
+#org @gText_HackDebug_Lv
+Lv
+
+#org @gText_HackDebug_MarkShiny
+いろ
+
+#org @gText_HackDebug_MarkMoemon
+もえ
+
+#org @gText_HackDebug_Changed
+きりかえました
+
+#org @gText_HackDebug_EditHelp
+ひだりみぎ 1 / R 10 / L 100
+
+#org @gText_HackDebug_GetMonHelp
+A もらう / B もどる
+
+#org @gText_HackDebug_GotParty
+てもちにいれました
+
+#org @gText_HackDebug_GotBox
+ボックスにおくりました
+
+#org @gText_HackDebug_GotFail
+いれるばしょがありません
+
+#org @gText_HackDebug_ShopRange
+どうぐのばんごう
+
+#org @gText_HackDebug_ShopHelp
+A ひらく / ひだりみぎ ページ
+
+#org @gText_HackDebug_ShopEmpty
+うっているどうぐがありません
+
+#org @gText_HackDebug_Lv200Done
+てもちをLv200にしました
+
+#org @gText_HackDebug_DexDone
+ずかんをうめました
+
+#org @gText_HackDebug_NoMon
+ポケモンがいません
+
+#org @gText_HackDebug_ESpecies
+しゅぞく
+
+#org @gText_HackDebug_ELevel
+レベル
+
+#org @gText_HackDebug_ENature
+せいかく
+
+#org @gText_HackDebug_EAbility
+とくせい
+
+#org @gText_HackDebug_EItem
+もちもの
+
+#org @gText_HackDebug_EMove1
+わざ1
+
+#org @gText_HackDebug_EMove2
+わざ2
+
+#org @gText_HackDebug_EMove3
+わざ3
+
+#org @gText_HackDebug_EMove4
+わざ4
+
+#org @gText_HackDebug_EIvHp
+IV HP
+
+#org @gText_HackDebug_EIvAtk
+IV ATK
+
+#org @gText_HackDebug_EIvDef
+IV DEF
+
+#org @gText_HackDebug_EIvSpe
+IV SPE
+
+#org @gText_HackDebug_EIvSpa
+IV SPA
+
+#org @gText_HackDebug_EIvSpd
+IV SPD
+
+#org @gText_HackDebug_EEvHp
+EV HP
+
+#org @gText_HackDebug_EEvAtk
+EV ATK
+
+#org @gText_HackDebug_EEvDef
+EV DEF
+
+#org @gText_HackDebug_EEvSpe
+EV SPE
+
+#org @gText_HackDebug_EEvSpa
+EV SPA
+
+#org @gText_HackDebug_EEvSpd
+EV SPD

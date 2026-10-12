@@ -5,6 +5,7 @@
 #include "../include/random.h"
 #include "hack_mon_id.h"
 #include "hack_box_shelf.h"
+#include "hack_box_jump.h"   //[hack] #105 HackBoxJump_IconHint
 
 /*
  * ポケモン自身の表 ID・裏 ID（#70・2026-10-09）。
@@ -176,6 +177,40 @@ void HackMonId_MakeShiny(struct BoxPokemon* mon)
 	HackMonId_Set(mon, MakeId(TRUE, mon->personality));
 }
 
+//★ 2026-10-12 デバッグメニュー（#96・src/hack_debug_menu.c だけが呼ぶ＝ふだんの版では呼ばれない）: 色違い・萌えもんの当たりを
+//  片方ずつ入れ替える。性格値は触らない（6.5）。裏 ID で萌えもんの当たり／はずれを選び、表 ID で色違い／通常色を選ぶ
+static void SetIdParts(struct BoxPokemon* mon, bool8 shiny, bool8 moemon)
+{
+	u32 start = Random(), k, sid = 0, tid;
+
+	for (k = 0; k < 0x10000; ++k)
+	{
+		sid = (start + k) & 0xFFFF;
+		if ((MOEMON_HIT_OF(sid) != 0) == (moemon != 0))
+			break;
+	}
+	do
+	{
+		if (shiny)
+			tid = sid ^ (Random() % SHINY_THRESHOLD);
+		else
+			do { tid = Random(); } while (((tid ^ sid) & 0xFFFF) < SHINY_THRESHOLD);
+	} while ((tid & 0xFFFF) == 0 && sid == 0);
+	HackMonId_Set(mon, (tid & 0xFFFF) | (sid << 16));
+}
+
+void HackMonId_SetShiny(struct BoxPokemon* mon, bool8 on)
+{
+	HackMonId_Ensure(mon);
+	SetIdParts(mon, on, HackMonId_IsMoemonHit(mon));
+}
+
+void HackMonId_SetMoemon(struct BoxPokemon* mon, bool8 on)
+{
+	HackMonId_Ensure(mon);
+	SetIdParts(mon, HackMonId_IsShinyBox(mon), on);
+}
+
 void HackMonId_Ensure(struct BoxPokemon* mon)
 {
 	if (mon->substruct0.species == SPECIES_NONE || HackMonId_Get(mon) != 0)
@@ -265,6 +300,15 @@ u32 HackMonId_MoemonKey(u32 personality)
 				u32 id = HackMonId_UnpackComp(c);
 				return id ? (0x10000 | (id >> 16)) : 0;
 			}
+		}
+	}
+	{
+		//★ 2026-10-12 #105 ボックスジャンプ（src/hack_box_jump.c）: 今の箱でない箱の子のアイコンを決めている間だけ、その子の縮めた 58 バイト
+		const u8* c = (const u8*) HackBoxJump_IconHint();
+		if (c != NULL && Rd32(c) == personality && Rd16(c + 0x1C) != SPECIES_NONE)
+		{
+			u32 id = HackMonId_UnpackComp(c);
+			return id ? (0x10000 | (id >> 16)) : 0;
 		}
 	}
 	return 0;

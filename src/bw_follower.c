@@ -1336,6 +1336,11 @@ void BwFollowerUpdateFromParty(void)
         gFollowerState.map.number = gSaveBlock1->location.mapNum;
         gFollowerState.map.group = gSaveBlock1->location.mapGroup;
         gFollowerState.flags = BW_FOLLOWER_FLAGS;   /* 旗の中身を変えたときに取り残さない */
+        /* ★ 2026-10-12 ユーザー報告「連れ歩きのポケモンに話しかけるとフリーズ」: gFollowerState はセーブに入り、話しかけると
+           CFRU の FollowMe_ScriptHook（0805F4E0）が gFollowerState.script をそのまま台本として走らせる。
+           ROM を組み直して gBwFollowerScript の番地がずれると、前のセーブには前の版の番地が残り、関係ない所（Z 技の台本の文字など）を
+           台本として走らせて固まる／別の地図へ飛んだ。→ 地図を作り直すたび（つづきからも）今の番地に書き直す */
+        gFollowerState.script = gBwFollowerScript;
         return;
     }
 

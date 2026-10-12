@@ -3216,6 +3216,7 @@ StoneAxeEnd:
 
 .global BS_151_Solarbeam
 BS_151_Solarbeam:
+	jumpifability BANK_ATTACKER, ABILITY_MEGA_SOL, BSSolarbeamOnFirstTurn @;[hack] patches/0343 メガソーラー（自分のわざは ひざし扱い・ノーてんき／ばんのうがさでも止まらない＝damage_calc と同じ）
 	jumpifabilitypresent ABILITY_CLOUDNINE, BSSolarbeamDecideTurn
 	jumpifabilitypresent ABILITY_AIRLOCK, BSSolarbeamDecideTurn
 	jumpifhelditemeffect BANK_ATTACKER, ITEM_EFFECT_UTILITY_UMBRELLA, BSSolarbeamDecideTurn
@@ -6337,9 +6338,45 @@ BS_250_OrderUp:
 
 @;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-.global BS_251_Blank
-BS_251_Blank:
-	goto BS_STANDARD_HIT
+.global BS_251_Enbucho
+BS_251_Enbucho:
+@ ★ 2026-10-11 えんぶちょう（特別なウルガモスだけ・#95）: 当てたあと ほのおのうず（MOVE_EFFECT_WRAP・MatchaGotchaBS と同じ形＝STANDARD_DAMAGE は seteffectwithchance を含まない）→ 自分の とくこう・とくぼう・すばやさ +1（ちょうのまい の形）
+	attackcanceler
+	accuracycheck BS_MOVE_MISSED 0x0
+	call STANDARD_DAMAGE
+	setmoveeffect MOVE_EFFECT_WRAP
+	seteffectwithchancetarget
+	prefaintmoveendeffects 0x0
+	faintpokemonaftermove
+	jumpifnoviablemonsleft BANK_TARGET BS_MOVE_END
+	jumpiffainted BANK_ATTACKER BS_MOVE_END
+	jumpifstat BANK_ATTACKER LESSTHAN STAT_SPATK STAT_MAX Enbucho_RaiseSpAtk
+	jumpifstat BANK_ATTACKER LESSTHAN STAT_SPDEF STAT_MAX Enbucho_RaiseSpAtk
+	jumpifstat BANK_ATTACKER EQUALS STAT_SPD STAT_MAX BS_MOVE_END
+
+Enbucho_RaiseSpAtk:
+	setbyte STAT_ANIM_PLAYED 0x0
+	playstatchangeanimation BANK_ATTACKER, STAT_ANIM_SPATK | STAT_ANIM_SPDEF | STAT_ANIM_SPD, STAT_ANIM_UP | STAT_ANIM_IGNORE_ABILITIES
+	setstatchanger STAT_SPATK | INCREASE_1
+	statbuffchange STAT_ATTACKER | STAT_BS_PTR | STAT_CERTAIN Enbucho_RaiseSpDef
+	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 Enbucho_RaiseSpDef
+	printfromtable gStatUpStringIds
+	waitmessage DELAY_1SECOND
+
+Enbucho_RaiseSpDef:
+	setstatchanger STAT_SPDEF | INCREASE_1
+	statbuffchange STAT_ATTACKER | STAT_BS_PTR | STAT_CERTAIN Enbucho_RaiseSpd
+	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 Enbucho_RaiseSpd
+	printfromtable gStatUpStringIds
+	waitmessage DELAY_1SECOND
+
+Enbucho_RaiseSpd:
+	setstatchanger STAT_SPD | INCREASE_1
+	statbuffchange STAT_ATTACKER | STAT_BS_PTR | STAT_CERTAIN BS_MOVE_END
+	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 BS_MOVE_END
+	printfromtable gStatUpStringIds
+	waitmessage DELAY_1SECOND
+	goto BS_MOVE_END
 
 @;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 

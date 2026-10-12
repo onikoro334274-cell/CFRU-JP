@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "../include/event_data.h"
 #include "../include/pokemon.h"
+#include "hack_watashitachi.h"   //[hack] 2026-10-11 隠しトレーナー「わたしたち」の相手の手持ちも +20（#99）
 
 /*
  * ホウエンのストーリーの「相棒」（#57・2026-10-08・tools/rom/hoenn_story.py の終章・docs/research/2026-10-08_hoenn-original-story.md）。
@@ -36,7 +37,9 @@ bool8 HackPartner_IsMon(const struct Pokemon* mon)
 //種族値に足す分（相棒なら 20）
 u8 HackPartner_BaseBonus(const struct Pokemon* mon)
 {
-	return HackPartner_IsMon(mon) ? PARTNER_BONUS : 0;
+	if (HackPartner_IsMon(mon))
+		return PARTNER_BONUS;
+	return HackWatashi_BaseBonus(mon);   //[hack] 2026-10-11 わたしたち 10 人とのトレーナー戦の相手の手持ち（src/hack_watashitachi.c）
 }
 
 //callnative: 手持ちの 0x8004 番を相棒にできるか -> LASTRESULT 0 できる / 1 できない（タマゴ・選ばなかった）

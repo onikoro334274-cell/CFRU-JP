@@ -18,6 +18,7 @@
 #include "hack_battle_speed.h"
 #include "../include/constants/pokemon.h"   /* TYPE_NAME_LENGTH（2026-10-11） */
 #include "hack_difficulty.h"
+#include "hack_network_trade.h"   /* HACK_FLAG_NET_TRADE_BUTTON（2026-10-12） */
 
 /*
     BW 風オプション画面（せってい）— #19 の追加分
@@ -93,6 +94,9 @@ extern const u8 gText_BwOpt_WonderTrade[];
 extern const u8 gText_BwOpt_WonderType[];       /* 2026-10-11 */
 extern const u8 gText_BwOpt_WonderTypeAll[];
 extern const u8 gText_BwOpt_DescWonderType[];
+extern const u8 gText_BwOpt_NetTradeButton[], gText_BwOpt_NetTradeUse[], gText_BwOpt_NetTradeNotUse[], gText_BwOpt_DescNetTradeButton[];   /* 2026-10-12 */
+extern const u8 gText_BwOpt_Weather[], gText_BwOpt_WeatherRandom[], gText_BwOpt_WeatherFixed[], gText_BwOpt_DescWeather[];   /* 2026-10-12 #106 */
+#define HACK_FLAG_WEATHER_FIXED 0xF16   /* src/hack_random_weather.c と同じ（5e の台帳） */
 #define WONDER_TRADE_TYPE_COUNT 18
 #define HACK_VAR_WONDER_TYPE 0x50DC
 extern const u8 gWonderTradeTypeOrder[WONDER_TRADE_TYPE_COUNT];   /* src/hack_wonder_trade.c */
@@ -154,10 +158,12 @@ enum
     TD_HABITAT,                          /* 2026-10-10 せいそくち（もとは たいせつなもの せいそくスイッチ） */
     TD_WONDERTRADE,                      /* 2026-10-10 ミラクルこうかんの場面 */
     TD_WONDERTYPE,                       /* 2026-10-11 ミラクルこうかんで来るポケモンの 1 つ目のタイプ */
+    TD_NETTRADE,                         /* 2026-10-12 ネット交換をフィールドの A＋Select で開くか */
+    TD_WEATHER,                          /* 2026-10-12 #106 てんき ランダム／きまり */
     TD_TIMER,
-    TD_ARROW_PRESSED,                    /* 元の sArrowPressed（static）の代わり */
     TD_TOP,                              /* スクロール: いちばん上に出ている項目 */
 };
+_Static_assert(TD_TOP < 16, "bw_option_menu: task data は 16 個まで（gTasks[].data[16]）・行を足すときは欄を空ける（2026-10-12）");
 
 enum
 {
@@ -174,6 +180,8 @@ enum
     MENUITEM_HABITAT,                    /* 2026-10-10 いれかえ／もとのまま＝旗 HACK_FLAG_HABITAT_ORIGINAL */
     MENUITEM_WONDERTRADE,                /* 2026-10-10 みる／みない＝旗 HACK_FLAG_WONDER_SKIP（src/hack_wonder_trade.c） */
     MENUITEM_WONDERTYPE,                 /* 2026-10-11 ぜんぶ／タイプ 18 個＝予約変数 HACK_VAR_WONDER_TYPE（0 ぜんぶ・1〜18 は gWonderTradeTypeOrder の番号 + 1） */
+    MENUITEM_NETTRADE,                   /* 2026-10-12 ネットこうかんボタン つかう／つかわない＝予約フラグ HACK_FLAG_NET_TRADE_BUTTON（src/hack_network_trade.c・最初は つかわない） */
+    MENUITEM_WEATHER,                    /* 2026-10-12 #106 てんき ランダム／きまり＝予約フラグ HACK_FLAG_WEATHER_FIXED 0xF16 が立っていれば きまり（src/hack_random_weather.c・最初は ランダム） */
     MENUITEM_COUNT,
 };
 
@@ -199,6 +207,8 @@ static const u8 *const sItemNames[MENUITEM_COUNT] =
     gText_BwOpt_Habitat,
     gText_BwOpt_WonderTrade,
     gText_BwOpt_WonderType,
+    gText_BwOpt_NetTradeButton,
+    gText_BwOpt_Weather,
 };
 
 static const u8 *const sDescriptions[] =
@@ -211,6 +221,8 @@ static const u8 *const sDescriptions[] =
     gText_BwOpt_DescHabitat,
     gText_BwOpt_DescWonderTrade,
     gText_BwOpt_DescWonderType,
+    gText_BwOpt_DescNetTradeButton,
+    gText_BwOpt_DescWeather,
     gText_BwOpt_DescSave, gText_BwOpt_DescCancel,
 };
 
@@ -423,6 +435,12 @@ static void DrawChoicesFor(u8 item, u8 selection, u8 top)
     case MENUITEM_WONDERTYPE:
         DrawWonderTypeChoice(selection, y);
         break;
+    case MENUITEM_NETTRADE:
+        DrawChoices2(gText_BwOpt_NetTradeUse, gText_BwOpt_NetTradeNotUse, 112, 162, y, selection);
+        break;
+    case MENUITEM_WEATHER:
+        DrawChoices2(gText_BwOpt_WeatherRandom, gText_BwOpt_WeatherFixed, 112, 172, y, selection);
+        break;
     }
     CopyWindowToVram(WIN_TEXT, 2);
 }
@@ -472,6 +490,8 @@ static u8 ProcessInputFor(u8 item, u8 selection, s16 *arrow)
 #endif
     case MENUITEM_HABITAT:
     case MENUITEM_WONDERTRADE:
+    case MENUITEM_NETTRADE:
+    case MENUITEM_WEATHER:
         selection = CycleInput(selection, 2, arrow);
         break;
     case MENUITEM_WONDERTYPE:
@@ -587,7 +607,8 @@ void CB2_BwOptionMenu(void)
         data[TD_HABITAT] = FlagGet(HACK_FLAG_HABITAT_ORIGINAL) ? 1 : 0;  /* 0 いれかえ / 1 もとのまま */
         data[TD_WONDERTRADE] = FlagGet(HACK_FLAG_WONDER_SKIP) ? 1 : 0;    /* 0 みる / 1 みない */
         data[TD_WONDERTYPE] = VarGet(HACK_VAR_WONDER_TYPE) <= WONDER_TRADE_TYPE_COUNT ? VarGet(HACK_VAR_WONDER_TYPE) : 0;   /* 0 ぜんぶ */
-        data[TD_ARROW_PRESSED] = FALSE;
+        data[TD_NETTRADE] = FlagGet(HACK_FLAG_NET_TRADE_BUTTON) ? 0 : 1;   /* 0 つかう / 1 つかわない */
+        data[TD_WEATHER] = FlagGet(HACK_FLAG_WEATHER_FIXED) ? 1 : 0;       /* 0 ランダム / 1 きまり */
         data[TD_TOP] = 0;
         for (i = 0; i < MENUITEM_COUNT; ++i)
             DrawChoicesFor(i, data[TD_TEXTSPEED + i], 0);
@@ -642,15 +663,13 @@ static void Task_ProcessInput(u8 taskId)
     else
     {
         u8 prev = data[TD_TEXTSPEED + item];
+        s16 arrow = FALSE;   //★ 2026-10-12 元の TD_ARROW_PRESSED（このコマの中でしか使わない）→ 手元の変数に＝task data の欄を 1 つ空けた（#106 の「てんき」の行・5e）
 
-        data[TD_TEXTSPEED + item] = ProcessInputFor(item, prev, &data[TD_ARROW_PRESSED]);
+        data[TD_TEXTSPEED + item] = ProcessInputFor(item, prev, &arrow);
         if (data[TD_TEXTSPEED + item] != prev)
             DrawChoicesFor(item, data[TD_TEXTSPEED + item], data[TD_TOP]);
-        if (data[TD_ARROW_PRESSED])
-        {
-            data[TD_ARROW_PRESSED] = FALSE;
+        if (arrow)
             CopyWindowToVram(WIN_TEXT, 2);
-        }
     }
 }
 
@@ -686,6 +705,14 @@ static void Task_Save(u8 taskId)
     else
         FlagClear(HACK_FLAG_WONDER_SKIP);
     VarSet(HACK_VAR_WONDER_TYPE, data[TD_WONDERTYPE]);
+    if (data[TD_NETTRADE] == 0)
+        FlagSet(HACK_FLAG_NET_TRADE_BUTTON);
+    else
+        FlagClear(HACK_FLAG_NET_TRADE_BUTTON);
+    if (data[TD_WEATHER] == 1)
+        FlagSet(HACK_FLAG_WEATHER_FIXED);
+    else
+        FlagClear(HACK_FLAG_WEATHER_FIXED);
     VarSet(HOENN_VAR_DIFFICULTY, HackDifficulty_ValueFromSelection(data[TD_DIFFICULTY]));   /* ★ わくはもう変えない（セーブの値のまま・枠の見本もその値） */
     BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_FadeOut;

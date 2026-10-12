@@ -1,6 +1,6 @@
 /* 生成物（tools/build/build_save_version.py・元は tools/patch/make_demo_bundle.py の VERSION と version_resets.json）。手で直さない */
 #pragma once
-#define HACK_SAVE_VERSION 0x2701  /* PokemonStart v0.39.1 */
+#define HACK_SAVE_VERSION 0x2A00  /* PokemonStart v0.42.0 */
 #define HACK_SAVE_MIN_VERSION 0x2402  /* これより古いレポートは つづきから を出さない（v0.36.2）*/
 #define HACK_VERSION_RESET_COUNT 7
 #ifdef HACK_SAVE_VERSION_TABLE

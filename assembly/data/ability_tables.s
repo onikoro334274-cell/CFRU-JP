@@ -25,6 +25,9 @@ ability_tables.s
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 gRolePlayBannedAbilities:
+.hword ABILITY_SUN_AVATAR @ ★ 2026-10-11 特別なウルガモス（写さない・5e の勧め）
+.hword ABILITY_SUN_BUTTERFLY
+.hword ABILITY_MIWAKUNOUROKO @ ★ 2026-10-11 ツキノウロコの 2 つ目専用（写さない・ツキノマモリは値で判定するので入れない）
 .hword ABILITY_TRACE
 .hword ABILITY_WONDERGUARD
 .hword ABILITY_FORECAST
@@ -88,6 +91,9 @@ gRolePlayAttackerBannedAbilities:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 gSkillSwapBannedAbilities:
+.hword ABILITY_SUN_AVATAR @ ★ 2026-10-11 特別なウルガモス（写さない・5e の勧め）
+.hword ABILITY_SUN_BUTTERFLY
+.hword ABILITY_MIWAKUNOUROKO @ ★ 2026-10-11 ツキノウロコの 2 つ目専用（写さない・ツキノマモリは値で判定するので入れない）
 .hword ABILITY_WONDERGUARD
 .hword ABILITY_MULTITYPE
 .hword ABILITY_ZENMODE
@@ -167,6 +173,9 @@ gGastroAcidBannedAbilities:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 gEntrainmentBannedAbilitiesAttacker:
+.hword ABILITY_SUN_AVATAR @ ★ 2026-10-11 特別なウルガモス（写さない・5e の勧め）
+.hword ABILITY_SUN_BUTTERFLY
+.hword ABILITY_MIWAKUNOUROKO @ ★ 2026-10-11 ツキノウロコの 2 つ目専用（写さない・ツキノマモリは値で判定するので入れない）
 .hword ABILITY_TRACE
 .hword ABILITY_FORECAST
 .hword ABILITY_FLOWERGIFT
@@ -207,6 +216,9 @@ gEntrainmentBannedAbilitiesAttacker:
 
 gSimpleBeamBannedAbilities:
 gEntrainmentBannedAbilitiesTarget:
+.hword ABILITY_SUN_AVATAR @ ★ 2026-10-11 特別なウルガモス（写さない・5e の勧め）
+.hword ABILITY_SUN_BUTTERFLY
+.hword ABILITY_MIWAKUNOUROKO @ ★ 2026-10-11 ツキノウロコの 2 つ目専用（写さない・ツキノマモリは値で判定するので入れない）
 .hword ABILITY_TRUANT
 .hword ABILITY_MULTITYPE
 .hword ABILITY_ZENMODE
@@ -230,6 +242,9 @@ gEntrainmentBannedAbilitiesTarget:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 gReceiverBannedAbilities:
+.hword ABILITY_SUN_AVATAR @ ★ 2026-10-11 特別なウルガモス（写さない・5e の勧め）
+.hword ABILITY_SUN_BUTTERFLY
+.hword ABILITY_MIWAKUNOUROKO @ ★ 2026-10-11 ツキノウロコの 2 つ目専用（写さない・ツキノマモリは値で判定するので入れない）
 .hword ABILITY_WONDERGUARD @ ★ Champions（patches/0070）
 .hword ABILITY_TRACE
 .hword ABILITY_FORECAST
@@ -272,6 +287,9 @@ gReceiverBannedAbilities:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 gTraceBannedAbilities:
+.hword ABILITY_SUN_AVATAR @ ★ 2026-10-11 特別なウルガモス（写さない・5e の勧め）
+.hword ABILITY_SUN_BUTTERFLY
+.hword ABILITY_MIWAKUNOUROKO @ ★ 2026-10-11 ツキノウロコの 2 つ目専用（写さない・ツキノマモリは値で判定するので入れない）
 .hword ABILITY_TRACE
 .hword ABILITY_FORECAST
 .hword ABILITY_FLOWERGIFT

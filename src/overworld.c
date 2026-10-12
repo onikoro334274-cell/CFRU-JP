@@ -57,6 +57,7 @@
 #include "../include/new/party_menu.h"
 #include "../include/new/read_keys.h"
 #include "../include/new/wild_encounter.h"
+#include "hack_debug_menu.h" //[hack] patches/0342
 
 u16 HoennTrainerFlag(u16 trainerId);   /* src/hoenn_trainer_flags.c（#2 ジム・0x500+id の置き換え）*/
 //[hack] patches/0130 バトルピラミッド（src/hoenn_pyramid.c）
@@ -644,6 +645,11 @@ static const struct TrainerBattleParameter sTagBattleParams[] =
 u8 CheckForTrainersWantingBattle(void)
 {
 	u8 viableMons = 0xFF;
+
+#ifdef HACK_DEBUG_MENU
+	if (HackDebugMenu_NoTrainer()) //[hack] patches/0342 デバッグメニューの「トレーナーむし」（デバッグ版だけ）
+		return FALSE;
+#endif
 
 	if (FuncIsActiveTask(Task_OverworldMultiTrainers))
 		return FALSE;

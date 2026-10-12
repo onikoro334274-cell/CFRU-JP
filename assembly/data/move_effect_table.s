@@ -266,7 +266,7 @@ gBattleScriptsForMoveEffects:
 .word BS_248_TeraBlast
 .word BS_249_RevivalBlessing
 .word BS_250_OrderUp
-.word BS_251_Blank
+.word BS_251_Enbucho
 .word BS_252_Blank
 .word BS_253_MaxMove
 .word BS_254_Blank

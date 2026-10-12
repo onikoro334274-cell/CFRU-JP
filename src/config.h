@@ -140,7 +140,7 @@ enum //These vars need to be one after the other (hence the enum)
 
 /*===== General Number Options =====*/
 #define KANTO_DEX_COUNT 151
-#define NATIONAL_DEX_COUNT 1028
+#define NATIONAL_DEX_COUNT 1029
 
 #define MAX_LEVEL 200 //Also change this in the file "asm_defines.asm" found in the root //[hack] patches/0236 100 → 200（2026-10-09）
 #define NUM_TRAINER_CLASSES 107 //Vanilla FR has 107
@@ -270,7 +270,7 @@ enum //These vars need to be one after the other (hence the enum)
 #define FRLG_ROAMING //When a roaming Pokemon is created, it will either be a Entei, Raikou, or Suicune, depending on the player's starter choice
 #define FRLG_ROAMING_ALL_BEASTS //[hack] All three beasts roam at once, instead of only the one picked by the starter. Requires FRLG_ROAMING.
 //[hack] build_rom.py --demo（デモ版ビルド.bat）は -DHACK_DEMO_BUILD を渡して、下の 2 つのデバッグを切る（2026-10-01）
-#ifndef HACK_DEMO_BUILD
+#if !defined(HACK_DEMO_BUILD) && !defined(HACK_NO_DEBUG) //[hack] patches/0340 2026-10-12 build_rom.py --no-debug でも切る（デモ版でない通しの確かめ）
 #define JOHTO_TOWNMAP_DEBUG //[hack] Debug: the Kanto town map always scrolls west to show Johto (normally only after flag 0x13E2). Comment out for release.
 #define SINNOH_TOWNMAP_DEBUG //[hack] Debug: the town map switch menu always offers Sinnoh (normally only after flag 0x13E1). Comment out for release.
 #define KITAKAMI_TOWNMAP_DEBUG //[hack] Debug: the town map switch menu always offers Kitakami and Kitakami Village is always a Fly destination (normally after visiting it). Comment out for release.

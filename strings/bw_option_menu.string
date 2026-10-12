@@ -144,3 +144,27 @@ Moemonの べつの みための えを\nだすか きめます
 
 #org @gText_BwOpt_DescWonderType
 ミラクルこうかんで くる ポケモンの\n1つめの タイプを えらびます
+
+#org @gText_BwOpt_NetTradeButton
+ネットボタン
+
+#org @gText_BwOpt_NetTradeUse
+つかう
+
+#org @gText_BwOpt_NetTradeNotUse
+つかわない
+
+#org @gText_BwOpt_DescNetTradeButton
+Aを おしながら SELECTで ネットの\nミラクルこうかんを ひらくか きめます
+
+#org @gText_BwOpt_Weather
+てんき
+
+#org @gText_BwOpt_WeatherRandom
+ランダム
+
+#org @gText_BwOpt_WeatherFixed
+きまり
+
+#org @gText_BwOpt_DescWeather
+そとの てんきが じかんで かわるか\nきまった てんきに するか きめます

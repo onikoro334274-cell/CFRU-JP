@@ -31,7 +31,7 @@ extern const struct Item gItemData[];   //src/Tables/item_tables.c
  * にする。素のバッグは一覧の番号をそのまま置き場の番号に使うので、並べ替えて前の何個かだけ見せれば番号はずれない。
  * ポーチの間は印 HACK_FLAG_TRAINING_POUCH。たいせつなもので「つかう」とバッグを「どうぐ」で開き直す。フィールドに
  * 戻ると印を下ろす（HackTrainingPouch_FieldTick・src/overworld_speedup.c）。
- * ポーチは育成の道具を初めて持ったとき自動で入る（ユーザー判断・文は出さない）。
+ * ポーチは育成の道具を初めて持ったとき自動で入る（ユーザー判断・文は出さない）→ 2026-10-11 やめた（HackTrainingPouch_FieldTick）。
  */
 
 #define HACK_FLAG_TRAINING_POUCH 0x12EB   //build_hoenn_scripts.RESERVED_FLAGS（2026-10-10 からは使わない＝前のセーブで立っていれば下ろすだけ）
@@ -235,27 +235,13 @@ void HackTrainingPouch_Reset(void)
 	}
 }
 
-//フィールドの毎コマ（src/overworld_speedup.c）: ポーチの印を下ろす・育成の道具を持っていたらポーチを渡す
+//フィールドの毎コマ（src/overworld_speedup.c）: ポーチの印を下ろす
+//★ 2026-10-11 ユーザー「いくせいポーチをままからもらえなくして」→ 育成の道具を持ったときに自動で渡すのをやめた
+//  （お母さんの贈り物の直後に入るので、お母さんからもらったように見えていた）。育成の道具はバッグの「いくせい」のページで見られる。
+//  前のセーブで持っているポーチはそのまま使える
 void HackTrainingPouch_FieldTick(void)
 {
 	HackTrainingPouch_Reset();
-
-	if ((gMain.vblankCounter2 & 0x3F) != 0 || CheckBagHasItem(ITEM_TRAINING_POUCH, 1))
-		return;
-
-	{
-		struct ItemSlot* slots = gBagPocketsCFRU->itemRam;
-		u32 i, capacity = gBagPocketsCFRU->itemAmount;
-
-		for (i = 0; i < capacity && slots[i].itemId != ITEM_NONE; ++i)
-		{
-			if (HackTrainingPouch_IsTrainingItem(slots[i].itemId))
-			{
-				AddBagItem(ITEM_TRAINING_POUCH, 1);
-				return;
-			}
-		}
-	}
 }
 
 /* ---- 2026-10-10 ページの切り替えと見出し ---- */

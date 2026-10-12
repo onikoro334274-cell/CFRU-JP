@@ -338,5 +338,9 @@
 #define ABILITY_DRAGONARMOR 319    // りゅうのよろい: ちからもち＋マルチスケイル＋さめはだ＋ちからずく（2026-10-07）（クチバのフカマルのタマゴの子だけ・src/hack_gible_egg.c）
 #define ABILITY_SHINOBIASHI 321
 #define ABILITY_URAMESHIYA 322
+#define ABILITY_SUN_AVATAR 323      // たいようのけしん: ひでり＋もらいび＋ほのおのからだ（特別なウルガモスだけ・src/hack_volcarona.c・2026-10-11）
+#define ABILITY_SUN_BUTTERFLY 324   // たいようのちょう: 晴れのとき 晴れを保ち とくこう・すばやさ 1.5 倍（同じ子の Lv50 からの 2 つ目）
+#define ABILITY_MIWAKUNOUROKO 325   // ミワクノウロコ: いかく と同じ（ツキノウロコの Lv50 からの 2 つ目・src/second_ability.c・2026-10-11）
+#define ABILITY_TSUKINOMAMORI 326   // ツキノマモリ: クリアボディ と同じ（ツキノウロコの かくれ特性・src/ability_util.c）
 #define ABILITY_DRAGONBOULDER 320  // りゅうのいわお: ふゆう＋技の威力 2 倍＋ハードロック（特別なガブリアスZの 2 つ目の特性だけ・src/hack_dragon_boulder.c・2026-10-07）
-#define ABILITIES_COUNT (ABILITY_URAMESHIYA + 1)
+#define ABILITIES_COUNT (ABILITY_TSUKINOMAMORI + 1)

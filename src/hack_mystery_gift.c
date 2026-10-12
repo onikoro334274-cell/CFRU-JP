@@ -89,7 +89,16 @@ void HackMG_Task(u8 taskId)
 }
 
 //ポケセン 2 階の配達員を出すか（special 0x180 の代わり）
+bool8 HackSerial_HasPending(void);           //src/hack_serial_gift.c（シリアルコードの受け取り待ち・patches/0329）
+const u8* HackSerial_DeliverymanScript(void);
+
 u16 HackMG_ShouldShowDeliveryman(void)
+{
+	return HackSerial_HasPending() || (FlagGet(HACK_FLAG_MYSTERY_GIFT) && GiftLeft());
+}
+
+//今までの おくりもの がまだあるか（シリアルコードの品を渡したあと、配達員を消さずに続けるため・HackSerial_Finish）
+bool8 HackMG_HasOldGifts(void)
 {
 	return FlagGet(HACK_FLAG_MYSTERY_GIFT) && GiftLeft();
 }
@@ -97,6 +106,8 @@ u16 HackMG_ShouldShowDeliveryman(void)
 //配達員に話しかけたときのスクリプト（素の GetSavedRamScriptIfValid の代わり・無ければ NULL ＝ 何もしない）
 const u8* HackMG_GetDeliverymanScript(void)
 {
+	if (HackSerial_HasPending())
+		return HackSerial_DeliverymanScript();   //★ 2026-10-11 シリアルコードの品を先に（今までの品は次に話しかけたとき）
 	if (HackMG_ShouldShowDeliveryman())
 		return HackMG_EventScript_Deliveryman;
 	return NULL;

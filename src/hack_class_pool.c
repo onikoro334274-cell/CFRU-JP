@@ -35,6 +35,15 @@ struct HackClassPool
 	u16 pairCount;
 };
 
+//ジムの地図ごとの候補（2026-10-11 #97・tools/rom/gym_pools.md）
+struct HackGymPool
+{
+	u8 mapGroup;
+	u8 mapNum;
+	const u16* sets;
+	u16 count;
+};
+
 #define HACK_CLASS_POOL_CLASSES 107   //ROM のクラス名の表の数（tools/data_editor/trainerlib.py の CLASS_NAME_COUNT）
 #include "Tables/hack_class_pools.h"
 
@@ -45,6 +54,8 @@ static const u16 sExcludedTrainers[] =
 	936, //きんこんしき ゲンゾウ（src/hack_golden_wedding.c）
 	937, //きんこんしき ハナ
 	938, //ヒガン（作者 ふたーら 氏・tools/oritore/higan）
+	939, //ヒガン（再戦）
+	940, 941, 942, 943, 944, 945, 946, 947, 948, 949, //隠しトレーナー わたしたち（#99・src/hack_watashitachi.c・レントラーの♀は並びで決めている）
 };
 
 static bool8 IsExcluded(u16 trainerId)
@@ -71,9 +82,30 @@ static bool8 SpeciesUsedBefore(struct Pokemon* party, u8 index, u16 species)
 	return FALSE;
 }
 
+//今いる地図がジムで、リーダーでなければ、その町のジムの候補
+static const struct HackGymPool* GymPoolFor(u8 trainerClass)
+{
+	u32 i;
+	u8 group = gSaveBlock1->location.mapGroup;
+	u8 num = (u8) gSaveBlock1->location.mapNum;   //6.60: mapNum は s8
+
+	for (i = 0; i < ARRAY_COUNT(sHackGymLeaderClasses); ++i)
+	{
+		if (sHackGymLeaderClasses[i] == trainerClass)
+			return NULL;
+	}
+	for (i = 0; i < HACK_GYM_POOL_MAPS; ++i)
+	{
+		if (gHackGymPools[i].mapGroup == group && gHackGymPools[i].mapNum == num)
+			return &gHackGymPools[i];
+	}
+	return NULL;
+}
+
 void HackClassPool_ReplaceMon(struct Pokemon* mon, struct Pokemon* party, u8 index, u16 trainerId, u8 side)
 {
 	const struct HackClassPool* pool;
+	const struct HackGymPool* gym;
 	const struct HackClassPoolSet* set;
 	u8 trainerClass, level, otGender, ball, friendship, fixedIv, otName[PLAYER_NAME_LENGTH + 1];
 	u32 otId, personality, tries, i;
@@ -82,10 +114,19 @@ void HackClassPool_ReplaceMon(struct Pokemon* mon, struct Pokemon* party, u8 ind
 	if (side != B_SIDE_OPPONENT || IsExcluded(trainerId))
 		return;
 	trainerClass = gTrainers[trainerId].trainerClass;
+	set = NULL;
+	gym = GymPoolFor(trainerClass);
+	if (gym != NULL)
+	{
+		//ジムトレーナー: クラスの候補より先にジムの候補（組のクラスでも 1 匹ずつ）
+		set = &gHackClassPoolSets[gym->sets[Random() % gym->count]];
+		for (tries = 0; tries < 20 && SpeciesUsedBefore(party, index, set->species); ++tries)
+			set = &gHackClassPoolSets[gym->sets[Random() % gym->count]];
+		goto REPLACE;
+	}
 	if (trainerClass >= HACK_CLASS_POOL_CLASSES)
 		return;
 	pool = &gHackClassPools[trainerClass];
-	set = NULL;
 	if (pool->pairCount != 0)
 	{
 		/* 組のクラス: 偶数番目（1・3・5 匹目）は組を選んでその 1 匹目、奇数番目は 1 つ前の子が 1 匹目の組の 2 匹目
@@ -128,6 +169,7 @@ void HackClassPool_ReplaceMon(struct Pokemon* mon, struct Pokemon* party, u8 ind
 			set = &gHackClassPoolSets[pool->sets[Random() % pool->count]];
 	}
 
+REPLACE:
 	level = GetMonData(mon, MON_DATA_LEVEL, NULL);
 	otId = GetMonData(mon, MON_DATA_OT_ID, NULL);
 	personality = GetMonData(mon, MON_DATA_PERSONALITY, NULL);

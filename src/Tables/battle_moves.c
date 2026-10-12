@@ -16134,6 +16134,18 @@ const struct BattleMove gBattleMoves[] =
 	[MOVE_URASHINEN] = { .effect = EFFECT_HIT, .power = 50, .type = TYPE_GHOST, .accuracy = 100, .pp = 25,
 		.secondaryEffectChance = 0, .target = MOVE_TARGET_SELECTED, .priority = 1,
 		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED, .z_move_power = 100, .split = SPLIT_SPECIAL, .z_move_effect = 0 },
+	//★ 2026-10-11 えんぶちょう（特別なウルガモスだけ・#95・src/hack_volcarona.c）: 当てたあと 自分の とくこう・とくぼう・すばやさ +1・相手を ほのおのうず に
+	[MOVE_ENBUCHO] = { .effect = EFFECT_ENBUCHO, .power = 80, .type = TYPE_FIRE, .accuracy = 100, .pp = 10,
+		.secondaryEffectChance = 100, .target = MOVE_TARGET_SELECTED, .priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED, .z_move_power = 160, .split = SPLIT_SPECIAL, .z_move_effect = 0 },
+	//★ 2026-10-11 ミワクノセンリツ（ツキノウロコ）: ムーンフォースの効き目（特攻 -1）を 20%。下げる能力は src/set_effect.c が相手の こうげき／とくこう の高いほうに
+	[MOVE_MIWAKUNOSENRITSU] = { .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT, .power = 75, .type = TYPE_FAIRY, .accuracy = 95, .pp = 10,
+		.secondaryEffectChance = 20, .target = MOVE_TARGET_SELECTED, .priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED, .z_move_power = 140, .split = SPLIT_SPECIAL, .z_move_effect = 0 },
+	//★ 2026-10-11 フルーツカノン（バイバニラ（かいはつしゃのすがた））: フェアリー 特殊 90 100 PP10・30% で とくぼう -1
+	[MOVE_FRUITCANNON] = { .effect = EFFECT_SPECIAL_DEFENSE_DOWN_HIT, .power = 90, .type = TYPE_FAIRY, .accuracy = 100, .pp = 10,
+		.secondaryEffectChance = 30, .target = MOVE_TARGET_SELECTED, .priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED, .z_move_power = 175, .split = SPLIT_SPECIAL, .z_move_effect = 0 },
 #endif
 };
 
@@ -16813,5 +16825,9 @@ const u8 gDynamaxMovePowers[MOVES_COUNT] =
 /* KAGENONAKANI BEGIN (tools/custom_mon/kagenonakani/build_kagenonakani.py・MAKIO419) */
 	[MOVE_URASHINEN] = 100,
 /* KAGENONAKANI END */
+	//★ 2026-10-11 ここから下は KAGENONAKANI の囲みの外（build_kagenonakani.py が囲みを置き直しても消えない・6.39）
+	[MOVE_ENBUCHO] = 130,
+	[MOVE_MIWAKUNOSENRITSU] = 130,
+	[MOVE_FRUITCANNON] = 130,
 };
 #endif

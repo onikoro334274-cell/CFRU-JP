@@ -803,3 +803,12 @@ gBwrCollection_MartMap 0809AAD4
 gBwrCollection_MartTmhmMap 0809AB1C
 gBwrCollection_MartPalette 0809AB24
 gBwrCollection_ItemPcMap 0810E2C0
+
+## バトルサーチャーの再戦の表 sRematches（素 08414034）を gHackRematches（src/Tables/hack_rematches.h・tools/rom/build_vs_seeker.py）へ（2026-10-12）
+gHackRematches 0810D2C4
+gHackRematches 0810D730
+gHackRematches 0810D848
+gHackRematches 0810D97C
+gHackRematches 0810D9A0
+gHackRematches 0810DCFC
+gHackRematches 0810DEC0

@@ -2,6 +2,7 @@
 #include "../include/overworld.h"
 #include "map_region.h"
 #include "region_fly.h"
+#include "Tables/hoenn_script_flags.h"
 
 /*
 region_fly.c
@@ -76,6 +77,12 @@ void RegionFlyVisitTick(void)
 
     if (region != MAP_REGION_JOHTO && region != MAP_REGION_SINNOH && region != MAP_REGION_KITAKAMI)
         return;
+    /* ★ 2026-10-12 タウンマップのそのページを開く旗（前は立てる所が無く、config.h の *_TOWNMAP_DEBUG で見せていた）:
+       その地方の地図に入ったら立てる（船・そらをとぶ・ワープのどれで入っても同じ）。シンオウ 0x13E1・ジョウト 0x13E2 */
+    if (region == MAP_REGION_SINNOH && !FlagGet(SINNOH_FLAG_TOWNMAP))
+        FlagSet(SINNOH_FLAG_TOWNMAP);
+    else if (region == MAP_REGION_JOHTO && !FlagGet(JOHTO_FLAG_TOWNMAP))
+        FlagSet(JOHTO_FLAG_TOWNMAP);
     c = RegionFlyFindCity(region, gMapHeader.regionMapSectionId);
     if (c != NULL && c->group == (u8) gSaveBlock1->location.mapGroup)
         FlagSet(c->flag);

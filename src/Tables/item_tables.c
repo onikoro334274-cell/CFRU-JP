@@ -2059,6 +2059,7 @@ const struct ItemIconTemplate gItemGraphicsTable[] =
 	{gItemIcon_Momo_IceTiles, gItemIcon_Momo_IcePal},	// ITEM_MOMO_SHERBET（ももアイスの絵を借りる・2026-10-11）
 	{gItemIcon_ExpCandyXXLTiles, gItemIcon_ExpCandyXXLPal},	// ITEM_EXP_CANDY_XXL（graphics/item/gItemIcon_ExpCandyXXL.png＝XL の写し・patches/0323）
 	{gItemIcon_Alola_StoneTiles, gItemIcon_Alola_StonePal},	// ITEM_ALOLA_STONE（2026-10-11 Claude が描いた夕日色の石・tools/items/alola_stone/build_alola_stone_icon.py・patches/0327）
+	{gItemIcon_Creeper_IceTiles, gItemIcon_Creeper_IcePal},	// ITEM_CREEPER_ICE（ユーザーの絵を縮めた・tools/items/creeper_ice/build_creeper_ice_icon.py・patches/0333）
 };
 
 const struct Item gItemData[] =
@@ -15814,6 +15815,24 @@ const struct Item gItemData[] =
 		.pocket = POCKET_ITEMS,
 		.type = ITEM_USE_PARTY_MENU,
 		.fieldUseFunc = gFieldFunc_Evo_Item,
+		.battleUsage = 0,
+		.battleUseFunc = NULL,
+		.secondaryId = 0
+	},
+	// くりーぱーアイス（自作・ITEM_CREEPER_ICE 0x359・2026-10-11・もたせる道具・毎ターン 1/16 回復・じばく系で受けるダメージ 20%・
+	//  場に出て 5 ターンで爆発して持ち主の側が全員ひんし・src/hack_creeper_ice.c・patches/0333・値段 10000 は仮）
+	{
+		.name = {0x08, 0x28, 0xAE, 0x4B, 0xAE, 0x51, 0x52, 0x5D, 0xFF}, // くりーぱーアイス
+		.itemId = ITEM_CREEPER_ICE,
+		.price = 10000,
+		.holdEffect = ITEM_EFFECT_CREEPER_ICE,
+		.holdEffectParam = 0,
+		.description = DESC_CREEPER_ICE,
+		.importance = 0,
+		.unk19 = 0,
+		.pocket = POCKET_ITEMS,
+		.type = ITEM_USE_BAG_MENU,
+		.fieldUseFunc = gFieldFunc_Item_None,
 		.battleUsage = 0,
 		.battleUseFunc = NULL,
 		.secondaryId = 0

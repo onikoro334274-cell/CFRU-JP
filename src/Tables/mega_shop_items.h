@@ -200,7 +200,7 @@ static const u32 sMegaShopPrices[MEGA_SHOP_COUNT] =
 };
 
 /* Z クリスタルの売り場（6F の 2 人目の店員・2026-10-01）。道具の番号の順・0 で終わる */
-#define Z_CRYSTAL_SHOP_COUNT 43
+#define Z_CRYSTAL_SHOP_COUNT 44
 
 const u16 gZCrystalShopItems[Z_CRYSTAL_SHOP_COUNT + 1] =
 {
@@ -247,6 +247,7 @@ const u16 gZCrystalShopItems[Z_CRYSTAL_SHOP_COUNT + 1] =
 	ITEM_HUSTLE_BAND,	// 0x352
 	ITEM_HUSTLE_SPECS,	// 0x353
 	ITEM_STUBBORN_BANDANA,	// 0x354
+	ITEM_CREEPER_ICE,	// 0x359
 	ITEM_NONE
 };
 
@@ -295,6 +296,7 @@ static const u32 sZCrystalShopPrices[Z_CRYSTAL_SHOP_COUNT] =
 	4000,	// ITEM_HUSTLE_BAND
 	4000,	// ITEM_HUSTLE_SPECS
 	4000,	// ITEM_STUBBORN_BANDANA
+	10000,	// ITEM_CREEPER_ICE
 };
 
 /* あぶないはっぱの売り場（6F の警備員・2026-10-09）。値段は 1 個目（買うたびに 1.5 倍は src/mega_shop.c） */

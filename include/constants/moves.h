@@ -1023,13 +1023,16 @@
 #define MOVE_PIKAPAPOW 0x3E6
 #define MOVE_FLOATYFALL 0x3E7
 #define MOVE_URASHINEN 0x3E8
+#define MOVE_ENBUCHO 0x3E9   // えんぶちょう: ほのお 特殊 80 100・自分の とくこう とくぼう すばやさ +1・相手を ほのおのうず に（特別なウルガモスだけ・2026-10-11・#95）
+#define MOVE_MIWAKUNOSENRITSU 0x3EA   // ミワクノセンリツ: フェアリー 特殊 75 95・20% で相手の こうげき／とくこう の高いほうを 1 さげる（ツキノウロコ・2026-10-11）
+#define MOVE_FRUITCANNON 0x3EB   // フルーツカノン: フェアリー 特殊 90 100・30% で とくぼう -1（バイバニラ（かいはつしゃのすがた）・2026-10-11）
 
 #define FIRST_MAX_MOVE      MOVE_MAX_GUARD
 #define LAST_MAX_MOVE       MOVE_MAX_STARFALL_S
 #define FIRST_G_MAX_MOVE    MOVE_G_MAX_VINE_LASH_P
 #define LAST_G_MAX_MOVE     MOVE_G_MAX_RAPID_FLOW_S
 
-#define LAST_MOVE_INDEX     MOVE_URASHINEN
-#define MOVES_COUNT        (MOVE_URASHINEN + 1)
+#define LAST_MOVE_INDEX     MOVE_FRUITCANNON
+#define MOVES_COUNT        (MOVE_FRUITCANNON + 1)
 #define NON_Z_MOVE_COUNT   (MOVE_GLACIALLANCE + 1)
 

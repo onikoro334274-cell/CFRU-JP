@@ -236,6 +236,7 @@ u8 AIScript_Negatives(const u8 bankAtk, const u8 bankDef, const u16 originalMove
 			//	break;
 
 			// Fire
+			case ABILITY_SUN_AVATAR:   //★ 2026-10-11 たいようのけしん＝もらいび
 			case ABILITY_FLASHFIRE:
 			case ABILITY_WELLBAKEDBODY:
 				if (moveType == TYPE_FIRE)
@@ -395,6 +396,7 @@ u8 AIScript_Negatives(const u8 bankAtk, const u8 bankDef, const u16 originalMove
 			case ABILITY_CLEARBODY:
 			case ABILITY_FULLMETALBODY:
 			case ABILITY_WHITESMOKE:
+			case ABILITY_TSUKINOMAMORI:   //★ 2026-10-11 ツキノマモリ
 				if (CheckTableForMoveEffect(move, gStatLoweringMoveEffects))
 				{
 					DECREASE_VIABILITY(10);

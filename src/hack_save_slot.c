@@ -112,6 +112,8 @@ static bool8 HackSaveSlot_Probe(void)
 	u32 i;
 	bool8 ok;
 
+	//★ 2026-10-11 HackExtSave_Available は「読むだけ」でバンクの切り替えが効くかも見る（効かない mGBA では下の印の書き込みが
+	//  今のバンクの区画 0＝物理 16 に落ちて棚のページを壊した・docs/research/2026-10-11_save-shelf-page-corruption.md）
 	if (!HackExtSave_Available())
 		return FALSE;
 	ReadFlashVanilla(PROBE_SECTOR_1, PROBE_OFFSET, a, PROBE_SIZE);

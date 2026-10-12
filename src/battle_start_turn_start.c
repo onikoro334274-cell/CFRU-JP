@@ -38,6 +38,7 @@
 #include "../include/new/set_z_effect.h"
 #include "../include/new/terastal.h"
 #include "../include/new/util.h"
+#include "hack_volcarona.h"   //★ 2026-10-11 たいようのちょう
 
 //★ 2026-10-11 ユーザー判断（5e 経由）「1 戦で使える道具の数は ボールだけ数えない」: なんいど むずかしい 3 回／ももアイス 1 回の数（playerItemUsedCount）に
 //  ボール（POCKET_POKE_BALLS）の使用は入れない。野生戦でも数える（回復の道具は制限・ボールは無制限）。選んだ道具は gBattleBufferB[bank][1..2]
@@ -2367,6 +2368,7 @@ u32 SpeedCalc(u8 bank)
 
 	//Check for abilities that alter speed
 	speed = BoostSpeedInWeather(ability, itemEffect, speed);
+	speed = HackVolcarona_BoostSpeed(bank, speed);   //★ 2026-10-11 たいようのちょう（晴れで 1.5 倍・src/hack_volcarona.c）
 
 	switch (ability) {
 		case ABILITY_UNBURDEN:

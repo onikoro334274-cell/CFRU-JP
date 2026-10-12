@@ -27,6 +27,8 @@ HackMG_EventScript_Deliveryman:
 	lock
 	faceplayer
 	msgbox gText_HackMG_DeliverymanHello MSG_KEEPOPEN
+.global HackMG_Deliveryman_Gifts
+HackMG_Deliveryman_Gifts:                           @ シリアルコードの品のあとはここから（serial_gift_scripts.s）
 	checkitem ITEM_EXP_SHARE 1
 	compare LASTRESULT 1
 	if equal _goto HackMG_Deliveryman_Note

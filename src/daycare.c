@@ -378,6 +378,12 @@ static u16 GetOverrideEggSpecies(u16 eggSpecies)
 			eggSpecies = SPECIES_FURFROU;
 			break;
 		#endif
+
+		//★ 2026-10-11 バイバニラ（かいはつしゃのすがた・SPECIES_VANILLUXE_DEV）は進化の表に行き先が無く、そのままだと
+		//  タマゴもかいはつしゃのすがたになる（育て屋はももアイスを外さない・5e のレビュー）→ バニプッチ（tools/custom_mon/vanilluxe_dev・patches/0335）
+		case NATIONAL_DEX_VANILLUXE:
+			eggSpecies = SPECIES_VANILLITE;
+			break;
 	}
 
 	return eggSpecies;
@@ -856,7 +862,7 @@ static u8 GetEggStepsToSubtract(void)
 		{
 			u16 ability = GetMonAbility(&gPlayerParty[i]);
 
-			if (ability == ABILITY_MAGMAARMOR || ability == ABILITY_FLAMEBODY || ability == ABILITY_STEAMENGINE)
+			if (ability == ABILITY_MAGMAARMOR || ability == ABILITY_FLAMEBODY || ability == ABILITY_STEAMENGINE || ability == ABILITY_SUN_AVATAR)   //★ 2026-10-11 たいようのけしん＝ほのおのからだ
 			{
 				steps = 2;
 				break;

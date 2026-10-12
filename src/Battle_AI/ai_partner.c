@@ -101,6 +101,7 @@ u8 AIScript_Partner(const u8 bankAtk, const u8 bankAtkPartner, const u16 origina
 			//	break;
 
 			// Fire
+			case ABILITY_SUN_AVATAR:   //★ 2026-10-11 たいようのけしん＝もらいび
 			case ABILITY_FLASHFIRE:
 				if (moveType == TYPE_FIRE
 				&&  MoveTypeInMoveset(bankAtkPartner, TYPE_FIRE)

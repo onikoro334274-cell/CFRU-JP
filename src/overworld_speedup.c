@@ -12,6 +12,8 @@
 #include "../include/constants/metatile_behaviors.h"
 #include "../include/new/dexnav.h"
 #include "Tables/hoenn_script_flags.h"
+#include "hack_debug_menu.h"   //[hack] patches/0331 デバッグメニュー（-DHACK_DEBUG_MENU のときだけ）
+#include "hack_network_trade.h"   //[hack] patches/0336 ネット交換
 
 /*
     フィールドの倍速（1〜4 倍）— 2026-10-01 ユーザー「その倍速を設定に組み込んでほしい」
@@ -79,6 +81,8 @@ void HackMonId_FieldTick(void);
 void HackPhone_FieldTick(void);   /* src/hack_phone.c（2026-10-11 電話帳の着信） */
 void HackHabitatSwitch_FieldTick(void);
 void HackFriendOt_FieldTick(void);
+void HackWatashi_FieldTick(void);   /* src/hack_watashitachi.c（2026-10-12 #99 フロンティアへ行けるまで 10 人を隠す） */
+#define HACK_FLAG_ALWAYS_ON 0xF0B   /* 常に立っている旗（予約フラグ・5e の台帳 2026-10-11）。生成器 build_hoenn_scripts.PEOPLE_HIDE_FLAG と同じ値 */
 
 /* ★ 2026-10-10 ユーザー「CFRU-DPEの最適化」→「2 実装」（測ってから重い所を直す）: 計測用のビルドだけ（build_rom.py --profile・-DHACK_PROFILE）。
    VBlank（走査線 160）を 0 にした走査線の数で、区間ごとの合計と最大を 0x0203F800 に書く（tools/rom/profile_overworld.py が mGBA で読む）。
@@ -258,6 +262,10 @@ void OverworldSpeedup_CB2Overworld(void)
 #endif
 
     PROF_BEGIN();
+    FlagSet(HACK_FLAG_ALWAYS_ON);   /* ★ 2026-10-11 常に立っている旗（ホウエンの「隠す人」672 か所の旗・tools/rom/build_hoenn_scripts.py の PEOPLE_HIDE_FLAG）。
+                                       前は 0x5C（素の FLAG_HIDE_CERULEAN_CAVE_GUARD＝ななしまクリア）で、立っていないセーブでは
+                                       111 ばんどうろの割れる岩の位置に看護師の絵が見えた。ビット 1 つなので毎コマでよい */
+    HackWatashi_FieldTick();        /* ★ 2026-10-12 #99 わたしたち 10 人の隠す旗 0xF0D を「フロンティアへ行ける 0x13EB の逆」に保つ（src/hack_watashitachi.c） */
     HackMomoIce_RefreshParty();     /* ★ 2026-10-05 ももアイスを持たせた／外したら能力を計算し直す（src/hack_momo_ice.c） */
     PROF_END(1);
     PROF_BEGIN();
@@ -278,6 +286,9 @@ void OverworldSpeedup_CB2Overworld(void)
     PROF_BEGIN();
     HackFriendOt_FieldTick();       /* ★ 2026-10-10 なつき度 255 の子は親を主人公に（src/hack_friend_ot.c・ID を付けたあと） */
     HackPhone_FieldTick();          /* ★ 2026-10-11 電話帳の相手からの着信（src/hack_phone.c・pm-start/poke-call） */
+#ifndef HACK_PROFILE   /* ★ 2026-10-12 5e のレビュー C-1: 計測用のビルドは ProfCB1 が callback1 を差し替える（ネット交換・デバッグメニューは開けない）*/
+    NetTrade_FieldTick();           /* ★ 2026-10-12 A＋Select でネット交換・B＋Select でデバッグメニュー（-DHACK_DEBUG_MENU のとき）＝gMain.callback1 を差し替える（src/hack_network_trade.c・patches/0336）。入力の処理（CB1）より前 */
+#endif
     PROF_END(7);
 
     if (fading)

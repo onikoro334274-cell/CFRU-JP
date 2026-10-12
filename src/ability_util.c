@@ -27,7 +27,8 @@ bool8 IsClearBodyAbility(u16 ability)
 {
 	return ability == ABILITY_CLEARBODY
 		|| ability == ABILITY_FULLMETALBODY
-		|| ability == ABILITY_WHITESMOKE;
+		|| ability == ABILITY_WHITESMOKE
+		|| ability == ABILITY_TSUKINOMAMORI;   //★ 2026-10-11 ツキノマモリ（ツキノウロコ・クリアボディ と同じ）
 }
 
 bool8 IsMoldBreakerAbility(u16 ability)

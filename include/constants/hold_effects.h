@@ -162,6 +162,7 @@
 #define ITEM_EFFECT_STUBBORN_BANDANA 157 //[hack] 2026-10-10 かたくなバンダナ（patches/0292）
 #define ITEM_EFFECT_MAISEN 158 //[hack] 2026-10-10 まいせん（patches/0292）
 #define ITEM_EFFECT_MOMO_SHERBET 159 //[hack] 2026-10-11 ももシャーベット（能力 1.5 倍・毎ターン 1/6・うばわれない・src/hack_momo_ice.c）
+#define ITEM_EFFECT_CREEPER_ICE 160 //[hack] 2026-10-11 くりーぱーアイス（patches/0333・src/hack_creeper_ice.c）
 #define ITEM_EFFECT_COUNT (ITEM_EFFECT_MOMO_SHERBET + 1)
 
 //Focus Sash: Item Effect = ITEM_EFFECT_FOCUS_BAND, Item Quality = 100, Item Mystery 2 = 1

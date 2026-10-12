@@ -909,7 +909,8 @@ enum
 #define ITEM_MOMO_SHERBET 0x356  //★ 2026-10-11 ももシャーベット（ももアイスの下位版・なんいど ももアイス で相手のトレーナーのポケモンが持つ・入手不可・src/hack_momo_ice.c）
 #define ITEM_EXP_CANDY_XXL 0x357  //★ 2026-10-11 けいけんアメXXL（経験値 100,000・src/exp_candy.c・patches/0323）
 #define ITEM_ALOLA_STONE 0x358  //★ 2026-10-11 アローラのいし（進化前に使うと アローラの姿へ・ヒスイのいしと同じ作り・patches/0327・5e の割り当て）
-#define ITEMS_COUNT (ITEM_ALOLA_STONE + 1)
+#define ITEM_CREEPER_ICE 0x359  //★ 2026-10-11 くりーぱーアイス（もたせる道具・毎ターン 1/16 回復・じばく系 20%・5 ターンで爆発・src/hack_creeper_ice.c・patches/0333）
+#define ITEMS_COUNT (ITEM_CREEPER_ICE + 1)
 
 //For Pokemon Unbound
 #ifdef UNBOUND

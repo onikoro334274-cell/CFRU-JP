@@ -14,6 +14,7 @@
 #include "../include/constants/pokemon.h"
 #include "../include/new/evolution.h"
 #include "Tables/hoenn_script_flags.h"
+#include "hack_volcarona.h"   //★ 2026-10-11 特別なウルガモスは出せない
 
 /*
 hack_wonder_trade.c — ミラクル交換（2026-10-07 ユーザー「これいれてほしい　クレジットに図鑑ナビの人
@@ -590,6 +591,8 @@ void WonderTrade_BufferChosen(void)
 
 	GetMonDisplayName(gStringVar1, mon);    //★ 2026-10-08 6 文字（元の作者さんの直しと同じ）
 	Var8006 = (item == ITEM_MOMO_ICE) ? 2 : (item != ITEM_NONE);   //★ 2026-10-09 2 = ももアイス（交換に出せない）
+	if (HackVolcarona_IsSpecial(mon))
+		Var8006 = 3;   //★ 2026-10-11 3 = 特別なウルガモス（1 匹だけ・出せない・src/hack_volcarona.c・#95）
 	if (item != ITEM_NONE)
 		CopyItemName(item, gStringVar2);
 }

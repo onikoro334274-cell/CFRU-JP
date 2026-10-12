@@ -1,0 +1,26 @@
+#org @gText_HackSerial_Received
+おくりものを うけとった！\nカントーの ポケセン 2かいで うけとろう
+
+#org @gText_HackSerial_Wrong
+シリアルコードが ちがいます\nもういちど たしかめてね
+
+#org @gText_HackSerial_Used
+この おくりものは\nもう うけとっています
+
+#org @gText_HackSerial_Pending
+まえの おくりものを カントーの\nポケセン 2かいで うけとってから いれてね
+
+#org @gText_HackSerial_Unknown
+この おくりものは\nこの バージョンでは うけとれません
+
+#org @gText_HackSerial_GotMon
+[PLAYER]は [BUFFER1]を\nうけとった！
+
+#org @gText_HackSerial_SentToPC
+[BUFFER1]は パソコンに\nおくられた！
+
+#org @gText_HackSerial_NoRoom
+てもちも パソコンも いっぱいです\nあずけてから また きてね
+
+#org @gText_HackSerial_BagFull
+バッグが いっぱいです あけてから また\nきてね

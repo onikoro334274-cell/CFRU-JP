@@ -24,6 +24,12 @@ struct HackVersionReset
  * - どちらも 0 は「書かれていない」＝前の版（0.35.2 より前）のセーブ。前のセーブの始めた版は分からないので 0 のまま
  */
 
+//今の版（★ 2026-10-12 ネット交換のプロファイルの番号・src/hack_network_trade.c。版の見出しを読む C を増やさない＝tools/build/verify_build_speed.py）
+u16 HackSaveVersion_Current(void)
+{
+	return HACK_SAVE_VERSION;
+}
+
 void HackSaveVersion_OnSave(void)
 {
 	VarSet(HACK_VAR_SAVE_VERSION, HACK_SAVE_VERSION);

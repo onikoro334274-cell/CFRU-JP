@@ -2300,8 +2300,11 @@ static u16 GetGachaMon(u16 randNum)
         break;
     }
 
-    if (species >= SPECIES_EGG)
-        return SPECIES_NONE;  // Or another default value indicating not found.
+    //★ 2026-10-11 ユーザー「キンセツのガチャで？が出ます（2 回に 1 回）」: 元は species >= SPECIES_EGG（0x19C）で NONE にしていたが、
+    //  DPE では 4 世代以降・別の姿の種族は SPECIES_EGG より後ろの番号なので、表の半分ほどが NONE（名前「？」・絵なし）になっていた。
+    //  タマゴと表の外（NUM_SPECIES 以上）だけを NONE にする
+    if (species == SPECIES_EGG || species >= NUM_SPECIES)
+        return SPECIES_NONE;
     return species;
 }
 
@@ -2536,6 +2539,21 @@ static bool32 ChooseGachaRarity(bool32 chooseUnowned)
     return FALSE;
 }
 
+//★ 2026-10-11 表の先頭が NONE（番号の外）でも「？」のポケモンを渡さない＝表の中で最初に有効な種族
+static u16 GetFirstValidGachaMon(void)
+{
+    u16 i;
+    u16 totalMax = GetMaxAvailableGachaRaritySpecies(sGacha->GachaId, sGacha->Rarity);
+
+    for (i = 0; i < totalMax; i++)
+    {
+        u16 species = GetGachaMon(i);
+        if (species != SPECIES_NONE)
+            return species;
+    }
+    return SPECIES_MAGIKARP;
+}
+
 static u16 ChooseGachaSpecies(bool32 chooseUnowned)
 {
     u16 i;
@@ -2548,7 +2566,7 @@ static u16 ChooseGachaSpecies(bool32 chooseUnowned)
     totalOwned = GetGachaOwnedCount(sGacha->Rarity);
     eligibleCount = chooseUnowned ? totalMax - totalOwned : totalOwned;
     if (eligibleCount == 0)
-        return GetGachaMon(0);
+        return GetFirstValidGachaMon();
     target = Random() % eligibleCount;
 
     for (i = 0; i < totalMax; i++)
@@ -2563,7 +2581,7 @@ static u16 ChooseGachaSpecies(bool32 chooseUnowned)
         }
     }
 
-    return GetGachaMon(0);
+    return GetFirstValidGachaMon();
 }
 
 static void DeterminePokemonRarityAndNewStatus(void)

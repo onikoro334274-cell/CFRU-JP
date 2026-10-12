@@ -64,16 +64,23 @@ static u32 PreviousWildDate(u32 year, u32 month, u32 day)
 	return year * 372u + (month - 1) * 31u + previousDays;
 }
 
-//日付と時間帯（朝 0・昼 1・夕 2・夜 3）→ 通りの番号（0〜HACK_WILD_KANTO_VARIANTS-1）
-static u8 KantoVariant(void)
+//日付 × 4 ＋ 時間帯（朝 0・昼 1・夕 2・夜 3）。夜の 0〜3 時は前の日の夜として数える。
+//★ 2026-10-12 #106 ランダム天気（src/hack_random_weather.c）も同じ数え方を使う＝ここだけに書く（別に書くと将来ずれる・5e）
+u32 HackWild_DaySlot(void)
 {
 	u32 day = gClock.year * 372u + gClock.month * 31u + gClock.day;
 	u32 slot = IsNightTime() ? 3u : IsEvening() ? 2u : IsMorning() ? 0u : 1u;
-	u32 x;
 
 	if (IsNightTime() && gClock.hour < TIME_MORNING_START)
 		day = PreviousWildDate(gClock.year, gClock.month, gClock.day);
-	x = day * 4u + slot;
+	return day * 4u + slot;
+}
+
+//日付と時間帯 → 通りの番号（0〜HACK_WILD_KANTO_VARIANTS-1）
+static u8 KantoVariant(void)
+{
+	u32 x = HackWild_DaySlot();
+
 	x = (x ^ 0x5A17u) * 0x9E3779B1u;
 	x ^= x >> 15;
 	x *= 0x2C1B3C6Du;

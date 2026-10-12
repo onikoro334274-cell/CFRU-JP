@@ -42,11 +42,15 @@ extern const u8 gBwrMainBgPal[], gBwrMainIdlePals[], gBwrMainSelectedPal[];
 extern const u8 gBwrMainTiles1[], gBwrMainTiles2[], gBwrMainMapBg[];
 extern const u8 gBwrMainMapContinue[], gBwrMainMapNewGame[], gBwrMainMapGift[];
 extern const u8 gText_BwrMain_Continue[], gText_BwrMain_NewGame[], gText_BwrMain_Gift[], gText_BwrMain_Options[];
+extern const u8 gText_BwrMain_NetTrade[];   //★ 2026-10-12 ネット交換（strings/hack_network_trade.string）
+void CB2_NetTradeFromMain(void);   //src/hack_network_trade.c
 extern const u8 gText_BwrMain_OldSave1[], gText_BwrMain_OldSave2[];   //★ 2026-10-11 古いレポート
 extern const u8 gText_BwrMain_Team[], gText_BwrMain_Badges[], gText_BwrMain_Dex[], gText_BwrMain_Time[];
 extern void CB2_BwOptionMenu(void);   //src/bw_option_menu.c
 u8 GetAllBadgeCount(void);            //src/badge_count.c
 void HackMG_Receive(void);            //src/hack_mystery_gift.c（印・レポート・結果の文を gStringVar4 に）
+void HackSerial_AfterInput(void);     //src/hack_serial_gift.c（★ 2026-10-11 シリアルコード・空なら HackMG_Receive・patches/0329）
+#include "../include/naming_screen.h"
 u16 __attribute__((long_call)) GetNationalPokedexCount(u8 caseId);
 void __attribute__((long_call)) TransferPlttBuffer(void);
 
@@ -56,7 +60,24 @@ void HackSaveVersion_OnContinue(void);   //src/hack_save_version.c
 #define IsMysteryGiftEnabled ((bool8 (*)(void)) (0x0806DAB0 | 1))   //素（このハックは bytereplacement でいつも TRUE＝ふしぎなもらいもの はいつも出る）
 
 enum { SAVED, SELECTED, ROUTE, AVATAR };
-enum { ROUTE_NONE, ROUTE_OPTIONS, ROUTE_TITLE, ROUTE_GIFT };
+enum { ROUTE_NONE, ROUTE_OPTIONS, ROUTE_TITLE, ROUTE_GIFT, ROUTE_GIFT_MSG, ROUTE_NET_TRADE };
+
+//★ 2026-10-12 ネット交換（pm-start/enchanted-network-trade・src/hack_network_trade.c）: ふしぎなもらいもの の並び（形 2）は
+//  つづきから・さいしょから・ふしぎなもらいもの・ミラクルこうかん・せってい の 5 行（カードの絵は元の作者の main_map_gift＝4 枚）
+#define ITEM_NET_TRADE 3
+
+//★ 2026-10-12 ユーザー報告「つづきから メニューが小さくなったのでポケモンのドット絵がずれている」: 5 行の絵（元の作者の main_map_gift）は
+//  つづきから のカードの下の縁（12 行目）が さいしょから のカードに替わり、カードの中は y 0〜95 になった。手持ちのアイコン（32×32・中心 y 88）が
+//  さいしょから のカードに 8 画素はみ出していた → 位置はカードの寸法から出す（決め打ちを残さない）
+#define CARD_BOTTOM (12 * 8)                         //つづきから のカードの中の下の端（タイル 12 行・main_map_gift）
+#define ICON_SIZE 32
+#define ICON_Y (CARD_BOTTOM - ICON_SIZE / 2)          //アイコンの中心（下の端がカードの下の端）
+#define CARD_RIGHT 219                                //つづきから のカードの中の右の端（x 220〜223 は縁・mGBA で測った）
+#define ICON_HALF_W 14                                //アイコンの絵の中心から右の端まで（32×32 の中で絵があるのは中心 −13〜+14・mGBA で測った）
+#define ICON_X0 72                                    //1 匹目の中心（てもち の文字の右・左の端 x 59）
+#define ICON_STEP ((CARD_RIGHT - 1 - ICON_HALF_W - ICON_X0) / (PARTY_SIZE - 1))   //6 匹目の右の端がカードの中（= 26・中心 72〜202・絵は x 58〜216）
+#define TEAM_LABEL_Y (ICON_Y - 8)                     //てもち の文字（アイコンの段の真ん中）
+#define STAT_Y(i) (8 + 14 * (i))                      //右の 4 行（地名・バッジ・ずかん・じかん）＝最後の行の下がアイコンの段の上の端より上
 
 static const struct BgTemplate sBgTemplates[] =
 {
@@ -116,7 +137,7 @@ static void DrawParty(s16 *data)
 	if (count > PARTY_SIZE)
 		count = PARTY_SIZE;
 	for (i = 0; i < count; ++i)
-		CreateMonIcon(GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL), IconCallback, 40 + i * 32, 88, 0,
+		CreateMonIcon(GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2, NULL), IconCallback, ICON_X0 + i * ICON_STEP, ICON_Y, 0,
 		              GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY, NULL), TRUE);
 }
 
@@ -128,13 +149,13 @@ static void PrintStats(void)
 	const struct MapHeader *header;
 
 	Print(gSaveBlock2->playerName, 72, 40, 3);
-	Print(gText_BwrMain_Team, 24, 56, 1);
+	Print(gText_BwrMain_Team, 24, TEAM_LABEL_Y, 1);
 	badges = GetAllBadgeCount();
-	PrintStat(gText_BwrMain_Badges, badges, badges >= 10 ? 2 : 1, 24);
+	PrintStat(gText_BwrMain_Badges, badges, badges >= 10 ? 2 : 1, STAT_Y(1));
 	if (FlagGet(FLAG_SYS_POKEDEX_GET))
 	{
 		u32 dex = GetNationalPokedexCount(FLAG_GET_CAUGHT);
-		PrintStat(gText_BwrMain_Dex, dex, dex >= 1000 ? 4 : 3, 40);
+		PrintStat(gText_BwrMain_Dex, dex, dex >= 1000 ? 4 : 3, STAT_Y(2));
 	}
 	hours = gSaveBlock2->playTimeHours;
 	minutes = gSaveBlock2->playTimeMinutes;
@@ -146,12 +167,12 @@ static void PrintStats(void)
 	p = ConvertIntToDecimalStringN(p, hours, STR_CONV_MODE_LEADING_ZEROS, 3);
 	*p++ = 0xF0;   //：
 	ConvertIntToDecimalStringN(p, minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
-	Print(time, 128, 56, 1);
+	Print(time, 128, STAT_Y(3), 1);
 	header = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1->location.mapGroup, gSaveBlock1->location.mapNum);
 	if (header != NULL)
 	{
 		GetMapName(name, header->regionMapSectionId, 0);
-		Print(name, 128, 8, 1);
+		Print(name, 128, STAT_Y(0), 1);
 	}
 }
 
@@ -159,7 +180,10 @@ static void UpdateSelection(s16 *data)
 {
 	LoadPalette(gBwrMainIdlePals, 16, 96);
 	if (data[SAVED] == 2)
+	{
 		LoadPalette(gBwrMainIdlePals + 64, 64, 32);
+		LoadPalette(gBwrMainIdlePals + 64, 80, 32);   //5 枚目のカード（せってい）
+	}
 	LoadPalette(gBwrMainSelectedPal, 16 + 16 * data[SELECTED], 32);
 	if (data[SAVED] && data[AVATAR] < MAX_SPRITES)
 		StartSpriteAnimIfDifferent(&gSprites[data[AVATAR]], data[SELECTED] ? 0 : 4);
@@ -175,6 +199,16 @@ static void Task_BwMainRoute(u8 taskId)
 		return;
 	options = gTasks[taskId].data[ROUTE] == ROUTE_OPTIONS;
 	FreeAllWindowBuffers();
+	if (gTasks[taskId].data[ROUTE] == ROUTE_NET_TRADE)
+	{
+		//つづきから と同じにフィールドへ入ってから窓を開く（元の main_route と同じ）。版が上がっていたら つづきから と同じ戻し
+		DestroyTask(taskId);
+		HackSaveVersion_OnContinue();
+		gPlttBufferUnfaded[0] = RGB_BLACK;
+		gPlttBufferFaded[0] = RGB_BLACK;
+		SetMainCallback2(CB2_NetTradeFromMain);
+		return;
+	}
 	DestroyTask(taskId);
 	if (options)
 	{
@@ -185,14 +219,33 @@ static void Task_BwMainRoute(u8 taskId)
 		SetMainCallback2(CB2_InitTitleScreen);
 }
 
-//ふしぎなもらいもの: 素のお知らせ（素のメニューの窓に描く）はこの画面の窓と合わないので、ここで受け取って文を出し、A でメニューに戻る
+//ふしぎなもらいもの: 素のお知らせ（素のメニューの窓に描く）はこの画面の窓と合わないので、ここで文を出し、A でメニューに戻る
+//★ 2026-10-11 シリアルコード（patches/0329）: まず合言葉の入力画面（12 文字）へ。戻ったら HackSerial_AfterInput が結果の文を gStringVar4 に入れ、
+//  メニューを開き直してこのタスクで出す（data[ROUTE] = ROUTE_GIFT_MSG）。何も打たずに けってい なら今までの おくりもの
+static void CB2_BwMainGiftAfterInput(void);
+
 static void Task_BwMainGift(u8 taskId)
 {
 	s16 *data = gTasks[taskId].data;
 
 	if (data[ROUTE] == ROUTE_GIFT)
 	{
-		HackMG_Receive();
+		if (gPaletteFade->active)
+			return;
+		FreeAllWindowBuffers();
+		DestroyTask(taskId);
+		gStringVar1[0] = EOS;
+		DoNamingScreen(NAMING_SCREEN_ENTER_PASSWORD, gStringVar1, 0, 0, 0, CB2_BwMainGiftAfterInput);
+		return;
+	}
+	if (data[ROUTE] == ROUTE_GIFT_MSG)
+	{
+		u32 i;
+
+		if (gPaletteFade->active)
+			return;
+		for (i = 0; i < MAX_SPRITES; ++i)
+			gSprites[i].invisible = TRUE;   //主人公と手持ちの絵が文に重なるので隠す（メニューを開き直すと作り直す）
 		FillWindowPixelBuffer(0, PIXEL_FILL(0));
 		Print(gStringVar4, 24, 8, 1);
 		CopyWindowToVram(0, 3);
@@ -202,7 +255,23 @@ static void Task_BwMainGift(u8 taskId)
 	if (JOY_NEW(A_BUTTON | B_BUTTON))
 	{
 		PlaySE(SE_SELECT);
+		FreeAllWindowBuffers();   //★ 2026-10-11 開き直す前に今の窓を返す（BwMainMenuReopen は返さずに作る＝戻るたびに 0x5310 バイト漏れていた・mGBA でヒープをたどって確かめた）
 		BwMainMenuReopen();
+	}
+}
+
+//入力画面から戻る（DoNamingScreen の戻り先）
+static void CB2_BwMainGiftAfterInput(void)
+{
+	u8 taskId;
+
+	HackSerial_AfterInput();
+	BwMainMenuReopen();
+	taskId = FindTaskIdByFunc(Task_BwMainInput);
+	if (taskId != 0xFF)
+	{
+		gTasks[taskId].data[ROUTE] = ROUTE_GIFT_MSG;
+		gTasks[taskId].func = Task_BwMainGift;
 	}
 }
 
@@ -213,10 +282,11 @@ static void Task_BwMainInput(u8 taskId)
 
 	if (gPaletteFade->active)
 		return;
-	last = data[SAVED] == 2 ? 3 : (data[SAVED] ? 2 : 1);
+	last = data[SAVED] == 2 ? 4 : (data[SAVED] ? 2 : 1);
 	if (JOY_NEW(A_BUTTON | START_BUTTON) && data[SAVED] == 2 && data[SELECTED] == 2)
 	{
-		PlaySE(SE_SELECT);   //ふしぎなもらいもの: 暗くしないでこの画面で受け取る（暗転は始めると止められない）
+		PlaySE(SE_SELECT);   //ふしぎなもらいもの: 暗くしてから合言葉の入力画面へ（★ 2026-10-11 シリアルコード）
+		BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
 		data[ROUTE] = ROUTE_GIFT;
 		gTasks[taskId].func = Task_BwMainGift;
 	}
@@ -227,6 +297,11 @@ static void Task_BwMainInput(u8 taskId)
 		if (JOY_NEW(B_BUTTON))
 		{
 			data[ROUTE] = ROUTE_TITLE;
+			gTasks[taskId].func = Task_BwMainRoute;
+		}
+		else if (data[SAVED] == 2 && data[SELECTED] == ITEM_NET_TRADE)
+		{
+			data[ROUTE] = ROUTE_NET_TRADE;
 			gTasks[taskId].func = Task_BwMainRoute;
 		}
 		else if (data[SELECTED] == last)
@@ -328,10 +403,18 @@ static void BwMainSetup(s16 saved, bool8 releaseWindows)
 	if (saved)
 	{
 		Print(gText_BwrMain_Continue, 24, 8, 1);
-		Print(gText_BwrMain_NewGame, 24, saved == 2 ? 104 : 112, 1);
-		if (saved == 2)
-			Print(gText_BwrMain_Gift, 24, 120, 1);
-		Print(gText_BwrMain_Options, 24, 136, 1);
+		if (saved == 2)   //元の作者の 4 枚のカード（y 96・112・128・144）
+		{
+			Print(gText_BwrMain_NewGame, 24, 96, 1);
+			Print(gText_BwrMain_Gift, 24, 112, 1);
+			Print(gText_BwrMain_NetTrade, 24, 128, 1);
+			Print(gText_BwrMain_Options, 24, 144, 1);
+		}
+		else
+		{
+			Print(gText_BwrMain_NewGame, 24, 112, 1);
+			Print(gText_BwrMain_Options, 24, 136, 1);
+		}
 		PrintStats();
 		DrawParty(data);
 	}
