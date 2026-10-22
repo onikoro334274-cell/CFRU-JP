@@ -530,6 +530,7 @@ BattleScript_RedCard:
 	forcerandomswitch BANK_ATTACKER BANK_TARGET RedCardEnd
 
 RedCardEnd:
+	setbyte FORCE_SWITCH_HELPER 0x0
 	removeitem BANK_SCRIPTING
 	
 RedCardRet:
