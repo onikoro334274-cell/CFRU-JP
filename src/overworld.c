@@ -627,6 +627,15 @@ static const struct TrainerBattleParameter sTagBattleParams[] =
 	{&sTrainerBattleEndScript,	   		TRAINER_PARAM_LOAD_SCRIPT_RET_ADDR},
 };
 
+static bool8 IsDoubleBattleScriptType(u8 type)
+{
+	return type == TRAINER_BATTLE_DOUBLE
+	    || type == TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE
+	    || type == TRAINER_BATTLE_REMATCH_DOUBLE
+	    || type == TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC
+	    || type == TRAINER_BATTLE_DOUBLE_SCALED;
+}
+
 u8 CheckForTrainersWantingBattle(void)
 {
 	u8 viableMons = 0xFF;
@@ -681,6 +690,12 @@ u8 CheckForTrainersWantingBattle(void)
 	{
 		if (ExtensionState.spotted.trainers[0].script[1] == TRAINER_BATTLE_TWO_OPPONENTS
 		||  ExtensionState.spotted.trainers[1].script[1] == TRAINER_BATTLE_TWO_OPPONENTS)
+			ExtensionState.spotted.count = 1;
+
+		//1人でダブルバトルをするトレーナーは、2人同時に見つかっても1人ずつ戦う
+		if (ExtensionState.spotted.count == 2
+		&& (IsDoubleBattleScriptType(ExtensionState.spotted.trainers[0].script[1])
+		 ||  IsDoubleBattleScriptType(ExtensionState.spotted.trainers[1].script[1])))
 			ExtensionState.spotted.count = 1;
 	}
 
