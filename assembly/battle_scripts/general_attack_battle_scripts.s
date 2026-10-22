@@ -3103,6 +3103,8 @@ BS_145_SkullBash:
 	jumpifsecondarystatus BANK_ATTACKER STATUS2_MULTIPLETURNS TwoTurnMovesSecondTurnBS
 	jumpifword ANDS HIT_MARKER HITMARKER_NO_ATTACKSTRING TwoTurnMovesSecondTurnBS
 	setbyte TWOTURN_STRINGID, 0x2
+	jumpifmove MOVE_ELECTROSHOT BS_ElectroShotRainCheck
+BS_SkullBashCharge:
 	call BattleScript_FirstChargingTurn
 	jumpifmove MOVE_METEORBEAM BS_MeteorBeam
 	jumpifmove MOVE_ELECTROSHOT BS_ElectroShot
@@ -3139,12 +3141,28 @@ BS_ElectroShot:
 	waitmessage DELAY_1SECOND
 SkipElectroShotStatBuff:
 	call BattleScript_CheckPowerHerb
-	call BattleScriptCheckRain
 	goto BS_MOVE_END
 
-BattleScriptCheckRain:
-	jumpifweather WEATHER_RAIN_ANY, TwoTurnMovesRaidBossSkipCharge
-	return
+@ 雨のときは「ため」(STATUS2_MULTIPLETURNS)もパワフルハーブも通さず、そのまま攻撃する
+@ 天気の見方は C の AttacksThisTurn と同じ（ノーてんき・エアロック中は雨として扱わない）
+BS_ElectroShotRainCheck:
+	jumpifabilitypresent ABILITY_CLOUDNINE, BS_SkullBashCharge
+	jumpifabilitypresent ABILITY_AIRLOCK, BS_SkullBashCharge
+	jumpifweather WEATHER_RAIN_ANY, BS_ElectroShotRain
+	goto BS_SkullBashCharge
+
+BS_ElectroShotRain:
+	attackcanceler
+	ppreduce
+	setstatchanger STAT_SPATK | INCREASE_1
+	statbuffchange STAT_ATTACKER | STAT_BS_PTR | STAT_CERTAIN SkipElectroShotRainStatBuff
+	jumpifbyte EQUALS MULTISTRING_CHOOSER 0x2 SkipElectroShotRainStatBuff
+	setgraphicalstatchangevalues
+	playanimation BANK_ATTACKER ANIM_STAT_BUFF ANIM_ARG_1
+	printfromtable gStatUpStringIds
+	waitmessage DELAY_1SECOND
+SkipElectroShotRainStatBuff:
+	goto TwoTurnMovesRaidBossSkipCharge
 
 @;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
